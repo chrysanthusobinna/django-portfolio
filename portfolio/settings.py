@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-3*lc7q-hg^7ppudb-l9509!zx1l-ks27$d@@_1h=yciqs2mnih")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['8000-chrysanthus-djangoportf-6raalqfi070.ws-eu117.gitpod.io']
+ALLOWED_HOSTS = ['8000-chrysanthus-djangoportf-6raalqfi070.ws-eu117.gitpod.io', '.herokuapp.com']
 
 
 # Application definition
@@ -88,6 +88,12 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.codeinstitute-ide.net/",
+    "https://*.herokuapp.com",
+    "https://8000-chrysanthus-djangoportf-6raalqfi070.ws-eu117.gitpod.io",
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
