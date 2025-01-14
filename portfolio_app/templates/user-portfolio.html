@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- About Me Section -->
+    <section id="about" class="mt-10">
+ 
+        <div class="card border-primary text-center" style="border-top-width: 4px;">
+            <div class="card-body">
+                <h5 class="card-title">{{ user.first_name|upper }} {{ user.last_name|upper }} PORTFOLIO</h5>
+              <p class="card-text">
+                {{ about.about }}
+              </p>
+              <div class="mt-5 d-flex flex-wrap justify-content-center gap-2">
+                <a href="#about" class="btn btn-outline-primary">About Me</a>
+                <a href="#employment" class="btn btn-outline-primary">Employment</a>
+                <a href="#education" class="btn btn-outline-primary">Education</a>
+                <a href="#certifications" class="btn btn-outline-primary">Certifications</a>
+                <a href="#portfolio" class="btn btn-outline-primary">Portfolio</a>
+              </div>
+            </div>
+          </div>
+
+    </section>
+ 
+
+     <!-- Employment Section -->
+     <section id="employment">
+        <h2 class="section-title">EMPLOYMENT</h2>
+        <div class="timeline">
+            {% for job in employment %}
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h5>{{ job.job_title }}</h5>
+                    <p>{{ job.employer_name }}</p>
+                    <p>{{ job.description_of_duties }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2 class="section-title">EDUCATION</h2>
+        <div class="timeline">
+            {% for edu in education %}
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h5>{{ edu.qualification }}</h5>
+                    <p>{{ edu.institution_name }}, {{ edu.start_date }} - {{ edu.end_date }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <h2 class="section-title">CERTIFICATIONS</h2>
+        <div class="timeline">
+            {% for cert in certifications %}
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h5>{{ cert.name }}</h5>
+                    <p>Issued by {{ cert.issuer }}, {{ cert.date_issued }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <h2 class="section-title">PORTFOLIO</h2>
+        <div class="portfolio-grid">
+            {% for portfolio in portfolios %}
+            <div class="portfolio-item">
+                <img src=" " alt="{{ portfolio.title }}">
+                <h5>{{ portfolio.title }}</h5>
+                <p>{{ portfolio.description }}</p>
+                <a href="{{ portfolio.link }}" target="_blank">View Project</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-4">CONTACT</h2>
+        <div class="row g-4 align-items-stretch">
+            <!-- Contact Information -->
+            <div class="col-12 col-md-6 d-flex">
+                <div class="p-4 bg-white text-dark shadow-sm rounded w-100">
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-phone-alt me-2 text-primary"></i> {{ contact.phone_number }}
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-envelope me-2 text-primary"></i> {{ contact.email_address }}
+                        </li>
+                        <li class="mb-3">
+                            <i class="fab fa-facebook me-2 text-primary"></i>
+                            <a href="{{ contact.facebook_link }}" class="text-decoration-none text-dark">Facebook</a>
+                        </li>
+                        <li class="mb-3">
+                            <i class="fab fa-instagram me-2 text-primary"></i>
+                            <a href="{{ contact.instagram_link }}" class="text-decoration-none text-dark">Instagram</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Contact Form -->
+            <div class="col-12 col-md-6 d-flex">
+                <div class="p-4 bg-white text-dark shadow-sm rounded w-100">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="4" placeholder="Enter your message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</div>
+{% endblock %}

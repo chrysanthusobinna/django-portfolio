@@ -1,6 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# About model
+class About(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    about = models.TextField()
+
+    def __str__(self):
+        return f"About {self.user.username}"
+
+# Employment model
+class Employment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    employer_name = models.CharField(max_length=255)
+    job_title = models.CharField(max_length=255)
+    description_of_duties = models.TextField()
+
+    def __str__(self):
+        return f"{self.job_title} at {self.employer_name}"
+
 # Education Section Model
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='educations')

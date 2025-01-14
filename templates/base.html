@@ -36,6 +36,12 @@
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
+                            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" href="{% url 'user_profile' user.username %}">View My Portfolio</a>
+                        </li>          
+                        <li class="nav-item">
+                            <a class="nav-link">Edit My Portfolio</a>
+                        </li>                                      
+                        <li class="nav-item">
                             <a class="nav-link {% if request.path == logout_url %}active{% endif %}" href="{% url 'account_logout' %}">Logout</a>
                         </li>
                         {% else %}
