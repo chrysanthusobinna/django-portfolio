@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 <div class="container">
     <!-- About Me Section -->
@@ -73,20 +75,27 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio">
-        <h2 class="section-title">PORTFOLIO</h2>
-        <div class="portfolio-grid">
-            {% for portfolio in portfolios %}
-            <div class="portfolio-item">
-                <img src=" " alt="{{ portfolio.title }}">
-                <h5>{{ portfolio.title }}</h5>
-                <p>{{ portfolio.description }}</p>
-                <a href="{{ portfolio.link }}" target="_blank">View Project</a>
-            </div>
-            {% endfor %}
+<!-- Portfolio Section -->
+<section id="portfolio">
+    <h2 class="section-title">PORTFOLIO</h2>
+    <div class="portfolio-grid">
+        {% for portfolio in portfolios %}
+        <div class="portfolio-item">
+            <img src="{% static 'images/default.jpg' %}" alt="{{ portfolio.title }}">
+            <h5>{{ portfolio.title }}</h5>
+            <!-- Add data attributes to pass the portfolio details to the modal -->
+            <a href="" class="btn btn-primary view-project"
+               data-title="{{ portfolio.title }}"
+               data-description="{{ portfolio.description }}"
+               data-link="{% if portfolio.link %}{{ portfolio.link }}{% else %}#{% endif %}" 
+               data-image="{% static 'images/default.jpg' %}">
+               View Project
+            </a>
         </div>
-    </section>
+        {% endfor %}
+    </div>
+</section>
+
 
 <!-- Contact Section -->
 <section id="contact" class="py-5 bg-light">
@@ -138,6 +147,29 @@
     </div>
 </section>
 
+<!-- Modal -->
+<div class="modal fade" id="viewPortfolioModal" tabindex="-1" role="dialog" aria-labelledby="viewPortfolioModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewPortfolioModalLabel">Project Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Project Image" class="img-fluid mb-3">
+                <h5 id="modalTitle"></h5>
+                <p id="modalDescription"></p>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <a id="modalLinkButton" href="#" target="_blank" class="btn btn-primary" style="display: none;">LINK</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </div>
+ 
+
 {% endblock %}
