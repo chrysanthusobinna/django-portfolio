@@ -50,7 +50,8 @@
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <h5>{{ job.job_title }}</h5>
-                    <p>{{ job.employer_name }}</p>
+                    <p>{{ job.employer_name }} ,  {{ job.start_date|date:"F Y" }}  - {{ job.end_date|date:"F Y"|default:"Present" }}
+                    </p>
                     <p>{{ job.description_of_duties }}</p>
                 </div>
             </div>
@@ -69,7 +70,7 @@
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <h5>{{ edu.qualification }}</h5>
-                    <p>{{ edu.institution_name }}, {{ edu.start_date }} - {{ edu.end_date }}</p>
+                    <p>{{ edu.institution_name }}, {{ edu.start_date|date:"F Y" }} - {{ edu.end_date|date:"F Y"|default:"Present" }} {{ edu.end_date }}</p>
                 </div>
             </div>
             {% endfor %}
