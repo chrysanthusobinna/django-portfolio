@@ -63,6 +63,12 @@
     </div>
     {% endif %}
 
+    {% if user.is_authenticated %}
+    <p class="text-end text-success fw-bold m-3">
+        You are logged in as {{ user.first_name|default:user.email }}
+    </p>
+    {% endif %}
+
     {% block content %}
     <!-- Content will go here -->
     {% endblock %}
