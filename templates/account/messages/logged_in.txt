@@ -1,4 +1,1 @@
-{% load account %}
-{% load i18n %}
-{% user_display user as name %}
-{% blocktrans %}Successfully signed in as {{name}}.{% endblocktrans %}
+{% comment %} This has been overwritten by custom_user_logged_in_message {% endcomment %}
