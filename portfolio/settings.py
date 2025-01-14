@@ -123,7 +123,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+
+ACCOUNT_FORMS = {
+    'signup': 'portfolio_app.forms.CustomSignupForm',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
