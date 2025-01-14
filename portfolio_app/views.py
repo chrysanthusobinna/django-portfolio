@@ -8,13 +8,13 @@ def home(request):
 def user_profile(request, username):
     target_user = get_object_or_404(User, username=username)
     
-    # Get the related data for the user
-    about = About.objects.filter(user=target_user).first()
-    employment = Employment.objects.filter(user=target_user)
-    certifications = Certification.objects.filter(user=target_user)
-    education = Education.objects.filter(user=target_user)
-    portfolios = Portfolio.objects.filter(user=target_user)
-    contact = Contact.objects.filter(user=target_user).first()
+    # Get the related data for the user, or set to None if not found
+    about = About.objects.filter(user=target_user).first() or None
+    employment = Employment.objects.filter(user=target_user) or None
+    certifications = Certification.objects.filter(user=target_user) or None
+    education = Education.objects.filter(user=target_user) or None
+    portfolios = Portfolio.objects.filter(user=target_user) or None
+    contact = Contact.objects.filter(user=target_user).first() or None
 
     context = {
         'target_user': target_user,

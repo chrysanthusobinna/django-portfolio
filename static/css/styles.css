@@ -164,3 +164,24 @@ button.btn {
 .nav-link:hover {
     color: #f8f9fa;
 }
+
+.portfolio-item img {
+    height: auto;
+    max-height: 250px;  
+    object-fit: cover;  
+}
+
+
+.portfolio-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.portfolio-card .card-body {
+    flex: 1;
+}
+
+.portfolio-card .card-body .btn {
+    margin-top: auto;
+}
