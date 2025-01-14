@@ -6,18 +6,18 @@ def home(request):
     return render(request, 'home-page.html')
 
 def user_profile(request, username):
-    user = get_object_or_404(User, username=username)
+    target_user = get_object_or_404(User, username=username)
     
     # Get the related data for the user
-    about = About.objects.filter(user=user).first()
-    employment = Employment.objects.filter(user=user)
-    certifications = Certification.objects.filter(user=user)
-    education = Education.objects.filter(user=user)
-    portfolios = Portfolio.objects.filter(user=user)
-    contact = Contact.objects.filter(user=user).first()
+    about = About.objects.filter(user=target_user).first()
+    employment = Employment.objects.filter(user=target_user)
+    certifications = Certification.objects.filter(user=target_user)
+    education = Education.objects.filter(user=target_user)
+    portfolios = Portfolio.objects.filter(user=target_user)
+    contact = Contact.objects.filter(user=target_user).first()
 
     context = {
-        'user': user,
+        'target_user': target_user,
         'about': about,
         'employment': employment,       
         'certifications': certifications,
