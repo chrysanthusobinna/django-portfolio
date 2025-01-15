@@ -36,11 +36,12 @@
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == logout_url %}active{% endif %}"
-                                href="{% url 'user_profile' user.username %}">View My Portfolio</a>
+                            <a class="nav-link {% if request.path == user_profile %}active{% endif %}"
+                                href="{% url 'user_profile' user.username %}">View My Portfolio
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link">Edit My Portfolio</a>
+                        <li class="nav-item {% if request.path == edit_user_profile %}active{% endif %}">
+                            <a href="{% url 'edit_user_profile' user.username %}" class="nav-link">Edit My Portfolio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == logout_url %}active{% endif %}"
