@@ -130,6 +130,22 @@ $(document).ready(function () {
     $('#confirmSaveAbout').on('click', function() {
         $('#aboutForm').submit();
     });
+
+    // Show or hide the button when scrolling
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 300) {
+            $('#scrollToTopBtn').fadeIn();
+        } else {
+            $('#scrollToTopBtn').fadeOut();
+        }
+    });
+
+    // Scroll to the top when the button is clicked
+    $('#scrollToTopBtn').click(function() {
+        $('html, body').animate({ scrollTop: 0 }, '300');
+        return false;
+    });
+    
 });
 
 
