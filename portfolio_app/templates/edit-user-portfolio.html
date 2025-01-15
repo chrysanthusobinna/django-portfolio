@@ -19,10 +19,16 @@
                 </div>
             </form>
         </div>
-        <div class="card-footer d-flex justify-content-between">
-            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAboutModal">Delete
-                About</button>
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#saveAboutModal">Save</button>
+        <div class="card-footer  {% if about %}d-flex justify-content-between {% endif %}">
+            {% if about %}
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAboutModal">
+                Delete About
+            </button>
+            {% endif %}
+
+            <button class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#saveAboutModal">
+                {% if about %} Update {% else %} create {% endif %}
+            </button>
         </div>
     </div>
 
@@ -41,7 +47,7 @@
                         <th>Job Title</th>
                         <th>Start Date</th>
                         <th>End Date</th>
-                        <th>Actions</th>
+                        <th class="d-flex justify-content-end">Actions</th>
                     </tr>
                 </thead>
                 <tbody>

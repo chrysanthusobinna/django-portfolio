@@ -94,7 +94,7 @@ def edit_user_profile(request, username):
         # Repeat for Education, Portfolio, and Contact similarly
 
         messages.success(request, "Profile updated successfully!")
-        return redirect('edit_user_portfolio', username=username)
+        return redirect('edit_user_profile', username=username)
 
     context = {
         'target_user': target_user,
@@ -112,12 +112,12 @@ def add_portfolio(request):
             portfolio.user = request.user
             portfolio.save()
             messages.success(request, "Portfolio added successfully.")
-            return redirect('edit_user_portfolio', username=request.user.username)
+            return redirect('edit_user_profile', username=request.user.username)
         else:
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Adding Portfolio: {error}")
-    return redirect('edit_user_portfolio', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)
 
 
 @login_required
@@ -132,9 +132,9 @@ def edit_portfolio(request, id):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Updating Portfolio: {error}")
-        return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
 
-    return redirect('edit_user_portfolio', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)
 	
 
 @login_required
@@ -146,10 +146,10 @@ def delete_portfolio(request, id):
             messages.success(request, "Portfolio deleted successfully.")
         except Exception as e:
             messages.error(request, f"An error occurred while trying to delete the portfolio: {str(e)}")
-        return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
     else:
         messages.error(request, "Invalid request method.")
-        return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
     
 # Handle Create, Update and Delete for Certification
 @login_required
@@ -165,7 +165,7 @@ def add_certification(request):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Adding Certification: {error}")
-    return redirect('edit_user_portfolio', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)
 
 @login_required
 def edit_certification(request, id):
@@ -179,8 +179,8 @@ def edit_certification(request, id):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Updating Certification: {error}")
-        return redirect('edit_user_portfolio', username=request.user.username)
-    return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)
 
 @login_required
 def delete_certification(request, id):
@@ -191,10 +191,10 @@ def delete_certification(request, id):
             messages.success(request, "Certification deleted successfully.")
         except Exception as e:
             messages.error(request, f"An error occurred while trying to delete the certification: {str(e)}")
-        return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
     else:
         messages.error(request, "Invalid request method.")
-        return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
 
 
 # Handle Create, Update and Delete for Education
@@ -211,7 +211,7 @@ def add_education(request):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Adding Education: {error}")
-    return redirect('edit_user_portfolio', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)
 
 @login_required
 def edit_education(request, id):
@@ -225,8 +225,8 @@ def edit_education(request, id):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Updating Education: {error}")
-        return redirect('edit_user_portfolio', username=request.user.username)
-    return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)
 
 @login_required
 def delete_education(request, id):
@@ -237,10 +237,10 @@ def delete_education(request, id):
             messages.success(request, "Education entry deleted successfully.")
         except Exception as e:
             messages.error(request, f"An error occurred while trying to delete the education entry: {str(e)}")
-        return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
     else:
         messages.error(request, "Invalid request method.")
-        return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
 
 
 # Handle Create, Update and Delete for Employment
@@ -257,7 +257,7 @@ def add_employment(request):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Adding Employment: {error}")
-    return redirect('edit_user_portfolio', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)
 
 @login_required
 def edit_employment(request, id):
@@ -271,8 +271,8 @@ def edit_employment(request, id):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Updating Employment: {error}")
-        return redirect('edit_user_portfolio', username=request.user.username)
-    return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)
 
 @login_required
 def delete_employment(request, id):
@@ -283,10 +283,10 @@ def delete_employment(request, id):
             messages.success(request, "Employment entry deleted successfully.")
         except Exception as e:
             messages.error(request, f"An error occurred while trying to delete the employment entry: {str(e)}")
-        return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
     else:
         messages.error(request, "Invalid request method.")
-        return redirect('edit_user_portfolio', username=request.user.username)
+        return redirect('edit_user_profile', username=request.user.username)
 
 
 # Handle Create, Update and Delete for About
@@ -302,7 +302,7 @@ def save_about(request):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Saving About: {error}")
-    return redirect('edit_user_portfolio', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)
 
 @login_required
 def delete_about(request):
@@ -313,4 +313,4 @@ def delete_about(request):
             messages.success(request, "About section deleted successfully.")
         except Exception as e:
             messages.error(request, f"An error occurred while trying to delete the About section: {str(e)}")
-    return redirect('edit_user_portfolio', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)

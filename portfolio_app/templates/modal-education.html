@@ -1,14 +1,15 @@
 <!-- Add Education Modal -->
-<div class="modal fade" id="addEducationModal" tabindex="-1" aria-labelledby="addEducationModalLabel" aria-hidden="true">
+<div class="modal fade" id="addEducationModal" tabindex="-1" aria-labelledby="addEducationModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addEducationModalLabel">Add Education</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form action="{% url 'add_education' %}" method="post">
-                    {% csrf_token %}
+            <form action="{% url 'add_education' %}" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
                     <div class="mb-3">
                         <label for="qualification" class="form-label">Qualification</label>
                         <input type="text" class="form-control" id="qualification" name="qualification" required>
@@ -27,23 +28,27 @@
                             <input type="date" class="form-control" id="end_date" name="end_date" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Add Education</button>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <!-- Edit Education Modal -->
-<div class="modal fade" id="editEducationModal" tabindex="-1" aria-labelledby="editEducationModalLabel" aria-hidden="true">
+<div class="modal fade" id="editEducationModal" tabindex="-1" aria-labelledby="editEducationModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editEducationModalLabel">Edit Education</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="editEducationForm" action="#" method="post">
+            <form id="editEducationForm" action="#" method="post">
+                <div class="modal-body">
                     {% csrf_token %}
                     <input type="hidden" id="editEducationId" name="education_id">
                     <div class="mb-3">
@@ -52,7 +57,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="editInstitutionName" class="form-label">Institution Name</label>
-                        <input type="text" class="form-control" id="editInstitutionName" name="institution_name" required>
+                        <input type="text" class="form-control" id="editInstitutionName" name="institution_name"
+                            required>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -64,33 +70,37 @@
                             <input type="date" class="form-control" id="editEndDate" name="end_date" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-warning mt-3">Save Changes</button>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <!-- Delete Education Modal -->
-<div class="modal fade" id="deleteEducationModal" tabindex="-1" aria-labelledby="deleteEducationModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteEducationModal" tabindex="-1" aria-labelledby="deleteEducationModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteEducationModalLabel">Delete Education</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete the education record for "<span id="deleteEducationName"></span>"?</p>
-            </div>
-            <div class="modal-footer">
-                <form id="deleteEducationForm" action="#" method="post">
-                    {% csrf_token %}
+            <form id="deleteEducationForm" action="#" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the education record for "<span
+                            id="deleteEducationName"></span>"?</p>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
                     <input type="hidden" id="deleteEducationId" name="education_id">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
