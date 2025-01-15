@@ -1,0 +1,96 @@
+<!-- Add Education Modal -->
+<div class="modal fade" id="addEducationModal" tabindex="-1" aria-labelledby="addEducationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEducationModalLabel">Add Education</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'add_education' %}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="qualification" class="form-label">Qualification</label>
+                        <input type="text" class="form-control" id="qualification" name="qualification" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="institution_name" class="form-label">Institution Name</label>
+                        <input type="text" class="form-control" id="institution_name" name="institution_name" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="start_date" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="start_date" name="start_date" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="end_date" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="end_date" name="end_date" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Add Education</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Education Modal -->
+<div class="modal fade" id="editEducationModal" tabindex="-1" aria-labelledby="editEducationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editEducationModalLabel">Edit Education</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editEducationForm" action="#" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" id="editEducationId" name="education_id">
+                    <div class="mb-3">
+                        <label for="editQualification" class="form-label">Qualification</label>
+                        <input type="text" class="form-control" id="editQualification" name="qualification" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editInstitutionName" class="form-label">Institution Name</label>
+                        <input type="text" class="form-control" id="editInstitutionName" name="institution_name" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="editStartDate" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="editStartDate" name="start_date" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editEndDate" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="editEndDate" name="end_date" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning mt-3">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Education Modal -->
+<div class="modal fade" id="deleteEducationModal" tabindex="-1" aria-labelledby="deleteEducationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteEducationModalLabel">Delete Education</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the education record for "<span id="deleteEducationName"></span>"?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteEducationForm" action="#" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" id="deleteEducationId" name="education_id">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+

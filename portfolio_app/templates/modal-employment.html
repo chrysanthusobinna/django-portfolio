@@ -1,0 +1,103 @@
+<!-- Add Employment Modal -->
+<div class="modal fade" id="addEmploymentModal" tabindex="-1" aria-labelledby="addEmploymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEmploymentModalLabel">Add Employment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'add_employment' %}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="employer_name" class="form-label">Employer Name</label>
+                        <input type="text" class="form-control" id="employer_name" name="employer_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="job_title" class="form-label">Job Title</label>
+                        <input type="text" class="form-control" id="job_title" name="job_title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description_of_duties" class="form-label">Description of Duties</label>
+                        <textarea class="form-control" id="description_of_duties" name="description_of_duties" rows="3" required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="start_date" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="start_date" name="start_date" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="end_date" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="end_date" name="end_date" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Add Employment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Employment Modal -->
+<div class="modal fade" id="editEmploymentModal" tabindex="-1" aria-labelledby="editEmploymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editEmploymentModalLabel">Edit Employment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editEmploymentForm" action="#" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" id="editEmploymentId" name="employment_id">
+                    <div class="mb-3">
+                        <label for="editEmployerName" class="form-label">Employer Name</label>
+                        <input type="text" class="form-control" id="editEmployerName" name="employer_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editJobTitle" class="form-label">Job Title</label>
+                        <input type="text" class="form-control" id="editJobTitle" name="job_title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDescriptionOfDuties" class="form-label">Description of Duties</label>
+                        <textarea class="form-control" id="editDescriptionOfDuties" name="description_of_duties" rows="3" required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="editStartDate" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="editStartDate" name="start_date" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editEndDate" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="editEndDate" name="end_date" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning mt-3">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Employment Modal -->
+<div class="modal fade" id="deleteEmploymentModal" tabindex="-1" aria-labelledby="deleteEmploymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteEmploymentModalLabel">Delete Employment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the employment record for "<span id="deleteEmploymentName"></span>"?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteEmploymentForm" action="#" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" id="deleteEmploymentId" name="employment_id">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

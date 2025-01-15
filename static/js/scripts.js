@@ -27,9 +27,109 @@ $(document).ready(function () {
             $('#modalLinkButton').hide();  
         }
 
-        // Show the modal
         $('#viewPortfolioModal').modal('show');
+    });
+ 
+    // Edit portfolio button click
+    $('.edit-portfolio-btn').on('click', function() {
+        var url = $(this).data('url');
+        var title = $(this).data('title');
+        var description = $(this).data('description');
+        var link = $(this).data('link');
+
+        $('#editPortfolioForm').attr('action', url);
+        $('#editPortfolioModal #editPortfolioTitle').val(title);
+        $('#editPortfolioModal #editPortfolioDescription').val(description);
+        $('#editPortfolioModal #editPortfolioLink').val(link);
+    });
+
+    // Delete portfolio button click
+    $('.delete-portfolio-btn').on('click', function() {
+        var url = $(this).data('url');
+        var title = $(this).data('title');
+
+        $('#deletePortfolioForm').attr('action', url);
+        $('#deletePortfolioModal #deletePortfolioTitle').text(title);
+
+    });
+ 
+    // Edit certification button click
+    $('.edit-certification-btn').on('click', function() {
+        var url = $(this).data('url');
+        var name = $(this).data('name');
+        var issuer = $(this).data('issuer');
+        var date = $(this).data('date');
+        $('#editCertificationForm').attr('action', url);
+
+        $('#editCertificationModal #editCertificationName').val(name);
+        $('#editCertificationModal #editCertificationIssuer').val(issuer);
+        $('#editCertificationModal #editCertificationDate').val(date);
+    });
+
+    // Delete certification button click
+    $('.delete-certification-btn').on('click', function() {
+        var url = $(this).data('url');
+        var name = $(this).data('name');
+
+        $('#deleteCertificationForm').attr('action', url);
+        $('#deleteCertificationModal #deleteCertificationName').text(name);
+    });
+ 
+    // Edit education button click
+    $('.edit-education-btn').on('click', function() {
+        var url = $(this).data('url');
+        var qualification = $(this).data('qualification');
+        var institution = $(this).data('institution');
+        var start = $(this).data('start');
+        var end = $(this).data('end');
+
+        $('#editEducationForm').attr('action', url);
+        $('#editEducationModal #editQualification').val(qualification);
+        $('#editEducationModal #editInstitutionName').val(institution);
+        $('#editEducationModal #editStartDate').val(start);
+        $('#editEducationModal #editEndDate').val(end);
+
+    });
+
+    // Delete education button click
+    $('.delete-education-btn').on('click', function() {
+        var url = $(this).data('url');
+        var qualification = $(this).data('qualification');
+
+        $('#deleteEducationForm').attr('action', url);
+        $('#deleteEducationModal #deleteEducationName').text(qualification);
+
+    });
+ 
+    // Edit employment button click
+    $('.edit-employment-btn').on('click', function() {
+        var url = $(this).data('url');
+        var employer = $(this).data('employer');
+        var title = $(this).data('title');
+        var description = $(this).data('description');
+        var start = $(this).data('start');
+        var end = $(this).data('end');
+
+        $('#editEmploymentForm').attr('action', url);
+        $('#editEmploymentModal #editEmployerName').val(employer);
+        $('#editEmploymentModal #editJobTitle').val(title);
+        $('#editEmploymentModal #editDescriptionOfDuties').val(description);
+        $('#editEmploymentModal #editStartDate').val(start);
+        $('#editEmploymentModal #editEndDate').val(end);
+    });
+
+    // Delete employment button click
+    $('.delete-employment-btn').on('click', function() {
+        var url = $(this).data('url');
+        var employer = $(this).data('employer');
+
+        $('#deleteEmploymentForm').attr('action', url);
+        $('#deleteEmploymentModal #deleteEmploymentName').text(employer);
+    });
+ 
+    $('#confirmSaveAbout').on('click', function() {
+        $('#aboutForm').submit();
     });
 });
 
- 
+

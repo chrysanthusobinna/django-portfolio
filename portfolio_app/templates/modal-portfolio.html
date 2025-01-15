@@ -1,0 +1,91 @@
+    <!-- Add Portfolio Modal -->
+    <div class="modal fade" id="addPortfolioModal" tabindex="-1" aria-labelledby="addPortfolioModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPortfolioModalLabel">Add Portfolio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Add Portfolio Form -->
+                    <form action="{% url 'add_portfolio' %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="portfolioTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="portfolioTitle" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="portfolioDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="portfolioDescription" name="description" rows="3"
+                                required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="portfolioLink" class="form-label">Link</label>
+                            <input type="url" class="form-control" id="portfolioLink" name="link">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Portfolio</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Portfolio Modal -->
+    <div class="modal fade" id="editPortfolioModal" tabindex="-1" aria-labelledby="editPortfolioModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPortfolioModalLabel">Edit Portfolio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Edit Portfolio Form -->
+                    <form id="editPortfolioForm" action="#" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" id="editPortfolioId" name="id">
+                        <div class="mb-3">
+                            <label for="editPortfolioTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="editPortfolioTitle" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPortfolioDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editPortfolioDescription" name="description" rows="3"
+                                required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPortfolioLink" class="form-label">Link</label>
+                            <input type="url" class="form-control" id="editPortfolioLink" name="link">
+                        </div>
+                        <button type="submit" class="btn btn-warning">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Portfolio Modal -->
+    <div class="modal fade" id="deletePortfolioModal" tabindex="-1" aria-labelledby="deletePortfolioModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletePortfolioModalLabel">Delete Portfolio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the portfolio titled "<span id="deletePortfolioTitle"></span>"?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <form id="deletePortfolioForm" action="#" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" id="deletePortfolioId" name="portfolio_id">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>

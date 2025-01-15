@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+    <h1 class="text-center mb-4">Edit Portfolio for {{ target_user.username }}</h1>
+
+    <!-- About Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">About</div>
+        <div class="card-body">
+            <form id="aboutForm" method="POST" action="{% url 'save_about' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="about" class="form-label">About</label>
+                    <textarea id="about" name="about" class="form-control" rows="5">{{ about.about }}</textarea>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAboutModal">Delete
+                About</button>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#saveAboutModal">Save</button>
+        </div>
+    </div>
+
+    <!-- Employment Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            Employment
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addEmploymentModal">Add
+                Employment</button>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Employer Name</th>
+                        <th>Job Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in employment %}
+                    <tr>
+                        <td>{{ job.employer_name }}</td>
+                        <td>{{ job.job_title }}</td>
+                        <td>{{ job.start_date|date:"Y-m-d" }}</td>
+                        <td>{{ job.end_date|date:"Y-m-d" }}</td>
+                        <td class="d-flex justify-content-end">
+                            <button class="btn btn-sm btn-warning me-2 edit-employment-btn" data-bs-toggle="modal"
+                                data-bs-target="#editEmploymentModal" data-url="{% url 'edit_employment' job.id %}"
+                                data-employer="{{ job.employer_name }}" data-title="{{ job.job_title }}"
+                                data-description="{{ job.description_of_duties }}"
+                                data-start="{{ job.start_date|date:"Y-m-d" }}"
+                                data-end="{{ job.end_date|date:"Y-m-d" }}">Edit
+                            </button>
+
+                            <button class="btn btn-sm btn-danger delete-employment-btn" data-bs-toggle="modal"
+                                data-bs-target="#deleteEmploymentModal" data-url="{% url 'delete_employment' job.id %}"
+                                data-employer="{{ job.employer_name }}">Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Education Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            Education
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addEducationModal">Add
+                Education</button>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Qualification</th>
+                        <th>Institution Name</th>
+                        <th class="d-flex justify-content-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for edu in education %}
+                    <tr>
+                        <td>{{ edu.qualification }}</td>
+                        <td>{{ edu.institution_name }}</td>
+                        <td class="d-flex justify-content-end">
+                            <button class="btn btn-sm btn-warning me-2 edit-education-btn" data-bs-toggle="modal"
+                                data-bs-target="#editEducationModal" data-url="{% url 'edit_education' edu.id %}"
+                                data-qualification="{{ edu.qualification }}"
+                                data-institution="{{ edu.institution_name }}"
+                                data-start="{{ edu.start_date|date:"Y-m-d" }}"
+                                data-end="{{ edu.end_date|date:"Y-m-d" }}">Edit
+                            </button>
+
+                            <button class="btn btn-sm btn-danger delete-education-btn" data-bs-toggle="modal"
+                                data-bs-target="#deleteEducationModal" data-url="{% url 'delete_education' edu.id %}"
+                                data-qualification="{{ edu.qualification }}">Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Certifications Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            Certifications
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addCertificationModal">Add
+                Certification</button>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Certification Name</th>
+                        <th class="d-flex justify-content-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cert in certifications %}
+                    <tr>
+                        <td>{{ cert.name }}</td>
+                        <td class="d-flex justify-content-end">
+                            <button class="btn btn-sm btn-warning me-2 edit-certification-btn" data-bs-toggle="modal"
+                                data-bs-target="#editCertificationModal"
+                                data-url="{% url 'edit_certification' cert.id %}" data-name="{{ cert.name }}"
+                                data-issuer="{{ cert.issuer }}" data-date="{{ cert.date_issued|date:"Y-m-d" }}">Edit
+                            </button>
+
+                            <button class="btn btn-sm btn-danger delete-certification-btn" data-bs-toggle="modal"
+                                data-bs-target="#deleteCertificationModal"
+                                data-url="{% url 'delete_certification' cert.id %}" data-name="{{ cert.name }}">Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Portfolio Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            Portfolio
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addPortfolioModal">Add
+                Portfolio
+            </button>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th class="d-flex justify-content-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for portfolio in portfolios %}
+                    <tr>
+                        <td>{{ portfolio.title }}</td>
+                        <td class="d-flex justify-content-end">
+                            <button class="btn btn-sm btn-warning me-2 edit-portfolio-btn" data-bs-toggle="modal"
+                                data-bs-target="#editPortfolioModal" data-url="{% url 'edit_portfolio' portfolio.id %}"
+                                data-title="{{ portfolio.title }}" data-description="{{ portfolio.description }}"
+                                data-link="{{ portfolio.link }}">Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-portfolio-btn" data-bs-toggle="modal"
+                                data-bs-target="#deletePortfolioModal"
+                                data-url="{% url 'delete_portfolio' portfolio.id %}"
+                                data-title="{{ portfolio.title }}">Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% include 'modal-portfolio.html' %}
+{% include 'modal-certification.html' %}
+{% include 'modal-education.html' %}
+{% include 'modal-employment.html' %}
+{% include 'modal-about.html' %}
+
+{% endblock %}
