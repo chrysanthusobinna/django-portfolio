@@ -10,7 +10,7 @@
 
         <div class="card border-primary text-center" style="border-top-width: 4px;">
             <div class="card-body">
-                <h5 class="card-title">
+                <h5 class="text-uppercase text-center mb-3">
                     {% if target_user.first_name %}
                     {{ target_user.first_name }}
                     {% endif %}
@@ -26,7 +26,7 @@
                         src="{% if request.user.profilephoto.profile_photo %}{{ request.user.profilephoto.profile_photo.url }}{% else %}{% static 'images/user.png' %}{% endif %}"
                         alt="Profile Photo">
                 </div>
-                
+
                 <p class="card-text">
                     {% if about %}
                     {{ about.about }}
