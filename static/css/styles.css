@@ -206,3 +206,35 @@ button.btn {
 .scroll-to-top:hover {
     background-color: #0056b3;
 }
+
+/* Profile Photo Container */
+.profile-photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+/* Profile Photo Style */
+.profile-photo {
+    width: 150px;  
+    height: 150px;  
+    border-radius: 50%; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);  
+    object-fit: cover;  
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;  
+}
+
+/* Hover Effect */
+.profile-photo:hover {
+    transform: scale(1.05);  
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);   
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+    }
+}

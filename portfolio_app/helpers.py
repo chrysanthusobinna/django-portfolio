@@ -1,4 +1,4 @@
-from .models import About, Employment, Certification, Education, Portfolio, Contact
+from .models import Profilephoto, About, Employment, Certification, Education, Portfolio, Contact
 from django.contrib.auth.models import User
 
 def get_user_data(username):
@@ -8,6 +8,7 @@ def get_user_data(username):
         return None, None
 
     data = {
+        'profilephoto': Profilephoto.objects.filter(user=user).first() or None,
         'about': About.objects.filter(user=user).first() or None,
         'employment': Employment.objects.filter(user=user) or None,
         'certifications': Certification.objects.filter(user=user) or None,

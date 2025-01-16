@@ -1,0 +1,41 @@
+
+<!-- Save Profile Photo Modal -->
+<div class="modal fade" id="saveProfilePhotoModal" tabindex="-1" aria-labelledby="saveProfilePhotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="saveProfilePhotoModalLabel">Confirm Save</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to save changes to the profile photo?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" id="confirmSaveProfilePhoto">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Profile Photo Modal -->
+<div class="modal fade" id="deleteProfilePhotoModal" tabindex="-1" aria-labelledby="deleteProfilePhotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProfilePhotoModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="deleteProfilePhotoForm" method="POST" action="{% url 'delete_profile_photo' %}">
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the profile photo?</p>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

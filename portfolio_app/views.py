@@ -3,13 +3,14 @@ from django.contrib import messages
 from .helpers import get_user_data
 from django.contrib.auth.decorators import login_required
 
-from .models import Portfolio, Certification, Education, Employment, About
-from .forms import PortfolioForm, CertificationForm, EducationForm, EmploymentForm, AboutForm
+from .models import Portfolio, Certification, Education, Employment, About, Profilephoto
+from .forms import PortfolioForm, CertificationForm, EducationForm, EmploymentForm, AboutForm, ProfilephotoForm
 
+# render edit home page
 def home(request):
     return render(request, 'home-page.html')
 
-
+# render show portfolio page
 def user_profile(request, username):
     target_user, data = get_user_data(username)
 
@@ -24,7 +25,7 @@ def user_profile(request, username):
     return render(request, 'user-portfolio.html', context)
 
 
-
+# render edit portfolio page
 @login_required
 def edit_user_profile(request, username):
     target_user, data = get_user_data(username)
@@ -33,74 +34,12 @@ def edit_user_profile(request, username):
         messages.error(request, "The user you are looking for does not exist.")
         return redirect('home')
 
-    if request.method == "POST":
-        # Handle form submission for all models
-        about_text = request.POST.get('about')
-        if about_text:
-            if data['about']:
-                data['about'].about = about_text
-                data['about'].save()
-            else:
-                About.objects.create(user=target_user, about=about_text)
-
-        employment_ids = request.POST.getlist('employment_id')
-        employment_employers = request.POST.getlist('employer_name')
-        employment_titles = request.POST.getlist('job_title')
-        employment_descriptions = request.POST.getlist('description_of_duties')
-        employment_start_dates = request.POST.getlist('start_date')
-        employment_end_dates = request.POST.getlist('end_date')
-
-        for idx, emp_id in enumerate(employment_ids):
-            if emp_id:  # Update existing employment
-                employment = Employment.objects.get(id=emp_id)
-                employment.employer_name = employment_employers[idx]
-                employment.job_title = employment_titles[idx]
-                employment.description_of_duties = employment_descriptions[idx]
-                employment.start_date = employment_start_dates[idx]
-                employment.end_date = employment_end_dates[idx]
-                employment.save()
-            else:  # Create new employment
-                Employment.objects.create(
-                    user=target_user,
-                    employer_name=employment_employers[idx],
-                    job_title=employment_titles[idx],
-                    description_of_duties=employment_descriptions[idx],
-                    start_date=employment_start_dates[idx],
-                    end_date=employment_end_dates[idx],
-                )
-
-        # Repeat similar logic for Certifications, Education, Portfolios, and Contacts
-        # Example for Certifications:
-        certification_ids = request.POST.getlist('certification_id')
-        certification_names = request.POST.getlist('certification_name')
-        certification_issuers = request.POST.getlist('certification_issuer')
-        certification_dates = request.POST.getlist('certification_date')
-
-        for idx, cert_id in enumerate(certification_ids):
-            if cert_id:  # Update existing certification
-                certification = Certification.objects.get(id=cert_id)
-                certification.name = certification_names[idx]
-                certification.issuer = certification_issuers[idx]
-                certification.date_issued = certification_dates[idx]
-                certification.save()
-            else:  # Create new certification
-                Certification.objects.create(
-                    user=target_user,
-                    name=certification_names[idx],
-                    issuer=certification_issuers[idx],
-                    date_issued=certification_dates[idx],
-                )
-
-        # Repeat for Education, Portfolio, and Contact similarly
-
-        messages.success(request, "Profile updated successfully!")
-        return redirect('edit_user_profile', username=username)
-
     context = {
         'target_user': target_user,
-        **data,  # Unpack user-related data
+        **data,  # Unpack the user-related data
     }
     return render(request, 'edit-user-portfolio.html', context)
+
 
 # Handle Create, Update and Delete for Portfolio
 @login_required
@@ -313,4 +252,34 @@ def delete_about(request):
             messages.success(request, "About section deleted successfully.")
         except Exception as e:
             messages.error(request, f"An error occurred while trying to delete the About section: {str(e)}")
+    return redirect('edit_user_profile', username=request.user.username)
+
+# Handle Create, Update and Delete for Profile Photo
+@login_required
+def save_profile_photo(request):
+    try:
+        profile_photo = Profilephoto.objects.get(user=request.user)
+    except Profilephoto.DoesNotExist:
+        profile_photo = Profilephoto(user=request.user)
+    
+    if request.method == "POST":
+        form = ProfilephotoForm(request.POST, request.FILES, instance=profile_photo)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile photo saved successfully.")
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error Saving Profile Photo: {error}")
+    return redirect('edit_user_profile', username=request.user.username)
+
+@login_required
+def delete_profile_photo(request):
+    profile_photo = get_object_or_404(Profilephoto, user=request.user)
+    if request.method == "POST":
+        try:
+            profile_photo.delete()
+            messages.success(request, "Profile photo deleted successfully.")
+        except Exception as e:
+            messages.error(request, f"An error occurred while trying to delete the profile photo: {str(e)}")
     return redirect('edit_user_profile', username=request.user.username)

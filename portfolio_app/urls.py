@@ -24,4 +24,7 @@ urlpatterns = [
 
     path('about/save/', views.save_about, name='save_about'),
     path('about/delete/', views.delete_about, name='delete_about'),
+
+    path('profile/save-photo/', views.save_profile_photo, name='save_profile_photo'),
+    path('profile/delete-photo/', views.delete_profile_photo, name='delete_profile_photo'),
 ]

@@ -1,5 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
+
+class Profilephoto(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_photo = CloudinaryField('image', null=True, blank=True)
+
+    def __str__(self):
+        return f"Profile photo for {self.user.username}"
 
 # About model
 class About(models.Model):

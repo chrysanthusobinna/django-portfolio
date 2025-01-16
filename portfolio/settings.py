@@ -17,6 +17,7 @@ if os.path.isfile('env.py'):
     import env
 from django.contrib.messages import constants as messages
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,7 +31,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-3*lc7q-hg^7ppudb-l950
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-chrysanthus-djangoportf-8u6933m8l4m.ws-eu117.gitpod.io', '.herokuapp.com']
+ALLOWED_HOSTS = ['8000-chrysanthus-djangoportf-k5wu1xiirga.ws-eu117.gitpod.io', '.herokuapp.com']
 
 
 # Application definition
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',    
     'portfolio_app',
+    'cloudinary',
 ]
 
 SITE_ID = 1
@@ -104,7 +106,7 @@ DATABASES = {
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
     "https://*.herokuapp.com",
-    "https://8000-chrysanthus-djangoportf-8u6933m8l4m.ws-eu117.gitpod.io",
+    "https://8000-chrysanthus-djangoportf-k5wu1xiirga.ws-eu117.gitpod.io",
 ]
 
 # Password validation

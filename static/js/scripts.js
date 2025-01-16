@@ -131,6 +131,10 @@ $(document).ready(function () {
         $('#aboutForm').submit();
     });
 
+    $('#confirmSaveProfilePhoto').on('click', function() {
+        $('#profilePhotoForm').submit();
+    });
+
     // Show or hide the button when scrolling
     $(window).scroll(function() {
         if ($(this).scrollTop() > 300) {
@@ -145,7 +149,21 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop: 0 }, '300');
         return false;
     });
-    
+
+
+    $('#confirmSaveProfilePhoto').on('click', function() {
+        $('#profilePhotoForm').submit();
+    });
 });
 
 
+function previewProfilePhoto() {
+    const file = document.getElementById('profile_photo').files[0];
+    const reader = new FileReader();
+    reader.onloadend = function() {
+        document.getElementById('profilePhotoPreview').src = reader.result;
+    }
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}

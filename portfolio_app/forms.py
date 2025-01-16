@@ -1,7 +1,7 @@
 from allauth.account.forms import SignupForm
 from django import forms
 
-from .models import Portfolio, Certification, Education, Employment, About
+from .models import Portfolio, Certification, Education, Employment, About, Profilephoto
 
 class CustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=30, label="First Name", required=True)
@@ -40,3 +40,8 @@ class AboutForm(forms.ModelForm):
     class Meta:
         model = About
         fields = ['about']
+
+class ProfilephotoForm(forms.ModelForm):
+    class Meta:
+        model = Profilephoto
+        fields = ['profile_photo']
