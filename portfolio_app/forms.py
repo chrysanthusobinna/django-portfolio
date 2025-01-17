@@ -19,7 +19,7 @@ class CustomSignupForm(SignupForm):
 class PortfolioForm(forms.ModelForm):
     class Meta:
         model = Portfolio
-        fields = ['title', 'description', 'link']
+        fields = ['title', 'description', 'link','portfolio_photo']
 
 class CertificationForm(forms.ModelForm):
     class Meta:

@@ -36,11 +36,14 @@ $(document).ready(function () {
         var title = $(this).data('title');
         var description = $(this).data('description');
         var link = $(this).data('link');
+        var portfolioPhoto = $(this).data('portfolio_photo');
 
         $('#editPortfolioForm').attr('action', url);
         $('#editPortfolioModal #editPortfolioTitle').val(title);
         $('#editPortfolioModal #editPortfolioDescription').val(description);
         $('#editPortfolioModal #editPortfolioLink').val(link);
+
+        $('#editPortfolioModal #profilePortfolioPreview').attr('src', portfolioPhoto);  
     });
 
     // Delete portfolio button click
@@ -167,3 +170,25 @@ function previewProfilePhoto() {
         reader.readAsDataURL(file);
     }
 }
+
+function previewPortfolioPhoto(input, previewElementId) {
+    var file = input.files[0];
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        $(previewElementId).attr('src', e.target.result);
+    }
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}
+
+
+// Handle portfolio photo preview
+$('#editPortfolioPhoto').on('change', function() {
+    previewPortfolioPhoto(this, '#profilePortfolioPreview');
+});
+
+// Handle create portfolio photo preview (if applicable)
+$('#createPortfolioPhoto').on('change', function() {
+    previewPortfolioPhoto(this, '#createPortfolioPreview');
+});

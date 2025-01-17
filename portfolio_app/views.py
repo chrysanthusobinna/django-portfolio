@@ -45,7 +45,7 @@ def edit_user_profile(request, username):
 @login_required
 def add_portfolio(request):
     if request.method == "POST":
-        form = PortfolioForm(request.POST)
+        form = PortfolioForm(request.POST, request.FILES)
         if form.is_valid():
             portfolio = form.save(commit=False)
             portfolio.user = request.user
@@ -63,7 +63,7 @@ def add_portfolio(request):
 def edit_portfolio(request, id):
     portfolio = get_object_or_404(Portfolio, id=id, user=request.user)
     if request.method == "POST":
-        form = PortfolioForm(request.POST, instance=portfolio)
+        form = PortfolioForm(request.POST, request.FILES, instance=portfolio)
         if form.is_valid():
             form.save()
             messages.success(request, "Portfolio updated successfully.")
