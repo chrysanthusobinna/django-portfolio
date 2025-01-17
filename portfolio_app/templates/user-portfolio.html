@@ -22,7 +22,7 @@
                 </h5>
 
                 <div class="profile-photo-container mb-3">
-                    <img id="profilePhotoPreview" class="profile-photo"
+                    <img class="profile-photo"
                         src="{% if request.user.profilephoto.profile_photo %}{{ request.user.profilephoto.profile_photo.url }}{% else %}{% static 'images/user.png' %}{% endif %}"
                         alt="Profile Photo">
                 </div>
