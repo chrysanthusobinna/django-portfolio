@@ -22,7 +22,7 @@
                 </h5>
 
                 <div class="profile-photo-container mb-3">
-                    <img class="profile-photo"
+                    <img id="profilePhotoPreview" class="profile-photo"
                         src="{% if request.user.profilephoto.profile_photo %}{{ request.user.profilephoto.profile_photo.url }}{% else %}{% static 'images/user.png' %}{% endif %}"
                         alt="Profile Photo">
                 </div>
@@ -212,7 +212,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <img id="modalImage" src="" alt="Project Image" class="img-fluid mb-3">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img id="modalImage" src="" alt="Project Image" class="img-fluid mb-3">
+                    </div>
                     <h5 id="modalTitle"></h5>
                     <p id="modalDescription"></p>
                 </div>
