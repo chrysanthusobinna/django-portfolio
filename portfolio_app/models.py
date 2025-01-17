@@ -56,6 +56,7 @@ class Portfolio(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     link = models.URLField(null=True, blank=True)
+    portfolio_photo = CloudinaryField('image', null=True, blank=True)
 
     def __str__(self):
         return self.title
