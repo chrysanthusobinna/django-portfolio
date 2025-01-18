@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .helpers import get_user_data
 from django.contrib.auth.decorators import login_required
-from cloudinary.exceptions import Error
 
 from .models import Portfolio, Certification, Education, Employment, About, Profilephoto
 from .forms import PortfolioForm, CertificationForm, EducationForm, EmploymentForm, AboutForm, ProfilephotoForm
+from .utils import validate_image_file
 
 # render edit home page
 def home(request):
@@ -43,10 +43,16 @@ def edit_user_profile(request, username):
 
 
 # Handle Create, Update and Delete for Portfolio
-@login_required
 def add_portfolio(request):
     if request.method == "POST":
         form = PortfolioForm(request.POST, request.FILES)
+        
+        # Validate the uploaded image file
+        is_valid, error_message = validate_image_file(request, 'portfolio_photo', 'Portfolio Photo')
+        if not is_valid:
+            messages.error(request, error_message)
+            return redirect('edit_user_profile', username=request.user.username)
+        
         if form.is_valid():
             portfolio = form.save(commit=False)
             portfolio.user = request.user
@@ -57,6 +63,7 @@ def add_portfolio(request):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Adding Portfolio: {error}")
+    
     return redirect('edit_user_profile', username=request.user.username)
 
 
@@ -65,6 +72,13 @@ def edit_portfolio(request, id):
     portfolio = get_object_or_404(Portfolio, id=id, user=request.user)
     if request.method == "POST":
         form = PortfolioForm(request.POST, request.FILES, instance=portfolio)
+
+        # Validate the uploaded image file
+        is_valid, error_message = validate_image_file(request, 'portfolio_photo', 'Portfolio Photo')
+        if not is_valid:
+            messages.error(request, error_message)
+            return redirect('edit_user_profile', username=request.user.username)
+
         if form.is_valid():
             form.save()
             messages.success(request, "Portfolio updated successfully.")
@@ -255,7 +269,7 @@ def delete_about(request):
             messages.error(request, f"An error occurred while trying to delete the About section: {str(e)}")
     return redirect('edit_user_profile', username=request.user.username)
 
-# Handle Create, Update and Delete for Profile Photo
+# Handle Create, Update, and Delete for Profile Photo
 @login_required
 def save_profile_photo(request):
     try:
@@ -265,20 +279,23 @@ def save_profile_photo(request):
 
     if request.method == "POST":
         form = ProfilephotoForm(request.POST, request.FILES, instance=profile_photo)
+
+        # Validate the uploaded image file
+        is_valid, error_message = validate_image_file(request, 'profile_photo', 'Profile Photo')
+        if not is_valid:
+            messages.error(request, error_message)
+            return redirect('edit_user_profile', username=request.user.username)
+
         if form.is_valid():
-            try:
-                form.save()
-                messages.success(request, "Profile photo saved successfully.")
-            except Error as e:
-                messages.error(request, 'Invalid image file. Please upload a valid image file.')
-            except Exception as e:
-                messages.error(request, 'An error occurred while uploading the photo. Please try again.')
+            form.save()
+            messages.success(request, "Profile photo saved successfully.")
         else:
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error Saving Profile Photo: {error}")
     return redirect('edit_user_profile', username=request.user.username)
-    
+
+
 @login_required
 def delete_profile_photo(request):
     profile_photo = get_object_or_404(Profilephoto, user=request.user)
