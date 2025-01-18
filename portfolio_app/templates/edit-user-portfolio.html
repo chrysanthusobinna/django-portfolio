@@ -99,7 +99,7 @@
                         <td>{{ job.employer_name }}</td>
                         <td>{{ job.job_title }}</td>
                         <td>{{ job.start_date|date:"Y-m-d" }}</td>
-                        <td>{{ job.end_date|date:"Y-m-d" }}</td>
+                        <td>{{ job.end_date|date:"F Y"|default:"Present" }}</td>
                         <td class="d-flex justify-content-end">
                             <button class="btn btn-sm btn-warning me-2 edit-employment-btn" data-bs-toggle="modal"
                                 data-bs-target="#editEmploymentModal" data-url="{% url 'edit_employment' job.id %}"
