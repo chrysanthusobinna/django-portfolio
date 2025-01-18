@@ -140,68 +140,78 @@
     {% if contact %}
     <!-- Contact Section -->
     <section id="contact" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title text-center mb-4">CONTACT</h2>
-            <div class="row g-4 align-items-stretch">
-                <!-- Contact Information -->
-                <div class="col-12 col-md-6 d-flex">
-                    <div class="p-4 bg-white text-dark shadow-sm rounded w-100">
-                        <ul class="list-unstyled">
-                            {% if contact.phone_number %}
-                            <li class="mb-3">
-                                <i class="fas fa-phone-alt me-2 text-primary"></i> {{ contact.phone_number }}
-                            </li>
-                            {% endif %}
 
-                            {% if contact.email_address %}
-                            <li class="mb-3">
-                                <i class="fas fa-envelope me-2 text-primary"></i> {{ contact.email_address }}
-                            </li>
-                            {% endif %}
-
-                            {% if contact.facebook_link %}
-                            <li class="mb-3">
-                                <i class="fab fa-facebook me-2 text-primary"></i>
-                                <a href="{{ contact.facebook_link }}"
-                                    class="text-decoration-none text-dark">Facebook</a>
-                            </li>
-                            {% endif %}
-
-                            {% if contact.instagram_link %}
-                            <li class="mb-3">
-                                <i class="fab fa-instagram me-2 text-primary"></i>
-                                <a href="{{ contact.instagram_link }}"
-                                    class="text-decoration-none text-dark">Instagram</a>
-                            </li>
-                            {% endif %}
-                        </ul>
+        <div class="p-4 bg-white text-dark shadow-sm rounded w-100">
+            <div class="row contact-info">
+                {% if contact.phone_number %}
+                <div class="col-12 col-md-3 mb-3">
+                    <div class="icon-container">
+                        <i class="fas fa-phone-alt contact-info-icon"></i>
+                    </div>
+                    <div class="contact-info-text">                 
+                        <a href="tel:{{ contact.phone_number }}" class="text-decoration-none text-dark">{{ contact.phone_number }}</a>
                     </div>
                 </div>
-                <!-- Contact Form -->
-                <div class="col-12 col-md-6 d-flex">
-                    <div class="p-4 bg-white text-dark shadow-sm rounded w-100">
-                        <form>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter your name"
-                                    required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email"
-                                    required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Message</label>
-                                <textarea class="form-control" id="message" rows="4" placeholder="Enter your message"
-                                    required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                        </form>
+                {% endif %}
+
+                {% if contact.email_address %}
+                <div class="col-12 col-md-3 mb-3">
+                    <div class="icon-container">
+                        <i class="fas fa-envelope contact-info-icon"></i>
+                    </div>
+                    <div class="contact-info-text">
+                        <a href="mailto:{{ contact.email_address }}" class="text-decoration-none text-dark">{{ contact.email_address }}</a>
                     </div>
                 </div>
+                {% endif %}
+
+                {% if contact.facebook_link %}
+                <div class="col-12 col-md-3 mb-3">
+                    <div class="icon-container">
+                        <i class="fab fa-facebook contact-info-icon"></i>
+                    </div>
+                    <div class="contact-info-text">
+                        <a href="{{ contact.facebook_link }}" class="text-decoration-none text-dark">Facebook</a>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if contact.instagram_link %}
+                <div class="col-12 col-md-3 mb-3">
+                    <div class="icon-container">
+                        <i class="fab fa-instagram contact-info-icon"></i>
+                    </div>
+                    <div class="contact-info-text">
+                        <a href="{{ contact.instagram_link }}" class="text-decoration-none text-dark">Instagram</a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
+
+<!-- Contact Form -->
+<div class="container mt-5">
+    <div class="p-4 bg-white text-dark shadow-sm rounded w-100">
+        <form>
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="4" placeholder="Enter your message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+        </form>
+    </div>
+</div>
+
     </section>
     {% endif %}
 
