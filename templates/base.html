@@ -35,6 +35,11 @@
                             <a class="nav-link" href="{% url 'home' %}">Home page</a>
                         </li>
                         {% if user.is_authenticated %}
+                        {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                        </li>
+                        {% endif %}                       
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == user_profile %}active{% endif %}"
                                 href="{% url 'user_profile' user.username %}">View My Portfolio
