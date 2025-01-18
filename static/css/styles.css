@@ -3,6 +3,10 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #f8f9fa;
+    height: 100%;
+    margin: 0;
+
+
 }
 
 header {
@@ -239,3 +243,19 @@ button.btn {
     }
 }
 
+/* Custom styles for the table */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+.table th, .table td {
+    white-space: nowrap; /* Prevent text wrapping */
+}
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+}
+.table th {
+    font-weight: bold;
+    text-align: center;
+}
