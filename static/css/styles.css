@@ -152,6 +152,10 @@ section {
     .timeline-item .timeline-dot {
         left: 10%;
     }
+    .small-txt {
+        font-size: 12px; /* Adjust the size as needed */
+    }
+    
 }
 
 .portfolio-grid {
