@@ -51,6 +51,33 @@ footer {
     margin: 0.25rem 0.25rem;  
 }
 
+/* General styles for the logo */
+.navbar-brand img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Styles for small screens */
+@media (max-width: 768px) {
+    .navbar-brand img {
+        width: 100px; 
+    }
+}
+
+/* Styles for medium screens */
+@media (min-width: 769px) and (max-width: 992px) {
+    .navbar-brand img {
+        width: 150px; 
+    }
+}
+
+/* Styles for large screens */
+@media (min-width: 993px) {
+    .navbar-brand img {
+        width: 120px; 
+    }
+}
+
 /* AUTH USER CONTAINER STYLE*/
 .auth-user-container {
     border-top: 1px solid white;
@@ -389,3 +416,4 @@ button.btn {
     line-height: 1.6; 
     color: #555;  
 }
+
