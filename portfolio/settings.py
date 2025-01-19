@@ -35,10 +35,17 @@ EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT'))  # Ensure the port is an integer
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
+
+# Determine whether to use TLS or SSL based on the port
+if EMAIL_PORT == 465:
+    EMAIL_USE_SSL = True
+elif EMAIL_PORT == 587:
+    EMAIL_USE_SSL = False
+else:
+    EMAIL_USE_SSL = False
+
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_TIMEOUT = 10  # Time in seconds
- 
+EMAIL_TIMEOUT = 10 
 
 # Site Information Constants
 SITE_NAME = "CC Portfolio"
@@ -47,7 +54,7 @@ SITE_CONTACT_PHONE_NUMBER = "+44 456 7890 0000"
 SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-chrysanthus-djangoportf-7qj350u5qho.ws-eu117.gitpod.io', '.herokuapp.com']
 

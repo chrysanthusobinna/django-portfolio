@@ -24,8 +24,8 @@ def send_contact_email(subject, message, recipient_list):
             recipient_list,
             fail_silently=False,
         )
-        return True, None  # Return True and None for no error message
+        return True, None  
     except Exception as e:
         error_message = f"Error sending email: {e}"
         print(f"Error sending email: {e}")
-        return False, error_message  # Return False and the error message
+        return False, error_message   
