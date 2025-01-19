@@ -45,7 +45,7 @@
                         {% if user.is_authenticated %}
                         {% if user.is_staff %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ admin_url }}">Admin</a>
+                            <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
                         </li>
                         {% endif %}
                         <li class="nav-item">
@@ -70,27 +70,6 @@
             </div>
         </nav>
     </header>
-
-
-    {% if user.is_authenticated %}
-    <div class="bg-white p-3 rounded shadow-sm text-end"
-        style="border-top: 1px solid white; border-bottom: 2px solid var(--bs-success);">
-        <p class="text-success fw-bold m-0">
-            You are logged in as {{ user.first_name|default:user.email }}
-        </p>
-    </div>
-    {% endif %}
-
-    {% if messages %}
-    <div class="container mt-3">
-      {% for message in messages %}
-        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endfor %}
-    </div>
-    {% endif %}
     
     {% block content %}
     <!-- Content will go here -->

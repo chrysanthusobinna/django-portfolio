@@ -1,0 +1,7 @@
+{% if user.is_authenticated %}
+<div class="auth-user-container bg-white p-3 rounded shadow-sm text-end">
+    <p class="text-success fw-bold m-0">
+        You are logged in as {{ user.first_name|default:user.email }}
+    </p>
+</div>
+{% endif %}

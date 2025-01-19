@@ -1,17 +1,202 @@
 
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
     <div class="container">
-        <!-- About us -->
-        <section id="about" class="mt-10 bg-white text-dark">
-            <h2 class="section-title">About us</h2>
-            <p>HCCPortfolio is a platform that allows users to register and create personalized portfolios. Customize
-                your portfolio to suit your needs, including sections for About Me, Employment History, Education
-                History, and Projects. This website is open to professionals from all fields, allowing you to showcase
-                your skills and experiences effectively.</p>
-        </section>
+        <h1>Welcome to CC Portfolio</h1>
+        <p>Showcase your skills, experiences, and achievements with ease.</p>
     </div>
+</section>
+
+{% include 'partials/_alert.html' %}
+{% include 'partials/_auth_user.html' %}
+
+<!-- About Section -->
+<section class="section bg-white">
+    <div class="container">
+        <div class="row align-items-stretch">
+            <!-- Text Content -->
+            <div class="col-md-6 about-home mt-3">
+                <div class="p-4">
+                    <h2 class="text-primary">About CC Portfolio</h2>
+                    <p>
+                        CC Portfolio is a platform that allows users to register and create personalized portfolios. Customize 
+                        your portfolio to suit your needs, including sections for About Me, Employment History, Education History, 
+                        Projects, and Contact Information such as LinkedIn, email, and phone number. This website is open to 
+                        professionals from all fields, allowing you to showcase your skills and experiences effectively.
+                    </p>
+                </div>
+            </div>
+            <!-- Image Content -->
+            <div class="col-md-6 mt-3">
+                <div class="h-100">
+                    <img src="{% static 'images/home-page-section-about.jpg' %}" alt="About CC Portfolio" 
+                         class="img-fluid rounded shadow-sm h-100 w-100 object-fit-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Steps Section -->
+<section class="section bg-white-smoke">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="{% static 'images/home-page-section-steps.jpg' %}" alt="Steps" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6">
+                <h2>How to Use the Website</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">Step 1: Register an account.</li>
+                    <li class="list-group-item">Step 2: Log in to your account.</li>
+                    <li class="list-group-item">Step 3: Click "Edit Profile" in the top navigation bar.</li>
+                    <li class="list-group-item">Step 4: Add sections to your profile and fill in the required information.</li>
+                    <li class="list-group-item">Step 5: Navigate to "View My Profile" to see your portfolio.</li>
+                    <li class="list-group-item">Step 6: Click "Copy My Portfolio Link" to share your portfolio.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section bg-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2>Frequently Asked Questions</h2>
+                <div class="accordion custom-accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                What is CC Portfolio?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                CC Portfolio is a platform for creating personalized online portfolios.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Is CC Portfolio free to use?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, CC Portfolio offers free access to all basic features.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                How do I upload my profile photo?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                To upload your profile photo, go to the 'Edit Profile' section and select 'Upload Photo'. Choose your desired image and save your changes.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Can I customize the sections in my portfolio?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, you can customize the sections in your portfolio by going to the 'Edit Profile' section and adding or editing the sections you want to display.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                How do I contact support?
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                You can contact support by filling out the contact form on the home page. Make sure to include your name, email, subject, and message.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                               
+            </div>
+            <div class="col-md-6">
+                <img src="{% static 'images/home-page-section-faq.jpg' %}" alt="FAQ" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section bg-white-smoke">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2>Contact Us</h2>
+                <p>You can contact us for support and also follow us on our social channels:</p>
+                <ul class="list-group contact-icons">
+                    <li class="list-group-item d-flex align-items-center mb-3">
+                        <div class="icon-container-home bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                            <i class="fas fa-envelope fa-2x"></i>
+                        </div>
+                        <span>email@example.com</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center mb-3">
+                        <div class="icon-container-home bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                            <i class="fas fa-phone fa-2x"></i>
+                        </div>
+                        <span>+123 456 7890</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center mb-3">
+                        <div class="icon-container-home bg-info text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                            <i class="fab fa-linkedin fa-2x"></i>
+                        </div>
+                        <span>linkedin.com/in/username</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center mb-3">
+                        <div class="icon-container-home bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                            <i class="fab fa-whatsapp fa-2x"></i>
+                        </div>
+                        <span>+123 456 7890</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h2>Contact Us</h2>
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Enter your message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
+
