@@ -5,11 +5,28 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Contact, Portfolio, Certification, Education, Employment, About, Profilephoto
 from .forms import ContactForm, PortfolioForm, CertificationForm, EducationForm, EmploymentForm, AboutForm, ProfilephotoForm
-from .utils import validate_image_file
+from .utils import validate_image_file, send_contact_email
+from django.conf import settings
 
-# render edit home page
+
 def home(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        full_message = f"Name: {name}\nEmail: {email}\n\n{message}"
+        
+        is_valid, error_message = send_contact_email(subject, full_message, [settings.SITE_CONTACT_EMAIL_ADDRESS])
+        if is_valid:
+            messages.success(request, 'Your message has been sent successfully!')
+        else:
+            messages.error(request, error_message)
+        return redirect('home')
+    
     return render(request, 'home-page.html')
+
+
 
 # render show portfolio page
 def user_profile(request, username):
