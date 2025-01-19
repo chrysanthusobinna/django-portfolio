@@ -109,6 +109,10 @@ footer {
 
 /* USER PROFILE STYLES */
 
+.user-about {
+    border-top-width: 4px;
+}
+
 section {
     padding: 2rem 1rem;
 }
@@ -417,3 +421,8 @@ button.btn {
     color: #555;  
 }
 
+
+.custom-outline {
+    border-top: 5px solid #007bff; 
+    border-radius: 10px; 
+}
