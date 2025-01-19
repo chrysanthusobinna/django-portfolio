@@ -4,6 +4,13 @@
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
 
+{% url 'home' as home_url %}
+{% url 'user_profile' user.username as user_profile_url %}
+{% url 'edit_user_profile' user.username as edit_user_profile_url %}
+{% url 'account_logout' as logout_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_login' as login_url %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,37 +39,31 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}">Home page</a>
+                            <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">Home page</a>
                         </li>
                         {% if user.is_authenticated %}
                         {% if user.is_staff %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                            <a class="nav-link" href="{{ admin_url }}">Admin</a>
                         </li>
-                        {% endif %}                       
+                        {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == user_profile %}active{% endif %}"
-                                href="{% url 'user_profile' user.username %}">View My Portfolio
-                            </a>
-                        </li>
-                        <li class="nav-item {% if request.path == edit_user_profile %}active{% endif %}">
-                            <a href="{% url 'edit_user_profile' user.username %}" class="nav-link">Edit My Portfolio</a>
+                            <a class="nav-link {% if request.path == user_profile_url %}active{% endif %}" href="{{ user_profile_url }}">View My Portfolio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == logout_url %}active{% endif %}"
-                                href="{% url 'account_logout' %}">Logout</a>
+                            <a class="nav-link {% if request.path == edit_user_profile_url %}active{% endif %}" href="{{ edit_user_profile_url }}">Edit My Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" href="{{ logout_url }}">Logout</a>
                         </li>
                         {% else %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == signup_url %}active{% endif %}"
-                                href="{% url 'account_signup' %}">Register</a>
+                            <a class="nav-link {% if request.path == signup_url %}active{% endif %}" href="{{ signup_url }}">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == login_url %}active{% endif %}"
-                                href="{% url 'account_login' %}">Login</a>
+                            <a class="nav-link {% if request.path == login_url %}active{% endif %}" href="{{ login_url }}">Login</a>
                         </li>
                         {% endif %}
-
                     </ul>
                 </div>
             </div>
