@@ -28,13 +28,27 @@ def home(request):
 
 
 
-# render show portfolio page
+# render show portfolio page and handle contact form 
 def user_profile(request, username):
     target_user, data = get_user_data(username)
 
     if not target_user:
         messages.error(request, "The user you are looking for does not exist.")
         return redirect('home')
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = f"{name} From your portfolio contact form"
+        message = request.POST.get('message')
+        full_message = f"Name: {name}\nEmail: {email}\n\n{message}"
+        
+        is_valid, error_message = send_contact_email(subject, full_message, [target_user.email])
+        if is_valid:
+            messages.success(request, 'Your message has been sent successfully!')
+        else:
+            messages.error(request, error_message)
+        return redirect('user_profile', username=target_user.username)
 
     context = {
         'target_user': target_user,

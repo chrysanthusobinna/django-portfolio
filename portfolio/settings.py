@@ -54,9 +54,9 @@ SITE_CONTACT_PHONE_NUMBER = "+44 456 7890 0000"
 SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['8000-chrysanthus-djangoportf-7qj350u5qho.ws-eu117.gitpod.io', '.herokuapp.com']
+ALLOWED_HOSTS = ['.gitpod.io', '.herokuapp.com']
 
 
 # Application definition
@@ -132,7 +132,7 @@ DATABASES = {
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
     "https://*.herokuapp.com",
-    "https://8000-chrysanthus-djangoportf-7qj350u5qho.ws-eu117.gitpod.io",
+    "https://*.gitpod.io",
 ]
 
 # Password validation

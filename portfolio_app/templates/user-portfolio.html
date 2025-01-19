@@ -191,24 +191,24 @@
         <!-- Contact Form -->
         <div class="container mt-5">
             <div class="p-4 bg-white text-dark shadow-sm rounded w-100">
-                <form>
+                <form method="POST" action="{% url 'user_profile' username=target_user.username %}">
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-12 col-md-6 mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" id="message" rows="4" placeholder="Enter your message"
-                            required></textarea>
+                        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Enter your message" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                </form>
+                </form>                
             </div>
         </div>
 
