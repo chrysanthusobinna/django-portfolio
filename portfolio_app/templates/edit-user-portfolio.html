@@ -242,11 +242,58 @@
             </table>
         </div>
     </div>
+
+<!-- Contact Information Section -->
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        Contact Information
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <td><b>Phone Number</b></td>
+                        <td>{% if contact.phone_number %}{{ contact.phone_number }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Email</b></td>
+                        <td>{% if contact.email_address %}{{ contact.email_address }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td><b>LinkedIn</b></td>
+                        <td>{% if contact.linkedin %} 
+                            <a href="{{ contact.linkedin }}" class="text-decoration-none">
+                                {{ contact.linkedin }}
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer {% if contact %}d-flex justify-content-between{% endif %}">
+        {% if contact %}
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+        {% endif %}
+        <button 
+        data-phone="{% if contact.phone_number %}{{ contact.phone_number }}{% endif %}" 
+        data-email="{% if contact.email_address %}{{ contact.email_address }}{% endif %}" 
+        data-linkedin="{% if contact.linkedin %}{{ contact.linkedin }}{% endif %}"
+        class="edit-contact-btn btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#editModal"> {% if contact %}Update Contact{% else %} Add Contact {% endif %}</button>
+    </div>
+
+ 
+
 </div>
+</div>
+
 
 
 {% include 'scroll-to-top.html' %}
 
+{% include 'modal-contact.html' %}
 {% include 'modal-portfolio.html' %}
 {% include 'modal-certification.html' %}
 {% include 'modal-education.html' %}

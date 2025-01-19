@@ -3,8 +3,8 @@ from django.contrib import messages
 from .helpers import get_user_data
 from django.contrib.auth.decorators import login_required
 
-from .models import Portfolio, Certification, Education, Employment, About, Profilephoto
-from .forms import PortfolioForm, CertificationForm, EducationForm, EmploymentForm, AboutForm, ProfilephotoForm
+from .models import Contact, Portfolio, Certification, Education, Employment, About, Profilephoto
+from .forms import ContactForm, PortfolioForm, CertificationForm, EducationForm, EmploymentForm, AboutForm, ProfilephotoForm
 from .utils import validate_image_file
 
 # render edit home page
@@ -306,3 +306,33 @@ def delete_profile_photo(request):
         except Exception as e:
             messages.error(request, f"An error occurred while trying to delete the profile photo: {str(e)}")
     return redirect('edit_user_profile', username=request.user.username)
+
+@login_required
+def contact_update(request):
+    contact, created = Contact.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = ContactForm(request.POST, instance=contact)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Contact updated successfully.")
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error Saving Contact: {error}")
+    return redirect('edit_user_profile', username=request.user.username)
+
+
+@login_required
+def contact_delete(request):
+    try:
+        contact = Contact.objects.filter(user=request.user).first()
+        if request.method == 'POST':
+            if contact:
+                contact.delete()
+                messages.success(request, "Contact deleted successfully.")
+            else:
+                messages.error(request, "Contact not found.")
+    except Exception as e:
+        messages.error(request, f"An error occurred: {e}")
+    return redirect('edit_user_profile', username=request.user.username)
+

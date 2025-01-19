@@ -67,8 +67,6 @@ class Contact(models.Model):
     phone_number = models.CharField(max_length=20)
     email_address = models.EmailField()
     linkedin = models.URLField(null=True, blank=True)
-    instagram_link = models.URLField(null=True, blank=True)
-    facebook_link = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return f"Contact Info for {self.user.username}"

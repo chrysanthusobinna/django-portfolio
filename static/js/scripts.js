@@ -30,6 +30,17 @@ $(document).ready(function () {
         $('#viewPortfolioModal').modal('show');
     });
  
+    // Edit contact button click
+    $('.edit-contact-btn').on('click', function() {
+        var phone = $(this).data('phone');
+        var email = $(this).data('email');
+        var linkedin = $(this).data('linkedin');
+
+        $('#editModal #id_phone_number').val(phone);
+        $('#editModal #id_email_address').val(email);
+        $('#editModal #id_linkedin').val(linkedin);
+    });
+    
     // Edit portfolio button click
     $('.edit-portfolio-btn').on('click', function() {
         var url = $(this).data('url');
@@ -157,7 +168,10 @@ $(document).ready(function () {
     $('#confirmSaveProfilePhoto').on('click', function() {
         $('#profilePhotoForm').submit();
     });
+
 });
+
+
 
 
 function previewProfilePhoto() {
