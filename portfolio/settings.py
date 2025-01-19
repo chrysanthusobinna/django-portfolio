@@ -28,6 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-3*lc7q-hg^7ppudb-l9509!zx1l-ks27$d@@_1h=yciqs2mnih")
 
+# Site Information Constants
+SITE_NAME = "CC Portfolio"
+SITE_CONTACT_EMAIL_ADDRESS = "contact@ccportfolio.com"
+SITE_CONTACT_PHONE_NUMBER = "+44 456 7890 0000"
+SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -81,6 +87,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'portfolio_app.context_processors.site_info',
             ],
         },
     },
