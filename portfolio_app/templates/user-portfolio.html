@@ -2,6 +2,14 @@
 
 {% load static %}
 
+{% block title %}
+    {{ user_fullname }}- PORTFOLIO
+{% endblock %}
+
+{% block meta_description %}
+    Get to know more about {{ user_fullname }}
+{% endblock %}
+
 {% block content %}
 <div class="container">
 
@@ -11,14 +19,7 @@
         <div class="card border-primary text-center" style="border-top-width: 4px;">
             <div class="card-body">
                 <h5 class="text-uppercase text-center mb-3">
-                    {% if target_user.first_name %}
-                    {{ target_user.first_name }}
-                    {% endif %}
-
-                    {% if target_user.last_name %}
-                    {{ target_user.last_name }}
-                    {% endif %}
-                    PORTFOLIO
+                    {{ user_fullname }} - PORTFOLIO
                 </h5>
 
                 <div class="profile-photo-container mb-3">

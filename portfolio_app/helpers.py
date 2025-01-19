@@ -7,6 +7,14 @@ def get_user_data(username):
     except User.DoesNotExist:
         return None, None
 
+    # Concatenate first name and last name if they exist, otherwise use email address
+    user_fullname = ""
+    if user.first_name:
+        user_fullname += user.first_name
+    if user.last_name:
+        user_fullname += " " + user.last_name
+    user_fullname = user_fullname.strip() or user.email
+
     data = {
         'profilephoto': Profilephoto.objects.filter(user=user).first() or None,
         'about': About.objects.filter(user=user).first() or None,
@@ -15,5 +23,6 @@ def get_user_data(username):
         'education': Education.objects.filter(user=user) or None,
         'portfolios': Portfolio.objects.filter(user=user) or None,
         'contact': Contact.objects.filter(user=user).first() or None,
+        'user_fullname': user_fullname,
     }
     return user, data

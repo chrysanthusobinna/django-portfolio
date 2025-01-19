@@ -2,19 +2,15 @@
 
 {% load static %}
 
+{% block title %}
+    EDIT PORTFOLIO 
+{% endblock %}
+
 {% block content %}
 
 <div class="container py-5">
     <h5 class="text-uppercase text-center mb-3">
-        EDIT PORTFOLIO -
-        {% if target_user.first_name %}
-        {{ target_user.first_name }}
-        {% endif %}
-
-        {% if target_user.last_name %}
-        {{ target_user.last_name }}
-        {% endif %}
-        PORTFOLIO
+        EDIT PORTFOLIO -  {{ user_fullname }}
     </h5>
 
     <!-- Profile Photo Section -->
