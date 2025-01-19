@@ -48,7 +48,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_TIMEOUT = 10 
 
 # Site Information Constants
-SITE_NAME = "CC Portfolio"
+SITE_NAME = "MIfolio"
 SITE_CONTACT_EMAIL_ADDRESS = "contact@ccportfolio.com"
 SITE_CONTACT_PHONE_NUMBER = "+44 456 7890 0000"
 SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
