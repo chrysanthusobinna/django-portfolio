@@ -300,16 +300,17 @@ button.btn {
 /* CUSTOM STYLES FOR THE TABLE */
 .table-responsive {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;  
 }
-.table th, .table td {
-    white-space: nowrap; /* Prevent text wrapping */
+.custom-table .table th, 
+.custom-table .table td {
+    white-space: nowrap;  
 }
-.table td {
+.custom-table .table td {
     padding: 0.75rem;
     vertical-align: top;
 }
-.table th {
+.custom-table .table th {
     font-weight: bold;
     text-align: center;
 }
