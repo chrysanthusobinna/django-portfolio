@@ -1,131 +1,388 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+<img src="documentation/logo.png" alt="logo" width="200"/>
 
-Welcome Chrysanthus Chiagwah,
+# MiPortfolio
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+## Overview
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **June 18, 2024**
+**MiPortfolio** is a web-based application designed to help individuals create an online portfolio. Users can register, log in, and update their profiles with various sections they wish to include. The application allows customization of sections such as About, Employment Timeline, Education Timeline, Certification Timeline, Portfolio, and Contact Information. 
 
-## Gitpod Reminders
+MiPortfolio is open to everyone, regardless of their job specialty, enabling users to showcase their portfolios on social media platforms, CVs, and other professional networks. This visibility allows recruiters and potential business partners to learn about them and connect.
+ 
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
 
-`python3 -m http.server`
+## User Stories and Acceptance Criteria
 
-A blue button should appear to click: _Make Public_,
+### User Registration and Login
 
-Another blue button should appear to click: _Open Browser_.
+#### User Stories
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
+- **As a user, I want to register on the website so that I can create my portfolio.**
+  - **Acceptance Criteria:**
+    - Given I am on the registration page,
+    - When I fill out the registration form and submit it,
+    - Then I should receive a confirmation email and be able to log in.
 
-A blue button should appear to click: _Make Public_,
+- **As a user, I want to log in and log out of the website so that I can access and manage my portfolio securely.**
+  - **Acceptance Criteria:**
+    - Given I am on the login page,
+    - When I enter my credentials and submit,
+    - Then I should be logged in and redirected to my profile page.
+    - Given I am logged in,
+    - When I click the logout button,
+    - Then I should be logged out and redirected to the homepage.
 
-Another blue button should appear to click: _Open Browser_.
+- **As a user, I want to manage my profile so that I can update my personal information.**
+  - **Acceptance Criteria:**
+    - Given I am logged in,
+    - When I navigate to the profile management page,
+    - Then I should be able to update my personal information and save the changes.
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+### Home Page
 
-To log into the Heroku toolbelt CLI:
+#### User Stories
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+- **As a user, I want to visit the home page and see information about the website.**
+  - **Acceptance Criteria:**
+    - Given I am on the homepage,
+    - When I load the page,
+    - Then I should see an overview of the website and its features.
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
+- **As a user, I want to have navigation links to the "Register" and "Login" pages from the home page.**
+  - **Acceptance Criteria:**
+    - Given I am on the homepage,
+    - When I look at the navigation menu,
+    - Then I should see links to the "Register" and "Login" pages.
 
-### Connecting your Mongo database
+### Profile Management
 
-- **Connect to Mongo CLI on a IDE**
-- navigate to your MongoDB Clusters Sandbox
-- click **"Connect"** button
-- select **"Connect with the MongoDB shell"**
-- select **"I have the mongo shell installed"**
-- choose **mongosh (2.0 or later)** for : **"Select your mongo shell version"**
-- choose option: **"Run your connection string in your command line"**
-- in the terminal, paste the copied code `mongo "mongodb+srv://<CLUSTER-NAME>.mongodb.net/<DBname>" --apiVersion 1 --username <USERNAME>`
-  - replace all `<angle-bracket>` keys with your own data
-- enter password _(will not echo **\*\*\*\*** on screen)_
+#### User Stories
 
-------
+- **As a user, I want to add my employment history so that I can showcase my work experience.**
+  - **Acceptance Criteria:**
+    - Given I am logged in,
+    - When I navigate to the employment history section,
+    - Then I should be able to add, edit, and delete my employment entries.
 
-## Release History
+- **As a user, I want to add my education details so that I can highlight my academic background.**
+  - **Acceptance Criteria:**
+    - Given I am logged in,
+    - When I navigate to the education section,
+    - Then I should be able to add, edit, and delete my education entries.
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+- **As a user, I want to add my certifications and training so that I can demonstrate my professional development.**
+  - **Acceptance Criteria:**
+    - Given I am logged in,
+    - When I navigate to the certifications section,
+    - Then I should be able to add, edit, and delete my certifications.
 
-**June 18, 2024,** Add Mongo back into template
+- **As a user, I want to add my portfolio projects so that I can showcase my work.**
+  - **Acceptance Criteria:**
+    - Given I am logged in,
+    - When I navigate to the portfolio section,
+    - Then I should be able to add, edit, and delete my portfolio projects.
 
-**June 14, 2024,** Temporarily remove Mongo until the key issue is resolved
+- **As a user, I want to add my contact information so that I can display my contacts.**
+  - **Acceptance Criteria:**
+    - Given I am logged in,
+    - When I navigate to the contact information section,
+    - Then I should be able to add, edit, and delete my contact information.
 
-**May 28 2024:** Fix Mongo and Links installs
+- **As a user, I want to choose which sections to add to my portfolio so that I can customize it according to my needs.**
+  - **Acceptance Criteria:**
+    - Given I am logged in,
+    - When I navigate to the profile customization page,
+    - Then I should be able to select and customize the sections I want to include in my portfolio.
 
-**April 26 2024:** Update node version to 16
+### Email Functionality for Contact Forms
 
-**September 20 2023:** Update Python version to 3.9.17.
+#### User Stories
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+- **As a user, I want to send an email using the contact form on the home page so that I can reach out for inquiries or support.**
+  - **Acceptance Criteria:**
+    - Given I am on the homepage,
+    - When I fill out and submit the contact form,
+    - Then I should receive a confirmation message that my email was sent successfully.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+- **As a user, I want to receive a user-friendly message on the screen after sending an email so that I know my message was sent successfully.**
+  - **Acceptance Criteria:**
+    - Given I have submitted the contact form,
+    - When the email is sent,
+    - Then I should see a confirmation message on the screen.
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+- **As a user, I want to send an email for support so that I can get help when needed.**
+  - **Acceptance Criteria:**
+    - Given I am on the support page,
+    - When I fill out and submit the support form,
+    - Then I should receive a confirmation message that my email was sent successfully.
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+- **As a user, I want to use the contact form in a user portfolio to send an email to the user so that I can communicate directly with them.**
+  - **Acceptance Criteria:**
+    - Given I am viewing a user's portfolio,
+    - When I fill out and submit the contact form,
+    - Then the user should receive an email with my message.
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+## Tools & Technologies Used
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+- **HTML** - Used for structuring the web pages.
+- **CSS** - Used for styling the web pages.
+- **JavaScript** - Used for interactive elements.
+- **jQuery** - Used for simplifying DOM manipulation and event handling.
+- **Bootstrap** - Used for responsive design and layout.
+- **Python Django** - Used for backend development.
+- **PostgreSQL** - Used for the database.
+- **Cloudinary** - Used for storing images.
+- **GitHub Pages** - Used for hosting the deployed site.
+- **Heroku** - Used for deployment.
+ 
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+## Application Workflow
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+The application workflow outlines the steps a user takes from visiting the website to managing their profile and portfolio. Here's a detailed explanation of the workflow:
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+1. **Visit the Home Page**:
+   - The user navigates to the home page of the website.
+   - The home page provides an overview of the website, instructions on how to use it, a Frequently Asked Questions section, and contact information along with a contact form.
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+2. **Register**:
+   - The user clicks on the "Register" link from the navigation menu on the home page.
+   - The user is directed to the registration page where they can create a new account by providing their details.
+   - Upon successful registration, the user receives a confirmation email and can log in to their new account.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+3. **Login**:
+   - The user clicks on the "Login" link from the navigation menu on the home page.
+   - The user is directed to the login page where they can enter their credentials to access their account.
+   - Upon successful login, the user is redirected to their profile page.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+4. **Edit Profile**:
+   - Once logged in, the user can navigate to the profile management page.
+   - The user can update their personal information, including their profile photo, about section, contact information, employment history, education details, certifications, and portfolio projects.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+5. **Add, Update, or Delete Sections**:
+   - The user can add new sections to their profile, such as employment history, education details, certifications, and portfolio projects.
+   - The user can also update existing sections with new information or delete sections they no longer want to include in their profile.
 
-------
+6. **View and Share Profile**:
+   - The user can click on "View My Profile" to see their user profile page.
+   - The user can share this profile page with others, allowing them to view the user's portfolio.
 
-## FAQ about the uptime script
+7. **Logout**:
+   - When the user is done managing their profile, they can log out by clicking the logout button.
+   - The user is then redirected to the home page.
 
-**Why have you added this script?**
+ 
+## Main Site Pages
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+The application features three primary pages on the main site:
 
-**How will this affect me?**
+- **`index.html`**: The homepage, which provides an overview and introduction, instructions on how to use the website, a Frequently Asked Questions section, and contact information along with a contact form.
+- **`register`**: The registration page for new users to create an account.
+- **`login.html`**: The login page for registered users to access their accounts.
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+## User Pages
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+The application provides several pages for users once they are logged in. Below is a description of each page and its functionality:
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+- **User Profile Page**: Accessible via `www.example.com/<username>`, this page displays the user's profile. It is available to both logged-in and non-logged-in users, allowing users to share their profile link with others. For example, `www.example.com/chrysanthusobinna`.
 
-**So….?**
+- **Edit User Profile Page**: Accessible via `www.example.com/edit/<username>`, this page allows users to create, edit, and delete their profile photo, about section, contacts, employment, education, and portfolio.
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
+- **Logout Page**: Accessible via `www.example.com/logout/`, this page allows users to log out of their accounts.
 
-**Can I opt out?**
+## Admin Pages
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
+In addition to the user pages, the application also includes admin pages for managing the site. These pages are built using Django Allauth for authentication and user management. Below is a description of each admin page and its functionality:
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+- **Admin Dashboard**: Accessible via `www.example.com/admin-panel/`, this page provides an overview of the site's activity and allows administrators to manage users, content, and site settings.
+- **User Management**: Accessible via `www.example.com/admin-panel/auth/user/`, this page allows administrators to view, add, edit, and delete user accounts.
+- **Group Management**: Accessible via `www.example.com/admin-panel/auth/group/`, this page allows administrators to manage user groups and permissions.
+- **Site Configuration**: Accessible via `www.example.com/admin-panel/sites/site/`, this page allows administrators to configure site settings.
+- **Social Account Management**: Accessible via `www.example.com/admin-panel/socialaccount/socialaccount/`, this page allows administrators to manage social accounts linked to user profiles.
+- **Email Address Management**: Accessible via `www.example.com/admin-panel/account/emailaddress/`, this page allows administrators to manage email addresses associated with user accounts.
 
-**Anything more?**
+ 
+ 
+![screenshot](documentation/mockup.png)
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+
+## UX
+
+#### Color Scheme
+
+- **Background Color:** `#f8f9fa`
+  - The light grey background color provides a clean and modern look, ensuring that the content is easy to read and visually appealing.
+
+- **Page Header Color:** `#007bff` with `color: white`
+  - The blue header color creates a cohesive and harmonious design, while the white text ensures high contrast and readability, making the header stand out.
+
+- **Page Footer Color:** `#343a40` with `color: white`
+  - The dark grey footer color provides a strong foundation for the page, grounding the design. The white text color maintains readability and consistency with the header, creating a balanced and professional appearance.
+
+#### Typography
+
+- **Font:** Arial, sans-serif
+  - Arial is a widely used sans-serif font known for its clean and modern appearance. It is highly readable on both screens and print, making it an excellent choice for a portfolio website. The use of a sans-serif font also aligns with contemporary design trends, ensuring that the website looks up-to-date and professional.
+
+
+Got it! Here are some features based on what I know about your software:
 
 ---
 
-Happy coding!
+## Features
+
+### Existing Features
+
+- **User Registration**  
+  Allows new users to create an account by providing their details. This feature ensures that users can securely register and access the platform.
+
+  !screenshot
+
+- **User Login**  
+  Enables registered users to log in to their accounts using their credentials. This feature ensures secure access to user profiles and personalized content.
+
+  !screenshot
+
+- **Profile Customization**  
+  Users can customize their profiles by adding sections such as About, Employment Timeline, Education Timeline, Certification Timeline, Portfolio, and Contact Information. This feature allows users to create a comprehensive and personalized portfolio.
+
+  !screenshot
+
+- **Portfolio Management**  
+  Users can add, edit, and delete portfolio items. This feature allows users to showcase their work and achievements in a structured manner.
+
+  ![screenshot](documentation/xxxx.png)
+
+- **Certification Management**  
+  Users can add, edit, and delete certifications. This feature helps users highlight their qualifications and professional development.
+
+  ![screenshot](documentation/xxxx.png)
+
+- **Education Management**  
+  Users can add, edit, and delete education entries. This feature allows users to present their academic background and achievements.
+
+  ![screenshot](documentation/xxxx.png)
+
+- **Employment Management**  
+  Users can add, edit, and delete employment entries. This feature enables users to showcase their work experience and career progression.
+
+  ![screenshot](documentation/xxxx.png)
+
+- **Contact Information Management**  
+  Users can update and delete their contact information. This feature ensures that users can provide up-to-date contact details for networking and professional connections.
+
+ ![screenshot](documentation/xxxx.png)
+
+- **Profile Photo Management**  
+  Users can save and delete their profile photos. This feature allows users to personalize their profiles with a professional image.
+
+   ![screenshot](documentation/xxxx.png)
+
+- **Admin Dashboard**  
+  Provides administrators with an overview of the site's activity and tools to manage users, content, and site settings. This feature ensures efficient site management and user administration.
+
+ ![screenshot](documentation/xxxx.png)
+ 
+
+### Future Features to Implement
+
+- **AI-Powered CV Upload and Profile Generation**  
+  A feature that allows users to upload their CV in PDF or Word document format. The system uses AI to analyze the CV and automatically generate a profile for the user, organizing their information into relevant sections such as About, Employment, Education, Certifications, and Portfolio.
+
+
+- **AI-Generated CV Creation**  
+  A feature that uses AI to generate a CV based on the information in the user's profile. This feature will allow users to easily create a professional CV by leveraging the data they have already entered into their profile.
+
+
+- **Skill Endorsements**  
+  A feature that allows users to endorse each other's skills. This feature can help users validate their expertise and build credibility within their professional network.
+
+
+- **Portfolio Analytics**  
+  A feature that provides users with analytics on their portfolio views, including the number of views, the most viewed sections, and the sources of traffic. This feature can help users understand the impact of their portfolio and make data-driven improvements.
+
+
+- **Customizable Themes**  
+  A feature that allows users to choose from a variety of themes to customize the look and feel of their portfolio. This feature can help users create a unique and personalized presentation of their professional information.
+
+
+- **Integration with Job Boards**  
+  A feature that integrates the portfolio with popular job boards, allowing users to easily apply for jobs using their MiPortfolio profile. This feature can streamline the job application process and increase the visibility of users' profiles to potential employers.
+
+
+- **Unique Domain Names**  
+  A feature that allows users to have a unique domain attached to their profile, such as `www.chrysanthusobinna.com` instead of `www.example.com/chrysanthusobinna`. This feature can help users create a more professional and personalized online presence.
+ 
+
+## Data Model
+
+### Profilephoto
+Stores a user's profile photo.
+- `user`: Links to a user.
+- `profile_photo`: The photo itself.
+
+### About
+Stores information about a user.
+- `user`: Links to a user.
+- `about`: Text field for the user's description.
+
+### Employment
+Stores employment history.
+- `user`: Links to a user.
+- `employer_name`: Name of the employer.
+- `job_title`: Job title.
+- `description_of_duties`: Description of job duties.
+- `start_date` and `end_date`: Employment period.
+
+### Education
+Stores educational background.
+- `user`: Links to a user.
+- `qualification`: Degree or qualification.
+- `institution_name`: Name of the institution.
+- `start_date` and `end_date`: Education period.
+
+### Certification
+Stores certifications.
+- `user`: Links to a user.
+- `name`: Name of the certification.
+- `issuer`: Issuing organization.
+- `date_issued`: Date of issuance.
+
+### Portfolio
+Stores portfolio projects.
+- `user`: Links to a user.
+- `title`: Title of the project.
+- `description`: Description of the project.
+- `link`: URL link to the project.
+- `portfolio_photo`: Photo related to the project.
+
+### Contact
+Stores contact information.
+- `user`: Links to a user.
+- `phone_number`: Phone number.
+- `email_address`: Email address.
+- `linkedin`: LinkedIn profile URL.
+
+
+### Flowchart
+
+
+## Testing
+
+> [!NOTE]  
+> SEE [TESTING.md](TESTING.md) file.
+
+ 
+## Credits
+
+
+### Deploying to Heroku
+
+
+**Media**
+
+* The photos used on the Home Page, About Page, and Contact Page are from [Pexels](https://www.pexels.com/).
+* The favicon for this project was sourced from [Favicon.io](https://favicon.io/).
+
+**Mentor Support**
+
+I would like to express my gratitude to my mentor for their invaluable support throughout this project. They shared best practices and guidelines that significantly improved my approach to the design and development of this project.
