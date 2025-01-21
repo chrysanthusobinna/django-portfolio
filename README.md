@@ -224,10 +224,7 @@ In addition to the user pages, the application also includes admin pages for man
   - Arial is a widely used sans-serif font known for its clean and modern appearance. It is highly readable on both screens and print, making it an excellent choice for a portfolio website. The use of a sans-serif font also aligns with contemporary design trends, ensuring that the website looks up-to-date and professional.
 
 
-Got it! Here are some features based on what I know about your software:
-
----
-
+ 
 ## Features
 
 ### Existing Features
