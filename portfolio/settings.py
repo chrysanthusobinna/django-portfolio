@@ -31,19 +31,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-3*lc7q-hg^7ppudb-l950
 
 # Retrieve email settings from environment variables
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT'))  # Ensure the port is an integer
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))  # Ensure the port is an integer
+EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-
-# Determine whether to use TLS or SSL based on the port
-if EMAIL_PORT == 465:
-    EMAIL_USE_SSL = True
-elif EMAIL_PORT == 587:
-    EMAIL_USE_SSL = True
-else:
-    EMAIL_USE_SSL = False
-
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_TIMEOUT = 10 
 
