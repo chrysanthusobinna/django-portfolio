@@ -40,7 +40,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 if EMAIL_PORT == 465:
     EMAIL_USE_SSL = True
 elif EMAIL_PORT == 587:
-    EMAIL_USE_SSL = False
+    EMAIL_USE_SSL = True
 else:
     EMAIL_USE_SSL = False
 
@@ -54,7 +54,7 @@ SITE_CONTACT_PHONE_NUMBER = "+44 456 7890 0000"
 SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.gitpod.io', '.herokuapp.com']
 
