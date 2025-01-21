@@ -223,7 +223,7 @@
                                 data-bs-target="#editPortfolioModal" data-url="{% url 'edit_portfolio' portfolio.id %}"
                                 data-title="{{ portfolio.title }}" data-description="{{ portfolio.description }}"
                                 data-link="{{ portfolio.link }}"
-                                data-portfolio_photo="{% if portfolio.portfolio_photo %}{{ portfolio.portfolio_photo.url }}{% else %}{% static 'images/default.jpg' %}{% endif %}">
+                                data-portfolio_photo="{% if portfolio.portfolio_photo %}{{ portfolio.portfolio_photo.url }}{% else %}{% static 'images/default.png' %}{% endif %}">
                                 Edit
                             </button>
 
