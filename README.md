@@ -1,210 +1,18 @@
-<img src="documentation/logo.png" alt="logo" width="200"/>
+# [MiPortfolio](https://django-portfolio-cc-22a794f01134.herokuapp.com)
 
-# MiPortfolio
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/t/chrysanthusobinna/django-portfolio)](https://github.com/chrysanthusobinna/django-portfolio/commits/main)
+[![GitHub last commit](https://img.shields.io/github/last-commit/chrysanthusobinna/django-portfolio)](https://github.com/chrysanthusobinna/django-portfolio/commits/main)
+[![GitHub repo size](https://img.shields.io/github/repo-size/chrysanthusobinna/django-portfolio)](https://github.com/chrysanthusobinna/django-portfolio)
 
-## Overview
+ ## Overview
 
 **MiPortfolio** is a web-based application designed to help individuals create an online portfolio. Users can register, log in, and update their profiles with various sections they wish to include. The application allows customization of sections such as About, Employment Timeline, Education Timeline, Certification Timeline, Portfolio, and Contact Information. 
 
 MiPortfolio is open to everyone, regardless of their job specialty, enabling users to showcase their portfolios on social media platforms, CVs, and other professional networks. This visibility allows recruiters and potential business partners to learn about them and connect.
- 
 
-
-## User Stories and Acceptance Criteria
-
-### User Registration and Login
-
-#### User Stories
-
-- **As a user, I want to register on the website so that I can create my portfolio.**
-  - **Acceptance Criteria:**
-    - Given I am on the registration page,
-    - When I fill out the registration form and submit it,
-    - Then I should receive a confirmation email and be able to log in.
-
-- **As a user, I want to log in and log out of the website so that I can access and manage my portfolio securely.**
-  - **Acceptance Criteria:**
-    - Given I am on the login page,
-    - When I enter my credentials and submit,
-    - Then I should be logged in and redirected to my profile page.
-    - Given I am logged in,
-    - When I click the logout button,
-    - Then I should be logged out and redirected to the homepage.
-
-- **As a user, I want to manage my profile so that I can update my personal information.**
-  - **Acceptance Criteria:**
-    - Given I am logged in,
-    - When I navigate to the profile management page,
-    - Then I should be able to update my personal information and save the changes.
-
-### Home Page
-
-#### User Stories
-
-- **As a user, I want to visit the home page and see information about the website.**
-  - **Acceptance Criteria:**
-    - Given I am on the homepage,
-    - When I load the page,
-    - Then I should see an overview of the website and its features.
-
-- **As a user, I want to have navigation links to the "Register" and "Login" pages from the home page.**
-  - **Acceptance Criteria:**
-    - Given I am on the homepage,
-    - When I look at the navigation menu,
-    - Then I should see links to the "Register" and "Login" pages.
-
-### Profile Management
-
-#### User Stories
-
-- **As a user, I want to add my employment history so that I can showcase my work experience.**
-  - **Acceptance Criteria:**
-    - Given I am logged in,
-    - When I navigate to the employment history section,
-    - Then I should be able to add, edit, and delete my employment entries.
-
-- **As a user, I want to add my education details so that I can highlight my academic background.**
-  - **Acceptance Criteria:**
-    - Given I am logged in,
-    - When I navigate to the education section,
-    - Then I should be able to add, edit, and delete my education entries.
-
-- **As a user, I want to add my certifications and training so that I can demonstrate my professional development.**
-  - **Acceptance Criteria:**
-    - Given I am logged in,
-    - When I navigate to the certifications section,
-    - Then I should be able to add, edit, and delete my certifications.
-
-- **As a user, I want to add my portfolio projects so that I can showcase my work.**
-  - **Acceptance Criteria:**
-    - Given I am logged in,
-    - When I navigate to the portfolio section,
-    - Then I should be able to add, edit, and delete my portfolio projects.
-
-- **As a user, I want to add my contact information so that I can display my contacts.**
-  - **Acceptance Criteria:**
-    - Given I am logged in,
-    - When I navigate to the contact information section,
-    - Then I should be able to add, edit, and delete my contact information.
-
-- **As a user, I want to choose which sections to add to my portfolio so that I can customize it according to my needs.**
-  - **Acceptance Criteria:**
-    - Given I am logged in,
-    - When I navigate to the profile customization page,
-    - Then I should be able to select and customize the sections I want to include in my portfolio.
-
-### Email Functionality for Contact Forms
-
-#### User Stories
-
-- **As a user, I want to send an email using the contact form on the home page so that I can reach out for inquiries or support.**
-  - **Acceptance Criteria:**
-    - Given I am on the homepage,
-    - When I fill out and submit the contact form,
-    - Then I should receive a confirmation message that my email was sent successfully.
-
-- **As a user, I want to receive a user-friendly message on the screen after sending an email so that I know my message was sent successfully.**
-  - **Acceptance Criteria:**
-    - Given I have submitted the contact form,
-    - When the email is sent,
-    - Then I should see a confirmation message on the screen.
-
-- **As a user, I want to send an email for support so that I can get help when needed.**
-  - **Acceptance Criteria:**
-    - Given I am on the support page,
-    - When I fill out and submit the support form,
-    - Then I should receive a confirmation message that my email was sent successfully.
-
-- **As a user, I want to use the contact form in a user portfolio to send an email to the user so that I can communicate directly with them.**
-  - **Acceptance Criteria:**
-    - Given I am viewing a user's portfolio,
-    - When I fill out and submit the contact form,
-    - Then the user should receive an email with my message.
-
-
-## Tools & Technologies Used
-
-- **HTML** - Used for structuring the web pages.
-- **CSS** - Used for styling the web pages.
-- **JavaScript** - Used for interactive elements.
-- **jQuery** - Used for simplifying DOM manipulation and event handling.
-- **Bootstrap** - Used for responsive design and layout.
-- **Python Django** - Used for backend development.
-- **PostgreSQL** - Used for the database.
-- **Cloudinary** - Used for storing images.
-- **GitHub Pages** - Used for hosting the deployed site.
-- **Heroku** - Used for deployment.
- 
-
-## Application Workflow
-
-The application workflow outlines the steps a user takes from visiting the website to managing their profile and portfolio. Here's a detailed explanation of the workflow:
-
-1. **Visit the Home Page**:
-   - The user navigates to the home page of the website.
-   - The home page provides an overview of the website, instructions on how to use it, a Frequently Asked Questions section, and contact information along with a contact form.
-
-2. **Register**:
-   - The user clicks on the "Register" link from the navigation menu on the home page.
-   - The user is directed to the registration page where they can create a new account by providing their details.
-   - Upon successful registration, the user receives a confirmation email and can log in to their new account.
-
-3. **Login**:
-   - The user clicks on the "Login" link from the navigation menu on the home page.
-   - The user is directed to the login page where they can enter their credentials to access their account.
-   - Upon successful login, the user is redirected to their profile page.
-
-4. **Edit Profile**:
-   - Once logged in, the user can navigate to the profile management page.
-   - The user can update their personal information, including their profile photo, about section, contact information, employment history, education details, certifications, and portfolio projects.
-
-5. **Add, Update, or Delete Sections**:
-   - The user can add new sections to their profile, such as employment history, education details, certifications, and portfolio projects.
-   - The user can also update existing sections with new information or delete sections they no longer want to include in their profile.
-
-6. **View and Share Profile**:
-   - The user can click on "View My Profile" to see their user profile page.
-   - The user can share this profile page with others, allowing them to view the user's portfolio.
-
-7. **Logout**:
-   - When the user is done managing their profile, they can log out by clicking the logout button.
-   - The user is then redirected to the home page.
-
- 
-## Main Site Pages
-
-The application features three primary pages on the main site:
-
-- **`index.html`**: The homepage, which provides an overview and introduction, instructions on how to use the website, a Frequently Asked Questions section, and contact information along with a contact form.
-- **`register`**: The registration page for new users to create an account.
-- **`login.html`**: The login page for registered users to access their accounts.
-
-## User Pages
-
-The application provides several pages for users once they are logged in. Below is a description of each page and its functionality:
-
-- **User Profile Page**: Accessible via `www.example.com/<username>`, this page displays the user's profile. It is available to both logged-in and non-logged-in users, allowing users to share their profile link with others. For example, `www.example.com/chrysanthusobinna`.
-
-- **Edit User Profile Page**: Accessible via `www.example.com/edit/<username>`, this page allows users to create, edit, and delete their profile photo, about section, contacts, employment, education, and portfolio.
-
-- **Logout Page**: Accessible via `www.example.com/logout/`, this page allows users to log out of their accounts.
-
-## Admin Pages
-
-In addition to the user pages, the application also includes admin pages for managing the site. These pages are built using Django Allauth for authentication and user management. Below is a description of each admin page and its functionality:
-
-- **Admin Dashboard**: Accessible via `www.example.com/admin-panel/`, this page provides an overview of the site's activity and allows administrators to manage users, content, and site settings.
-- **User Management**: Accessible via `www.example.com/admin-panel/auth/user/`, this page allows administrators to view, add, edit, and delete user accounts.
-- **Group Management**: Accessible via `www.example.com/admin-panel/auth/group/`, this page allows administrators to manage user groups and permissions.
-- **Site Configuration**: Accessible via `www.example.com/admin-panel/sites/site/`, this page allows administrators to configure site settings.
-- **Social Account Management**: Accessible via `www.example.com/admin-panel/socialaccount/socialaccount/`, this page allows administrators to manage social accounts linked to user profiles.
-- **Email Address Management**: Accessible via `www.example.com/admin-panel/account/emailaddress/`, this page allows administrators to manage email addresses associated with user accounts.
-
- 
- 
 ![screenshot](documentation/mockup.png)
 
-
+ 
 ## UX
 
 #### Color Scheme
@@ -224,7 +32,91 @@ In addition to the user pages, the application also includes admin pages for man
   - Arial is a widely used sans-serif font known for its clean and modern appearance. It is highly readable on both screens and print, making it an excellent choice for a portfolio website. The use of a sans-serif font also aligns with contemporary design trends, ensuring that the website looks up-to-date and professional.
 
 
+## User Stories
+
+### New Site Users
+
+- As a new site user, I would like to register on the website, so that I can create my portfolio.  
+- As a new site user, I would like to log in and log out of the website, so that I can access and manage my portfolio securely.  
+- As a new site user, I would like to visit the home page, so that I can see information about the website.  
+- As a new site user, I would like to navigate to the "Register" and "Login" pages from the home page, so that I can easily access the registration and login functionalities.
+
+### Returning Site Users
+
+- As a returning site user, I would like to manage my profile, so that I can update my personal information.  
+- As a returning site user, I would like to add my employment history, so that I can showcase my work experience.  
+- As a returning site user, I would like to add my education details, so that I can highlight my academic background.  
+- As a returning site user, I would like to add my certifications and training, so that I can demonstrate my professional development.  
+- As a returning site user, I would like to add my portfolio projects, so that I can showcase my work.  
+- As a returning site user, I would like to add my contact information, so that I can display my contact details.  
+- As a returning site user, I would like to customize the sections in my portfolio, so that I can tailor it to my preferences.
+
+### Site Admin
+
+- As a site administrator, I should be able to manage user accounts, so that I can ensure the platform is secure and functional.  
+- As a site administrator, I should be able to review submitted portfolios, so that I can support users.  
+- As a site administrator, I should be able to manage contact form submissions, so that I can respond to inquiries efficiently.  
+- As a site administrator, I should be able to make changes to any user account, so that I can assist with updates or resolve issues on behalf of users.
+---
+
+## Wireframes
+
+To follow best practice, wireframes were developed for mobile, tablet, and desktop sizes.
+I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wireframes.
+
+### Mobile Wireframes
+
+< details >
+< summary > Click here to see the Mobile Wireframes < / summary >
+
+Home
+  - ![screenshot](documentation/wireframes/mobile-home.png)
+
+User Profile Page
+  - ![screenshot](documentation/wireframes/mobile-about.png)
+
+Edit User Profile Page
+  - ![screenshot](documentation/wireframes/mobile-contact.png)
+
+< / details >
+
+### Tablet Wireframes
+
+< details >
+< summary > Click here to see the Tablet Wireframes < / summary >
+
+Home
+  - ![screenshot](documentation/wireframes/tablet-home.png)
+
+User Profile Page
+
+  - ![screenshot](documentation/wireframes/tablet-about.png)
+
+Edit User Profile Page
+
+  - ![screenshot](documentation/wireframes/tablet-contact.png)
+
  
+< / details >
+
+### Desktop Wireframes
+
+< details >
+< summary > Click here to see the Desktop Wireframes < / summary >
+
+Home
+  - ![screenshot](documentation/wireframes/desktop-home.png)
+
+User Profile Page
+  - ![screenshot](documentation/wireframes/desktop-about.png)
+
+Edit User Profile Page
+  - ![screenshot](documentation/wireframes/desktop-contact.png)
+
+< / details >
+
+
+
 ## Features
 
 ### Existing Features
@@ -308,7 +200,45 @@ In addition to the user pages, the application also includes admin pages for man
 
 - **Unique Domain Names**  
   A feature that allows users to have a unique domain attached to their profile, such as `www.chrysanthusobinna.com` instead of `www.example.com/chrysanthusobinna`. This feature can help users create a more professional and personalized online presence.
- 
+
+
+
+## Tools & Technologies Used
+
+- [![Markdown Builder](https://img.shields.io/badge/Markdown_Builder-grey?logo=markdown&logoColor=000000)](https://tim.2bn.dev/markdown-builder) used to generate README and TESTING templates.
+- [![Git](https://img.shields.io/badge/Git-grey?logo=git&logoColor=F05032)](https://git-scm.com) used for version control. (`git add`, `git commit`, `git push`)
+- [![GitHub](https://img.shields.io/badge/GitHub-grey?logo=github&logoColor=181717)](https://github.com) used for secure online code storage.
+
+- IDE
+- [![Gitpod](https://img.shields.io/badge/Gitpod-grey?logo=gitpod&logoColor=FFAE33)](https://gitpod.io) used as a cloud-based IDE for development.
+
+- LANGUAGES:
+- [![HTML](https://img.shields.io/badge/HTML-grey?logo=html5&logoColor=E34F26)](https://en.wikipedia.org/wiki/HTML) used for the main site content.
+- [![CSS](https://img.shields.io/badge/CSS-grey?logo=css3&logoColor=1572B6)](https://en.wikipedia.org/wiki/CSS) used for the main site design and layout.
+- [![JavaScript](https://img.shields.io/badge/JavaScript-grey?logo=javascript&logoColor=F7DF1E)](https://www.javascript.com) used for user interaction on the site.
+- [![jQuery](https://img.shields.io/badge/jQuery-grey?logo=jquery&logoColor=0769AD)](https://jquery.com) used for user interaction on the site.
+- [![Python](https://img.shields.io/badge/Python-grey?logo=python&logoColor=3776AB)](https://www.python.org) used as the back-end programming language.
+
+- DEPLOYMENT: 
+- [![Heroku](https://img.shields.io/badge/Heroku-grey?logo=heroku&logoColor=430098)](https://www.heroku.com) used for hosting the deployed back-end site
+
+- CSS FRAMEWORKS
+
+- [![Bootstrap](https://img.shields.io/badge/Bootstrap-grey?logo=bootstrap&logoColor=7952B3)](https://getbootstrap.com) used as the front-end CSS framework for modern responsiveness and pre-built components.
+
+- MISCELLANEOUS
+
+- [![Jest](https://img.shields.io/badge/Jest-grey?logo=jest&logoColor=c21325)](https://jestjs.io) used for automated JavaScript testing.
+- [![Django](https://img.shields.io/badge/Django-grey?logo=django&logoColor=092E20)](https://www.djangoproject.com) used as the Python framework for the site.
+- [![PostgreSQL by Code Institute](https://img.shields.io/badge/PostgreSQL_by_Code_Institute-grey?logo=okta&logoColor=F05223)](https://dbs.ci-dbs.net) used as the Postgres database from Code Institute.
+- [![Cloudinary](https://img.shields.io/badge/Cloudinary-grey?logo=cloudinary&logoColor=3448C5)](https://cloudinary.com) used for online static file storage.
+- [![WhiteNoise](https://img.shields.io/badge/WhiteNoise-grey?logo=python&logoColor=FFFFFF)](https://whitenoise.readthedocs.io) used for serving static files with Heroku.
+- [![Balsamiq](https://img.shields.io/badge/Balsamiq-grey?logo=barmenia&logoColor=CE0908)](https://balsamiq.com/wireframes) used for creating wireframes.
+- [![Gmail API](https://img.shields.io/badge/Gmail_API-grey?logo=gmail&logoColor=EA4335)](https://mail.google.com) used for sending emails in my application.
+- [![Font Awesome](https://img.shields.io/badge/Font_Awesome-grey?logo=fontawesome&logoColor=528DD7)](https://fontawesome.com) used for the icons.
+- [![ChatGPT](https://img.shields.io/badge/ChatGPT-grey?logo=chromatic&logoColor=75A99C)](https://chat.openai.com) used to help debug, troubleshoot, and explain things.
+
+## Database Design
 
 ## Data Model
 
@@ -358,18 +288,127 @@ Stores contact information.
 - `phone_number`: Phone number.
 - `email_address`: Email address.
 - `linkedin`: LinkedIn profile URL.
+ 
+
+ 
+## Entity Relationship Diagrams (ERD)
+I have used `pygraphviz` and `django-extensions` to auto-generate an ERD.
+
+The steps taken were as follows:
+- In the terminal: `sudo apt update`
+- then: `sudo apt-get install python3-dev graphviz libgraphviz-dev pkg-config`
+- then type `Y` to proceed
+- then: `pip3 install django-extensions pygraphviz`
+- in my `settings.py` file, I added the following to my `INSTALLED_APPS`:
+```python
+INSTALLED_APPS = [
+    ...
+    'django_extensions',
+    ...
+]
+```
+- back in the terminal: `python3 manage.py graph_models -a -o erd.png`
+- dragged the new `erd.png` file into my `documentation/` folder
+- removed `'django_extensions',` from my `INSTALLED_APPS`
+- finally, in the terminal: `pip3 uninstall django-extensions pygraphviz -y`
+
+![erd](documentation/erd.png)
 
 
-### Flowchart
+## Agile Development Process
+
+### GitHub Projects
+
+I utilized [GitHub Projects](https://github.com/chrysanthusobinna/django-portfolio/projects) to manage this project using Agile methodologies. This tool helped in organizing tasks, tracking progress, and ensuring the project stayed on schedule.
+
+![screenshot](documentation/kanban.png)
+
+The screenshot above shows the GitHub Projects board, which was instrumental in managing the project efficiently.
 
 
 ## Testing
 
 > [!NOTE]  
-> SEE [TESTING.md](TESTING.md) file.
+> For all testing, please refer to the [TESTING.md](TESTING.md) file.
+
+## Deployment
+
+The live deployed application can be found deployed on [Heroku](https://django-portfolio-cc-22a794f01134.herokuapp.com).
+
+### PostgreSQL Database
+
+This project uses a [Code Institute PostgreSQL Database](https://dbs.ci-dbs.net).
+
+To obtain my own Postgres Database from Code Institute, I followed these steps:
+
+- Signed-in to the CI LMS using my email address.
+- An email was sent to me with my new Postgres Database.
+
+> [!CAUTION]  
+> - PostgreSQL databases by Code Institute are only available to CI Students.
+> - You must acquire your own PostgreSQL database through some other method
+> if you plan to clone/fork this repository.
+> - Code Institute students are allowed a maximum of 8 databases.
+> - Databases are subject to deletion after 18 months.
+
+### Cloudinary API
+
+This project uses the [Cloudinary API](https://cloudinary.com) to store media assets online, due to the fact that Heroku doesn't persist this type of data.
+
+To obtain your own Cloudinary API key, create an account and log in.
+
+- For *Primary interest*, you can choose *Programmable Media for image and video API*.
+- Optional: *edit your assigned cloud name to something more memorable*.
+- On your Cloudinary Dashboard, you can copy your **API Environment Variable**.
+- Be sure to remove the `CLOUDINARY_URL=` as part of the API **value**; this is the **key**.
+
 
  
-## Credits
+## Heroku Deployment
+
+This project uses [Heroku](https://www.heroku.com), a Platform as a Service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
+
+### Deployment Steps
+
+1. **Create a New App**
+   - Log in to your Heroku Dashboard.
+   - Click **New** in the top-right corner and select **Create new app**.
+   - Provide a **unique app name**, choose the region closest to you (EU or USA), and click **Create App**.
+
+2. **Configure Environment Variables**
+   - Go to your app's **Settings**.
+   - Scroll down to **Config Vars** and click **Reveal Config Vars**.
+   - Add the following environment variables:
+
+   | **Key**               | **Description**                                                                 |
+   |------------------------|---------------------------------------------------------------------------------|
+   | `DATABASE_URL`         | The URL of the database used for the application. Replace with your database URL. |
+   | `CLOUDINARY_URL`       | The URL for Cloudinary integration. Replace with your Cloudinary credentials.   |
+   | `SECRET_KEY`           | A unique and secure key for your Django application. Replace with your own secret key. |
+   | `EMAIL_PORT`           | The port used for sending emails (e.g., `587` for TLS). Replace with your email port. |
+   | `EMAIL_HOST_USER`      | The email address used as the sender for outgoing emails. Replace with your email address. |
+   | `EMAIL_HOST_PASSWORD`  | The password for the email address used for sending emails. Replace with your email password. |
+
+> **Note:** Ensure all sensitive information is securely stored and never shared publicly.
+
+3. **Prepare Necessary Files**
+   Heroku requires the following files to deploy a Django project:
+   - `requirements.txt`: Lists all the dependencies needed for the project.
+   - `Procfile`: Specifies the commands Heroku should run to start your application.
+   - `runtime.txt`: Specifies the Python version used for the project.
+
+   To create or update these files:
+   - Install dependencies with `pip3 install -r requirements.txt`.
+   - Check your Python version using `python3 --version` and add it to `runtime.txt` (e.g., `python-3.9.19`).
+
+4. **Deploy Your App**
+   - Connect your GitHub repository to your Heroku app via the **Deploy** tab.
+   - Scroll down to **Manual Deploy**, select the branch you want to deploy, and click **Deploy Branch**.
+   - Monitor the deployment logs to ensure all steps complete successfully.
+
+5. **Launch Your App**
+   - Once deployment is complete, you will see the message: *"App was successfully deployed"*.
+   - Click the **View** button to access your deployed application
 
 
 ### Deploying to Heroku
