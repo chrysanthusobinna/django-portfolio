@@ -41,12 +41,12 @@ EMAIL_TIMEOUT = 10
 
 # Site Information Constants
 SITE_NAME = "MIfolio"
-SITE_CONTACT_EMAIL_ADDRESS = "contact@ccportfolio.com"
+SITE_CONTACT_EMAIL_ADDRESS = EMAIL_HOST_USER
 SITE_CONTACT_PHONE_NUMBER = "+44 456 7890 0000"
 SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.gitpod.io', '.herokuapp.com']
 

@@ -45,7 +45,7 @@ def user_profile(request, username):
         
         is_valid, error_message = send_contact_email(subject, full_message, [target_user.email])
         if is_valid:
-            messages.success(request, f'Your message has been sent successfully! {target_user.email}')
+            messages.success(request, 'Your message has been sent successfully!')
         else:
             messages.error(request, error_message)
         return redirect('user_profile', username=target_user.username)
