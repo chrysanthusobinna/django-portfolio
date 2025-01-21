@@ -67,55 +67,56 @@ MiPortfolio is open to everyone, regardless of their job specialty, enabling use
 - **User Registration**  
   Allows new users to create an account by providing their details. This feature ensures that users can securely register and access the platform.
 
-  ![employment](documentation/feature-register.png)
+  ![screenshot](documentation/feature-register.png)
 
 - **User Login**  
   Enables registered users to log in to their accounts using their credentials. This feature ensures secure access to user profiles and personalized content.
 
-  ![employment](documentation/feature-login.png)
+  ![screenshot](documentation/feature-login.png)
 
 - **Customize About and Profile Photo**  
   Users can customize their profiles by adding About section and also Users can save and delete their profile photos. This feature allows users to personalize their profiles with a professional image.
 
-  ![customize-about](documentation/feature-customize-about-and-profile-photo.png)
+  ![screenshot](documentation/feature-customize-about-and-profile-photo.png)
 
 
 - **Employment Management**  
   Users can add, edit, and delete employment entries. This feature enables users to showcase their work experience and career progression.
 
-  ![employment](documentation/feature-employment.png)
+  ![screenshot](documentation/feature-employment.png)
+  ![screenshot](documentation/feature-employment-add-and-edit.png)
 
 
 - **Education Management**  
   Users can add, edit, and delete education entries. This feature allows users to present their academic background and achievements.
 
-  ![employment](documentation/feature-education.png)
+  ![screenshot](documentation/feature-education.png)
+  ![screenshot](documentation/feature-education-add-and-edit.png) 
 
 - **Certification Management**  
   Users can add, edit, and delete certifications. This feature helps users highlight their qualifications and professional development.
 
-  ![employment](documentation/feature-certifications.png)
+  ![screenshot](documentation/feature-certifications.png)
+  ![screenshot](documentation/feature-certifications-add-and-edit.png)
 
 - **Portfolio Management**  
   Users can add, edit, and delete portfolio items. This feature allows users to showcase their work and achievements in a structured manner.
 
-  ![employment](documentation/feature-portfolio.png)
-
-
-
+  ![screenshot](documentation/feature-portfolio.png)
+  ![screenshot](documentation/feature-portfolio-add-and-edit.png)
 
 
 - **Contact Information Management**  
   Users can update and delete their contact information. This feature ensures that users can provide up-to-date contact details for networking and professional connections.
 
- ![screenshot](documentation/xxxx.png)
-
- 
+  ![screenshot](documentation/feature-contact.png)
+  ![screenshot](documentation/feature-contact-update.png)
+  
 
 - **Admin Dashboard**  
   Provides administrators with an overview of the site's activity and tools to manage users, content, and site settings. This feature ensures efficient site management and user administration.
 
- ![screenshot](documentation/xxxx.png)
+ ![screenshot](documentation/feature-admin.png)
  
 
 ### Future Features to Implement

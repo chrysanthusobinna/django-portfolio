@@ -46,7 +46,7 @@ SITE_CONTACT_PHONE_NUMBER = "+44 456 7890 0000"
 SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.gitpod.io', '.herokuapp.com']
 
