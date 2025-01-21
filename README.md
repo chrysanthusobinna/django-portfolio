@@ -10,7 +10,7 @@
 
 MiPortfolio is open to everyone, regardless of their job specialty, enabling users to showcase their portfolios on social media platforms, CVs, and other professional networks. This visibility allows recruiters and potential business partners to learn about them and connect.
 
-![screenshot](documentation/mockup.png)
+![screenshot](documentation/mockups.png)
 
  
 ## UX
@@ -57,56 +57,6 @@ MiPortfolio is open to everyone, regardless of their job specialty, enabling use
 - As a site administrator, I should be able to review submitted portfolios, so that I can support users.  
 - As a site administrator, I should be able to manage contact form submissions, so that I can respond to inquiries efficiently.  
 - As a site administrator, I should be able to make changes to any user account, so that I can assist with updates or resolve issues on behalf of users.
----
-
-## Wireframes
-
-To follow best practice, wireframes were developed for mobile, tablet, and desktop sizes.
-I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wireframes.
-
-### Mobile Wireframes
-
-Home
-  - ![screenshot](documentation/wireframes/mobile-home.png)
-
-User Profile Page
-  - ![screenshot](documentation/wireframes/mobile-about.png)
-
-Edit User Profile Page
-  - ![screenshot](documentation/wireframes/mobile-contact.png)
-
-< / details >
-
-### Tablet Wireframes
-
-
-Home
-  - ![screenshot](documentation/wireframes/tablet-home.png)
-
-User Profile Page
-
-  - ![screenshot](documentation/wireframes/tablet-about.png)
-
-Edit User Profile Page
-
-  - ![screenshot](documentation/wireframes/tablet-contact.png)
-
- 
- 
-
-### Desktop Wireframes
-
-Home
-  - ![screenshot](documentation/wireframes/desktop-home.png)
-
-User Profile Page
-  - ![screenshot](documentation/wireframes/desktop-about.png)
-
-Edit User Profile Page
-  - ![screenshot](documentation/wireframes/desktop-contact.png)
-
- 
-
 
 ---
 
@@ -117,47 +67,50 @@ Edit User Profile Page
 - **User Registration**  
   Allows new users to create an account by providing their details. This feature ensures that users can securely register and access the platform.
 
-  !screenshot
+  ![employment](documentation/feature-register.png)
 
 - **User Login**  
   Enables registered users to log in to their accounts using their credentials. This feature ensures secure access to user profiles and personalized content.
 
-  !screenshot
+  ![employment](documentation/feature-login.png)
 
-- **Profile Customization**  
-  Users can customize their profiles by adding sections such as About, Employment Timeline, Education Timeline, Certification Timeline, Portfolio, and Contact Information. This feature allows users to create a comprehensive and personalized portfolio.
+- **Customize About and Profile Photo**  
+  Users can customize their profiles by adding About section and also Users can save and delete their profile photos. This feature allows users to personalize their profiles with a professional image.
 
-  !screenshot
+  ![customize-about](documentation/feature-customize-about-and-profile-photo.png)
 
-- **Portfolio Management**  
-  Users can add, edit, and delete portfolio items. This feature allows users to showcase their work and achievements in a structured manner.
-
-  ![screenshot](documentation/xxxx.png)
-
-- **Certification Management**  
-  Users can add, edit, and delete certifications. This feature helps users highlight their qualifications and professional development.
-
-  ![screenshot](documentation/xxxx.png)
-
-- **Education Management**  
-  Users can add, edit, and delete education entries. This feature allows users to present their academic background and achievements.
-
-  ![screenshot](documentation/xxxx.png)
 
 - **Employment Management**  
   Users can add, edit, and delete employment entries. This feature enables users to showcase their work experience and career progression.
 
-  ![screenshot](documentation/xxxx.png)
+  ![employment](documentation/feature-employment.png)
+
+
+- **Education Management**  
+  Users can add, edit, and delete education entries. This feature allows users to present their academic background and achievements.
+
+  ![employment](documentation/feature-education.png)
+
+- **Certification Management**  
+  Users can add, edit, and delete certifications. This feature helps users highlight their qualifications and professional development.
+
+  ![employment](documentation/feature-certifications.png)
+
+- **Portfolio Management**  
+  Users can add, edit, and delete portfolio items. This feature allows users to showcase their work and achievements in a structured manner.
+
+  ![employment](documentation/feature-portfolio.png)
+
+
+
+
 
 - **Contact Information Management**  
   Users can update and delete their contact information. This feature ensures that users can provide up-to-date contact details for networking and professional connections.
 
  ![screenshot](documentation/xxxx.png)
 
-- **Profile Photo Management**  
-  Users can save and delete their profile photos. This feature allows users to personalize their profiles with a professional image.
-
-   ![screenshot](documentation/xxxx.png)
+ 
 
 - **Admin Dashboard**  
   Provides administrators with an overview of the site's activity and tools to manage users, content, and site settings. This feature ensures efficient site management and user administration.
@@ -492,17 +445,7 @@ Use this space to provide attribution links to any borrowed code snippets, eleme
 | Source | Location | Notes |
 | --- | --- | --- |
 | [Markdown Builder](https://tim.2bn.dev/markdown-builder) | README and TESTING | Tool to help generate the Markdown files |
-| [Chris Beams](https://chris.beams.io/posts/git-commit) | Version control | "How to Write a Git Commit Message" |
-| [W3Schools](https://www.w3schools.com/howto/howto_js_topnav_responsive.asp) | Entire site | Responsive HTML/CSS/JS navbar |
-| [W3Schools](https://www.w3schools.com/howto/howto_css_modals.asp) | Contact page | Interactive pop-up (modal) |
-| [W3Schools](https://www.w3schools.com/css/css3_variables.asp) | Entire site | How to use CSS :root variables |
-| [Flexbox Froggy](https://flexboxfroggy.com/) | Entire site | Modern responsive layouts |
-| [Grid Garden](https://cssgridgarden.com) | Entire site | Modern responsive layouts |
-| [StackOverflow](https://stackoverflow.com/a/2450976) | Quiz page | Fisher-Yates/Knuth shuffle in JS |
-| [YouTube](https://www.youtube.com/watch?v=YL1F4dCUlLc) | Leaderboard | Using `localStorage()` in JS for high scores |
-| [YouTube](https://www.youtube.com/watch?v=u51Zjlnui4Y) | PP3 terminal | Tutorial for adding color to the Python terminal |
-| [strftime](https://strftime.org) | CRUD functionality | Helpful tool to format date/time from string |
-| [WhiteNoise](http://whitenoise.evans.io) | Entire site | Hosting static files on Heroku temporarily |
+
 
 ### Media
 
@@ -512,7 +455,7 @@ Use this space to provide attribution links to any borrowed code snippets, eleme
 | [Flaticon](https://www.flaticon.com/free-icon/hashtag_1199417) | Default.png | PNG | Used for default.png |
 | [Pexels](https://www.pexels.com/photo/book-next-to-the-keyboard-15555952/) | Home page | Image | Photo by Walls.io from Pexels |
 | [Pexels](https://www.pexels.com/photo/close-up-shot-of-scrabble-tiles-on-a-blue-surface-2789781/) | Home page | Image | Photo by Ann H from Pexels |
-| [Pexels](https://www.pexels.com/photo/woman-in-blue-shirt-sitting-beside-woman-in-red-shirt-6774432/) | Home page | Image | Photo by Kindel Media from Pexels |
+| [Pexels](https://www.pexels.com/photo/woman-in-blue-suit-jacket-2422293/) | Home page | Image | Photo by Jopwell from Pexels |
 
 ### Acknowledgements
 
