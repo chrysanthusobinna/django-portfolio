@@ -95,13 +95,13 @@
     {% endif %}
 
 
-    {% if certifications %}
+    {% if certifications %} 
     <!-- Certifications Section -->
     <section id="certifications">
         <h2 class="section-title">CERTIFICATIONS</h2>
         <div class="timeline">
             {% for cert in certifications %}
-            <div class="timeline-item">
+            <div class="timeline-item">{{ cert.id }}
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <h5>{{ cert.name }}</h5>

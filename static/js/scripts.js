@@ -163,6 +163,16 @@ function deleteEmploymentClickHandler() {
     });
 }
 
+// Function to handle the "Delete Certification" button click
+function deleteCertificationClickHandler() {
+    $('.delete-certification-btn').on('click', function () {
+        const url = $(this).data('url');
+        const name = $(this).data('name');
+
+        $('#deleteCertificationForm').attr('action', url);
+        $('#deleteCertificationModal #deleteCertificationName').text(name);
+    });
+}
  
 // Function to handle the "Confirm Save About" button click
 function confirmSaveAboutClickHandler() {
@@ -191,7 +201,6 @@ function previewUploadPhoto(inputElementId, previewElementId) {
     }
 }
 
-
 // Handle portfolio photo preview for editing
 $('#editPortfolioPhoto').on('change', function() {
     previewUploadPhoto(this.id, 'profilePortfolioPreview');
@@ -206,10 +215,6 @@ $('#createPortfolioPhoto').on('change', function() {
 $('#profile_photo').on('change', function() {
     previewUploadPhoto(this.id, 'profilePhotoPreview');
 });
-
-
- 
- 
  
 // Document ready handler
 $(function () {
@@ -226,7 +231,8 @@ $(function () {
     deletePortfolioClickHandler();
     deleteEducationClickHandler();
     deleteEmploymentClickHandler();
-    
+    deleteCertificationClickHandler();
+
     confirmSaveAboutClickHandler();
     confirmSaveProfilePhotoClickHandler();
 
@@ -249,7 +255,6 @@ $(function () {
 });
 
 
-
 // Export the functions for testing if running in a Node.js environment
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { 
@@ -261,11 +266,13 @@ if (typeof module !== 'undefined' && module.exports) {
         editPortfolioClickHandler, 
         editCertificationClickHandler, 
         editEducationClickHandler, 
+        editEmploymentClickHandler, 
 
         deletePortfolioClickHandler, 
         deleteEducationClickHandler, 
-        editEmploymentClickHandler, 
         deleteEmploymentClickHandler,
+        deleteCertificationClickHandler,
+
         confirmSaveAboutClickHandler, 
         confirmSaveProfilePhotoClickHandler,
         previewUploadPhoto,

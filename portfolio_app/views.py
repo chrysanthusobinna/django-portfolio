@@ -74,6 +74,7 @@ def edit_user_profile(request, username):
 
 
 # Handle Create, Update and Delete for Portfolio
+@login_required
 def add_portfolio(request):
     if request.method == "POST":
         form = PortfolioForm(request.POST, request.FILES)
@@ -176,10 +177,9 @@ def delete_certification(request, id):
             messages.success(request, "Certification deleted successfully.")
         except Exception as e:
             messages.error(request, f"An error occurred while trying to delete the certification: {str(e)}")
-        return redirect('edit_user_profile', username=request.user.username)
     else:
         messages.error(request, "Invalid request method.")
-        return redirect('edit_user_profile', username=request.user.username)
+    return redirect('edit_user_profile', username=request.user.username)
 
 
 # Handle Create, Update and Delete for Education
@@ -340,16 +340,27 @@ def delete_profile_photo(request):
 
 @login_required
 def contact_update(request):
-    contact, created = Contact.objects.get_or_create(user=request.user)
+    try:
+        contact = Contact.objects.get(user=request.user)
+    except Contact.DoesNotExist:
+        contact = None
+
     if request.method == 'POST':
         form = ContactForm(request.POST, instance=contact)
         if form.is_valid():
-            form.save()
+            contact = form.save(commit=False)
+            contact.user = request.user
+            contact.save()
             messages.success(request, "Contact updated successfully.")
         else:
             for field, errors in form.errors.items():
                 for error in errors:
-                    messages.error(request, f"Error Saving Contact: {error}")
+                    if field == 'phone_number':
+                        messages.error(request, "Error Saving Contact: Phone number is required.")
+                    elif field == 'email_address':
+                        messages.error(request, "Error Saving Contact: Email address is required.")
+                    else:
+                        messages.error(request, f"Error Saving Contact: {field} - {error}")
     return redirect('edit_user_profile', username=request.user.username)
 
 
