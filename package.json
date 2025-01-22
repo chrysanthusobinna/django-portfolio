@@ -1,0 +1,32 @@
+{
+  "name": "django-portfolio",
+  "version": "1.0.0",
+  "description": "[![GitHub commit activity](https://img.shields.io/github/commit-activity/t/chrysanthusobinna/django-portfolio)](https://github.com/chrysanthusobinna/django-portfolio/commits/main) [![GitHub last commit](https://img.shields.io/github/last-commit/chrysanthusobinna/django-portfolio)](https://github.com/chrysanthusobinna/django-portfolio/commits/main) [![GitHub repo size](https://img.shields.io/github/repo-size/chrysanthusobinna/django-portfolio)](https://github.com/chrysanthusobinna/django-portfolio)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrysanthusobinna/django-portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrysanthusobinna/django-portfolio/issues"
+  },
+  "homepage": "https://github.com/chrysanthusobinna/django-portfolio#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1"
+  },
+  "jest": {
+  "testEnvironment": "jsdom"
+}
+
+}

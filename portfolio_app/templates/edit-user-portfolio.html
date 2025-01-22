@@ -27,8 +27,7 @@
                 action="{% url 'save_profile_photo' %}">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <input type="file" id="profile_photo" name="profile_photo" class="form-control" accept="image/*"
-                        onchange="previewProfilePhoto()" style="display: none;">
+                    <input type="file" id="profile_photo" name="profile_photo" class="form-control" accept="image/*" style="display: none;">
                     <label for="profile_photo" class="btn btn-outline-dark">Upload Profile Photo</label>
                 </div>
             </form>
