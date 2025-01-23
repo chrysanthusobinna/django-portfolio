@@ -3,12 +3,13 @@
 {% load i18n %}
 {% load account socialaccount %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block title %} Sign Up {% endblock %}
 
 {% block content %}
 
 <div class="container">
   <form method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card mt-5">
@@ -19,8 +20,20 @@
             <div class="table-responsive">
               <table class="table">
                 <tbody>
-                  {% csrf_token %}
-                  {{ form.as_table }}
+                  {% for field in form %}
+                  <tr>
+                    <td>{{ field.label_tag }}</td>
+                    <td>
+                      {{ field }}
+                      {% if field.help_text %}
+                      <!-- REMOVED PASSWORD HELP TEXT -->
+                      {% endif %}
+                      {% for error in field.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+                    </td>
+                  </tr>
+                {% endfor %}                
                   {% if redirect_field_value %}
                   <tr>
                     <td colspan="2">
@@ -42,4 +55,5 @@
     </div>
   </form>
 </div>
+
 {% endblock %}

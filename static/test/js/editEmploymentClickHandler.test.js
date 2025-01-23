@@ -27,8 +27,8 @@ describe('editEmploymentClickHandler', () => {
                 <input id="editEmployerName" />
                 <input id="editJobTitle" />
                 <textarea id="editDescriptionOfDuties"></textarea>
-                <input id="editStartDate" />
-                <input id="editEndDate" />
+                <input id="editEmploymentStartDate" />
+                <input id="editEmploymentEndDate" />
             </div>
         `;
 
@@ -47,7 +47,7 @@ describe('editEmploymentClickHandler', () => {
         expect($('#editEmployerName').val()).toBe('Tech Corp');
         expect($('#editJobTitle').val()).toBe('Software Developer');
         expect($('#editDescriptionOfDuties').val()).toBe('Developed software solutions');
-        expect($('#editStartDate').val()).toBe('2021-01-01');
-        expect($('#editEndDate').val()).toBe('2023-12-31');
+        expect($('#editEmploymentStartDate').val()).toBe('2021-01-01');
+        expect($('#editEmploymentEndDate').val()).toBe('2023-12-31');
     });
 });

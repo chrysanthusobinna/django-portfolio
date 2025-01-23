@@ -101,8 +101,8 @@ function editEducationClickHandler() {
         $('#editEducationForm').attr('action', url);
         $('#editEducationModal #editQualification').val(qualification);
         $('#editEducationModal #editInstitutionName').val(institution);
-        $('#editEducationModal #editStartDate').val(start);
-        $('#editEducationModal #editEndDate').val(end);
+        $('#editEducationModal #editEducationStartDate').val(start);
+        $('#editEducationModal #editEducationEndDate').val(end);
     });
 }
 
@@ -121,8 +121,8 @@ function editEmploymentClickHandler() {
         $('#editEmploymentModal #editEmployerName').val(employer);
         $('#editEmploymentModal #editJobTitle').val(title);
         $('#editEmploymentModal #editDescriptionOfDuties').val(description);
-        $('#editEmploymentModal #editStartDate').val(start);
-        $('#editEmploymentModal #editEndDate').val(end);
+        $('#editEmploymentModal #editEmploymentStartDate').val(start);
+        $('#editEmploymentModal #editEmploymentEndDate').val(end);
     });
 }
 

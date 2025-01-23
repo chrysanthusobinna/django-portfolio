@@ -10,7 +10,7 @@
 
 MiPortfolio is open to everyone, regardless of their job specialty, enabling users to showcase their portfolios on social media platforms, CVs, and other professional networks. This visibility allows recruiters and potential business partners to learn about them and connect.
 
-![screenshot](documentation/mockups.png)
+![screenshot](documentation/mockup.png)
 
  
 ## UX
@@ -57,8 +57,65 @@ MiPortfolio is open to everyone, regardless of their job specialty, enabling use
 - As a site administrator, I should be able to review submitted portfolios, so that I can support users.  
 - As a site administrator, I should be able to manage contact form submissions, so that I can respond to inquiries efficiently.  
 - As a site administrator, I should be able to make changes to any user account, so that I can assist with updates or resolve issues on behalf of users.
-
 ---
+
+## Wireframes
+
+To follow best practice, wireframes were developed for mobile, tablet, and desktop sizes.
+I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wireframes.
+
+### Mobile Wireframes
+
+< details >
+< summary > Click here to see the Mobile Wireframes < / summary >
+
+Home
+  - ![screenshot](documentation/wireframes/mobile-home.png)
+
+User Profile Page
+  - ![screenshot](documentation/wireframes/mobile-about.png)
+
+Edit User Profile Page
+  - ![screenshot](documentation/wireframes/mobile-contact.png)
+
+< / details >
+
+### Tablet Wireframes
+
+< details >
+< summary > Click here to see the Tablet Wireframes < / summary >
+
+Home
+  - ![screenshot](documentation/wireframes/tablet-home.png)
+
+User Profile Page
+
+  - ![screenshot](documentation/wireframes/tablet-about.png)
+
+Edit User Profile Page
+
+  - ![screenshot](documentation/wireframes/tablet-contact.png)
+
+ 
+< / details >
+
+### Desktop Wireframes
+
+< details >
+< summary > Click here to see the Desktop Wireframes < / summary >
+
+Home
+  - ![screenshot](documentation/wireframes/desktop-home.png)
+
+User Profile Page
+  - ![screenshot](documentation/wireframes/desktop-about.png)
+
+Edit User Profile Page
+  - ![screenshot](documentation/wireframes/desktop-contact.png)
+
+< / details >
+
+
 
 ## Features
 
@@ -67,56 +124,52 @@ MiPortfolio is open to everyone, regardless of their job specialty, enabling use
 - **User Registration**  
   Allows new users to create an account by providing their details. This feature ensures that users can securely register and access the platform.
 
-  ![screenshot](documentation/feature-register.png)
+  !screenshot
 
 - **User Login**  
   Enables registered users to log in to their accounts using their credentials. This feature ensures secure access to user profiles and personalized content.
 
-  ![screenshot](documentation/feature-login.png)
+  !screenshot
 
-- **Customize About and Profile Photo**  
-  Users can customize their profiles by adding About section and also Users can save and delete their profile photos. This feature allows users to personalize their profiles with a professional image.
+- **Profile Customization**  
+  Users can customize their profiles by adding sections such as About, Employment Timeline, Education Timeline, Certification Timeline, Portfolio, and Contact Information. This feature allows users to create a comprehensive and personalized portfolio.
 
-  ![screenshot](documentation/feature-customize-about-and-profile-photo.png)
-
-
-- **Employment Management**  
-  Users can add, edit, and delete employment entries. This feature enables users to showcase their work experience and career progression.
-
-  ![screenshot](documentation/feature-employment.png)
-  ![screenshot](documentation/feature-employment-add-and-edit.png)
-
-
-- **Education Management**  
-  Users can add, edit, and delete education entries. This feature allows users to present their academic background and achievements.
-
-  ![screenshot](documentation/feature-education.png)
-  ![screenshot](documentation/feature-education-add-and-edit.png) 
-
-- **Certification Management**  
-  Users can add, edit, and delete certifications. This feature helps users highlight their qualifications and professional development.
-
-  ![screenshot](documentation/feature-certifications.png)
-  ![screenshot](documentation/feature-certifications-add-and-edit.png)
+  !screenshot
 
 - **Portfolio Management**  
   Users can add, edit, and delete portfolio items. This feature allows users to showcase their work and achievements in a structured manner.
 
-  ![screenshot](documentation/feature-portfolio.png)
-  ![screenshot](documentation/feature-portfolio-add-and-edit.png)
+  ![screenshot](documentation/xxxx.png)
 
+- **Certification Management**  
+  Users can add, edit, and delete certifications. This feature helps users highlight their qualifications and professional development.
+
+  ![screenshot](documentation/xxxx.png)
+
+- **Education Management**  
+  Users can add, edit, and delete education entries. This feature allows users to present their academic background and achievements.
+
+  ![screenshot](documentation/xxxx.png)
+
+- **Employment Management**  
+  Users can add, edit, and delete employment entries. This feature enables users to showcase their work experience and career progression.
+
+  ![screenshot](documentation/xxxx.png)
 
 - **Contact Information Management**  
   Users can update and delete their contact information. This feature ensures that users can provide up-to-date contact details for networking and professional connections.
 
-  ![screenshot](documentation/feature-contact.png)
-  ![screenshot](documentation/feature-contact-update.png)
-  
+ ![screenshot](documentation/xxxx.png)
+
+- **Profile Photo Management**  
+  Users can save and delete their profile photos. This feature allows users to personalize their profiles with a professional image.
+
+   ![screenshot](documentation/xxxx.png)
 
 - **Admin Dashboard**  
   Provides administrators with an overview of the site's activity and tools to manage users, content, and site settings. This feature ensures efficient site management and user administration.
 
- ![screenshot](documentation/feature-admin.png)
+ ![screenshot](documentation/xxxx.png)
  
 
 ### Future Features to Implement
@@ -236,7 +289,6 @@ Stores contact information.
 - `email_address`: Email address.
 - `linkedin`: LinkedIn profile URL.
  
----
 
  
 ## Entity Relationship Diagrams (ERD)
@@ -262,7 +314,6 @@ INSTALLED_APPS = [
 
 ![erd](documentation/erd.png)
 
----
 
 ## Agile Development Process
 
@@ -345,7 +396,6 @@ This project uses [Heroku](https://www.heroku.com), a Platform as a Service (Paa
    - `requirements.txt`: Lists all the dependencies needed for the project.
    - `Procfile`: Specifies the commands Heroku should run to start your application.
    - `runtime.txt`: Specifies the Python version used for the project.
-   - edit portfolio/settings.py and set DEBUG=false 
 
    To create or update these files:
    - Install dependencies with `pip3 install -r requirements.txt`.
@@ -358,110 +408,20 @@ This project uses [Heroku](https://www.heroku.com), a Platform as a Service (Paa
 
 5. **Launch Your App**
    - Once deployment is complete, you will see the message: *"App was successfully deployed"*.
-   - Click the **View** button to access your deployed application.
+   - Click the **View** button to access your deployed applicatio
+   
  
-
-
-### Local Deployment
-
-This project can be cloned or forked to create a local copy on your system.
-
-#### Prerequisites
-
-- Install any applicable packages found within the `requirements.txt` file:
-  - `pip3 install -r requirements.txt`.
-
-- Rename `env-example.py` to `env.py` and set the environment variables as listed in the Heroku deployment steps.
-
-> **Note**: The `env.py` file is only used in the local environment and should not be included in production or deployment.
-
-#### Steps for Local Development
-
-1. Edit `portfolio/settings.py`:
-   - Set `DEBUG = True` to ensure static files load and errors display during development.
-
-2. Run the following commands:
-   - Start the Django app: `python3 manage.py runserver`
-   - Stop the app: `CTRL+C` or `⌘+C` (Mac)
-   - Make migrations: `python3 manage.py makemigrations`
-   - Apply migrations: `python3 manage.py migrate`
-   - Create a superuser: `python3 manage.py createsuperuser`
-   - Restart the app: `python3 manage.py runserver`
-
----
-
-### Cloning
-
-To clone the repository:
-
-1. Go to the [GitHub repository](https://github.com/chrysanthusobinna/django-portfolio).
-2. Locate the **Code** button and click it.
-3. Choose your preferred method (HTTPS, SSH, or GitHub CLI) and copy the URL.
-4. Open Git Bash or Terminal.
-5. Navigate to the directory where you want the project.
-6. Run the command:
-   - `git clone https://github.com/chrysanthusobinna/django-portfolio.git`
-7. Press Enter to clone the repository.
-
-#### Gitpod
-
-To use Gitpod, click the button below to create a workspace with this repository:
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/chrysanthusobinna/django-portfolio)
-
-> **Note**: Ensure the Gitpod browser extension is installed. Follow the [Gitpod tutorial](https://www.gitpod.io/docs/configure/user-settings/browser-extension) for setup instructions.
-
----
-
-### Forking
-
-To fork the repository:
-
-1. Log in to GitHub and navigate to the [GitHub Repository](https://github.com/chrysanthusobinna/django-portfolio).
-2. Click the **Fork** button at the top-right of the repository page.
-3. Once forked, the repository will appear in your GitHub account for independent development.
-
----
-
-### Local vs. Deployment
-
-These differences ensure proper functionality in both environments while maintaining security and efficiency.
-
-- **Environment Variables**:
-  - **Local**: Use `env.py` to manage environment variables.
-  - **Deployment**: Set variables directly in Heroku's Config Vars. `env.py` is not used.
-
-- **Debug Mode**:
-  - **Local**: Set `DEBUG = True` to load static files and view errors.
-  - **Deployment**: Set `DEBUG = False` to optimize performance and enhance security.
-
----
-
 ## Credits
 
-### Content
 
-Use this space to provide attribution links to any borrowed code snippets, elements, or resources.
-
-| Source | Location | Notes |
-| --- | --- | --- |
-| [Markdown Builder](https://tim.2bn.dev/markdown-builder) | README and TESTING | Tool to help generate the Markdown files |
+### Deploying to Heroku
 
 
-### Media
+**Media**
 
-| Source | Location | Type | Notes |
-| --- | --- | --- | --- |
-| [Flaticon](https://www.flaticon.com/free-icon/user_1077012) | User icon | PNG | User icon used |
-| [Flaticon](https://www.flaticon.com/free-icon/hashtag_1199417) | Default.png | PNG | Used for default.png |
-| [Pexels](https://www.pexels.com/photo/book-next-to-the-keyboard-15555952/) | Home page | Image | Photo by Walls.io from Pexels |
-| [Pexels](https://www.pexels.com/photo/close-up-shot-of-scrabble-tiles-on-a-blue-surface-2789781/) | Home page | Image | Photo by Ann H from Pexels |
-| [Pexels](https://www.pexels.com/photo/woman-in-blue-suit-jacket-2422293/) | Home page | Image | Photo by Jopwell from Pexels |
+* The photos used on the Home Page, About Page, and Contact Page are from [Pexels](https://www.pexels.com/).
+* The favicon for this project was sourced from [Favicon.io](https://favicon.io/).
 
-### Acknowledgements
+**Mentor Support**
 
-- I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for his support throughout the development of this project.
-- I would like to thank the [Code Institute](https://codeinstitute.net) tutor team for their assistance with troubleshooting and debugging some project issues.
-- I would like to thank the [Code Institute Slack community](https://code-institute-room.slack.com) for the moral support; it kept me going during periods of self-doubt and impostor syndrome.
-- Special thanks to [Chima Nwadike](http://linkedin.com/in/chima-nwadike-ba1618102) and [Olumuyiwa Folorunso](http://linkedin.com/in/olumuyiwafolorunso) for their guidance and support.
-
+I would like to express my gratitude to my mentor for their invaluable support throughout this project. They shared best practices and guidelines that significantly improved my approach to the design and development of this project.

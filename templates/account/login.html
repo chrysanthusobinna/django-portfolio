@@ -3,12 +3,13 @@
 {% load i18n %}
 {% load account socialaccount %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block title %} Sign In {% endblock %}
 
 {% block content %}
 
 <div class="container">
   <form method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card mt-5">
@@ -18,18 +19,14 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
+                               
+                                {{ form.as_table }}
+                                {% if redirect_field_value %}
+                                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                                {% endif %}
                                 <tbody>
-                                    {% csrf_token %}
-                                    {{ form.as_table }}
-                                    {% if redirect_field_value %}
                                     <tr>
-                                        <td colspan="2">
-                                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                                        </td>
-                                    </tr>
-                                    {% endif %}
-                                    <tr>
-                                      <td></td>
+                                        <td></td>
                                         <td>
                                             <button class="btn-block btn btn-primary" type="submit">{% trans "Sign In" %}</button>
                                         </td>
@@ -41,7 +38,7 @@
                 </div>
             </div>
         </div>
-</form>
-
+  </form>
 </div>
+
 {% endblock %}

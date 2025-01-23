@@ -162,7 +162,7 @@
                 
                     <!-- Phone -->
                     <li class="list-group-item d-flex align-items-center mb-3">
-                        <a href="tel:{{ SITE_CONTACT_PHONE_NUMBER }}" class="d-flex align-items-center text-decoration-none text-dark">
+                        <a href="tel:{{ SITE_CONTACT_PHONE_NUMBER|default_if_none:''|cut:' ' }}" class="d-flex align-items-center text-decoration-none text-dark">
                             <div class="icon-container-home bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3">
                                 <i class="fas fa-phone fa-2x"></i>
                             </div>

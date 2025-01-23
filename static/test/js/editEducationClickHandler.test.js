@@ -25,8 +25,8 @@ describe('editEducationClickHandler', () => {
             <div id="editEducationModal">
                 <input id="editQualification" />
                 <input id="editInstitutionName" />
-                <input id="editStartDate" />
-                <input id="editEndDate" />
+                <input id="editEducationStartDate" />
+                <input id="editEducationEndDate" />
             </div>
         `;
 
@@ -44,7 +44,7 @@ describe('editEducationClickHandler', () => {
         expect($('#editEducationForm').attr('action')).toBe('/edit-education');
         expect($('#editQualification').val()).toBe('BSc Computer Science');
         expect($('#editInstitutionName').val()).toBe('University of Test');
-        expect($('#editStartDate').val()).toBe('2020-01-01');
-        expect($('#editEndDate').val()).toBe('2023-01-01');
+        expect($('#editEducationStartDate').val()).toBe('2020-01-01');
+        expect($('#editEducationEndDate').val()).toBe('2023-01-01');
     });
 });
