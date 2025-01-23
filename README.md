@@ -278,7 +278,7 @@ The screenshot above shows the GitHub Projects board, which was instrumental in 
 ## Testing
 
 > [!NOTE]  
-> For all testing, please refer to the [TESTING.md](TESTING.md) file.
+> For all testing, please refer to the [TESTING.md](TEST.md) file.
 
 ## Deployment
 
