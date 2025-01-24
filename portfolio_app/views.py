@@ -286,7 +286,7 @@ def add_employment(request):
         else:
             for field, errors in form.errors.items():
                 for error in errors:
-                    messages.error(request, f"{error_msg}{error}")
+                    messages.error(request, f"{error_msg} '{field}': {error}")
     return redirect("edit_user_profile", username=request.user.username)
 
 
@@ -432,7 +432,7 @@ def contact_update(request):
         else:
             for field, errors in form.errors.items():
                 for error in errors:
-                        messages.error(request, f"{error_msg}{field} - {error}")
+                    messages.error(request, f"{error_msg}{field} - {error}")
     return redirect("edit_user_profile", username=request.user.username)
 
 
