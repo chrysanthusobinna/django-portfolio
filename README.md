@@ -31,7 +31,28 @@ MiPortfolio is open to everyone, regardless of their job specialty, enabling use
 - **Font:** Arial, sans-serif
   - Arial is a widely used sans-serif font known for its clean and modern appearance. It is highly readable on both screens and print, making it an excellent choice for a portfolio website. The use of a sans-serif font also aligns with contemporary design trends, ensuring that the website looks up-to-date and professional.
 
+### Wireframes
 
+The wireframes for For the 50 were made using Balsamiq. 
+
+**Mobile and Desktop views for:**
+
+<details open>
+  <summary>Home Page Wireframe</summary>
+  <img src="documentation/home-page-wireframe.png">
+</details>  
+
+<details open>
+  <summary>View user portfolio</summary>
+  <img src="documentation/view-user-portfolio-wireframe.png">
+</details>  
+
+<details open>
+  <summary>Home Page and user Portfolio page Mobile Wireframe</summary>
+  <img src="documentation/home-page-and-user-portfolio-page-wireframe.png">
+</details>
+
+---
 ## User Stories
 
 ### New Site Users
