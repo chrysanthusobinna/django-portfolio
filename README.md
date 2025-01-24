@@ -33,7 +33,7 @@ MiPortfolio is open to everyone, regardless of their job specialty, enabling use
 
 ### Wireframes
 
-The wireframes for For the 50 were made using Balsamiq. 
+The wireframes were made using Balsamiq. 
 
 **Mobile and Desktop views for:**
 
