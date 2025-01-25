@@ -1,5 +1,17 @@
-from .models import Profilephoto, About, Employment, Certification, Education, Portfolio, Contact
 from django.contrib.auth.models import User
+
+from .models import (
+    Profilephoto,
+    About,
+    Employment,
+    Certification,
+    Education,
+    Portfolio,
+    Contact
+)
+
+from django.contrib.auth.models import User
+
 
 def get_user_data(username):
     try:
@@ -7,7 +19,8 @@ def get_user_data(username):
     except User.DoesNotExist:
         return None, None
 
-    # Concatenate first name and last name if they exist, otherwise use email address
+    # Concatenate first name and last name
+    # if they exist, else use email address
     user_fullname = ""
     if user.first_name:
         user_fullname += user.first_name
