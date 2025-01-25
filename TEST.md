@@ -94,11 +94,29 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 
 I've tested my deployed project on multiple browsers to check for compatibility issues.
 
-| Browser | Home | User Portfolio | Notes |
-| --- | --- | --- | --- |
-| Chrome | ![screenshot](documentation/test/browser-chrome-home.png) | ![screenshot](documentation/test/browser-chrome-user-portfolio.png) | Works as expected |
-| Firefox | ![screenshot](documentation/test/browser-firefox-home.png) | ![screenshot](documentation/test/browser-firefox-user-portfolio.png) | Works as expected |
-| Opera | ![screenshot](documentation/test/browser-opera-home.png) | ![screenshot](documentation/test/browser-opera-user-portfolio.png) | Minor differences |
+| Browser  | Home Screenshot                                   | User Portfolio Screenshot                                    | Notes                                    |
+|----------|--------------------------------------------------|------------------------------------------------------------|------------------------------------------|
+| Chrome   | ![screenshot](documentation/test/browser-chrome-home.png)          | ![screenshot](documentation/test/browser-chrome-user-portfolio.png)         | Works as expected. No issues identified. |
+| Firefox  | ![screenshot](documentation/test/browser-firefox-home.png)         | ![screenshot](documentation/test/browser-firefox-user-portfolio.png)        | Works as expected. No issues identified. |
+| Opera    | ![screenshot](documentation/test/browser-opera-home.png)           | ![screenshot](documentation/test/browser-opera-user-portfolio.png)          | Works as expected. No issues identified. |
+
  
+ 
+## Responsiveness
+
+I've tested my deployed project using Googlechrome built-in device sizes in the Developer Tools to check for responsiveness issues. Here are the results for the Home page and User Portfolio page:
+
+### Tested for:
+- Mobile
+- Tablet
+- Desktop
+
+| Device   | Home                                                              | User Portfolio                                                         | Notes            |
+|----------|-------------------------------------------------------------------|------------------------------------------------------------------------|------------------|
+| Mobile   | ![screenshot](documentation/test/responsiveness-mobile-home.png)       | ![screenshot](documentation/test/responsiveness-mobile-user-portfolio.png)   | No issues. Worked as expected.  |
+| Tablet   | ![screenshot](documentation/test/responsiveness-tablet-home.png)       | ![screenshot](documentation/test/responsiveness-tablet-user-portfolio.png)   | No issues. Worked as expected.  |
+| Desktop  | ![screenshot](documentation/test/responsiveness-desktop-home.png)      | ![screenshot](documentation/test/responsiveness-desktop-user-portfolio.png)  | No issues. Worked as expected.  |
+
+This table shows the compatibility results for different device sizes, confirming that the site works as expected on mobile, tablet, and desktop. 
 
 
