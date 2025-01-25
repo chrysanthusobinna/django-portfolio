@@ -89,3 +89,16 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 | portfolio_app  | views.py       | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/views.py) | ![screenshot](documentation/test/validate-views-py.png)          | All clear, no errors found   |
 
  
+ 
+## Browser Compatibility
+
+I've tested my deployed project on multiple browsers to check for compatibility issues.
+
+| Browser | Home | User Portfolio | Notes |
+| --- | --- | --- | --- |
+| Chrome | ![screenshot](documentation/test/browser-chrome-home.png) | ![screenshot](documentation/test/browser-chrome-user-portfolio.png) | Works as expected |
+| Firefox | ![screenshot](documentation/test/browser-firefox-home.png) | ![screenshot](documentation/test/browser-firefox-user-portfolio.png) | Works as expected |
+| Opera | ![screenshot](documentation/test/browser-opera-home.png) | ![screenshot](documentation/test/browser-opera-user-portfolio.png) | Minor differences |
+ 
+
+
