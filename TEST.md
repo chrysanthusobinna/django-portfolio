@@ -69,23 +69,23 @@ I used the recommended [JShint Validator](https://jshint.com) to validate all of
 | static/js/ | scripts.js | ![screenshot](documentation/test/jshint-test.png) | `No Error Found.` |
 
 
-
-
 ### Python
 
 I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files.
 
-| Directory | File | CI URL | Screenshot | Notes |
-| --- | --- | --- | --- | --- |
-|  | manage.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/manage.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio | settings.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio/settings.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio | urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio/urls.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio_app | admin.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/admin.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio_app | context_processors.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/context_processors.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio_app | forms.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/forms.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio_app | helpers.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/helpers.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio_app | models.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/models.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio_app | signals.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/signals.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio_app | urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/urls.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio_app | utils.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/utils.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
-| portfolio_app | views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/views.py) | ![screenshot](documentation/validation/path-to-screenshot.png) | |
+| Directory      | File           | CI URL                                                                                  | Screenshot                                                       | Notes                         |
+|----------------|----------------|-----------------------------------------------------------------------------------------|------------------------------------------------------------------|-------------------------------|
+|                | manage.py      | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/manage.py) | ![screenshot](documentation/test/validate-manage-py.png)        | All clear, no errors found   |
+| portfolio      | settings.py    | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio/settings.py) | ![screenshot](documentation/test/validate-settings-py.png)       | All clear, no errors found   |
+| portfolio      | urls.py        | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio/urls.py) | ![screenshot](documentation/test/validate-portfolio-app-urls-py.png) | All clear, no errors found   |
+| portfolio_app  | admin.py       | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/admin.py) | ![screenshot](documentation/test/validate-admin-py.png)          | All clear, no errors found   |
+| portfolio_app  | context_processors.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/context_processors.py) | ![screenshot](documentation/test/validate-context-processors-py.png) | All clear, no errors found   |
+| portfolio_app  | forms.py       | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/forms.py) | ![screenshot](documentation/test/validate-forms-py.png)          | All clear, no errors found   |
+| portfolio_app  | helpers.py     | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/helpers.py) | ![screenshot](documentation/test/validate-helpers-py.png)        | All clear, no errors found   |
+| portfolio_app  | models.py      | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/models.py) | ![screenshot](documentation/test/validate-models-py.png)         | All clear, no errors found   |
+| portfolio_app  | signals.py     | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/signals.py) | ![screenshot](documentation/test/validate-signals-py.png)        | All clear, no errors found   |
+| portfolio_app  | urls.py        | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/urls.py) | ![screenshot](documentation/test/validate-urls-py.png)           | All clear, no errors found   |
+| portfolio_app  | utils.py       | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/utils.py) | ![screenshot](documentation/test/validate-utils-py.png)          | All clear, no errors found   |
+| portfolio_app  | views.py       | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/chrysanthusobinna/django-portfolio/main/portfolio_app/views.py) | ![screenshot](documentation/test/validate-views-py.png)          | All clear, no errors found   |
+
+ 
