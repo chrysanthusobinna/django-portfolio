@@ -120,59 +120,101 @@ I've tested my deployed project using Googlechrome built-in device sizes in the 
 This table shows the compatibility results for different device sizes, confirming that the site works as expected on mobile, tablet, and desktop. 
 
 
+
 ## Lighthouse Audit
 
 I tested my deployed project using the Google Chrome Developer Lighthouse Audit tool to evaluate performance and identify potential issues.
 
-### Home Page
-![lighthouse-home-page](documentation/test/lighthouse-home-page.png)  
-- **Performance**: 50 - The page shows reasonable performance, with room for optimization to improve load times and responsiveness.  
-- **Accessibility**: 89 - Most accessibility features are implemented effectively, ensuring usability for diverse users.  
-- **Best Practices**: 100 - All recommended best practices are fully implemented.  
-- **SEO**: 92 - The page is well-optimized for search engines.
+
+### Home Page  
+![Home Page](documentation/test/lighthouse-home-page.png)  
+
+| Metric           | Score | Notes                                                                 |
+|-------------------|-------|-----------------------------------------------------------------------|
+| **Performance**   | 50    | The page shows reasonable performance, with room for optimization.   |
+| **Accessibility** | 89    | Most accessibility features are effectively implemented.             |
+| **Best Practices**| 100   | All recommended best practices are fully implemented.                |
+| **SEO**           | 92    | The page is well-optimized for search engines.                      |
 
 ---
 
-### User Portfolio Page
-![lighthouse-user-portfolio-page](documentation/test/lighthouse-user-portfolio-page.png)  
-- **Performance**: 92 - A commendable performance score, indicating a well-optimized page.  
-- **Accessibility**: 80 - Accessibility standards are nearly perfect, ensuring an inclusive user experience.  
-- **Best Practices**: 61 - A few improvements can be made to align with best practices fully.  
-- **SEO**: 92 - The page is effectively optimized for search visibility.
+### User Portfolio Page  
+![User Portfolio Page](documentation/test/lighthouse-user-portfolio-page.png)  
+
+| Metric           | Score | Notes                                                                 |
+|-------------------|-------|-----------------------------------------------------------------------|
+| **Performance**   | 92    | A commendable performance score, indicating a well-optimized page.   |
+| **Accessibility** | 80    | Accessibility standards are nearly perfect, ensuring inclusivity.    |
+| **Best Practices**| 61    | Improvements can be made to fully align with best practices.         |
+| **SEO**           | 92    | The page is effectively optimized for search visibility.            |
 
 ---
 
-### Edit User Portfolio Page
-![lighthouse-edit-user-portfolio-page](documentation/test/lighthouse-edit-user-portfolio-page.png)  
-- **Performance**: 95 - A good performance score, suggesting effective optimization.  
-- **Accessibility**: 84 - The page adheres closely to accessibility standards, providing an inclusive experience.  
-- **Best Practices**: 61 - Minor adjustments are needed to fully meet best practices.  
-- **SEO**: 92 - The page is well-prepared for search engine optimization.
+### Edit User Portfolio Page  
+![Edit User Portfolio Page](documentation/test/lighthouse-edit-user-portfolio-page.png)  
+
+| Metric           | Score | Notes                                                                 |
+|-------------------|-------|-----------------------------------------------------------------------|
+| **Performance**   | 95    | A good performance score, suggesting effective optimization.         |
+| **Accessibility** | 84    | The page adheres closely to accessibility standards.                 |
+| **Best Practices**| 61    | Minor adjustments are needed to fully meet best practices.           |
+| **SEO**           | 92    | The page is well-prepared for search engine optimization.            |
 
 ---
 
-### Sign Out Page
-![lighthouse-sign-out-page](documentation/test/lighthouse-sign-out-page.png)  
-- **Performance**: 97 - Performance is acceptable, but there is potential for further optimization.  
-- **Accessibility**: 80 - The page is highly accessible, supporting diverse user needs.  
-- **Best Practices**: 100 - Slight improvements could enhance adherence to best practices.  
-- **SEO**: 92 - Search engine optimization is effectively implemented.
+### Sign Out Page  
+![Sign Out Page](documentation/test/lighthouse-sign-out-page.png)  
+
+| Metric           | Score | Notes                                                                 |
+|-------------------|-------|-----------------------------------------------------------------------|
+| **Performance**   | 97    | Performance is acceptable, but there is potential for optimization.  |
+| **Accessibility** | 80    | The page is highly accessible, supporting diverse user needs.        |
+| **Best Practices**| 100   | All recommended best practices are fully implemented.                |
+| **SEO**           | 92    | Search engine optimization is effectively implemented.              |
 
 ---
 
-### Login Page
-![lighthouse-login-page](documentation/test/lighthouse-login-page.png)  
-- **Performance**: 98 - Performance is satisfactory, with some scope for refinement.  
-- **Accessibility**: 83 - The page meets most accessibility requirements, ensuring usability for all.  
-- **Best Practices**: 100 - Minor refinements are needed to achieve full alignment with best practices.  
-- **SEO**: 92 - The page is well-optimized for search engines.
+### Login Page  
+![Login Page](documentation/test/lighthouse-login-page.png)  
+
+| Metric           | Score | Notes                                                                 |
+|-------------------|-------|-----------------------------------------------------------------------|
+| **Performance**   | 98    | Performance is satisfactory, with some scope for refinement.         |
+| **Accessibility** | 83    | The page meets most accessibility requirements, ensuring usability.  |
+| **Best Practices**| 100   | All recommended best practices are fully implemented.                |
+| **SEO**           | 92    | The page is well-optimized for search engines.                      |
 
 ---
 
-### Register Page
-![lighthouse-register-page](documentation/test/lighthouse-register-page.png)  
-- **Performance**: 96 - Performance is solid, with opportunities for optimization.  
-- **Accessibility**: 83 - Accessibility standards are well-addressed, providing an inclusive experience.  
-- **Best Practices**: 100 - Further adjustments could improve compliance with best practices.  
-- **SEO**: 92 - The page demonstrates strong search engine optimization.
+### Register Page  
+![Register Page](documentation/test/lighthouse-register-page.png)  
 
+| Metric           | Score | Notes                                                                 |
+|-------------------|-------|-----------------------------------------------------------------------|
+| **Performance**   | 96    | Performance is solid, with opportunities for optimization.           |
+| **Accessibility** | 83    | Accessibility standards are well-addressed, providing inclusivity.   |
+| **Best Practices**| 100   | All recommended best practices are fully implemented.                |
+| **SEO**           | 92    | The page demonstrates strong search engine optimization.            |
+
+--- 
+
+
+
+ ## Defensive Programming
+
+| **Test Case**                                  | **Description**                                                                                     | **Screenshot**                                  |
+|------------------------------------------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------|
+| **Empty Form Submission**                      | Users cannot submit a form with empty required fields.                                               | ![empty-form](documentation/test/empty-form.png)    |
+| **Invalid Email Address**                      | Users must enter valid email addresses in email fields.                                              | ![invalid-email](documentation/test/invalid-email.png) |
+| **Valid Input Validation**                     | Users must enter valid letters/words/strings where applicable.                                       | ![valid-input](documentation/test/valid-input.png)   |
+| **Dropdown or Specific List Selection**        | Users must choose only from a predefined list in dropdowns or selection fields.                      | ![dropdown-selection](documentation/test/dropdown-selection.png) |
+| **Restricted URL Access**                      | Users cannot brute-force URLs to access restricted pages (e.g., admin-only pages).                  | ![restricted-url](documentation/test/restricted-url.png) |
+| **CRUD Restrictions for Logged-Out Users**     | Non-authenticated users cannot perform CRUD actions.                                                | ![crud-restrictions](documentation/test/crud-restrictions.png) |
+| **Cross-User Data Manipulation**               | User-A should not be able to view or manipulate data belonging to User-B.                           | ![cross-user-data](documentation/test/cross-user-data.png) |
+| **Authentication-Required Pages**              | Non-authenticated users should not be able to access pages requiring authentication.               | ![auth-required](documentation/test/auth-required.png) |
+| **Superuser-Only Pages**                       | Standard users cannot access pages meant for superusers (e.g., admin dashboards).                   | ![superuser-pages](documentation/test/superuser-pages.png) |
+| **Input Sanitization**                         | Ensure inputs are sanitized to prevent SQL injection or XSS attacks.                                | ![input-sanitization](documentation/test/input-sanitization.png) |
+| **Session Management**                         | Verify that expired sessions redirect users to the login page.                                      | ![session-management](documentation/test/session-management.png) |
+| **File Upload Validation**                     | Only allow uploads of specific file types and sizes.                                                | ![file-upload](documentation/test/file-upload.png)   |
+| **Detailed Error Messages**                    | Provide meaningful error messages for all validation and security checks.                           | ![error-messages](documentation/test/error-messages.png) |
+| **Password Complexity**                        | Enforce strong password rules (e.g., minimum length, special characters).                           | ![password-complexity](documentation/test/password-complexity.png) |
