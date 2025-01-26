@@ -70,7 +70,7 @@ class AddPortfolioViewTests(TestCase):
 
         # Check that the form errors were shown
         messages = list(get_messages(response.wsgi_request))
-        self.assertTrue(any(msg.message == 'Error Adding Portfolio: This field is required.' for msg in messages))
+        self.assertTrue(any('Error Adding Portfolio:' in msg.message for msg in messages))
 
     @patch('portfolio_app.views.validate_image_file')  # Mock the validate_image_file function
     def test_add_portfolio_invalid_image(self, mock_validate_image_file):

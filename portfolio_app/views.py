@@ -97,6 +97,7 @@ def edit_user_profile(request, username):
 # Handle Create, Update and Delete for Portfolio
 @login_required
 def add_portfolio(request):
+    error_msg = "Error Adding Portfolio: "
     if request.method == "POST":
         form = PortfolioForm(request.POST, request.FILES)
 
@@ -116,15 +117,18 @@ def add_portfolio(request):
             return redirect("edit_user_profile", username=request.user.username)  # noqa
         else:
             for field, errors in form.errors.items():
+                label = form.fields[field].label or field
                 for error in errors:
-                    messages.error(request, f"Error Adding Portfolio: {error}")
+                    messages.error(request, f"{error_msg} '{label}': {error}")
 
     return redirect("edit_user_profile", username=request.user.username)
 
 
 @login_required
 def edit_portfolio(request, id):
+    error_msg = "Error Updating Portfolio: "
     portfolio = get_object_or_404(Portfolio, id=id, user=request.user)
+
     if request.method == "POST":
         form = PortfolioForm(request.POST, request.FILES, instance=portfolio)
 
@@ -139,11 +143,12 @@ def edit_portfolio(request, id):
         if form.is_valid():
             form.save()
             messages.success(request, "Portfolio updated successfully.")
+            return redirect("edit_user_profile", username=request.user.username)  # noqa
         else:
             for field, errors in form.errors.items():
+                label = form.fields[field].label or field
                 for error in errors:
-                    messages.error(request, f"Error Updating Portfolio: {error}")  # noqa
-        return redirect("edit_user_profile", username=request.user.username)
+                    messages.error(request, f"{error_msg} '{label}': {error}")
 
     return redirect("edit_user_profile", username=request.user.username)
 
@@ -166,6 +171,7 @@ def delete_portfolio(request, id):
 # Handle Create, Update and Delete for Certification
 @login_required
 def add_certification(request):
+    error_msg = "Error Adding Certification: "
     if request.method == "POST":
         form = CertificationForm(request.POST)
         if form.is_valid():
@@ -175,26 +181,29 @@ def add_certification(request):
             messages.success(request, "Certification added successfully.")
         else:
             for field, errors in form.errors.items():
+                label = form.fields[field].label or field
                 for error in errors:
-                    messages.error(
-                        request, f"Error Adding Certification: {error}")
+                    messages.error(request, f"{error_msg} '{label}': {error}")
     return redirect("edit_user_profile", username=request.user.username)
 
 
 @login_required
 def edit_certification(request, id):
+    error_msg = "Error Updating Certification: "
     certification = get_object_or_404(Certification, id=id, user=request.user)
+
     if request.method == "POST":
         form = CertificationForm(request.POST, instance=certification)
         if form.is_valid():
             form.save()
             messages.success(request, "Certification updated successfully.")
+            return redirect("edit_user_profile", username=request.user.username)  # noqa
         else:
             for field, errors in form.errors.items():
+                label = form.fields[field].label or field
                 for error in errors:
-                    messages.error(
-                        request, f"Error Updating Certification: {error}")
-        return redirect("edit_user_profile", username=request.user.username)
+                    messages.error(request, f"{error_msg} '{label}': {error}")
+
     return redirect("edit_user_profile", username=request.user.username)
 
 
@@ -219,6 +228,7 @@ def delete_certification(request, id):
 # Handle Create, Update and Delete for Education
 @login_required
 def add_education(request):
+    error_msg = "Error Adding Education: "
     if request.method == "POST":
         form = EducationForm(request.POST)
         if form.is_valid():
@@ -228,26 +238,29 @@ def add_education(request):
             messages.success(request, "Education entry added successfully.")
         else:
             for field, errors in form.errors.items():
+                label = form.fields[field].label or field
                 for error in errors:
-                    messages.error(request, f"Error Adding Education: {error}")
+                    messages.error(request, f"{error_msg} '{label}': {error}")
     return redirect("edit_user_profile", username=request.user.username)
 
 
 @login_required
 def edit_education(request, id):
-    error_msg = (
-        "Error Updating Education: "
-    )
+    error_msg = "Error Updating Education: "
     education = get_object_or_404(Education, id=id, user=request.user)
+
     if request.method == "POST":
         form = EducationForm(request.POST, instance=education)
         if form.is_valid():
             form.save()
             messages.success(request, "Education entry updated successfully.")
+            return redirect("edit_user_profile", username=request.user.username)  # noqa
         else:
             for field, errors in form.errors.items():
+                label = form.fields[field].label or field
                 for error in errors:
-                    messages.error(request, f"{error_msg}{error}")
+                    messages.error(request, f"{error_msg} '{label}': {error}")
+
     return redirect("edit_user_profile", username=request.user.username)
 
 
@@ -273,9 +286,7 @@ def delete_education(request, id):
 # Handle Create, Update and Delete for Employment
 @login_required
 def add_employment(request):
-    error_msg = (
-        "Error Adding Employment: "
-    )
+    error_msg = "Error Adding Employment: "
     if request.method == "POST":
         form = EmploymentForm(request.POST)
         if form.is_valid():
@@ -285,27 +296,29 @@ def add_employment(request):
             messages.success(request, "Employment entry added successfully.")
         else:
             for field, errors in form.errors.items():
+                label = form.fields[field].label or field
                 for error in errors:
-                    messages.error(request, f"{error_msg} '{field}': {error}")
+                    messages.error(request, f"{error_msg} '{label}': {error}")
     return redirect("edit_user_profile", username=request.user.username)
 
 
 @login_required
 def edit_employment(request, id):
-    error_msg = (
-        "Error Updating Employment:  "
-    )
+    error_msg = "Error Updating Employment: "
     employment = get_object_or_404(Employment, id=id, user=request.user)
+
     if request.method == "POST":
         form = EmploymentForm(request.POST, instance=employment)
         if form.is_valid():
             form.save()
             messages.success(request, "Employment entry updated successfully.")
+            return redirect("edit_user_profile", username=request.user.username)  # noqa
         else:
             for field, errors in form.errors.items():
+                label = form.fields[field].label or field
                 for error in errors:
-                    messages.error(request, f"{error_msg}{error}")
-        return redirect("edit_user_profile", username=request.user.username)
+                    messages.error(request, f"{error_msg} '{label}': {error}")
+
     return redirect("edit_user_profile", username=request.user.username)
 
 
@@ -414,9 +427,7 @@ def delete_profile_photo(request):
 
 @login_required
 def contact_update(request):
-    error_msg = (
-        "Error Saving Contact: "
-    )
+    error_msg = "Error Saving Contact: "
     try:
         contact = Contact.objects.get(user=request.user)
     except Contact.DoesNotExist:
@@ -431,8 +442,10 @@ def contact_update(request):
             messages.success(request, "Contact updated successfully.")
         else:
             for field, errors in form.errors.items():
+                label = form.fields[field].label or field
                 for error in errors:
-                    messages.error(request, f"{error_msg}{field} - {error}")
+                    messages.error(request, f"{error_msg} '{label}': {error}")
+
     return redirect("edit_user_profile", username=request.user.username)
 
 
