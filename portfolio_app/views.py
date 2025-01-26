@@ -81,6 +81,10 @@ def user_profile(request, username):
 # render edit portfolio page
 @login_required
 def edit_user_profile(request, username):
+    if request.user.username != username:
+        messages.error(request, "You cannot update another user's profile.")
+        return redirect("home")
+
     target_user, data = get_user_data(username)
 
     if not target_user:
