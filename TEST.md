@@ -210,3 +210,29 @@ I tested my deployed project using the Google Chrome Developer Lighthouse Audit 
 | **CRUD Restrictions for Logged-Out Users**     | Non-authenticated users cannot perform CRUD actions.                                                | ![crud-restrictions](documentation/test/crud-restrictions.png) |
 | **Cross-User Data Manipulation**               | User-A should not be able to view or manipulate data belonging to User-B.                           | ![cross-user-data](documentation/test/cross-user-data.png) |
 | **File Upload Validation**                     | Only allow uploads of specific file types and sizes.                                                | ![file-upload](documentation/test/file-upload.png)   |
+
+
+## User Story Testing
+
+### User Stories
+
+#### New Site Users
+
+| User Story | Screenshot |
+| --- | --- |
+| As a new site user, I would like to register on the website, so that I can create my portfolio. | ![screenshot](documentation/test/register.png) |
+| As a new site user, I would like to log in and log out of the website, so that I can access and manage my portfolio securely. | ![screenshot](documentation/test/login_logout.png) |
+| As a new site user, I would like to visit the home page, so that I can see information about the website. | ![screenshot](documentation/test/home_page.png) |
+| As a new site user, I would like to navigate to the "Register" and "Login" pages from the home page, so that I can easily access the registration and login functionalities. | ![screenshot](documentation/test/navigate_register_login.png) |
+
+#### Returning Site Users
+
+| User Story | Screenshot |
+| --- | --- |
+| As a returning site user, I would like to manage my profile, so that I can update my personal information. | ![screenshot](documentation/test/manage_profile.png) |
+| As a returning site user, I would like to add my employment history, so that I can showcase my work experience. | ![screenshot](documentation/test/add_employment.png) |
+| As a returning site user, I would like to add my education details, so that I can highlight my academic background. | ![screenshot](documentation/test/add_education.png) |
+| As a returning site user, I would like to add my certifications and training, so that I can demonstrate my professional development. | ![screenshot](documentation/test/add_certifications.png) |
+| As a returning site user, I would like to add my portfolio projects, so that I can showcase my work. | ![screenshot](documentation/test/add_portfolio_projects.png) |
+| As a returning site user, I would like to add my contact information, so that I can display my contact details. | ![screenshot](documentation/test/add_contact_information.png) |
+| As a returning site user, I would like to customize the sections in my portfolio, so that I can tailor it to my preferences. | ![screenshot](documentation/test/customize_sections.png) |
