@@ -236,3 +236,45 @@ I tested my deployed project using the Google Chrome Developer Lighthouse Audit 
 | As a returning site user, I would like to add my portfolio projects, so that I can showcase my work. | ![screenshot](documentation/test/user-story-add_portfolio_projects.png) |
 | As a returning site user, I would like to add my contact information, so that I can display my contact details. | ![screenshot](documentation/test/user-story-add_contact_information.png) |
 | As a returning site user, I would like to customize the sections in my portfolio, so that I can tailor it to my preferences. | ![screenshot](documentation/test/user-story-customize_sections.png) |
+
+
+## Automated Testing
+
+### JavaScript (Jest Testing)
+
+The application functionality has been tested using the [Jest](https://jestjs.io) JavaScript testing framework.
+
+#### Setting Up Jest
+
+To use Jest, the first step was to initialize NPM:
+
+```bash
+npm init
+```
+
+Press `enter` for all options except for the **test command**, where you should type `jest`.
+
+Next, Jest was added to the **Dev Dependencies** in the development environment:
+
+```bash
+npm install --save-dev jest
+```
+
+#### Running Tests
+
+To execute the tests, use the following command:
+
+```bash
+npm test
+```
+
+#### Test Results
+
+| Test Suites          | Tests                | Screenshot                                      |
+|----------------------|----------------------|------------------------------------------------|
+| 15 passed, 15 total  | 17 passed, 17 total | ![Screenshot](documentation/test/js-test-coverage.png) |
+
+#### Jest Test Issues
+
+There were no issues encountered during testing.
+ 
