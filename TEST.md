@@ -337,55 +337,55 @@ Below are the results from the test coverage.
 
  | File                                                | Statements | Missing | Excluded | Coverage |
 |-----------------------------------------------------|------------|---------|----------|----------|
-| [manage.py](#)                                      | 11         | 2       | 0        | 82%      |
-| [portfolio_app/admin.py](#)                         | 2          | 0       | 0        | 100%     |
-| [portfolio_app/apps.py](#)                          | 7          | 0       | 0        | 100%     |
-| [portfolio_app/context_processors.py](#)            | 3          | 0       | 0        | 100%     |
-| [portfolio_app/forms.py](#)                         | 42         | 0       | 0        | 100%     |
-| [portfolio_app/helpers.py](#)                       | 16         | 4       | 0        | 75%      |
-| [portfolio_app/models.py](#)                        | 52         | 1       | 0        | 98%      |
-| [portfolio_app/signals.py](#)                       | 12         | 5       | 0        | 58%      |
-| [portfolio_app/tests/test_about_form.py](#)         | 26         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_about_model.py](#)        | 23         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_add_certification_view.py](#) | 31      | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_add_education_view.py](#) | 25         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_add_employment_view.py](#)| 26         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_add_portfolio_view.py](#) | 48         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_certification_form.py](#) | 38         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_certification_model.py](#)| 26         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_contact_delete.py](#)     | 29         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_contact_form.py](#)       | 37         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_contact_model.py](#)      | 25         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_contact_update_view.py](#)| 45         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_custom_signup_form.py](#) | 38         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_delete_about_view.py](#)  | 32         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_delete_certification_view.py](#) | 33   | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_delete_education_view.py](#) | 26     | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_delete_employment_view.py](#) | 33    | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_delete_profile_photo_view.py](#) | 33 | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_edit_certification_view.py](#) | 34    | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_edit_education_view.py](#)| 35         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_edit_employment_view.py](#) | 39      | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_edit_portfolio_view.py](#)| 28         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_edit_user_profile_view.py](#) | 30    | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_education_form.py](#)     | 43         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_education_model.py](#)    | 27         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_employment_model.py](#)   | 28         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_home_view.py](#)          | 30         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_portfolio_form.py](#)     | 32         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_portfolio_model.py](#)    | 26         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_profilephoto_form.py](#)  | 13         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_profilephoto_model.py](#) | 12         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_save_about_view.py](#)    | 34         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_save_profile_photo_view.py](#) | 4     | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_urls.py](#)               | 67         | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_user_profile_view.py](#)  | 0          | 0       | 0        | 100%     |
-| [portfolio_app/tests/test_validate_image_file.py](#)| 21         | 0       | 0        | 100%     |
-| [portfolio_app/urls.py](#)                          | 3          | 0       | 0        | 100%     |
-| [portfolio_app/utils.py](#)                         | 19         | 6       | 0        | 68%      |
-| [portfolio_app/views.py](#)                         | 314        | 64      | 0        | 80%      |
-| [portfolio/settings.py](#)                          | 46         | 0       | 0        | 100%     |
-| [portfolio/urls.py](#)                              | 3          | 0       | 0        | 100%     |
+| manage.py                                      | 11         | 2       | 0        | 82%      |
+| portfolio_app/admin.py                         | 2          | 0       | 0        | 100%     |
+| portfolio_app/apps.py                          | 7          | 0       | 0        | 100%     |
+| portfolio_app/context_processors.py            | 3          | 0       | 0        | 100%     |
+| portfolio_app/forms.py                         | 42         | 0       | 0        | 100%     |
+| portfolio_app/helpers.py                       | 16         | 4       | 0        | 75%      |
+| portfolio_app/models.py                        | 52         | 1       | 0        | 98%      |
+| portfolio_app/signals.py                       | 12         | 5       | 0        | 58%      |
+| portfolio_app/tests/test_about_form.py         | 26         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_about_model.py        | 23         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_add_certification_view.py | 31      | 0       | 0        | 100%     |
+| portfolio_app/tests/test_add_education_view.py | 25         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_add_employment_view.py| 26         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_add_portfolio_view.py | 48         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_certification_form.py | 38         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_certification_model.py| 26         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_contact_delete.py     | 29         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_contact_form.py       | 37         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_contact_model.py      | 25         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_contact_update_view.py| 45         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_custom_signup_form.py | 38         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_delete_about_view.py  | 32         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_delete_certification_view.py | 33   | 0       | 0        | 100%     |
+| portfolio_app/tests/test_delete_education_view.py | 26     | 0       | 0        | 100%     |
+| portfolio_app/tests/test_delete_employment_view.py | 33    | 0       | 0        | 100%     |
+| portfolio_app/tests/test_delete_profile_photo_view.py | 33 | 0       | 0        | 100%     |
+| portfolio_app/tests/test_edit_certification_view.py | 34    | 0       | 0        | 100%     |
+| portfolio_app/tests/test_edit_education_view.py| 35         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_edit_employment_view.py | 39      | 0       | 0        | 100%     |
+| portfolio_app/tests/test_edit_portfolio_view.py| 28         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_edit_user_profile_view.py | 30    | 0       | 0        | 100%     |
+| portfolio_app/tests/test_education_form.py     | 43         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_education_model.py    | 27         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_employment_model.py   | 28         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_home_view.py          | 30         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_portfolio_form.py     | 32         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_portfolio_model.py    | 26         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_profilephoto_form.py  | 13         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_profilephoto_model.py | 12         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_save_about_view.py    | 34         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_save_profile_photo_view.py | 4     | 0       | 0        | 100%     |
+| portfolio_app/tests/test_urls.py               | 67         | 0       | 0        | 100%     |
+| portfolio_app/tests/test_user_profile_view.py  | 0          | 0       | 0        | 100%     |
+| portfolio_app/tests/test_validate_image_file.py| 21         | 0       | 0        | 100%     |
+| portfolio_app/urls.py                          | 3          | 0       | 0        | 100%     |
+| portfolio_app/utils.py                         | 19         | 6       | 0        | 68%      |
+| portfolio_app/views.py                         | 314        | 64      | 0        | 80%      |
+| portfolio/settings.py                          | 46         | 0       | 0        | 100%     |
+| portfolio/urls.py                              | 3          | 0       | 0        | 100%     |
 | **Total**                                           | **1607**   | **82**  | **0**    | **95%**  |
 
 
