@@ -137,6 +137,16 @@ The wireframes were made using Balsamiq.
 - **Admin Dashboard**  
   Provides administrators with an overview of the site's activity and tools to manage users, content, and site settings. This feature ensures efficient site management and user administration.
 
+⚠️ **Important Notice: Admin Login URL was Changed**
+
+The default Django admin login URL `/admin` has been changed to `/admin-panel`.
+
+- **New Admin Login URL:**  
+  [https://django-portfolio-cc-22a794f01134.herokuapp.com/admin-panel](https://django-portfolio-cc-22a794f01134.herokuapp.com/admin-panel)
+
+Please use the above link to access the admin dashboard.
+
+
  ![screenshot](documentation/feature-admin.png)
  
 
