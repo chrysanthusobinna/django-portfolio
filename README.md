@@ -479,6 +479,8 @@ Use this space to provide attribution links to any borrowed code snippets, eleme
 | [Pexels](https://www.pexels.com/photo/close-up-shot-of-scrabble-tiles-on-a-blue-surface-2789781/) | Home page | Image | Photo by Ann H from Pexels |
 | [Pexels](https://www.pexels.com/photo/woman-in-blue-suit-jacket-2422293/) | Home page | Image | Photo by Jopwell from Pexels |
 
+* The favicon for this web project was sourced from [Favicon.io](https://favicon.io/).
+
 ### Acknowledgements
 
 - I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for his support throughout the development of this project.
