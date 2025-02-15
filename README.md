@@ -315,6 +315,10 @@ The screenshot above shows the GitHub Projects board, which was instrumental in 
 
 The live deployed application can be found deployed on [Heroku](https://django-portfolio-cc-22a794f01134.herokuapp.com).
 
+- **Admin Login URL:**  
+  [https://django-portfolio-cc-22a794f01134.herokuapp.com/admin-panel](https://django-portfolio-cc-22a794f01134.herokuapp.com/admin-panel)
+
+
 ### PostgreSQL Database
 
 This project uses a [Code Institute PostgreSQL Database](https://dbs.ci-dbs.net).
