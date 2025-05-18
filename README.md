@@ -499,6 +499,5 @@ Use this space to provide attribution links to any borrowed code snippets, eleme
 
 - I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for his support throughout the development of this project.
 - I would like to thank the [Code Institute](https://codeinstitute.net) tutor team for their assistance with troubleshooting and debugging some project issues.
-- I would like to thank the [Code Institute Slack community](https://code-institute-room.slack.com) for the moral support; it kept me going during periods of self-doubt and impostor syndrome.
 - Special thanks to [Chima Nwadike](http://linkedin.com/in/chima-nwadike-ba1618102) and [Olumuyiwa Folorunso](http://linkedin.com/in/olumuyiwafolorunso) for their guidance and support.
 
