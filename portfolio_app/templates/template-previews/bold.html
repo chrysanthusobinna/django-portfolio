@@ -27,21 +27,22 @@
             position: fixed;
             top: 20px;
             left: 20px;
-            z-index: 1000;
-            background: #e53e3e;
+            z-index: 99999;
+            background: rgba(26,26,46,0.85);
             color: #fff;
             padding: 10px 20px;
-            border-radius: 0;
+            border-radius: 30px;
             text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background 0.3s;
+            font-size: 0.85rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(229,62,62,0.3);
+            transition: all 0.3s;
         }
 
         .back-link:hover {
-            background: #c53030;
+            background: #e53e3e;
             color: #fff;
         }
 
@@ -556,7 +557,7 @@
             }
 
             .back-link {
-                position: absolute;
+                position: fixed;
             }
         }
     </style>
@@ -572,7 +573,7 @@
                 {% if profilephoto and profilephoto.profile_photo %}
                     <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
                 {% else %}
-                    <div class="placeholder-avatar">CO</div>
+                    <div class="placeholder-avatar">{{ user_initials }}</div>
                 {% endif %}
             </div>
             <div class="hero-bold-text">
@@ -601,7 +602,7 @@
                     <div class="employment-bold-role">{{ job.job_title }}</div>
                     <div class="employment-bold-company">{{ job.employer_name }}</div>
                     <div class="employment-bold-dates">
-                        {{ job.start_date }} &mdash; {% if job.end_date %}{{ job.end_date }}{% else %}Present{% endif %}
+                        {{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}
                     </div>
                     {% if job.description_of_duties %}
                     <div class="employment-bold-desc">{{ job.description_of_duties }}</div>
@@ -624,7 +625,7 @@
                     <div class="edu-bold-qual">{{ edu.qualification }}</div>
                     <div class="edu-bold-inst">{{ edu.institution_name }}</div>
                     <div class="edu-bold-date">
-                        {{ edu.start_date }} &mdash; {% if edu.end_date %}{{ edu.end_date }}{% else %}Present{% endif %}
+                        {{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}
                     </div>
                 </div>
                 {% endfor %}
