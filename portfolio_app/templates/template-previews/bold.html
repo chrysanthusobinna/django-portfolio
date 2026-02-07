@@ -1,0 +1,742 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user_fullname }} - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #e53e3e;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 0;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #c53030;
+            color: #fff;
+        }
+
+        .hero-bold {
+            min-height: 100vh;
+            background: #1a1a2e;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bold::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(229,62,62,0.08);
+            border-radius: 50%;
+        }
+
+        .hero-bold::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(229,62,62,0.05);
+            border-radius: 50%;
+        }
+
+        .hero-bold-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .hero-bold-photo {
+            flex-shrink: 0;
+        }
+
+        .hero-bold-photo img {
+            width: 200px;
+            height: 200px;
+            border-radius: 0;
+            object-fit: cover;
+            border: 5px solid #e53e3e;
+        }
+
+        .placeholder-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 0;
+            background: #e53e3e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 4px;
+            border: 5px solid #e53e3e;
+        }
+
+        .hero-bold-text {
+            flex: 1;
+        }
+
+        .hero-bold-stripe {
+            width: 60px;
+            height: 6px;
+            background: #e53e3e;
+            margin-bottom: 20px;
+        }
+
+        .hero-bold-name {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .hero-bold-title {
+            font-size: 1.2rem;
+            color: #e53e3e;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .hero-bold-about {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            max-width: 500px;
+            line-height: 1.8;
+        }
+
+        .main-bold {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section-bold {
+            padding: 70px 0;
+        }
+
+        .section-bold-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .section-bold-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(229,62,62,0.15);
+            line-height: 1;
+        }
+
+        .section-bold-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-bold-title span {
+            color: #e53e3e;
+        }
+
+        .employment-bold-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .employment-bold-card {
+            background: #fff;
+            border-left: 5px solid #e53e3e;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .employment-bold-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.08);
+        }
+
+        .employment-bold-role {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            text-transform: uppercase;
+        }
+
+        .employment-bold-company {
+            font-size: 1rem;
+            color: #e53e3e;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .employment-bold-dates {
+            font-size: 0.8rem;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .employment-bold-desc {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .edu-bold-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .edu-bold-card {
+            background: #fff;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .edu-bold-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #e53e3e;
+        }
+
+        .edu-bold-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .edu-bold-qual {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+
+        .edu-bold-inst {
+            color: #e53e3e;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .edu-bold-date {
+            font-size: 0.8rem;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cert-bold-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .cert-bold-item {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 25px;
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            transition: transform 0.3s;
+        }
+
+        .cert-bold-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .cert-bold-icon {
+            width: 45px;
+            height: 45px;
+            background: #e53e3e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .cert-bold-name {
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+        }
+
+        .cert-bold-issuer {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+        }
+
+        .cert-bold-date {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.8rem;
+        }
+
+        .portfolio-bold-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .portfolio-bold-card {
+            background: #fff;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .portfolio-bold-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(229,62,62,0.15);
+        }
+
+        .portfolio-bold-card:hover .portfolio-bold-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-bold-img-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-bold-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .portfolio-bold-placeholder {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e53e3e;
+            font-size: 3rem;
+        }
+
+        .portfolio-bold-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(229,62,62,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .portfolio-bold-overlay a {
+            color: #fff;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            border: 2px solid #fff;
+            padding: 10px 25px;
+            transition: background 0.3s;
+        }
+
+        .portfolio-bold-overlay a:hover {
+            background: #fff;
+            color: #e53e3e;
+        }
+
+        .portfolio-bold-body {
+            padding: 25px;
+        }
+
+        .portfolio-bold-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #1a1a2e;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .portfolio-bold-desc {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .portfolio-bold-link {
+            color: #e53e3e;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .portfolio-bold-link:hover {
+            color: #c53030;
+        }
+
+        .contact-bold {
+            background: #1a1a2e;
+            padding: 60px 40px;
+            margin-top: 30px;
+        }
+
+        .contact-bold-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-bold-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+        }
+
+        .contact-bold-title span {
+            color: #e53e3e;
+        }
+
+        .contact-bold-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-bold-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-bold-item-icon {
+            width: 50px;
+            height: 50px;
+            background: #e53e3e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-bold-item-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .contact-bold-item-value {
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .contact-bold-item-value a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .contact-bold-item-value a:hover {
+            color: #e53e3e;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 35px 30px;
+            font-size: 0.75rem;
+            color: #bbb;
+            background: #f5f5f5;
+        }
+
+        @media (max-width: 768px) {
+            .hero-bold-inner {
+                flex-direction: column;
+                text-align: center;
+                padding: 80px 25px;
+                gap: 30px;
+            }
+
+            .hero-bold-name {
+                font-size: 2.5rem;
+            }
+
+            .hero-bold-about {
+                max-width: 100%;
+            }
+
+            .hero-bold-stripe {
+                margin: 0 auto 20px;
+            }
+
+            .main-bold {
+                padding: 0 20px;
+            }
+
+            .portfolio-bold-grid, .edu-bold-grid, .cert-bold-list {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-bold {
+                padding: 50px 20px;
+            }
+
+            .contact-bold-items {
+                flex-direction: column;
+            }
+
+            .back-link {
+                position: absolute;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}#templates" class="back-link">
+        <i class="fas fa-arrow-left me-1"></i> Back
+    </a>
+
+    <section class="hero-bold">
+        <div class="hero-bold-inner">
+            <div class="hero-bold-photo">
+                {% if profilephoto and profilephoto.profile_photo %}
+                    <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
+                {% else %}
+                    <div class="placeholder-avatar">CO</div>
+                {% endif %}
+            </div>
+            <div class="hero-bold-text">
+                <div class="hero-bold-stripe"></div>
+                <h1 class="hero-bold-name">{{ user_fullname }}</h1>
+                {% if employment %}
+                    <div class="hero-bold-title">{{ employment.0.job_title }}</div>
+                {% endif %}
+                {% if about and about.about %}
+                    <p class="hero-bold-about">{{ about.about }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <div class="main-bold">
+        {% if employment %}
+        <div class="section-bold">
+            <div class="section-bold-header">
+                <div class="section-bold-number">01</div>
+                <h2 class="section-bold-title">Work <span>Experience</span></h2>
+            </div>
+            <div class="employment-bold-cards">
+                {% for job in employment %}
+                <div class="employment-bold-card">
+                    <div class="employment-bold-role">{{ job.job_title }}</div>
+                    <div class="employment-bold-company">{{ job.employer_name }}</div>
+                    <div class="employment-bold-dates">
+                        {{ job.start_date }} &mdash; {% if job.end_date %}{{ job.end_date }}{% else %}Present{% endif %}
+                    </div>
+                    {% if job.description_of_duties %}
+                    <div class="employment-bold-desc">{{ job.description_of_duties }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if education %}
+        <div class="section-bold">
+            <div class="section-bold-header">
+                <div class="section-bold-number">02</div>
+                <h2 class="section-bold-title">Edu<span>cation</span></h2>
+            </div>
+            <div class="edu-bold-grid">
+                {% for edu in education %}
+                <div class="edu-bold-card">
+                    <div class="edu-bold-qual">{{ edu.qualification }}</div>
+                    <div class="edu-bold-inst">{{ edu.institution_name }}</div>
+                    <div class="edu-bold-date">
+                        {{ edu.start_date }} &mdash; {% if edu.end_date %}{{ edu.end_date }}{% else %}Present{% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if certifications %}
+        <div class="section-bold">
+            <div class="section-bold-header">
+                <div class="section-bold-number">03</div>
+                <h2 class="section-bold-title">Certifi<span>cations</span></h2>
+            </div>
+            <div class="cert-bold-list">
+                {% for cert in certifications %}
+                <div class="cert-bold-item">
+                    <div class="cert-bold-icon"><i class="fas fa-award"></i></div>
+                    <div>
+                        <div class="cert-bold-name">{{ cert.name }}</div>
+                        <div class="cert-bold-issuer">{{ cert.issuer }}</div>
+                        <div class="cert-bold-date">Issued: {{ cert.date_issued }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if portfolios %}
+        <div class="section-bold">
+            <div class="section-bold-header">
+                <div class="section-bold-number">04</div>
+                <h2 class="section-bold-title">Port<span>folio</span></h2>
+            </div>
+            <div class="portfolio-bold-grid">
+                {% for project in portfolios %}
+                <div class="portfolio-bold-card">
+                    <div class="portfolio-bold-img-wrapper">
+                        {% if project.portfolio_photo %}
+                            <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}" class="portfolio-bold-img">
+                        {% else %}
+                            <div class="portfolio-bold-placeholder">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        {% endif %}
+                        {% if project.link %}
+                        <div class="portfolio-bold-overlay">
+                            <a href="{{ project.link }}" target="_blank">View Project</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="portfolio-bold-body">
+                        <div class="portfolio-bold-title">{{ project.title }}</div>
+                        <div class="portfolio-bold-desc">{{ project.description }}</div>
+                        {% if project.link %}
+                        <a href="{{ project.link }}" class="portfolio-bold-link" target="_blank">
+                            View Project <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if contact %}
+    <div class="contact-bold">
+        <div class="contact-bold-inner">
+            <h2 class="contact-bold-title">Get In <span>Touch</span></h2>
+            <div class="contact-bold-items">
+                {% if contact.email_address %}
+                <div class="contact-bold-item">
+                    <div class="contact-bold-item-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <div class="contact-bold-item-label">Email</div>
+                        <div class="contact-bold-item-value">
+                            <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if contact.phone_number %}
+                <div class="contact-bold-item">
+                    <div class="contact-bold-item-icon"><i class="fas fa-phone"></i></div>
+                    <div>
+                        <div class="contact-bold-item-label">Phone</div>
+                        <div class="contact-bold-item-value">{{ contact.phone_number }}</div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if contact.linkedin %}
+                <div class="contact-bold-item">
+                    <div class="contact-bold-item-icon"><i class="fab fa-linkedin"></i></div>
+                    <div>
+                        <div class="contact-bold-item-label">LinkedIn</div>
+                        <div class="contact-bold-item-value">
+                            <a href="{{ contact.linkedin }}" target="_blank">LinkedIn Profile</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="footer">
+        Powered by MIfolio
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

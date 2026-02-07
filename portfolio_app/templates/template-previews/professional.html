@@ -1,0 +1,648 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user_fullname }} - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: #faf8f5;
+            color: #3d3d3d;
+            line-height: 1.7;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #0d9488;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.3s;
+            box-shadow: 0 2px 8px rgba(13,148,136,0.3);
+        }
+
+        .back-link:hover {
+            background: #0a7a70;
+            color: #fff;
+        }
+
+        .hero-header {
+            background: linear-gradient(135deg, #fef3e2 0%, #fce4c7 50%, #f5ddc8 100%);
+            padding: 80px 0 60px;
+            border-bottom: 4px solid #0d9488;
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hero-photo {
+            flex-shrink: 0;
+        }
+
+        .hero-photo img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .placeholder-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: #0d9488;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 3px;
+            border: 5px solid #fff;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .hero-info h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .hero-info .hero-subtitle {
+            font-size: 1.1rem;
+            color: #0d9488;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .hero-info .hero-about {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.8;
+            max-width: 550px;
+        }
+
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+        .section {
+            margin-bottom: 55px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .section-icon {
+            width: 45px;
+            height: 45px;
+            background: #0d9488;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #999;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 3px solid #e0dbd5;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 35px;
+            padding-bottom: 10px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #0d9488;
+            border: 3px solid #faf8f5;
+            box-shadow: 0 0 0 3px #0d9488;
+        }
+
+        .timeline-item:first-child::before {
+            background: #fff;
+            box-shadow: 0 0 0 3px #0d9488;
+        }
+
+        .timeline-role {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .timeline-company {
+            font-size: 1rem;
+            color: #0d9488;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-dates {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .timeline-desc {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .edu-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .edu-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            border-left: 4px solid #0d9488;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .edu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+        }
+
+        .edu-card-title {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 1.05rem;
+            margin-bottom: 5px;
+        }
+
+        .edu-card-institution {
+            color: #0d9488;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .edu-card-date {
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+
+        .cert-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .cert-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: transform 0.3s;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .cert-badge {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #0d9488, #14b8a6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .cert-name {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+        }
+
+        .cert-issuer {
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        .cert-date {
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .portfolio-card {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+        }
+
+        .portfolio-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .portfolio-card-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #e8f5f3, #d1eeea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0d9488;
+            font-size: 2.5rem;
+        }
+
+        .portfolio-card-body {
+            padding: 22px;
+        }
+
+        .portfolio-card-title {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .portfolio-card-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .portfolio-card-link {
+            color: #0d9488;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .portfolio-card-link:hover {
+            color: #0a7a70;
+        }
+
+        .contact-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+
+        .contact-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-item-icon {
+            width: 42px;
+            height: 42px;
+            background: #e8f5f3;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0d9488;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-label {
+            font-size: 0.75rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .contact-item-value {
+            font-size: 0.95rem;
+            color: #1a1a1a;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .contact-item-value a {
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .contact-item-value a:hover {
+            color: #0d9488;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 30px;
+            font-size: 0.8rem;
+            color: #bbb;
+        }
+
+        @media (max-width: 768px) {
+            .hero-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-info .hero-about {
+                max-width: 100%;
+            }
+
+            .hero-header {
+                padding: 70px 0 40px;
+            }
+
+            .back-link {
+                position: absolute;
+            }
+
+            .portfolio-grid, .edu-cards, .cert-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-items {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}#templates" class="back-link">
+        <i class="fas fa-arrow-left me-1"></i> Back to Templates
+    </a>
+
+    <header class="hero-header">
+        <div class="hero-inner">
+            <div class="hero-photo">
+                {% if profilephoto and profilephoto.profile_photo %}
+                    <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
+                {% else %}
+                    <div class="placeholder-avatar">CO</div>
+                {% endif %}
+            </div>
+            <div class="hero-info">
+                <h1>{{ user_fullname }}</h1>
+                {% if employment %}
+                    <div class="hero-subtitle">{{ employment.0.job_title }}</div>
+                {% endif %}
+                {% if about and about.about %}
+                    <p class="hero-about">{{ about.about }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        {% if employment %}
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-briefcase"></i></div>
+                <div>
+                    <div class="section-label">Career</div>
+                    <div class="section-title">Employment History</div>
+                </div>
+            </div>
+            <div class="timeline">
+                {% for job in employment %}
+                <div class="timeline-item">
+                    <div class="timeline-role">{{ job.job_title }}</div>
+                    <div class="timeline-company">{{ job.employer_name }}</div>
+                    <div class="timeline-dates">
+                        <i class="fas fa-calendar-alt me-1"></i>
+                        {{ job.start_date }} &mdash; {% if job.end_date %}{{ job.end_date }}{% else %}Present{% endif %}
+                    </div>
+                    {% if job.description_of_duties %}
+                    <div class="timeline-desc">{{ job.description_of_duties }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if education %}
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div>
+                    <div class="section-label">Academic</div>
+                    <div class="section-title">Education</div>
+                </div>
+            </div>
+            <div class="edu-cards">
+                {% for edu in education %}
+                <div class="edu-card">
+                    <div class="edu-card-title">{{ edu.qualification }}</div>
+                    <div class="edu-card-institution">{{ edu.institution_name }}</div>
+                    <div class="edu-card-date">
+                        <i class="fas fa-calendar-alt me-1"></i>
+                        {{ edu.start_date }} &mdash; {% if edu.end_date %}{{ edu.end_date }}{% else %}Present{% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if certifications %}
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-award"></i></div>
+                <div>
+                    <div class="section-label">Achievements</div>
+                    <div class="section-title">Certifications</div>
+                </div>
+            </div>
+            <div class="cert-cards">
+                {% for cert in certifications %}
+                <div class="cert-card">
+                    <div class="cert-badge"><i class="fas fa-certificate"></i></div>
+                    <div>
+                        <div class="cert-name">{{ cert.name }}</div>
+                        <div class="cert-issuer">{{ cert.issuer }}</div>
+                        <div class="cert-date">Issued: {{ cert.date_issued }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if portfolios %}
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-folder-open"></i></div>
+                <div>
+                    <div class="section-label">Work</div>
+                    <div class="section-title">Portfolio Projects</div>
+                </div>
+            </div>
+            <div class="portfolio-grid">
+                {% for project in portfolios %}
+                <div class="portfolio-card">
+                    {% if project.portfolio_photo %}
+                        <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}" class="portfolio-card-img">
+                    {% else %}
+                        <div class="portfolio-card-placeholder">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                    {% endif %}
+                    <div class="portfolio-card-body">
+                        <div class="portfolio-card-title">{{ project.title }}</div>
+                        <div class="portfolio-card-desc">{{ project.description }}</div>
+                        {% if project.link %}
+                        <a href="{{ project.link }}" class="portfolio-card-link" target="_blank">
+                            View Project <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if contact %}
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-envelope"></i></div>
+                <div>
+                    <div class="section-label">Get In Touch</div>
+                    <div class="section-title">Contact</div>
+                </div>
+            </div>
+            <div class="contact-section">
+                <div class="contact-items">
+                    {% if contact.email_address %}
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <div class="contact-item-label">Email</div>
+                            <div class="contact-item-value">
+                                <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if contact.phone_number %}
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <div class="contact-item-label">Phone</div>
+                            <div class="contact-item-value">{{ contact.phone_number }}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if contact.linkedin %}
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fab fa-linkedin"></i></div>
+                        <div>
+                            <div class="contact-item-label">LinkedIn</div>
+                            <div class="contact-item-value">
+                                <a href="{{ contact.linkedin }}" target="_blank">LinkedIn Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        Powered by MIfolio
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

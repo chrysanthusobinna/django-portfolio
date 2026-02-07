@@ -29,6 +29,41 @@ def home(request):
     return render(request, "home-page.html")
 
 
+def template_preview(request, template_name):
+    valid_templates = ['minimalist', 'creative', 'corporate', 'professional', 'elegant', 'bold']
+    if template_name not in valid_templates:
+        messages.error(request, "Template not found.")
+        return redirect("home")
+
+    sample_data = {
+        'user_fullname': 'Chrysanthus Obinna',
+        'profilephoto': None,
+        'about': type('obj', (object,), {'about': 'Experienced software engineer and technology leader with over 10 years of expertise in full-stack development, cloud architecture, and team leadership. Passionate about building scalable solutions and mentoring the next generation of developers.'})(),
+        'employment': [
+            type('obj', (object,), {'employer_name': 'TechVision Solutions', 'job_title': 'Senior Software Engineer', 'description_of_duties': 'Led a team of 8 developers in designing and building enterprise-grade web applications using Django and React.', 'start_date': '2021-03-01', 'end_date': None})(),
+            type('obj', (object,), {'employer_name': 'CloudFirst Technologies', 'job_title': 'Full-Stack Developer', 'description_of_duties': 'Developed and maintained cloud-native applications on AWS. Built RESTful APIs and responsive front-end interfaces.', 'start_date': '2018-06-15', 'end_date': '2021-02-28'})(),
+            type('obj', (object,), {'employer_name': 'Digital Innovations Ltd', 'job_title': 'Junior Software Developer', 'description_of_duties': 'Contributed to the development of client-facing web applications using Python and JavaScript.', 'start_date': '2015-09-01', 'end_date': '2018-05-31'})(),
+        ],
+        'education': [
+            type('obj', (object,), {'qualification': 'MSc Computer Science', 'institution_name': 'University of Lagos', 'start_date': '2013-09-01', 'end_date': '2015-07-15'})(),
+            type('obj', (object,), {'qualification': 'BSc Information Technology', 'institution_name': 'Federal University of Technology, Owerri', 'start_date': '2009-09-01', 'end_date': '2013-06-30'})(),
+        ],
+        'certifications': [
+            type('obj', (object,), {'name': 'AWS Certified Solutions Architect', 'issuer': 'Amazon Web Services', 'date_issued': '2023-05-10'})(),
+            type('obj', (object,), {'name': 'Google Professional Cloud Developer', 'issuer': 'Google Cloud', 'date_issued': '2022-11-20'})(),
+            type('obj', (object,), {'name': 'Django Developer Certification', 'issuer': 'Django Software Foundation', 'date_issued': '2021-08-15'})(),
+        ],
+        'portfolios': [
+            type('obj', (object,), {'title': 'E-Commerce Platform', 'description': 'A full-featured online shopping platform built with Django and React.', 'link': '#', 'portfolio_photo': None})(),
+            type('obj', (object,), {'title': 'Task Management App', 'description': 'A collaborative project management tool with real-time updates.', 'link': '#', 'portfolio_photo': None})(),
+            type('obj', (object,), {'title': 'Health & Fitness Tracker', 'description': 'A mobile-responsive health tracking application.', 'link': '#', 'portfolio_photo': None})(),
+        ],
+        'contact': type('obj', (object,), {'phone_number': '+234 801 234 5678', 'email_address': 'chrysanthusobinna@gmail.com', 'linkedin': 'https://www.linkedin.com/in/chrysanthusobinna'})(),
+    }
+
+    return render(request, f"template-previews/{template_name}.html", sample_data)
+
+
 # render show portfolio page and handle contact form
 def user_profile(request, username):
     target_user, data = get_user_data(username)

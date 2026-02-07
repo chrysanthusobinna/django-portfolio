@@ -4,6 +4,10 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path(
+        'template-preview/<str:template_name>/',
+        views.template_preview,
+        name='template_preview'),
+    path(
         '<str:username>/',
         views.user_profile,
         name='user_profile'),
