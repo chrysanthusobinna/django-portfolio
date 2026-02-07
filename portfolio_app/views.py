@@ -35,8 +35,12 @@ def template_preview(request, template_name):
         messages.error(request, "Template not found.")
         return redirect("home")
 
+    fullname = 'Chrysanthus Obinna'
+    initials = ''.join([part[0].upper() for part in fullname.split() if part])
+
     sample_data = {
-        'user_fullname': 'Chrysanthus Obinna',
+        'user_fullname': fullname,
+        'user_initials': initials,
         'profilephoto': None,
         'about': type('obj', (object,), {'about': 'Experienced software engineer and technology leader with over 10 years of expertise in full-stack development, cloud architecture, and team leadership. Passionate about building scalable solutions and mentoring the next generation of developers.'})(),
         'employment': [
