@@ -8,18 +8,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Source Sans 3', sans-serif;
-            background: #faf8f5;
-            color: #3d3d3d;
+            font-family: 'DM Sans', sans-serif;
+            background: #faf6f1;
+            color: #3d2e2e;
             line-height: 1.7;
         }
 
@@ -28,561 +24,607 @@
             top: 20px;
             left: 20px;
             z-index: 1000;
-            background: #0d9488;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
             color: #fff;
-            padding: 8px 18px;
-            border-radius: 6px;
+            padding: 9px 20px;
+            border-radius: 50px;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            transition: background 0.3s;
-            box-shadow: 0 2px 8px rgba(13,148,136,0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            border: 1px solid rgba(255,255,255,0.25);
         }
 
         .back-link:hover {
-            background: #0a7a70;
+            background: rgba(255,255,255,0.35);
             color: #fff;
         }
 
-        .hero-header {
-            background: linear-gradient(135deg, #fef3e2 0%, #fce4c7 50%, #f5ddc8 100%);
-            padding: 80px 0 60px;
-            border-bottom: 4px solid #0d9488;
+        .hero {
+            background: linear-gradient(160deg, #b5563e 0%, #c46a4a 40%, #a84a32 100%);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            right: -40px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -60px;
+            left: 10%;
+            width: 260px;
+            height: 260px;
+            background: rgba(0,0,0,0.06);
+            border-radius: 50%;
         }
 
         .hero-inner {
-            max-width: 1100px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0 30px;
+            padding: 0 40px;
             display: flex;
             align-items: center;
             gap: 50px;
+            position: relative;
+            z-index: 1;
         }
 
-        .hero-photo {
+        .hero-photo-wrap {
             flex-shrink: 0;
+            position: relative;
         }
 
-        .hero-photo img {
+        .hero-photo-ring {
             width: 180px;
             height: 180px;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.5);
+            padding: 4px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+
+        .hero-photo-ring img {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid #fff;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            display: block;
         }
 
-        .placeholder-avatar {
-            width: 180px;
-            height: 180px;
+        .hero-placeholder {
+            width: 168px;
+            height: 168px;
             border-radius: 50%;
-            background: #0d9488;
+            background: linear-gradient(135deg, #d4856e, #e8a48e);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
-            font-weight: 700;
+            font-size: 3rem;
+            font-weight: 800;
             color: #fff;
             letter-spacing: 3px;
-            border: 5px solid #fff;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
 
         .hero-info h1 {
             font-size: 2.4rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 8px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
         }
 
-        .hero-info .hero-subtitle {
-            font-size: 1.1rem;
-            color: #0d9488;
-            font-weight: 600;
-            margin-bottom: 15px;
+        .hero-tagline {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.7);
+            font-weight: 400;
         }
 
-        .hero-info .hero-about {
-            font-size: 1rem;
-            color: #555;
-            line-height: 1.8;
-            max-width: 550px;
-        }
-
-        .main-content {
-            max-width: 1100px;
+        .content-area {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 50px 30px;
+            padding: 0 40px;
         }
 
-        .section {
-            margin-bottom: 55px;
+        .about-section {
+            padding: 60px 0;
+            border-bottom: 1px solid #ede6de;
         }
 
-        .section-header {
+        .about-row {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
-            gap: 15px;
+            gap: 40px;
         }
 
-        .section-icon {
-            width: 45px;
-            height: 45px;
-            background: #0d9488;
-            border-radius: 10px;
+        .about-photo-wrap {
+            width: 200px;
+            height: 200px;
+            flex-shrink: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ede6de, #ddd3c6);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-size: 1.1rem;
-            flex-shrink: 0;
         }
 
-        .section-label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #999;
+        .about-photo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .section-title {
+        .about-photo-wrap i {
+            font-size: 3rem;
+            color: #c8b8a6;
+        }
+
+        .section-heading {
             font-size: 1.5rem;
-            font-weight: 700;
-            color: #1a1a1a;
+            font-weight: 800;
+            color: #3d2e2e;
+            margin-bottom: 16px;
+            letter-spacing: -0.3px;
         }
 
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-            border-left: 3px solid #e0dbd5;
+        .about-text {
+            font-size: 0.95rem;
+            color: #6b5a5a;
+            line-height: 1.85;
         }
 
-        .timeline-item {
-            position: relative;
-            margin-bottom: 35px;
-            padding-bottom: 10px;
+        .two-col-section {
+            padding: 60px 0;
+            border-bottom: 1px solid #ede6de;
         }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -38px;
-            top: 5px;
-            width: 14px;
-            height: 14px;
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .exp-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .exp-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-dot {
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: #0d9488;
-            border: 3px solid #faf8f5;
-            box-shadow: 0 0 0 3px #0d9488;
+            background: #b5563e;
+            flex-shrink: 0;
+            margin-top: 8px;
         }
 
-        .timeline-item:first-child::before {
-            background: #fff;
-            box-shadow: 0 0 0 3px #0d9488;
-        }
-
-        .timeline-role {
-            font-size: 1.15rem;
+        .exp-role {
+            font-size: 0.95rem;
             font-weight: 700;
-            color: #1a1a1a;
+            color: #3d2e2e;
+            margin-bottom: 1px;
         }
 
-        .timeline-company {
-            font-size: 1rem;
-            color: #0d9488;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .timeline-dates {
+        .exp-company {
             font-size: 0.85rem;
-            color: #999;
-            margin-bottom: 10px;
+            color: #b5563e;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .exp-date {
+            font-size: 0.75rem;
+            color: #a89a8e;
             font-weight: 500;
         }
 
-        .timeline-desc {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.7;
+        .exp-desc {
+            font-size: 0.83rem;
+            color: #7a6a6a;
+            line-height: 1.6;
+            margin-top: 6px;
         }
 
-        .edu-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+        .skill-bar-group {
+            margin-bottom: 16px;
         }
 
-        .edu-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
-            border-left: 4px solid #0d9488;
-            transition: transform 0.3s, box-shadow 0.3s;
+        .skill-bar-group:last-child {
+            margin-bottom: 0;
         }
 
-        .edu-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-        }
-
-        .edu-card-title {
-            font-weight: 700;
-            color: #1a1a1a;
-            font-size: 1.05rem;
-            margin-bottom: 5px;
-        }
-
-        .edu-card-institution {
-            color: #0d9488;
+        .skill-bar-label {
+            font-size: 0.82rem;
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
+            color: #3d2e2e;
+            margin-bottom: 6px;
         }
 
-        .edu-card-date {
-            color: #aaa;
-            font-size: 0.8rem;
+        .skill-bar-track {
+            width: 100%;
+            height: 8px;
+            background: #ede6de;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        .cert-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+        .skill-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #b5563e, #d4856e);
         }
 
-        .cert-card {
+        .cert-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .cert-tag {
             background: #fff;
-            border-radius: 12px;
-            padding: 22px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            transition: transform 0.3s;
-        }
-
-        .cert-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .cert-badge {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #0d9488, #14b8a6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            flex-shrink: 0;
-            font-size: 0.9rem;
-        }
-
-        .cert-name {
-            font-weight: 700;
-            color: #1a1a1a;
-            font-size: 0.95rem;
-        }
-
-        .cert-issuer {
-            color: #777;
-            font-size: 0.85rem;
-        }
-
-        .cert-date {
-            color: #aaa;
+            border: 1px solid #ede6de;
+            color: #3d2e2e;
+            padding: 8px 16px;
+            border-radius: 8px;
             font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .cert-tag:hover {
+            border-color: #d4856e;
+            background: #fef8f4;
+        }
+
+        .cert-tag-issuer {
+            font-size: 0.7rem;
+            color: #a89a8e;
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .portfolio-section {
+            padding: 60px 0;
+            border-bottom: 1px solid #ede6de;
         }
 
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
         .portfolio-card {
-            background: #fff;
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: #fff;
+            border: 1px solid #ede6de;
+            transition: all 0.3s;
         }
 
         .portfolio-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 28px rgba(181,86,62,0.1);
+            transform: translateY(-3px);
         }
 
         .portfolio-card-img {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .portfolio-card-placeholder {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #e8f5f3, #d1eeea);
+            height: 150px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ede6de, #ddd3c6);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #0d9488;
-            font-size: 2.5rem;
+        }
+
+        .portfolio-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .portfolio-card-img i {
+            font-size: 1.8rem;
+            color: #c8b8a6;
         }
 
         .portfolio-card-body {
-            padding: 22px;
+            padding: 18px;
         }
 
         .portfolio-card-title {
+            font-size: 0.92rem;
             font-weight: 700;
-            color: #1a1a1a;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
+            color: #3d2e2e;
+            margin-bottom: 5px;
         }
 
         .portfolio-card-desc {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-            line-height: 1.6;
+            font-size: 0.78rem;
+            color: #7a6a6a;
+            line-height: 1.55;
+            margin-bottom: 10px;
         }
 
         .portfolio-card-link {
-            color: #0d9488;
+            font-size: 0.75rem;
+            color: #b5563e;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: color 0.3s;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.2s;
         }
 
         .portfolio-card-link:hover {
-            color: #0a7a70;
+            gap: 9px;
+            color: #8f3f2a;
+        }
+
+        .edu-section {
+            padding: 60px 0;
+            border-bottom: 1px solid #ede6de;
+        }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .edu-card {
+            background: #fff;
+            border: 1px solid #ede6de;
+            border-radius: 12px;
+            padding: 22px;
+            border-left: 4px solid #b5563e;
+            transition: all 0.2s;
+        }
+
+        .edu-card:hover {
+            box-shadow: 0 4px 16px rgba(181,86,62,0.08);
+        }
+
+        .edu-card-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #3d2e2e;
+            margin-bottom: 3px;
+        }
+
+        .edu-card-school {
+            font-size: 0.82rem;
+            color: #b5563e;
+            font-weight: 500;
+        }
+
+        .edu-card-date {
+            font-size: 0.72rem;
+            color: #a89a8e;
+            margin-top: 4px;
         }
 
         .contact-section {
-            background: #fff;
-            border-radius: 14px;
-            padding: 35px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            padding: 60px 0;
         }
 
-        .contact-items {
+        .contact-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 16px;
         }
 
-        .contact-item {
+        .contact-chip {
             display: flex;
             align-items: center;
             gap: 12px;
+            background: #fff;
+            border: 1px solid #ede6de;
+            border-radius: 12px;
+            padding: 14px 22px;
+            transition: all 0.2s;
         }
 
-        .contact-item-icon {
-            width: 42px;
-            height: 42px;
-            background: #e8f5f3;
+        .contact-chip:hover {
+            border-color: #d4856e;
+            background: #fef8f4;
+        }
+
+        .contact-chip-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #b5563e, #d4856e);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #0d9488;
-            font-size: 1rem;
             flex-shrink: 0;
         }
 
-        .contact-item-label {
-            font-size: 0.75rem;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
+        .contact-chip-icon i {
+            color: #fff;
+            font-size: 0.85rem;
         }
 
-        .contact-item-value {
-            font-size: 0.95rem;
-            color: #1a1a1a;
-            font-weight: 500;
-            word-break: break-word;
-        }
-
-        .contact-item-value a {
-            color: #1a1a1a;
+        .contact-chip a,
+        .contact-chip span {
+            color: #3d2e2e;
             text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
-        .contact-item-value a:hover {
-            color: #0d9488;
+        .contact-chip a:hover {
+            color: #b5563e;
         }
 
         .footer {
+            background: linear-gradient(160deg, #b5563e 0%, #c46a4a 40%, #a84a32 100%);
+            padding: 24px 0;
             text-align: center;
-            padding: 40px 30px;
-            font-size: 0.8rem;
-            color: #bbb;
+        }
+
+        .footer span {
+            color: rgba(255,255,255,0.55);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         @media (max-width: 768px) {
             .hero-inner {
                 flex-direction: column;
                 text-align: center;
+                gap: 28px;
             }
-
-            .hero-info .hero-about {
-                max-width: 100%;
-            }
-
-            .hero-header {
-                padding: 70px 0 40px;
-            }
-
-            .back-link {
-                position: absolute;
-            }
-
-            .portfolio-grid, .edu-cards, .cert-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-items {
+            .hero { padding: 80px 0 60px; }
+            .hero-info h1 { font-size: 1.8rem; }
+            .content-area { padding: 0 24px; }
+            .two-col-grid, .portfolio-grid, .edu-grid { grid-template-columns: 1fr; }
+            .about-row {
                 flex-direction: column;
+                text-align: center;
+            }
+            .about-photo-wrap {
+                width: 160px;
+                height: 160px;
             }
         }
     </style>
 </head>
 <body>
     <a href="{% url 'home' %}#templates" class="back-link">
-        <i class="fas fa-arrow-left me-1"></i> Back to Templates
+        <i class="fas fa-arrow-left"></i> Back
     </a>
 
-    <header class="hero-header">
+    <div class="hero">
         <div class="hero-inner">
-            <div class="hero-photo">
-                {% if profilephoto and profilephoto.profile_photo %}
-                    <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
-                {% else %}
-                    <div class="placeholder-avatar">CO</div>
-                {% endif %}
+            <div class="hero-photo-wrap">
+                <div class="hero-photo-ring">
+                    {% if profilephoto and profilephoto.profile_photo %}
+                        <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
+                    {% else %}
+                        <div class="hero-placeholder">{{ user_initials }}</div>
+                    {% endif %}
+                </div>
             </div>
             <div class="hero-info">
                 <h1>{{ user_fullname }}</h1>
                 {% if employment %}
-                    <div class="hero-subtitle">{{ employment.0.job_title }}</div>
-                {% endif %}
-                {% if about and about.about %}
-                    <p class="hero-about">{{ about.about }}</p>
+                <p class="hero-tagline">{{ employment.0.job_title }}</p>
                 {% endif %}
             </div>
         </div>
-    </header>
+    </div>
 
-    <div class="main-content">
-        {% if employment %}
-        <div class="section">
-            <div class="section-header">
-                <div class="section-icon"><i class="fas fa-briefcase"></i></div>
+    <div class="content-area">
+        {% if employment or certifications %}
+        <div class="two-col-section">
+            <div class="two-col-grid">
+                {% if employment %}
                 <div>
-                    <div class="section-label">Career</div>
-                    <div class="section-title">Employment History</div>
-                </div>
-            </div>
-            <div class="timeline">
-                {% for job in employment %}
-                <div class="timeline-item">
-                    <div class="timeline-role">{{ job.job_title }}</div>
-                    <div class="timeline-company">{{ job.employer_name }}</div>
-                    <div class="timeline-dates">
-                        <i class="fas fa-calendar-alt me-1"></i>
-                        {{ job.start_date }} &mdash; {% if job.end_date %}{{ job.end_date }}{% else %}Present{% endif %}
+                    <h2 class="section-heading">Work History</h2>
+                    {% for job in employment %}
+                    <div class="exp-item">
+                        <div class="exp-dot"></div>
+                        <div>
+                            <div class="exp-role">{{ job.job_title }}</div>
+                            <div class="exp-company">{{ job.employer_name }}</div>
+                            <div class="exp-date">{{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}</div>
+                            {% if job.description_of_duties %}
+                            <div class="exp-desc">{{ job.description_of_duties }}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                    {% if job.description_of_duties %}
-                    <div class="timeline-desc">{{ job.description_of_duties }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div>
+                    {% if certifications %}
+                    <h2 class="section-heading">Skills</h2>
+                    {% for cert in certifications %}
+                    <div class="skill-bar-group">
+                        <div class="skill-bar-label">{{ cert.name }}</div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width: {% cycle '92' '85' '78' '88' '70' '95' %}%;"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="cert-tags">
+                        {% for cert in certifications %}
+                        <div class="cert-tag">
+                            {{ cert.name }}
+                            <span class="cert-tag-issuer">{{ cert.issuer }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
                     {% endif %}
                 </div>
-                {% endfor %}
             </div>
         </div>
         {% endif %}
 
-        {% if education %}
-        <div class="section">
-            <div class="section-header">
-                <div class="section-icon"><i class="fas fa-graduation-cap"></i></div>
+        {% if about and about.about %}
+        <div class="about-section">
+            <div class="about-row">
+                <div class="about-photo-wrap">
+                    {% if profilephoto and profilephoto.profile_photo %}
+                        <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
+                    {% else %}
+                        <i class="fas fa-user"></i>
+                    {% endif %}
+                </div>
                 <div>
-                    <div class="section-label">Academic</div>
-                    <div class="section-title">Education</div>
+                    <h2 class="section-heading">About Me</h2>
+                    <p class="about-text">{{ about.about }}</p>
                 </div>
-            </div>
-            <div class="edu-cards">
-                {% for edu in education %}
-                <div class="edu-card">
-                    <div class="edu-card-title">{{ edu.qualification }}</div>
-                    <div class="edu-card-institution">{{ edu.institution_name }}</div>
-                    <div class="edu-card-date">
-                        <i class="fas fa-calendar-alt me-1"></i>
-                        {{ edu.start_date }} &mdash; {% if edu.end_date %}{{ edu.end_date }}{% else %}Present{% endif %}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if certifications %}
-        <div class="section">
-            <div class="section-header">
-                <div class="section-icon"><i class="fas fa-award"></i></div>
-                <div>
-                    <div class="section-label">Achievements</div>
-                    <div class="section-title">Certifications</div>
-                </div>
-            </div>
-            <div class="cert-cards">
-                {% for cert in certifications %}
-                <div class="cert-card">
-                    <div class="cert-badge"><i class="fas fa-certificate"></i></div>
-                    <div>
-                        <div class="cert-name">{{ cert.name }}</div>
-                        <div class="cert-issuer">{{ cert.issuer }}</div>
-                        <div class="cert-date">Issued: {{ cert.date_issued }}</div>
-                    </div>
-                </div>
-                {% endfor %}
             </div>
         </div>
         {% endif %}
 
         {% if portfolios %}
-        <div class="section">
-            <div class="section-header">
-                <div class="section-icon"><i class="fas fa-folder-open"></i></div>
-                <div>
-                    <div class="section-label">Work</div>
-                    <div class="section-title">Portfolio Projects</div>
-                </div>
-            </div>
+        <div class="portfolio-section">
+            <h2 class="section-heading">Portfolio</h2>
             <div class="portfolio-grid">
                 {% for project in portfolios %}
                 <div class="portfolio-card">
-                    {% if project.portfolio_photo %}
-                        <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}" class="portfolio-card-img">
-                    {% else %}
-                        <div class="portfolio-card-placeholder">
-                            <i class="fas fa-project-diagram"></i>
-                        </div>
-                    {% endif %}
+                    <div class="portfolio-card-img">
+                        {% if project.portfolio_photo %}
+                        <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
+                        {% else %}
+                        <i class="fas fa-project-diagram"></i>
+                        {% endif %}
+                    </div>
                     <div class="portfolio-card-body">
                         <div class="portfolio-card-title">{{ project.title }}</div>
-                        <div class="portfolio-card-desc">{{ project.description }}</div>
+                        <div class="portfolio-card-desc">{{ project.description|truncatewords:14 }}</div>
                         {% if project.link %}
-                        <a href="{{ project.link }}" class="portfolio-card-link" target="_blank">
-                            View Project <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
+                        <a href="{{ project.link }}" class="portfolio-card-link" target="_blank">View Project <i class="fas fa-arrow-right" style="font-size:0.6rem;"></i></a>
                         {% endif %}
                     </div>
                 </div>
@@ -591,56 +633,50 @@
         </div>
         {% endif %}
 
-        {% if contact %}
-        <div class="section">
-            <div class="section-header">
-                <div class="section-icon"><i class="fas fa-envelope"></i></div>
-                <div>
-                    <div class="section-label">Get In Touch</div>
-                    <div class="section-title">Contact</div>
+        {% if education %}
+        <div class="edu-section">
+            <h2 class="section-heading">Education</h2>
+            <div class="edu-grid">
+                {% for edu in education %}
+                <div class="edu-card">
+                    <div class="edu-card-title">{{ edu.qualification }}</div>
+                    <div class="edu-card-school">{{ edu.institution_name }}</div>
+                    <div class="edu-card-date">{{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}</div>
                 </div>
+                {% endfor %}
             </div>
-            <div class="contact-section">
-                <div class="contact-items">
-                    {% if contact.email_address %}
-                    <div class="contact-item">
-                        <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
-                        <div>
-                            <div class="contact-item-label">Email</div>
-                            <div class="contact-item-value">
-                                <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% if contact.phone_number %}
-                    <div class="contact-item">
-                        <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
-                        <div>
-                            <div class="contact-item-label">Phone</div>
-                            <div class="contact-item-value">{{ contact.phone_number }}</div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% if contact.linkedin %}
-                    <div class="contact-item">
-                        <div class="contact-item-icon"><i class="fab fa-linkedin"></i></div>
-                        <div>
-                            <div class="contact-item-label">LinkedIn</div>
-                            <div class="contact-item-value">
-                                <a href="{{ contact.linkedin }}" target="_blank">LinkedIn Profile</a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
+        </div>
+        {% endif %}
+
+        {% if contact %}
+        <div class="contact-section">
+            <h2 class="section-heading">Contact</h2>
+            <div class="contact-row">
+                {% if contact.email_address %}
+                <div class="contact-chip">
+                    <div class="contact-chip-icon"><i class="fas fa-envelope"></i></div>
+                    <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
                 </div>
+                {% endif %}
+                {% if contact.phone_number %}
+                <div class="contact-chip">
+                    <div class="contact-chip-icon"><i class="fas fa-phone"></i></div>
+                    <span>{{ contact.phone_number }}</span>
+                </div>
+                {% endif %}
+                {% if contact.linkedin %}
+                <div class="contact-chip">
+                    <div class="contact-chip-icon"><i class="fab fa-linkedin"></i></div>
+                    <a href="{{ contact.linkedin }}" target="_blank">LinkedIn Profile</a>
+                </div>
+                {% endif %}
             </div>
         </div>
         {% endif %}
     </div>
 
     <div class="footer">
-        Powered by MIfolio
+        <span>Powered by MIfolio</span>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
