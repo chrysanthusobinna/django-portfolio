@@ -28,27 +28,6 @@
             padding: 40px 20px;
         }
 
-        .back-link {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: #1a1a2e;
-            color: #c9a96e;
-            padding: 8px 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.3s;
-            border: 1px solid #c9a96e;
-        }
-
-        .back-link:hover {
-            background: #c9a96e;
-            color: #1a1a2e;
-        }
-
         .portfolio-page {
             background: #ffffff;
             max-width: 800px;
@@ -687,18 +666,10 @@
                 flex-direction: column;
                 gap: 20px;
             }
-
-            .back-link {
-                position: absolute;
-            }
         }
     </style>
 </head>
 <body>
-    <a href="{% url 'home' %}#templates" class="back-link">
-        <i class="fas fa-arrow-left me-1"></i> Back
-    </a>
-
     <div class="portfolio-page">
         <div class="top-bar">
             <div class="hamburger">
