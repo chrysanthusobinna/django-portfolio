@@ -1006,41 +1006,97 @@ button.btn {
 
 /* FAQ SECTION */
 .faq-section-modern {
-    background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 100%);
-}
-
-.modern-accordion-item {
-    border: 1px solid rgba(0,0,0,0.06) !important;
-    border-radius: 12px !important;
-    margin-bottom: 12px;
+    background: linear-gradient(180deg, #f8f9ff 0%, #f0f2ff 100%);
+    position: relative;
     overflow: hidden;
 }
 
-.modern-accordion-item .accordion-button {
+.faq-section-modern::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(102, 126, 234, 0.06);
+    pointer-events: none;
+}
+
+.faq-section-modern::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: rgba(118, 75, 162, 0.05);
+    pointer-events: none;
+}
+
+.faq-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 14px;
+    flex-shrink: 0;
+}
+
+.modern-accordion-item {
+    border: none !important;
+    border-radius: 16px !important;
+    margin-bottom: 16px;
+    overflow: hidden;
     background: white;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.modern-accordion-item:hover {
+    box-shadow: 0 6px 24px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+}
+
+.modern-accordion-item .accordion-button {
+    background: transparent;
     font-weight: 600;
     color: #1a1a2e;
-    padding: 18px 24px;
+    padding: 20px 28px;
     font-size: 1rem;
     border: none;
     box-shadow: none !important;
+    gap: 0;
 }
 
 .modern-accordion-item .accordion-button:not(.collapsed) {
-    background: rgba(102, 126, 234, 0.05);
+    background: transparent;
     color: #667eea;
+}
+
+.modern-accordion-item .accordion-button:not(.collapsed) .faq-number {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .modern-accordion-item .accordion-button::after {
     width: 1.1rem;
     height: 1.1rem;
+    opacity: 0.5;
 }
 
 .modern-accordion-item .accordion-body {
-    padding: 0 24px 18px;
+    padding: 0 28px 22px 74px;
     color: #636e72;
     font-size: 0.95rem;
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
 /* CONTACT SECTION */

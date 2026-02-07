@@ -323,21 +323,20 @@
     </div>
 </section>
 
-<section class="section-modern faq-section-modern">
+<section class="section-modern faq-section-modern" id="faq">
     <div class="container">
-        <div class="row align-items-start g-5">
-            <div class="col-lg-5">
-                <span class="section-label">FAQ</span>
-                <h2 class="section-heading">Frequently Asked <span class="text-gradient">Questions</span></h2>
-                <p class="section-text">Everything you need to know about {{ SITE_NAME }}.</p>
-                <img src="{% static 'images/home-page-section-faq.jpg' %}" alt="FAQ" class="img-fluid rounded-4 shadow-sm mt-3 d-none d-lg-block">
-            </div>
-            <div class="col-lg-7">
+        <div class="text-center mb-5">
+            <span class="section-label">FAQ</span>
+            <h2 class="section-heading">Frequently Asked <span class="text-gradient">Questions</span></h2>
+            <p class="section-text mx-auto" style="max-width: 600px;">Everything you need to know about {{ SITE_NAME }}. Can't find the answer you're looking for? Reach out to our support team.</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
                 <div class="accordion modern-accordion" id="faqAccordion">
                     <div class="accordion-item modern-accordion-item">
                         <h2 class="accordion-header" id="faqOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <i class="fas fa-question-circle me-2 text-primary"></i> What is {{ SITE_NAME }}?
+                                <span class="faq-number">01</span> What is {{ SITE_NAME }}?
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
@@ -347,7 +346,7 @@
                     <div class="accordion-item modern-accordion-item">
                         <h2 class="accordion-header" id="faqTwo">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <i class="fas fa-question-circle me-2 text-primary"></i> Is {{ SITE_NAME }} free to use?
+                                <span class="faq-number">02</span> Is {{ SITE_NAME }} free to use?
                             </button>
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
@@ -357,7 +356,7 @@
                     <div class="accordion-item modern-accordion-item">
                         <h2 class="accordion-header" id="faqThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                <i class="fas fa-question-circle me-2 text-primary"></i> How do I upload my profile photo?
+                                <span class="faq-number">03</span> How do I upload my profile photo?
                             </button>
                         </h2>
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
@@ -367,7 +366,7 @@
                     <div class="accordion-item modern-accordion-item">
                         <h2 class="accordion-header" id="faqFour">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                <i class="fas fa-question-circle me-2 text-primary"></i> Can I customize the sections in my portfolio?
+                                <span class="faq-number">04</span> Can I customize the sections in my portfolio?
                             </button>
                         </h2>
                         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#faqAccordion">
@@ -377,7 +376,7 @@
                     <div class="accordion-item modern-accordion-item">
                         <h2 class="accordion-header" id="faqFive">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                <i class="fas fa-question-circle me-2 text-primary"></i> How do I contact support?
+                                <span class="faq-number">05</span> How do I contact support?
                             </button>
                         </h2>
                         <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#faqAccordion">
