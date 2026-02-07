@@ -8,98 +8,74 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Lato', sans-serif;
-            background: #121212;
-            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            background: #0f0f0f;
+            color: #ccc;
             line-height: 1.7;
         }
 
         .back-link {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: rgba(212,175,55,0.15);
-            border: 1px solid #d4af37;
-            color: #d4af37;
-            padding: 8px 18px;
-            border-radius: 4px;
+            top: 24px;
+            left: 24px;
+            z-index: 99999;
+            background: rgba(200,175,130,0.12);
+            backdrop-filter: blur(12px);
+            color: #c8af82;
+            padding: 9px 20px;
+            border-radius: 50px;
             text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.78rem;
+            font-weight: 600;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            border: 1px solid rgba(200,175,130,0.25);
             letter-spacing: 0.5px;
         }
 
         .back-link:hover {
-            background: #d4af37;
-            color: #121212;
+            background: rgba(200,175,130,0.25);
+            color: #dcc89e;
         }
 
-        .elegant-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 999;
-            background: rgba(18,18,18,0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212,175,55,0.2);
-            padding: 15px 0;
-        }
-
-        .elegant-nav-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .nav-link-elegant {
-            color: rgba(212,175,55,0.7);
-            text-decoration: none;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-link-elegant:hover {
-            color: #d4af37;
-        }
-
-        .hero-section {
+        .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 100px 30px 80px;
+            padding: 80px 30px;
             position: relative;
-            background: radial-gradient(ellipse at center, #1a1a1a 0%, #121212 70%);
+            overflow: hidden;
+            background: #0f0f0f;
         }
 
-        .hero-section::before {
+        .hero::before {
             content: '';
             position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(200,175,130,0.04) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 30%, rgba(200,175,130,0.03) 0%, transparent 40%);
+        }
+
+        .hero-line-top {
+            position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, rgba(200,175,130,0.3));
         }
 
         .hero-content {
@@ -107,581 +83,559 @@
             z-index: 1;
         }
 
-        .hero-photo-container {
-            margin-bottom: 35px;
+        .hero-photo-frame {
+            width: 170px;
+            height: 170px;
+            margin: 0 auto 40px;
+            position: relative;
         }
 
-        .hero-photo-container img {
-            width: 160px;
-            height: 160px;
+        .hero-photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            border: 1px solid rgba(200,175,130,0.2);
             border-radius: 50%;
+        }
+
+        .hero-photo-frame::after {
+            content: '';
+            position: absolute;
+            inset: -24px;
+            border: 1px solid rgba(200,175,130,0.08);
+            border-radius: 50%;
+        }
+
+        .hero-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(200,175,130,0.35);
+        }
+
+        .hero-photo img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 3px solid #d4af37;
-            box-shadow: 0 0 40px rgba(212,175,55,0.15);
+            display: block;
         }
 
-        .placeholder-avatar {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            background: #1e1e1e;
-            border: 3px solid #d4af37;
+        .hero-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1816, #252118);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem;
             font-weight: 700;
-            color: #d4af37;
-            margin: 0 auto;
-            letter-spacing: 3px;
-            box-shadow: 0 0 40px rgba(212,175,55,0.15);
+            color: #c8af82;
+            letter-spacing: 5px;
         }
 
         .hero-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: #f5f0e8;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
         }
 
-        .hero-underline {
-            width: 80px;
-            height: 2px;
-            background: #d4af37;
-            margin: 0 auto 20px;
+        .hero-divider {
+            width: 60px;
+            height: 1px;
+            background: #c8af82;
+            margin: 0 auto 18px;
         }
 
         .hero-tagline {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.6);
-            letter-spacing: 3px;
+            font-size: 0.85rem;
+            color: rgba(200,175,130,0.7);
             text-transform: uppercase;
-            font-weight: 300;
+            letter-spacing: 4px;
+            font-weight: 400;
         }
 
         .hero-about {
-            max-width: 600px;
-            margin: 25px auto 0;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.5);
+            max-width: 560px;
+            margin: 30px auto 0;
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.4);
             line-height: 1.9;
         }
 
-        .section {
-            max-width: 1100px;
+        .content-wrap {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 80px 30px;
         }
 
-        .section-divider {
+        .section-break {
             width: 100%;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent);
-            max-width: 1100px;
-            margin: 0 auto;
+            background: linear-gradient(90deg, transparent, rgba(200,175,130,0.15), transparent);
+        }
+
+        .section {
+            padding: 70px 40px;
+        }
+
+        .section-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #c8af82;
+            margin-bottom: 6px;
+            font-weight: 600;
         }
 
         .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
             font-weight: 600;
-            color: #fff;
-            text-align: center;
-            margin-bottom: 10px;
+            color: #f5f0e8;
+            margin-bottom: 40px;
             letter-spacing: 1px;
         }
 
-        .section-subtitle {
-            text-align: center;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: #d4af37;
-            margin-bottom: 50px;
-            font-weight: 500;
-        }
-
-        .timeline-elegant {
+        .timeline {
             position: relative;
-            max-width: 800px;
-            margin: 0 auto;
+            padding-left: 40px;
         }
 
-        .timeline-elegant::before {
+        .timeline::before {
             content: '';
             position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: linear-gradient(180deg, #d4af37, rgba(212,175,55,0.1));
-        }
-
-        .timeline-elegant-item {
-            position: relative;
-            padding-left: 60px;
-            margin-bottom: 45px;
-        }
-
-        .timeline-elegant-item::before {
-            content: '';
-            position: absolute;
-            left: 14px;
+            left: 12px;
             top: 8px;
-            width: 13px;
-            height: 13px;
+            bottom: 8px;
+            width: 1px;
+            background: linear-gradient(to bottom, #c8af82, rgba(200,175,130,0.1));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 38px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 8px;
+            width: 11px;
+            height: 11px;
             border-radius: 50%;
-            background: #121212;
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 10px rgba(212,175,55,0.3);
+            background: #0f0f0f;
+            border: 2px solid #c8af82;
+            box-shadow: 0 0 12px rgba(200,175,130,0.15);
         }
 
-        .timeline-elegant-role {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+        .timeline-role {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
             font-weight: 600;
-            color: #fff;
+            color: #f5f0e8;
         }
 
-        .timeline-elegant-company {
-            color: #d4af37;
-            font-size: 0.95rem;
-            margin-bottom: 5px;
+        .timeline-company {
+            color: #c8af82;
+            font-size: 0.88rem;
             font-weight: 500;
+            margin-bottom: 3px;
         }
 
-        .timeline-elegant-dates {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.35);
-            margin-bottom: 10px;
+        .timeline-date {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.25);
             letter-spacing: 1px;
-        }
-
-        .timeline-elegant-desc {
-            color: rgba(255,255,255,0.55);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .edu-elegant-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .edu-elegant-card {
-            background: #1a1a1a;
-            border: 1px solid rgba(212,175,55,0.15);
-            border-radius: 8px;
-            padding: 28px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .edu-elegant-card:hover {
-            border-color: #d4af37;
-            box-shadow: 0 4px 25px rgba(212,175,55,0.1);
-        }
-
-        .edu-elegant-qual {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .edu-elegant-inst {
-            color: #d4af37;
-            font-size: 0.9rem;
             margin-bottom: 8px;
         }
 
-        .edu-elegant-date {
-            color: rgba(255,255,255,0.35);
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+        .timeline-desc {
+            color: rgba(255,255,255,0.45);
+            font-size: 0.88rem;
+            line-height: 1.7;
         }
 
-        .cert-elegant-grid {
+        .edu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-            max-width: 800px;
-            margin: 0 auto;
         }
 
-        .cert-elegant-card {
-            background: #1a1a1a;
-            border: 1px solid rgba(212,175,55,0.12);
-            border-radius: 8px;
-            padding: 25px;
+        .edu-card {
+            background: rgba(200,175,130,0.04);
+            border: 1px solid rgba(200,175,130,0.1);
+            border-radius: 10px;
+            padding: 26px;
+            transition: all 0.3s;
+        }
+
+        .edu-card:hover {
+            border-color: rgba(200,175,130,0.3);
+            background: rgba(200,175,130,0.06);
+        }
+
+        .edu-qual {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            color: #f5f0e8;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .edu-inst {
+            color: #c8af82;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .edu-date {
+            color: rgba(255,255,255,0.25);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            margin-top: 6px;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .cert-card {
+            background: rgba(200,175,130,0.04);
+            border: 1px solid rgba(200,175,130,0.1);
+            border-radius: 10px;
+            padding: 22px 24px;
             display: flex;
-            gap: 18px;
+            gap: 16px;
             align-items: flex-start;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
 
-        .cert-elegant-card:hover {
-            border-color: #d4af37;
+        .cert-card:hover {
+            border-color: rgba(200,175,130,0.3);
         }
 
-        .cert-elegant-icon {
-            color: #d4af37;
-            font-size: 1.3rem;
+        .cert-icon {
+            color: #c8af82;
+            font-size: 1rem;
             margin-top: 3px;
             flex-shrink: 0;
         }
 
-        .cert-elegant-name {
-            font-family: 'Playfair Display', serif;
-            color: #fff;
-            font-size: 1rem;
-            margin-bottom: 4px;
+        .cert-name {
+            font-size: 0.9rem;
+            color: #f5f0e8;
+            font-weight: 600;
+            margin-bottom: 2px;
         }
 
-        .cert-elegant-issuer {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.85rem;
+        .cert-issuer {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.78rem;
         }
 
-        .cert-elegant-date {
-            color: rgba(255,255,255,0.3);
-            font-size: 0.8rem;
-        }
-
-        .portfolio-elegant-grid {
+        .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
         }
 
-        .portfolio-elegant-card {
-            background: #1a1a1a;
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 10px;
+        .portfolio-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(200,175,130,0.08);
+            border-radius: 12px;
             overflow: hidden;
-            transition: border-color 0.4s, transform 0.3s;
+            transition: all 0.4s;
         }
 
-        .portfolio-elegant-card:hover {
-            border-color: #d4af37;
-            transform: translateY(-5px);
+        .portfolio-card:hover {
+            border-color: rgba(200,175,130,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
         }
 
-        .portfolio-elegant-img {
+        .portfolio-img {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .portfolio-elegant-placeholder {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #1a1a1a, #252525);
+            height: 180px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1816, #252118);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #d4af37;
-            font-size: 2.5rem;
         }
 
-        .portfolio-elegant-body {
-            padding: 25px;
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .portfolio-elegant-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
-            color: #fff;
-            margin-bottom: 8px;
+        .portfolio-img i {
+            color: rgba(200,175,130,0.3);
+            font-size: 2rem;
         }
 
-        .portfolio-elegant-desc {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
+        .portfolio-body {
+            padding: 22px;
+        }
+
+        .portfolio-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            color: #f5f0e8;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .portfolio-desc {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.82rem;
             line-height: 1.6;
+            margin-bottom: 14px;
         }
 
-        .portfolio-elegant-link {
-            color: #d4af37;
+        .portfolio-link {
+            color: #c8af82;
             text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 1px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
             text-transform: uppercase;
             transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .portfolio-elegant-link:hover {
-            color: #e8c84a;
+        .portfolio-link:hover {
+            color: #dcc89e;
         }
 
-        .contact-elegant {
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .contact-elegant-items {
+        .contact-items {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 40px;
+            gap: 50px;
         }
 
-        .contact-elegant-item {
+        .contact-item {
             text-align: center;
         }
 
-        .contact-elegant-item i {
-            color: #d4af37;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+        .contact-item i {
+            color: #c8af82;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
             display: block;
         }
 
-        .contact-elegant-item-label {
-            font-size: 0.7rem;
+        .contact-item-label {
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: rgba(255,255,255,0.35);
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.25);
             margin-bottom: 5px;
         }
 
-        .contact-elegant-item-value {
-            color: #fff;
-            font-size: 0.95rem;
-            word-break: break-word;
+        .contact-item-value {
+            color: #f5f0e8;
+            font-size: 0.9rem;
         }
 
-        .contact-elegant-item-value a {
-            color: #fff;
+        .contact-item-value a {
+            color: #f5f0e8;
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        .contact-elegant-item-value a:hover {
-            color: #d4af37;
+        .contact-item-value a:hover {
+            color: #c8af82;
         }
 
         .footer {
             text-align: center;
-            padding: 40px 30px;
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.2);
-            border-top: 1px solid rgba(212,175,55,0.1);
+            padding: 35px 30px;
+            border-top: 1px solid rgba(200,175,130,0.08);
+        }
+
+        .footer span {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.15);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         @media (max-width: 768px) {
-            .hero-name {
-                font-size: 2.2rem;
-            }
-
-            .elegant-nav-inner {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 0 15px;
-            }
-
-            .nav-link-elegant {
-                font-size: 0.7rem;
-                letter-spacing: 1px;
-            }
-
-            .hero-section {
-                padding: 120px 20px 60px;
-            }
-
-            .section {
-                padding: 50px 20px;
-            }
-
-            .portfolio-elegant-grid, .edu-elegant-grid, .cert-elegant-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-elegant-items {
-                flex-direction: column;
-                gap: 25px;
-            }
-
-            .back-link {
-                position: absolute;
-            }
+            .hero-name { font-size: 2rem; letter-spacing: 2px; }
+            .hero { padding: 60px 20px; }
+            .section { padding: 50px 24px; }
+            .edu-grid, .cert-grid, .portfolio-grid { grid-template-columns: 1fr; }
+            .contact-items { flex-direction: column; gap: 28px; }
         }
     </style>
 </head>
 <body>
     <a href="{% url 'home' %}#templates" class="back-link">
-        <i class="fas fa-arrow-left me-1"></i> Back to Templates
+        <i class="fas fa-arrow-left"></i> Back
     </a>
 
-    <nav class="elegant-nav">
-        <div class="elegant-nav-inner">
-            {% if about and about.about %}<a href="#about" class="nav-link-elegant">About</a>{% endif %}
-            {% if employment %}<a href="#experience" class="nav-link-elegant">Experience</a>{% endif %}
-            {% if education %}<a href="#education" class="nav-link-elegant">Education</a>{% endif %}
-            {% if certifications %}<a href="#certifications" class="nav-link-elegant">Certifications</a>{% endif %}
-            {% if portfolios %}<a href="#portfolio" class="nav-link-elegant">Portfolio</a>{% endif %}
-            {% if contact %}<a href="#contact" class="nav-link-elegant">Contact</a>{% endif %}
-        </div>
-    </nav>
-
-    <section class="hero-section">
+    <section class="hero">
+        <div class="hero-line-top"></div>
         <div class="hero-content">
-            <div class="hero-photo-container">
-                {% if profilephoto and profilephoto.profile_photo %}
-                    <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
-                {% else %}
-                    <div class="placeholder-avatar">CO</div>
-                {% endif %}
-            </div>
-            <h1 class="hero-name">{{ user_fullname }}</h1>
-            <div class="hero-underline"></div>
-            {% if employment %}
-                <div class="hero-tagline">{{ employment.0.job_title }}</div>
-            {% endif %}
-            {% if about and about.about %}
-                <p class="hero-about" id="about">{{ about.about }}</p>
-            {% endif %}
-        </div>
-    </section>
-
-    {% if employment %}
-    <div class="section-divider"></div>
-    <section class="section" id="experience">
-        <h2 class="section-title">Experience</h2>
-        <div class="section-subtitle">Professional Journey</div>
-        <div class="timeline-elegant">
-            {% for job in employment %}
-            <div class="timeline-elegant-item">
-                <div class="timeline-elegant-role">{{ job.job_title }}</div>
-                <div class="timeline-elegant-company">{{ job.employer_name }}</div>
-                <div class="timeline-elegant-dates">
-                    {{ job.start_date }} &mdash; {% if job.end_date %}{{ job.end_date }}{% else %}Present{% endif %}
-                </div>
-                {% if job.description_of_duties %}
-                <div class="timeline-elegant-desc">{{ job.description_of_duties }}</div>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-
-    {% if education %}
-    <div class="section-divider"></div>
-    <section class="section" id="education">
-        <h2 class="section-title">Education</h2>
-        <div class="section-subtitle">Academic Background</div>
-        <div class="edu-elegant-grid">
-            {% for edu in education %}
-            <div class="edu-elegant-card">
-                <div class="edu-elegant-qual">{{ edu.qualification }}</div>
-                <div class="edu-elegant-inst">{{ edu.institution_name }}</div>
-                <div class="edu-elegant-date">
-                    {{ edu.start_date }} &mdash; {% if edu.end_date %}{{ edu.end_date }}{% else %}Present{% endif %}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-
-    {% if certifications %}
-    <div class="section-divider"></div>
-    <section class="section" id="certifications">
-        <h2 class="section-title">Certifications</h2>
-        <div class="section-subtitle">Professional Credentials</div>
-        <div class="cert-elegant-grid">
-            {% for cert in certifications %}
-            <div class="cert-elegant-card">
-                <div class="cert-elegant-icon"><i class="fas fa-award"></i></div>
-                <div>
-                    <div class="cert-elegant-name">{{ cert.name }}</div>
-                    <div class="cert-elegant-issuer">{{ cert.issuer }}</div>
-                    <div class="cert-elegant-date">Issued: {{ cert.date_issued }}</div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-
-    {% if portfolios %}
-    <div class="section-divider"></div>
-    <section class="section" id="portfolio">
-        <h2 class="section-title">Portfolio</h2>
-        <div class="section-subtitle">Featured Projects</div>
-        <div class="portfolio-elegant-grid">
-            {% for project in portfolios %}
-            <div class="portfolio-elegant-card">
-                {% if project.portfolio_photo %}
-                    <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}" class="portfolio-elegant-img">
-                {% else %}
-                    <div class="portfolio-elegant-placeholder">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                {% endif %}
-                <div class="portfolio-elegant-body">
-                    <div class="portfolio-elegant-title">{{ project.title }}</div>
-                    <div class="portfolio-elegant-desc">{{ project.description }}</div>
-                    {% if project.link %}
-                    <a href="{{ project.link }}" class="portfolio-elegant-link" target="_blank">
-                        View Project <i class="fas fa-arrow-right ms-1"></i>
-                    </a>
+            <div class="hero-photo-frame">
+                <div class="hero-photo">
+                    {% if profilephoto and profilephoto.profile_photo %}
+                        <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
+                    {% else %}
+                        <div class="hero-placeholder">{{ user_initials }}</div>
                     {% endif %}
                 </div>
             </div>
-            {% endfor %}
+            <h1 class="hero-name">{{ user_fullname }}</h1>
+            <div class="hero-divider"></div>
+            {% if employment %}
+            <div class="hero-tagline">{{ employment.0.job_title }}</div>
+            {% endif %}
+            {% if about and about.about %}
+            <p class="hero-about">{{ about.about }}</p>
+            {% endif %}
         </div>
     </section>
-    {% endif %}
 
-    {% if contact %}
-    <div class="section-divider"></div>
-    <section class="section" id="contact">
-        <h2 class="section-title">Contact</h2>
-        <div class="section-subtitle">Get In Touch</div>
-        <div class="contact-elegant">
-            <div class="contact-elegant-items">
+    <div class="content-wrap">
+        {% if employment %}
+        <div class="section-break"></div>
+        <section class="section">
+            <div class="section-label">Career</div>
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                {% for job in employment %}
+                <div class="timeline-item">
+                    <div class="timeline-role">{{ job.job_title }}</div>
+                    <div class="timeline-company">{{ job.employer_name }}</div>
+                    <div class="timeline-date">{{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}</div>
+                    {% if job.description_of_duties %}
+                    <div class="timeline-desc">{{ job.description_of_duties }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if education %}
+        <div class="section-break"></div>
+        <section class="section">
+            <div class="section-label">Academic</div>
+            <h2 class="section-title">Education</h2>
+            <div class="edu-grid">
+                {% for edu in education %}
+                <div class="edu-card">
+                    <div class="edu-qual">{{ edu.qualification }}</div>
+                    <div class="edu-inst">{{ edu.institution_name }}</div>
+                    <div class="edu-date">{{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if certifications %}
+        <div class="section-break"></div>
+        <section class="section">
+            <div class="section-label">Credentials</div>
+            <h2 class="section-title">Certifications</h2>
+            <div class="cert-grid">
+                {% for cert in certifications %}
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fas fa-award"></i></div>
+                    <div>
+                        <div class="cert-name">{{ cert.name }}</div>
+                        <div class="cert-issuer">{{ cert.issuer }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if portfolios %}
+        <div class="section-break"></div>
+        <section class="section">
+            <div class="section-label">Work</div>
+            <h2 class="section-title">Portfolio</h2>
+            <div class="portfolio-grid">
+                {% for project in portfolios %}
+                <div class="portfolio-card">
+                    <div class="portfolio-img">
+                        {% if project.portfolio_photo %}
+                        <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
+                        {% else %}
+                        <i class="fas fa-layer-group"></i>
+                        {% endif %}
+                    </div>
+                    <div class="portfolio-body">
+                        <div class="portfolio-title">{{ project.title }}</div>
+                        <div class="portfolio-desc">{{ project.description|truncatewords:16 }}</div>
+                        {% if project.link %}
+                        <a href="{{ project.link }}" class="portfolio-link" target="_blank">View <i class="fas fa-arrow-right" style="font-size:0.6rem;"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if contact %}
+        <div class="section-break"></div>
+        <section class="section" style="text-align:center;">
+            <div class="section-label">Connect</div>
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-items">
                 {% if contact.email_address %}
-                <div class="contact-elegant-item">
+                <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <div class="contact-elegant-item-label">Email</div>
-                    <div class="contact-elegant-item-value">
+                    <div class="contact-item-label">Email</div>
+                    <div class="contact-item-value">
                         <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
                     </div>
                 </div>
                 {% endif %}
                 {% if contact.phone_number %}
-                <div class="contact-elegant-item">
+                <div class="contact-item">
                     <i class="fas fa-phone"></i>
-                    <div class="contact-elegant-item-label">Phone</div>
-                    <div class="contact-elegant-item-value">{{ contact.phone_number }}</div>
+                    <div class="contact-item-label">Phone</div>
+                    <div class="contact-item-value">{{ contact.phone_number }}</div>
                 </div>
                 {% endif %}
                 {% if contact.linkedin %}
-                <div class="contact-elegant-item">
+                <div class="contact-item">
                     <i class="fab fa-linkedin"></i>
-                    <div class="contact-elegant-item-label">LinkedIn</div>
-                    <div class="contact-elegant-item-value">
+                    <div class="contact-item-label">LinkedIn</div>
+                    <div class="contact-item-value">
                         <a href="{{ contact.linkedin }}" target="_blank">LinkedIn Profile</a>
                     </div>
                 </div>
                 {% endif %}
             </div>
-        </div>
-    </section>
-    {% endif %}
+        </section>
+        {% endif %}
+    </div>
 
     <div class="footer">
-        Powered by MIfolio
+        <span>Powered by MIfolio</span>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
