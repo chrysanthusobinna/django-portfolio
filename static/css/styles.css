@@ -791,6 +791,91 @@ button.btn {
     line-height: 1.6;
 }
 
+/* AI CV SECTION */
+.ai-cv-section {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-cv-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(102, 126, 234, 0.12) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.ai-cv-image-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.ai-cv-image {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.ai-cv-content {
+    position: relative;
+    z-index: 2;
+}
+
+.ai-cv-section .section-label {
+    background: rgba(102, 126, 234, 0.2);
+    color: #a0b0ff;
+}
+
+.ai-cv-section .section-heading {
+    color: white;
+}
+
+.ai-cv-section .section-text {
+    color: rgba(255,255,255,0.7);
+}
+
+.ai-cv-features {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ai-cv-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.ai-cv-feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.ai-cv-feature-title {
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2px;
+    font-size: 1rem;
+}
+
+.ai-cv-feature-text {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
 /* FAQ SECTION */
 .faq-section-modern {
     background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 100%);
