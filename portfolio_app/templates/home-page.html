@@ -259,7 +259,7 @@
             <div class="col-lg-5">
                 <span class="section-label">FAQ</span>
                 <h2 class="section-heading">Frequently Asked <span class="text-gradient">Questions</span></h2>
-                <p class="section-text">Everything you need to know about {{ SITE_NAME }}. Can't find the answer you're looking for? Reach out via the contact form below.</p>
+                <p class="section-text">Everything you need to know about {{ SITE_NAME }}.</p>
                 <img src="{% static 'images/home-page-section-faq.jpg' %}" alt="FAQ" class="img-fluid rounded-4 shadow-sm mt-3 d-none d-lg-block">
             </div>
             <div class="col-lg-7">
@@ -311,7 +311,7 @@
                             </button>
                         </h2>
                         <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">You can contact support by filling out the contact form below. Make sure to include your name, email, subject, and message.</div>
+                            <div class="accordion-body">You can reach out to us through our social channels or email for any support queries.</div>
                         </div>
                     </div>
                 </div>
@@ -320,92 +320,5 @@
     </div>
 </section>
 
-<section class="section-modern contact-section-modern">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-label">Get In Touch</span>
-            <h2 class="section-heading">Contact <span class="text-gradient">Us</span></h2>
-        </div>
-        <div class="row g-5">
-            <div class="col-lg-5">
-                <div class="contact-info-modern">
-                    <p class="section-text mb-4">You can contact us for support and also follow us on our social channels:</p>
-                    <div class="contact-item-modern">
-                        <a href="mailto:{{ SITE_CONTACT_EMAIL_ADDRESS }}" class="d-flex align-items-center text-decoration-none">
-                            <div class="contact-icon-modern bg-primary">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <span class="contact-label-modern">Email</span>
-                                <span class="contact-value-modern">{{ SITE_CONTACT_EMAIL_ADDRESS }}</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="contact-item-modern">
-                        <a href="tel:{{ SITE_CONTACT_PHONE_NUMBER|default_if_none:''|cut:' ' }}" class="d-flex align-items-center text-decoration-none">
-                            <div class="contact-icon-modern bg-success">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div>
-                                <span class="contact-label-modern">Phone</span>
-                                <span class="contact-value-modern">{{ SITE_CONTACT_PHONE_NUMBER }}</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="contact-item-modern">
-                        <a href="{{ SITE_CONTACT_LINKEDIN_URL }}" target="_blank" class="d-flex align-items-center text-decoration-none">
-                            <div class="contact-icon-modern bg-info">
-                                <i class="fab fa-linkedin-in"></i>
-                            </div>
-                            <div>
-                                <span class="contact-label-modern">LinkedIn</span>
-                                <span class="contact-value-modern">Connect with us</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="contact-item-modern">
-                        <a href="https://wa.me/{{ SITE_CONTACT_PHONE_NUMBER|urlencode }}" target="_blank" class="d-flex align-items-center text-decoration-none">
-                            <div class="contact-icon-modern" style="background-color: #25D366;">
-                                <i class="fab fa-whatsapp"></i>
-                            </div>
-                            <div>
-                                <span class="contact-label-modern">WhatsApp</span>
-                                <span class="contact-value-modern">Message us</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-7">
-                <div class="contact-form-modern">
-                    <form method="post" action="{% url 'home' %}">
-                        {% csrf_token %}
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="name" class="form-label-modern">Name</label>
-                                <input type="text" class="form-control form-control-modern" id="name" name="name" placeholder="Your name" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="email" class="form-label-modern">Email</label>
-                                <input type="email" class="form-control form-control-modern" id="email" name="email" placeholder="Your email" required>
-                            </div>
-                            <div class="col-12">
-                                <label for="subject" class="form-label-modern">Subject</label>
-                                <input type="text" class="form-control form-control-modern" id="subject" name="subject" placeholder="How can we help?" required>
-                            </div>
-                            <div class="col-12">
-                                <label for="message" class="form-label-modern">Message</label>
-                                <textarea class="form-control form-control-modern" id="message" name="message" rows="5" placeholder="Tell us more..." required></textarea>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-hero-primary w-100">Send Message <i class="fas fa-paper-plane ms-2"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 {% endblock %}

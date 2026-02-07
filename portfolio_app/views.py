@@ -26,23 +26,6 @@ from django.conf import settings
 
 
 def home(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        subject = request.POST.get("subject")
-        message = request.POST.get("message")
-        full_message = f"Name: {name}\nEmail: {email}\n\n{message}"
-
-        is_valid, error_message = send_contact_email(
-            subject, full_message, [settings.SITE_CONTACT_EMAIL_ADDRESS]
-        )
-        if is_valid:
-            messages.success(
-                request, "Your message has been sent successfully!")
-        else:
-            messages.error(request, error_message)
-        return redirect("home")
-
     return render(request, "home-page.html")
 
 
