@@ -8,446 +8,448 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #eef0f5;
-            color: #333;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #ffffff;
+            color: #1a1a2e;
             line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
 
         .back-link {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 24px;
+            left: 24px;
             z-index: 1000;
-            background: #1a2332;
-            color: rgba(255,255,255,0.8);
-            padding: 8px 18px;
-            border-radius: 6px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
             text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 500;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .back-link:hover {
-            background: #2a3a4e;
+            background: rgba(15, 23, 42, 1);
             color: #fff;
+            transform: translateX(-2px);
         }
 
-        .page-wrapper {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-
-        .hero-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 50px 40px;
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        .hero-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            padding: 100px 0 80px;
             position: relative;
             overflow: hidden;
         }
 
-        .hero-card::before {
+        .hero-section::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #1a2332, #3a5a8c);
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-photo {
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #eef0f5;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            flex-shrink: 0;
+            border: 3px solid rgba(255,255,255,0.15);
+            margin-bottom: 28px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
 
         .hero-placeholder {
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #1a2332, #3a5a8c);
-            display: flex;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             font-weight: 700;
             color: #fff;
-            flex-shrink: 0;
-            border: 4px solid #eef0f5;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            margin-bottom: 28px;
+            border: 3px solid rgba(255,255,255,0.15);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             letter-spacing: 2px;
         }
 
-        .hero-info h1 {
-            font-size: 2rem;
+        .hero-name {
+            font-size: 2.4rem;
             font-weight: 800;
-            color: #1a2332;
-            margin-bottom: 4px;
+            color: #ffffff;
+            margin-bottom: 8px;
             letter-spacing: -0.5px;
         }
 
-        .hero-info p {
-            font-size: 0.95rem;
-            color: #7a8599;
+        .hero-title {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.55);
             font-weight: 400;
-            margin-bottom: 0;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
-        .grid-full {
-            margin-bottom: 24px;
-        }
-
-        .card-block {
-            background: #fff;
-            border-radius: 14px;
-            padding: 32px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-            height: 100%;
-        }
-
-        .card-heading {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #1a2332;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #1a2332;
-            display: inline-block;
         }
 
-        .card-heading-full {
-            font-size: 0.75rem;
+        .content-area {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-label {
+            font-size: 0.68rem;
             font-weight: 700;
-            color: #1a2332;
+            color: #6366f1;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #1a2332;
+            letter-spacing: 3px;
+            margin-bottom: 28px;
         }
 
         .about-text {
-            font-size: 0.9rem;
-            color: #5a6577;
-            line-height: 1.85;
+            font-size: 1.05rem;
+            color: #475569;
+            line-height: 1.9;
+            font-weight: 400;
         }
 
-        .exp-item {
-            margin-bottom: 22px;
-            padding-bottom: 22px;
-            border-bottom: 1px solid #f0f1f5;
+        .timeline {
+            position: relative;
+            padding-left: 28px;
         }
 
-        .exp-item:last-child {
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: #e2e8f0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 36px;
+        }
+
+        .timeline-item:last-child {
             margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
         }
 
-        .exp-title {
-            font-size: 0.95rem;
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 8px;
+            width: 10px;
+            height: 10px;
+            background: #6366f1;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 3px #e0e7ff;
+        }
+
+        .tl-date {
+            font-size: 0.72rem;
+            color: #94a3b8;
             font-weight: 600;
-            color: #1a2332;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .tl-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
             margin-bottom: 2px;
         }
 
-        .exp-company {
-            font-size: 0.85rem;
-            color: #3a5a8c;
+        .tl-company {
+            font-size: 0.88rem;
+            color: #6366f1;
             font-weight: 500;
-            margin-bottom: 2px;
-        }
-
-        .exp-date {
-            font-size: 0.78rem;
-            color: #a0a8b8;
             margin-bottom: 8px;
         }
 
-        .exp-desc {
-            font-size: 0.85rem;
-            color: #6b7588;
-            line-height: 1.65;
+        .tl-desc {
+            font-size: 0.88rem;
+            color: #64748b;
+            line-height: 1.7;
         }
 
-        .edu-item {
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .edu-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #f1f5f9;
+            transition: all 0.25s;
+        }
+
+        .edu-card:hover {
+            border-color: #e0e7ff;
+            box-shadow: 0 4px 16px rgba(99,102,241,0.06);
+        }
+
+        .edu-degree {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .edu-school {
+            font-size: 0.82rem;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .edu-year {
+            font-size: 0.72rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .cert-list {
             display: flex;
-            align-items: flex-start;
+            flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #f0f1f5;
         }
 
-        .edu-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .edu-icon {
-            width: 36px;
-            height: 36px;
-            background: #eef0f5;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .edu-icon i {
-            color: #1a2332;
-            font-size: 0.85rem;
-        }
-
-        .edu-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #1a2332;
-        }
-
-        .edu-sub {
+        .cert-tag {
+            background: #f0f0ff;
+            color: #4338ca;
+            padding: 10px 20px;
+            border-radius: 50px;
             font-size: 0.8rem;
-            color: #7a8599;
-        }
-
-        .edu-date {
-            font-size: 0.75rem;
-            color: #a0a8b8;
-        }
-
-        .cert-item {
-            text-align: center;
-            padding: 20px 15px;
-        }
-
-        .cert-icon {
-            width: 44px;
-            height: 44px;
-            background: #eef0f5;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px;
-        }
-
-        .cert-icon i {
-            color: #1a2332;
-            font-size: 1rem;
-        }
-
-        .cert-name {
-            font-size: 0.85rem;
             font-weight: 600;
-            color: #1a2332;
-            margin-bottom: 3px;
+            border: 1px solid #e0e7ff;
+            transition: all 0.2s;
+        }
+
+        .cert-tag:hover {
+            background: #e0e7ff;
         }
 
         .cert-issuer {
-            font-size: 0.75rem;
-            color: #7a8599;
-        }
-
-        .cert-date {
             font-size: 0.7rem;
-            color: #a0a8b8;
-            margin-top: 4px;
+            color: #7c7cba;
+            font-weight: 400;
+            margin-left: 4px;
         }
 
-        .project-item {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 18px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid #f0f1f5;
-            align-items: flex-start;
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
-        .project-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .project-thumb {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
+        .project-card {
+            border-radius: 14px;
             overflow: hidden;
-            flex-shrink: 0;
-            background: #eef0f5;
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: #e0e7ff;
+            box-shadow: 0 8px 24px rgba(99,102,241,0.08);
+            transform: translateY(-2px);
+        }
+
+        .project-img-wrap {
+            width: 100%;
+            height: 140px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #e0e7ff, #f0f0ff);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .project-thumb img {
+        .project-img-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .project-thumb i {
-            font-size: 1.2rem;
-            color: #a0a8b8;
+        .project-img-wrap i {
+            font-size: 2rem;
+            color: #a5b4fc;
         }
 
-        .project-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #1a2332;
-            margin-bottom: 2px;
+        .project-body {
+            padding: 20px;
+        }
+
+        .project-name {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
         }
 
         .project-desc {
-            font-size: 0.78rem;
-            color: #7a8599;
-            line-height: 1.5;
-            margin-bottom: 4px;
+            font-size: 0.8rem;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 10px;
         }
 
-        .project-link {
+        .project-cta {
             font-size: 0.75rem;
-            color: #3a5a8c;
+            color: #6366f1;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.2s;
         }
 
-        .project-link:hover {
-            color: #1a2332;
-            text-decoration: underline;
+        .project-cta:hover {
+            gap: 8px;
+            color: #4338ca;
         }
 
-        .contact-block {
-            background: #1a2332;
-            border-radius: 14px;
-            padding: 32px;
-            color: #fff;
-            margin-bottom: 24px;
+        .contact-section {
+            background: #0f172a;
+            padding: 60px 0;
         }
 
-        .contact-block .card-heading {
-            color: #fff;
-            border-bottom-color: rgba(255,255,255,0.3);
+        .contact-inner {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 40px;
         }
 
-        .contact-item {
+        .contact-section .section-label {
+            color: rgba(99,102,241,0.7);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 20px;
             display: flex;
             align-items: center;
             gap: 14px;
-            margin-bottom: 14px;
+            transition: all 0.25s;
         }
 
-        .contact-item:last-child {
-            margin-bottom: 0;
+        .contact-card:hover {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(99,102,241,0.2);
         }
 
-        .contact-item-icon {
-            width: 38px;
-            height: 38px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
+        .contact-card-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(99,102,241,0.15);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
         }
 
-        .contact-item-icon i {
-            color: #fff;
-            font-size: 0.9rem;
+        .contact-card-icon i {
+            color: #a5b4fc;
+            font-size: 0.95rem;
         }
 
-        .contact-item a,
-        .contact-item span {
-            color: rgba(255,255,255,0.85);
+        .contact-card a,
+        .contact-card span {
+            color: rgba(255,255,255,0.75);
             text-decoration: none;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
-        .contact-item a:hover {
+        .contact-card a:hover {
             color: #fff;
-            text-decoration: underline;
         }
 
-        .footer-text {
+        .footer-bar {
+            background: #0f172a;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 20px 0;
             text-align: center;
-            font-size: 0.72rem;
-            color: #a0a8b8;
-            padding: 10px 0 30px;
+        }
+
+        .footer-bar span {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 1px;
         }
 
         @media (max-width: 768px) {
-            .hero-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 35px 25px;
-                gap: 20px;
-            }
-
-            .hero-info h1 {
-                font-size: 1.6rem;
-            }
-
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-
-            .grid-3 {
-                grid-template-columns: 1fr;
-            }
-
-            .card-block,
-            .contact-block {
-                padding: 24px;
-            }
-
-            .page-wrapper {
-                padding: 20px 12px;
-            }
+            .hero-section { padding: 80px 0 60px; }
+            .hero-inner, .content-area, .contact-inner { padding: 0 24px; }
+            .hero-name { font-size: 1.8rem; }
+            .hero-title { font-size: 0.85rem; }
+            .edu-grid, .project-grid, .contact-grid { grid-template-columns: 1fr; }
+            .section { padding: 44px 0; }
         }
     </style>
 </head>
@@ -456,141 +458,129 @@
         <i class="fas fa-arrow-left"></i> Back
     </a>
 
-    <div class="page-wrapper">
-        <div class="hero-card">
+    <div class="hero-section">
+        <div class="hero-inner">
             {% if profilephoto and profilephoto.profile_photo %}
                 <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}" class="hero-photo">
             {% else %}
                 <div class="hero-placeholder">{{ user_initials }}</div>
             {% endif %}
-            <div class="hero-info">
-                <h1>{{ user_fullname }}</h1>
-                {% if employment %}
-                <p>{{ employment.0.job_title }}</p>
-                {% endif %}
-            </div>
-        </div>
-
-        {% if about and about.about or employment %}
-        <div class="grid-2">
-            {% if about and about.about %}
-            <div class="card-block">
-                <div class="card-heading">About Me</div>
-                <p class="about-text">{{ about.about }}</p>
-            </div>
-            {% endif %}
-
+            <h1 class="hero-name">{{ user_fullname }}</h1>
             {% if employment %}
-            <div class="card-block">
-                <div class="card-heading">Experience</div>
+            <p class="hero-title">{{ employment.0.job_title }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="content-area">
+        {% if about and about.about %}
+        <div class="section">
+            <div class="section-label">About</div>
+            <p class="about-text">{{ about.about }}</p>
+        </div>
+        {% endif %}
+
+        {% if employment %}
+        <div class="section">
+            <div class="section-label">Experience</div>
+            <div class="timeline">
                 {% for job in employment %}
-                <div class="exp-item">
-                    <div class="exp-title">{{ job.job_title }}</div>
-                    <div class="exp-company">{{ job.employer_name }}</div>
-                    <div class="exp-date">
-                        {{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}
-                    </div>
+                <div class="timeline-item">
+                    <div class="tl-date">{{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}</div>
+                    <div class="tl-title">{{ job.job_title }}</div>
+                    <div class="tl-company">{{ job.employer_name }}</div>
                     {% if job.description_of_duties %}
-                    <div class="exp-desc">{{ job.description_of_duties }}</div>
+                    <div class="tl-desc">{{ job.description_of_duties }}</div>
                     {% endif %}
                 </div>
                 {% endfor %}
             </div>
-            {% endif %}
         </div>
         {% endif %}
 
         {% if portfolios %}
-        <div class="grid-full">
-            <div class="card-block">
-                <div class="card-heading">Portfolio</div>
-                <div class="grid-2" style="margin-bottom:0;">
-                    {% for project in portfolios %}
-                    <div class="project-item" style="margin-bottom:{% if forloop.last %}0{% else %}18px{% endif %};padding-bottom:{% if forloop.last %}0{% else %}18px{% endif %};border-bottom:{% if forloop.last %}none{% else %}1px solid #f0f1f5{% endif %};">
-                        <div class="project-thumb">
-                            {% if project.portfolio_photo %}
-                            <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
-                            {% else %}
-                            <i class="fas fa-project-diagram"></i>
-                            {% endif %}
-                        </div>
-                        <div>
-                            <div class="project-title">{{ project.title }}</div>
-                            <div class="project-desc">{{ project.description|truncatewords:12 }}</div>
-                            {% if project.link %}
-                            <a href="{{ project.link }}" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right" style="font-size:0.6rem;"></i></a>
-                            {% endif %}
-                        </div>
+        <div class="section">
+            <div class="section-label">Portfolio</div>
+            <div class="project-grid">
+                {% for project in portfolios %}
+                <div class="project-card">
+                    <div class="project-img-wrap">
+                        {% if project.portfolio_photo %}
+                        <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
+                        {% else %}
+                        <i class="fas fa-code"></i>
+                        {% endif %}
                     </div>
-                    {% endfor %}
+                    <div class="project-body">
+                        <div class="project-name">{{ project.title }}</div>
+                        <div class="project-desc">{{ project.description|truncatewords:15 }}</div>
+                        {% if project.link %}
+                        <a href="{{ project.link }}" class="project-cta" target="_blank">View Project <i class="fas fa-arrow-right" style="font-size:0.6rem;"></i></a>
+                        {% endif %}
+                    </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
         {% endif %}
 
-        {% if education or certifications %}
-        <div class="grid-2">
-            {% if education %}
-            <div class="card-block">
-                <div class="card-heading">Education</div>
+        {% if education %}
+        <div class="section">
+            <div class="section-label">Education</div>
+            <div class="edu-grid">
                 {% for edu in education %}
-                <div class="edu-item">
-                    <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <div>
-                        <div class="edu-title">{{ edu.qualification }}</div>
-                        <div class="edu-sub">{{ edu.institution_name }}</div>
-                        <div class="edu-date">
-                            {{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}
-                        </div>
-                    </div>
+                <div class="edu-card">
+                    <div class="edu-degree">{{ edu.qualification }}</div>
+                    <div class="edu-school">{{ edu.institution_name }}</div>
+                    <div class="edu-year">{{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}</div>
                 </div>
                 {% endfor %}
             </div>
-            {% endif %}
+        </div>
+        {% endif %}
 
-            {% if certifications %}
-            <div class="card-block">
-                <div class="card-heading">Certifications</div>
+        {% if certifications %}
+        <div class="section">
+            <div class="section-label">Certifications</div>
+            <div class="cert-list">
                 {% for cert in certifications %}
-                <div class="edu-item">
-                    <div class="edu-icon"><i class="fas fa-award"></i></div>
-                    <div>
-                        <div class="edu-title">{{ cert.name }}</div>
-                        <div class="edu-sub">{{ cert.issuer }}</div>
-                        <div class="edu-date">{{ cert.date_issued }}</div>
-                    </div>
-                </div>
+                <div class="cert-tag">{{ cert.name }}<span class="cert-issuer">{{ cert.issuer }}</span></div>
                 {% endfor %}
             </div>
-            {% endif %}
         </div>
         {% endif %}
+    </div>
 
-        {% if contact %}
-        <div class="contact-block">
-            <div class="card-heading">Get In Touch</div>
-            {% if contact.email_address %}
-            <div class="contact-item">
-                <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
-                <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
+    {% if contact %}
+    <div class="contact-section">
+        <div class="contact-inner">
+            <div class="section-label">Get In Touch</div>
+            <div class="contact-grid">
+                {% if contact.email_address %}
+                <div class="contact-card">
+                    <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+                    <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
+                </div>
+                {% endif %}
+                {% if contact.phone_number %}
+                <div class="contact-card">
+                    <div class="contact-card-icon"><i class="fas fa-phone"></i></div>
+                    <span>{{ contact.phone_number }}</span>
+                </div>
+                {% endif %}
+                {% if contact.linkedin %}
+                <div class="contact-card">
+                    <div class="contact-card-icon"><i class="fab fa-linkedin"></i></div>
+                    <a href="{{ contact.linkedin }}" target="_blank">LinkedIn Profile</a>
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
-            {% if contact.phone_number %}
-            <div class="contact-item">
-                <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
-                <span>{{ contact.phone_number }}</span>
-            </div>
-            {% endif %}
-            {% if contact.linkedin %}
-            <div class="contact-item">
-                <div class="contact-item-icon"><i class="fab fa-linkedin"></i></div>
-                <a href="{{ contact.linkedin }}" target="_blank">LinkedIn Profile</a>
-            </div>
-            {% endif %}
         </div>
-        {% endif %}
+    </div>
+    {% endif %}
 
-        <div class="footer-text">Powered by MIfolio</div>
+    <div class="footer-bar">
+        <span>Powered by MIfolio</span>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
