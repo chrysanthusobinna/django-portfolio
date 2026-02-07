@@ -101,14 +101,38 @@
             </div>
             <div class="col-lg-6">
                 <div class="about-image-wrapper">
-                    <img src="{% static 'images/home-page-section-about.jpg' %}" alt="About {{ SITE_NAME }}" 
-                         class="about-image">
+                    <div class="video-thumbnail" id="videoThumbnail" data-video-id="dQw4w9WgXcQ">
+                        <img src="{% static 'images/home-page-section-about.jpg' %}" alt="Watch how {{ SITE_NAME }} works" 
+                             class="about-image">
+                        <div class="play-button-wrapper">
+                            <div class="play-button-pulse"></div>
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="video-label">Watch How It Works</div>
+                    </div>
                     <div class="about-image-accent"></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content video-modal-content">
+            <div class="modal-header video-modal-header">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body video-modal-body p-0">
+                <div class="ratio ratio-16x9">
+                    <iframe id="videoIframe" src="" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <section class="section-modern templates-section" id="templates">
     <div class="container">

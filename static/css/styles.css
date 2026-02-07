@@ -629,6 +629,134 @@ button.btn {
     z-index: 1;
 }
 
+/* VIDEO THUMBNAIL & PLAY BUTTON */
+.video-thumbnail {
+    position: relative;
+    cursor: pointer;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.video-thumbnail:hover .about-image {
+    transform: scale(1.03);
+    transition: transform 0.4s ease;
+}
+
+.video-thumbnail .about-image {
+    transition: transform 0.4s ease;
+}
+
+.play-button-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+.play-button {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.4rem;
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.play-button i {
+    margin-left: 4px;
+}
+
+.video-thumbnail:hover .play-button {
+    transform: scale(1.1);
+}
+
+.play-button-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(102, 126, 234, 0.4);
+    z-index: 2;
+    animation: pulseRing 2s ease-out infinite;
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.8);
+        opacity: 0;
+    }
+}
+
+.video-label {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    z-index: 5;
+    white-space: nowrap;
+}
+
+/* VIDEO MODAL */
+.video-modal-content {
+    background: #000;
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.video-modal-header {
+    background: transparent;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    padding: 12px 16px;
+}
+
+.video-modal-body {
+    background: #000;
+}
+
+@media (max-width: 768px) {
+    .play-button {
+        width: 56px;
+        height: 56px;
+        font-size: 1.1rem;
+    }
+    .play-button-pulse {
+        width: 56px;
+        height: 56px;
+    }
+    .video-label {
+        font-size: 0.75rem;
+        padding: 6px 14px;
+    }
+}
+
 /* TEMPLATES SECTION */
 .templates-section {
     background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 100%);

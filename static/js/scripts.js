@@ -216,11 +216,28 @@ $('#profile_photo').on('change', function() {
     previewUploadPhoto(this.id, 'profilePhotoPreview');
 });
  
+function videoPopupHandler() {
+    var $thumbnail = $('#videoThumbnail');
+    if ($thumbnail.length) {
+        $thumbnail.on('click', function () {
+            var videoId = $(this).data('video-id');
+            var src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+            $('#videoIframe').attr('src', src);
+            var modal = new bootstrap.Modal(document.getElementById('videoModal'));
+            modal.show();
+        });
+        $('#videoModal').on('hidden.bs.modal', function () {
+            $('#videoIframe').attr('src', '');
+        });
+    }
+}
+
 // Document ready handler
 $(function () {
     setCurrentYear();
     toggleNavbar();
     viewProjectClickHandler();
+    videoPopupHandler();
 
     editContactClickHandler();
     editPortfolioClickHandler();
