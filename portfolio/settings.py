@@ -46,9 +46,9 @@ SITE_CONTACT_PHONE_NUMBER = "+44 456 7890 0000"
 SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG", "True").lower() in ("true", "1", "yes")
 
-ALLOWED_HOSTS = ['.gitpod.io', '.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -125,6 +125,9 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
     "https://*.herokuapp.com",
     "https://*.gitpod.io",
+    "https://*.replit.dev",
+    "https://*.repl.co",
+    "https://*.replit.app",
 ]
 
 # Password validation
