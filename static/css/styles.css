@@ -733,6 +733,85 @@ button.btn {
     margin-bottom: 0;
 }
 
+.section-ai {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.ai-feature-card {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.ai-feature-card:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.ai-feature-highlight {
+    background: rgba(79,70,229,0.15);
+    border-color: rgba(79,70,229,0.3);
+}
+
+.ai-feature-highlight:hover {
+    background: rgba(79,70,229,0.2);
+}
+
+.ai-feature-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.5rem;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(79,70,229,0.35);
+}
+
+.ai-feature-card h4 {
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+.ai-feature-card p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+.ai-formats-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 12px 28px;
+    color: #a5b4fc;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.ai-formats-badge i {
+    font-size: 1.1rem;
+}
+
+.ai-format-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(255,255,255,0.15);
+}
+
 .section-faq {
     background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
 }

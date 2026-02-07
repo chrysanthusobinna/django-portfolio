@@ -13,7 +13,7 @@
             <div class="col-lg-7">
                 <span class="hero-badge">Your Professional Identity</span>
                 <h1 class="hero-title">Build a Portfolio That <span class="text-gradient">Stands Out</span></h1>
-                <p class="hero-subtitle">Showcase your skills, experiences, and achievements with beautifully designed portfolio templates. Create your professional presence in minutes.</p>
+                <p class="hero-subtitle">Powered by AI. Upload your CV and let our intelligent system build your portfolio instantly. Or create one from scratch with beautifully designed templates.</p>
                 <div class="hero-actions">
                     {% if user.is_authenticated %}
                     <a href="{% url 'edit_user_profile' user.username %}" class="btn btn-hero-primary">Edit My Portfolio</a>
@@ -35,8 +35,8 @@
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat-item">
-                        <span class="stat-number">5 min</span>
-                        <span class="stat-label">Setup</span>
+                        <span class="stat-number">AI</span>
+                        <span class="stat-label">Powered</span>
                     </div>
                 </div>
             </div>
@@ -73,25 +73,73 @@
             <div class="col-lg-6">
                 <div class="about-card-modern">
                     <div class="about-icon-row">
-                        <div class="about-icon"><i class="fas fa-user-tie"></i></div>
-                        <div class="about-icon"><i class="fas fa-laptop-code"></i></div>
-                        <div class="about-icon"><i class="fas fa-paint-brush"></i></div>
+                        <div class="about-icon"><i class="fas fa-robot"></i></div>
+                        <div class="about-icon"><i class="fas fa-file-upload"></i></div>
+                        <div class="about-icon"><i class="fas fa-magic"></i></div>
                     </div>
                     <h2 class="section-heading">What is <span class="text-gradient">{{ SITE_NAME }}</span>?</h2>
                     <p class="about-text">
-                        {{ SITE_NAME }} is a platform that allows users to register and create personalized portfolios. Customize 
-                        your portfolio to suit your needs, including sections for About Me, Employment History, Education History, 
-                        Projects, and Contact Information such as LinkedIn, email, and phone number.
+                        {{ SITE_NAME }} is an AI-powered platform that allows you to create stunning professional portfolios in minutes. 
+                        Simply upload your existing CV in PDF or Word format, and our intelligent system will automatically extract your 
+                        information and build a beautiful portfolio for you.
                     </p>
                     <p class="about-text">
-                        This website is open to professionals from all fields, allowing you to showcase your skills and experiences effectively. Choose from multiple stunning template designs to make your portfolio truly yours.
+                        Your portfolio includes sections for About Me, Employment History, Education History, Projects, Certifications, 
+                        and Contact Information. Choose from multiple professionally designed templates to make your portfolio uniquely yours. 
+                        Open to professionals from all fields.
                     </p>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="about-image-modern">
-                    <img src="{% static 'images/home-page-section-about.jpg' %}" alt="About {{ SITE_NAME }}">
+                    <img src="{% static 'images/home-page-section-about-new.png' %}" alt="About {{ SITE_NAME }}">
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-modern section-ai" id="ai-powered">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-badge">AI-Powered</span>
+            <h2 class="section-heading-center">Upload Your CV, <br>Get a Portfolio <span class="text-gradient">Instantly</span></h2>
+            <p class="section-subtext">No more manual data entry. Our AI reads your CV and does the heavy lifting for you.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="ai-feature-card">
+                    <div class="ai-feature-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h4>Upload Your CV</h4>
+                    <p>Simply drag and drop your CV in PDF or Word format. We support all common resume and CV layouts.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="ai-feature-card ai-feature-highlight">
+                    <div class="ai-feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4>AI Extracts Your Data</h4>
+                    <p>Our AI intelligently reads your CV and extracts your work experience, education, skills, projects, and contact details.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="ai-feature-card">
+                    <div class="ai-feature-icon">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h4>Portfolio Created</h4>
+                    <p>Your professional portfolio is generated automatically. Pick a template, review your details, and you're ready to share.</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <div class="ai-formats-badge">
+                <i class="fas fa-file-pdf"></i> PDF
+                <span class="ai-format-divider"></span>
+                <i class="fas fa-file-word"></i> Word / DOCX
             </div>
         </div>
     </div>
@@ -293,12 +341,12 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="faqFive">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                How do I contact support?
+                                How does the AI CV upload work?
                             </button>
                         </h2>
                         <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                You can contact support by filling out the contact form below. Make sure to include your name, email, subject, and message.
+                                Simply upload your CV in PDF or Word format. Our AI will read through your document, extract key details like your work experience, education, skills, and contact info, then automatically populate your portfolio. You can review and edit everything before publishing.
                             </div>
                         </div>
                     </div>
@@ -311,84 +359,5 @@
     </div>
 </section>
 
-<section class="section-modern bg-white" id="contact">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-badge">Get in Touch</span>
-            <h2 class="section-heading-center">Contact <span class="text-gradient">Us</span></h2>
-            <p class="section-subtext">Have questions or need support? Reach out to us through any of the channels below or send us a message directly.</p>
-        </div>
-        <div class="row g-5">
-            <div class="col-lg-5">
-                <div class="contact-info-modern">
-                    <div class="contact-item-modern">
-                        <div class="contact-icon-modern bg-primary">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h6>Email</h6>
-                            <a href="mailto:{{ SITE_CONTACT_EMAIL_ADDRESS }}">{{ SITE_CONTACT_EMAIL_ADDRESS }}</a>
-                        </div>
-                    </div>
-                    <div class="contact-item-modern">
-                        <div class="contact-icon-modern bg-success">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <h6>Phone</h6>
-                            <a href="tel:{{ SITE_CONTACT_PHONE_NUMBER|default_if_none:''|cut:' ' }}">{{ SITE_CONTACT_PHONE_NUMBER }}</a>
-                        </div>
-                    </div>
-                    <div class="contact-item-modern">
-                        <div class="contact-icon-modern" style="background: #0077b5;">
-                            <i class="fab fa-linkedin-in"></i>
-                        </div>
-                        <div>
-                            <h6>LinkedIn</h6>
-                            <a href="{{ SITE_CONTACT_LINKEDIN_URL }}" target="_blank">Follow us on LinkedIn</a>
-                        </div>
-                    </div>
-                    <div class="contact-item-modern">
-                        <div class="contact-icon-modern" style="background: #25d366;">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div>
-                            <h6>WhatsApp</h6>
-                            <a href="https://wa.me/{{ SITE_CONTACT_PHONE_NUMBER|urlencode }}" target="_blank">Message us on WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-7">
-                <div class="contact-form-modern">
-                    <form method="post" action="{% url 'home' %}">
-                        {% csrf_token %}
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control modern-input" id="name" name="name" placeholder="Your name" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control modern-input" id="email" name="email" placeholder="Your email" required>
-                            </div>
-                            <div class="col-12">
-                                <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control modern-input" id="subject" name="subject" placeholder="Subject" required>
-                            </div>
-                            <div class="col-12">
-                                <label for="message" class="form-label">Message</label>
-                                <textarea class="form-control modern-input" id="message" name="message" rows="5" placeholder="Your message" required></textarea>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-hero-primary w-100">Send Message</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 {% endblock %}
