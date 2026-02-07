@@ -598,6 +598,24 @@
     </div>
 
     <div class="content-area">
+        {% if about and about.about %}
+        <div class="section">
+            <div class="about-row">
+                <div class="about-photo-wrap">
+                    {% if profilephoto and profilephoto.profile_photo %}
+                        <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
+                    {% else %}
+                        <i class="fas fa-user"></i>
+                    {% endif %}
+                </div>
+                <div>
+                    <h2 class="section-heading">About Me</h2>
+                    <p class="about-text">{{ about.about }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
         {% if employment or certifications %}
         <div class="section">
             <div class="two-col-grid">
@@ -631,24 +649,6 @@
                         {% endfor %}
                     </div>
                     {% endif %}
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
-        {% if about and about.about %}
-        <div class="section">
-            <div class="about-row">
-                <div class="about-photo-wrap">
-                    {% if profilephoto and profilephoto.profile_photo %}
-                        <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
-                    {% else %}
-                        <i class="fas fa-user"></i>
-                    {% endif %}
-                </div>
-                <div>
-                    <h2 class="section-heading">About Me</h2>
-                    <p class="about-text">{{ about.about }}</p>
                 </div>
             </div>
         </div>
