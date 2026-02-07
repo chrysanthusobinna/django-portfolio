@@ -5,73 +5,243 @@
 {% block title %}Welcome to {{ SITE_NAME }} - Homepage{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="container">
-        <h1>Welcome to {{ SITE_NAME }}</h1>
-        <p>Showcase your skills, experiences, and achievements with ease.</p>
+
+<section class="modern-hero">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative" style="z-index: 2;">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-7">
+                <span class="hero-badge">Your Professional Identity</span>
+                <h1 class="hero-title">Build a Portfolio That <span class="text-gradient">Stands Out</span></h1>
+                <p class="hero-subtitle">Showcase your skills, experiences, and achievements with beautifully designed portfolio templates. Create your professional presence in minutes.</p>
+                <div class="hero-actions">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'edit_user_profile' user.username %}" class="btn btn-hero-primary">Edit My Portfolio</a>
+                    <a href="{% url 'user_profile' user.username %}" class="btn btn-hero-outline">View My Portfolio</a>
+                    {% else %}
+                    <a href="{% url 'account_signup' %}" class="btn btn-hero-primary">Get Started Free</a>
+                    <a href="{% url 'account_login' %}" class="btn btn-hero-outline">Sign In</a>
+                    {% endif %}
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Free</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">6+</span>
+                        <span class="stat-label">Templates</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">5 min</span>
+                        <span class="stat-label">Setup</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="hero-visual">
+                    <div class="floating-card card-1">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Experience</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Education</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <i class="fas fa-code"></i>
+                        <span>Projects</span>
+                    </div>
+                    <div class="floating-card card-4">
+                        <i class="fas fa-certificate"></i>
+                        <span>Certifications</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 {% include 'partials/_alert.html' %}
 {% include 'partials/_auth_user.html' %}
 
-<!-- About Section -->
-<section class="section bg-white">
+<section class="section-modern bg-white" id="about">
     <div class="container">
-        <div class="row align-items-stretch">
-            <!-- Text Content -->
-            <div class="col-md-6 about-home mt-3">
-                <div class="p-4">
-                    <h2 class="text-primary">About {{ SITE_NAME }}</h2>
-                    <p>
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="about-card-modern">
+                    <div class="about-icon-row">
+                        <div class="about-icon"><i class="fas fa-user-tie"></i></div>
+                        <div class="about-icon"><i class="fas fa-laptop-code"></i></div>
+                        <div class="about-icon"><i class="fas fa-paint-brush"></i></div>
+                    </div>
+                    <h2 class="section-heading">What is <span class="text-gradient">{{ SITE_NAME }}</span>?</h2>
+                    <p class="about-text">
                         {{ SITE_NAME }} is a platform that allows users to register and create personalized portfolios. Customize 
                         your portfolio to suit your needs, including sections for About Me, Employment History, Education History, 
-                        Projects, and Contact Information such as LinkedIn, email, and phone number. This website is open to 
-                        professionals from all fields, allowing you to showcase your skills and experiences effectively.
+                        Projects, and Contact Information such as LinkedIn, email, and phone number.
+                    </p>
+                    <p class="about-text">
+                        This website is open to professionals from all fields, allowing you to showcase your skills and experiences effectively. Choose from multiple stunning template designs to make your portfolio truly yours.
                     </p>
                 </div>
             </div>
-            <!-- Image Content -->
-            <div class="col-md-6 mt-3">
-                <div class="h-100">
-                    <img src="{% static 'images/home-page-section-about.jpg' %}" alt="About {{ SITE_NAME }}" 
-                         class="img-fluid rounded shadow-sm h-100 w-100 object-fit-cover">
+            <div class="col-lg-6">
+                <div class="about-image-modern">
+                    <img src="{% static 'images/home-page-section-about.jpg' %}" alt="About {{ SITE_NAME }}">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Steps Section -->
-<section class="section bg-white-smoke">
+<section class="section-modern section-templates" id="templates">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <img src="{% static 'images/home-page-section-steps.jpg' %}" alt="Steps" class="img-fluid rounded">
+        <div class="text-center mb-5">
+            <span class="section-badge">Portfolio Designs</span>
+            <h2 class="section-heading-center">Multiple Template Designs <br>for <span class="text-gradient">Your Portfolio</span></h2>
+            <p class="section-subtext">Stand out from the crowd with our professionally crafted portfolio templates. Whether you're a developer, designer, executive, or creative professional, we have a template that matches your style.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="template-card">
+                    <div class="template-img-wrapper">
+                        <img src="{% static 'images/template-minimalist.png' %}" alt="Minimalist Template">
+                        <div class="template-overlay">
+                            <span class="template-tag">Popular</span>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <h5>Minimalist</h5>
+                        <p>Clean and elegant. Perfect for professionals who let their work speak for itself.</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <h2>How to Use the Website</h2>
-                <ul class="list-group">
-                    <li class="list-group-item">Step 1: Register an account.</li>
-                    <li class="list-group-item">Step 2: Log in to your account.</li>
-                    <li class="list-group-item">Step 3: Click "Edit Profile" in the top navigation bar.</li>
-                    <li class="list-group-item">Step 4: Add sections to your profile and fill in the required information.</li>
-                    <li class="list-group-item">Step 5: Navigate to "View My Profile" to see your portfolio.</li>
-                    <li class="list-group-item">Step 6: Click "Copy My Portfolio Link" to share your portfolio.</li>
-                </ul>
+            <div class="col-md-6 col-lg-4">
+                <div class="template-card">
+                    <div class="template-img-wrapper">
+                        <img src="{% static 'images/template-creative.png' %}" alt="Creative Template">
+                        <div class="template-overlay">
+                            <span class="template-tag">Trending</span>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <h5>Creative</h5>
+                        <p>Bold and colorful. Designed for creatives, artists, and visual storytellers.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="template-card">
+                    <div class="template-img-wrapper">
+                        <img src="{% static 'images/template-corporate.png' %}" alt="Corporate Template">
+                        <div class="template-overlay">
+                            <span class="template-tag">Professional</span>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <h5>Corporate</h5>
+                        <p>Polished and structured. Ideal for executives, managers, and business professionals.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="template-card">
+                    <div class="template-img-wrapper">
+                        <img src="{% static 'images/template-developer.png' %}" alt="Developer Template">
+                        <div class="template-overlay">
+                            <span class="template-tag">Dark Mode</span>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <h5>Developer</h5>
+                        <p>Sleek dark theme with neon accents. Built for developers and tech professionals.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="template-card">
+                    <div class="template-img-wrapper">
+                        <img src="{% static 'images/template-elegant.png' %}" alt="Elegant Template">
+                        <div class="template-overlay">
+                            <span class="template-tag">New</span>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <h5>Elegant</h5>
+                        <p>Soft and refined. A beautiful choice for designers, writers, and consultants.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="template-card">
+                    <div class="template-img-wrapper">
+                        <img src="{% static 'images/template-bold.png' %}" alt="Bold Template">
+                        <div class="template-overlay">
+                            <span class="template-tag">Eye-catching</span>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <h5>Bold</h5>
+                        <p>High impact and attention-grabbing. For those who want to make a strong first impression.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            {% if user.is_authenticated %}
+            <a href="{% url 'edit_user_profile' user.username %}" class="btn btn-hero-primary btn-lg">Choose a Template & Build Your Portfolio</a>
+            {% else %}
+            <a href="{% url 'account_signup' %}" class="btn btn-hero-primary btn-lg">Sign Up & Choose Your Template</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section-modern bg-white" id="how-it-works">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-badge">How It Works</span>
+            <h2 class="section-heading-center">Create Your Portfolio in <span class="text-gradient">3 Easy Steps</span></h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+                    <h4>Create an Account</h4>
+                    <p>Register for free and set up your profile in under a minute.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon"><i class="fas fa-edit"></i></div>
+                    <h4>Build Your Portfolio</h4>
+                    <p>Add your experience, education, projects, certifications, and contact info.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon"><i class="fas fa-share-alt"></i></div>
+                    <h4>Share Your Link</h4>
+                    <p>Copy your unique portfolio link and share it with the world.</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- FAQ Section -->
-<section class="section bg-white">
+<section class="section-modern section-faq" id="faq">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <h2>Frequently Asked Questions</h2>
-                <div class="accordion custom-accordion" id="faqAccordion">
+        <div class="row align-items-start g-5">
+            <div class="col-lg-6">
+                <span class="section-badge">FAQ</span>
+                <h2 class="section-heading">Frequently Asked <span class="text-gradient">Questions</span></h2>
+                <div class="accordion modern-accordion" id="faqAccordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="faqOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -80,7 +250,7 @@
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                {{ SITE_NAME }} is a platform for creating personalized online portfolios.
+                                {{ SITE_NAME }} is a platform for creating personalized online portfolios. You can showcase your skills, work history, education, projects, and more.
                             </div>
                         </div>
                     </div>
@@ -92,7 +262,7 @@
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                Yes, {{ SITE_NAME }} offers free access to all basic features.
+                                Yes, {{ SITE_NAME }} offers free access to all basic features, including all portfolio templates.
                             </div>
                         </div>
                     </div>
@@ -104,7 +274,7 @@
                         </h2>
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                To upload your profile photo, go to the 'Edit Profile' section and select 'Upload Photo'. Choose your desired image and save your changes.
+                                Go to the "Edit Profile" section and select "Upload Photo." Choose your desired image and save your changes.
                             </div>
                         </div>
                     </div>
@@ -116,7 +286,7 @@
                         </h2>
                         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                Yes, you can customize the sections in your portfolio by going to the 'Edit Profile' section and adding or editing the sections you want to display.
+                                Yes, you can customize the sections by going to "Edit Profile" and adding or editing the sections you want to display.
                             </div>
                         </div>
                     </div>
@@ -128,96 +298,97 @@
                         </h2>
                         <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                You can contact support by filling out the contact form on the home page. Make sure to include your name, email, subject, and message.
+                                You can contact support by filling out the contact form below. Make sure to include your name, email, subject, and message.
                             </div>
                         </div>
                     </div>
                 </div>
-                               
             </div>
-            <div class="col-md-6">
-                <img src="{% static 'images/home-page-section-faq.jpg' %}" alt="FAQ" class="img-fluid rounded">
+            <div class="col-lg-6">
+                <img src="{% static 'images/home-page-section-faq.jpg' %}" alt="FAQ" class="img-fluid rounded-4 shadow-lg">
             </div>
         </div>
     </div>
 </section>
 
-<!-- Contact Section -->
-<section class="section bg-white-smoke">
+<section class="section-modern bg-white" id="contact">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6 custom-outline">
-                <h2>Contact Us</h2>
-                <p>You can contact us for support and also follow us on our social channels:</p>
-                <ul class="list-group contact-icons">
-                    <!-- Email -->
-                    <li class="list-group-item d-flex align-items-center mb-3">
-                        <a href="mailto:{{ SITE_CONTACT_EMAIL_ADDRESS }}" class="d-flex align-items-center text-decoration-none text-dark">
-                            <div class="icon-container-home bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
-                                <i class="fas fa-envelope fa-2x"></i>
-                            </div>
-                            <span>{{ SITE_CONTACT_EMAIL_ADDRESS }}</span>
-                        </a>
-                    </li>
-                
-                    <!-- Phone -->
-                    <li class="list-group-item d-flex align-items-center mb-3">
-                        <a href="tel:{{ SITE_CONTACT_PHONE_NUMBER|default_if_none:''|cut:' ' }}" class="d-flex align-items-center text-decoration-none text-dark">
-                            <div class="icon-container-home bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3">
-                                <i class="fas fa-phone fa-2x"></i>
-                            </div>
-                            <span>{{ SITE_CONTACT_PHONE_NUMBER }}</span>
-                        </a>
-                    </li>
-                
-                    <!-- LinkedIn -->
-                    <li class="list-group-item d-flex align-items-center mb-3">
-                        <a href="{{ SITE_CONTACT_LINKEDIN_URL }}" target="_blank" class="d-flex align-items-center text-decoration-none text-dark">
-                            <div class="icon-container-home bg-info text-white rounded-circle d-flex align-items-center justify-content-center me-3">
-                                <i class="fab fa-linkedin fa-2x"></i>
-                            </div>
-                            <span>LinkedIn</span>
-                        </a>
-                    </li>
-                
-                    <!-- WhatsApp -->
-                    <li class="list-group-item d-flex align-items-center mb-3">
-                        <a href="https://wa.me/{{ SITE_CONTACT_PHONE_NUMBER|urlencode }}" target="_blank" class="d-flex align-items-center text-decoration-none text-dark">
-                            <div class="icon-container-home bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3">
-                                <i class="fab fa-whatsapp fa-2x"></i>
-                            </div>
-                            <span>WhatsApp</span>
-                        </a>
-                    </li>
-                </ul>
-                
+        <div class="text-center mb-5">
+            <span class="section-badge">Get in Touch</span>
+            <h2 class="section-heading-center">Contact <span class="text-gradient">Us</span></h2>
+            <p class="section-subtext">Have questions or need support? Reach out to us through any of the channels below or send us a message directly.</p>
+        </div>
+        <div class="row g-5">
+            <div class="col-lg-5">
+                <div class="contact-info-modern">
+                    <div class="contact-item-modern">
+                        <div class="contact-icon-modern bg-primary">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h6>Email</h6>
+                            <a href="mailto:{{ SITE_CONTACT_EMAIL_ADDRESS }}">{{ SITE_CONTACT_EMAIL_ADDRESS }}</a>
+                        </div>
+                    </div>
+                    <div class="contact-item-modern">
+                        <div class="contact-icon-modern bg-success">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h6>Phone</h6>
+                            <a href="tel:{{ SITE_CONTACT_PHONE_NUMBER|default_if_none:''|cut:' ' }}">{{ SITE_CONTACT_PHONE_NUMBER }}</a>
+                        </div>
+                    </div>
+                    <div class="contact-item-modern">
+                        <div class="contact-icon-modern" style="background: #0077b5;">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <div>
+                            <h6>LinkedIn</h6>
+                            <a href="{{ SITE_CONTACT_LINKEDIN_URL }}" target="_blank">Follow us on LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="contact-item-modern">
+                        <div class="contact-icon-modern" style="background: #25d366;">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <h6>WhatsApp</h6>
+                            <a href="https://wa.me/{{ SITE_CONTACT_PHONE_NUMBER|urlencode }}" target="_blank">Message us on WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6 custom-outline">
-                <form method="post" action="{% url 'home' %}">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="subject" class="form-label">Subject</label>
-                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter the subject" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Enter your message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-                              
+            <div class="col-lg-7">
+                <div class="contact-form-modern">
+                    <form method="post" action="{% url 'home' %}">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control modern-input" id="name" name="name" placeholder="Your name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control modern-input" id="email" name="email" placeholder="Your email" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control modern-input" id="subject" name="subject" placeholder="Subject" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control modern-input" id="message" name="message" rows="5" placeholder="Your message" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-hero-primary w-100">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 {% endblock %}
-
