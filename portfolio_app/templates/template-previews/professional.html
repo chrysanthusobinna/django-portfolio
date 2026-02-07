@@ -238,111 +238,98 @@
             gap: 50px;
         }
 
-        .exp-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            margin-bottom: 22px;
+        .timeline {
+            position: relative;
+            padding-left: 35px;
         }
 
-        .exp-item:last-child {
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #b5563e, #d4856e);
+        }
+
+        .timeline-entry {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-entry:last-child {
             margin-bottom: 0;
         }
 
-        .exp-dot {
-            width: 10px;
-            height: 10px;
+        .timeline-entry::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: #b5563e;
-            flex-shrink: 0;
-            margin-top: 8px;
+            box-shadow: 0 0 0 4px #faf6f1, 0 0 0 6px rgba(181,86,62,0.2);
         }
 
-        .exp-role {
+        .timeline-entry-title {
             font-size: 0.95rem;
             font-weight: 700;
             color: #3d2e2e;
-            margin-bottom: 1px;
         }
 
-        .exp-company {
-            font-size: 0.85rem;
+        .timeline-entry-company {
             color: #b5563e;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 2px;
         }
 
-        .exp-date {
-            font-size: 0.75rem;
+        .timeline-entry-date {
             color: #a89a8e;
+            font-size: 0.75rem;
             font-weight: 500;
-        }
-
-        .exp-desc {
-            font-size: 0.83rem;
-            color: #7a6a6a;
-            line-height: 1.6;
-            margin-top: 6px;
-        }
-
-        .skill-bar-group {
-            margin-bottom: 16px;
-        }
-
-        .skill-bar-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .skill-bar-label {
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: #3d2e2e;
             margin-bottom: 6px;
         }
 
-        .skill-bar-track {
-            width: 100%;
-            height: 8px;
-            background: #ede6de;
-            border-radius: 10px;
-            overflow: hidden;
+        .timeline-entry-desc {
+            color: #7a6a6a;
+            font-size: 0.83rem;
+            line-height: 1.6;
         }
 
-        .skill-bar-fill {
-            height: 100%;
-            border-radius: 10px;
-            background: linear-gradient(90deg, #b5563e, #d4856e);
+        .cert-col-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
         }
 
-        .cert-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .cert-tag {
+        .cert-card {
             background: #fff;
             border: 1px solid #ede6de;
-            color: #3d2e2e;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            border-left: 4px solid #b5563e;
+            border-radius: 10px;
+            padding: 14px 18px;
             transition: all 0.2s;
         }
 
-        .cert-tag:hover {
+        .cert-card:hover {
             border-color: #d4856e;
-            background: #fef8f4;
+            box-shadow: 0 4px 14px rgba(181,86,62,0.08);
         }
 
-        .cert-tag-issuer {
-            font-size: 0.7rem;
+        .cert-card-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #3d2e2e;
+            margin-bottom: 2px;
+        }
+
+        .cert-card-issuer {
+            font-size: 0.75rem;
             color: #a89a8e;
             font-weight: 400;
-            display: block;
-            margin-top: 2px;
         }
 
         .about-row {
@@ -617,38 +604,29 @@
                 {% if employment %}
                 <div>
                     <h2 class="section-heading">Work History</h2>
-                    {% for job in employment %}
-                    <div class="exp-item">
-                        <div class="exp-dot"></div>
-                        <div>
-                            <div class="exp-role">{{ job.job_title }}</div>
-                            <div class="exp-company">{{ job.employer_name }}</div>
-                            <div class="exp-date">{{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}</div>
+                    <div class="timeline">
+                        {% for job in employment %}
+                        <div class="timeline-entry">
+                            <div class="timeline-entry-title">{{ job.job_title }}</div>
+                            <div class="timeline-entry-company">{{ job.employer_name }}</div>
+                            <div class="timeline-entry-date">{{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}</div>
                             {% if job.description_of_duties %}
-                            <div class="exp-desc">{{ job.description_of_duties }}</div>
+                            <div class="timeline-entry-desc">{{ job.description_of_duties }}</div>
                             {% endif %}
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
                 {% endif %}
 
                 <div>
                     {% if certifications %}
-                    <h2 class="section-heading">Skills</h2>
-                    {% for cert in certifications %}
-                    <div class="skill-bar-group">
-                        <div class="skill-bar-label">{{ cert.name }}</div>
-                        <div class="skill-bar-track">
-                            <div class="skill-bar-fill" style="width: {% cycle '92' '85' '78' '88' '70' '95' %}%;"></div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    <div class="cert-tags">
+                    <h2 class="section-heading">Certifications</h2>
+                    <div class="cert-col-grid">
                         {% for cert in certifications %}
-                        <div class="cert-tag">
-                            {{ cert.name }}
-                            <span class="cert-tag-issuer">{{ cert.issuer }}</span>
+                        <div class="cert-card">
+                            <div class="cert-card-name">{{ cert.name }}</div>
+                            <div class="cert-card-issuer">{{ cert.issuer }}</div>
                         </div>
                         {% endfor %}
                     </div>
