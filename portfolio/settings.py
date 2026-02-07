@@ -46,9 +46,18 @@ SITE_CONTACT_PHONE_NUMBER = "+44 456 7890 0000"
 SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "True").lower() in ("true", "1", "yes")
+DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
 
-ALLOWED_HOSTS = ['*']
+REPLIT_DOMAINS = os.environ.get("REPLIT_DOMAINS", "")
+REPLIT_DEV_DOMAIN = os.environ.get("REPLIT_DEV_DOMAIN", "")
+ALLOWED_HOSTS = [
+    '.gitpod.io', '.herokuapp.com',
+    'localhost', '127.0.0.1', '0.0.0.0',
+]
+if REPLIT_DOMAINS:
+    ALLOWED_HOSTS.extend(REPLIT_DOMAINS.split(","))
+if REPLIT_DEV_DOMAIN:
+    ALLOWED_HOSTS.append(REPLIT_DEV_DOMAIN)
 
 
 # Application definition
