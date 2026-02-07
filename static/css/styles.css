@@ -780,6 +780,8 @@ button.btn {
     position: relative;
     overflow: hidden;
     height: 280px;
+    display: block;
+    text-decoration: none;
 }
 
 .template-image {
