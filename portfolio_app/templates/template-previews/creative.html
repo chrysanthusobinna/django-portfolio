@@ -197,9 +197,19 @@
             letter-spacing: 3px;
         }
 
-        .white-section {
-            background: #fff;
+        .section-light {
+            background: #ffffff;
             padding: 50px;
+        }
+
+        .section-light-alt {
+            background: #f8f9fc;
+            padding: 55px 50px;
+        }
+
+        .section-light-warm {
+            background: #f3f0ff;
+            padding: 60px 50px;
         }
 
         .section-title {
@@ -209,47 +219,67 @@
             margin-bottom: 30px;
         }
 
+        .section-title span {
+            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-divider {
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
+            border-radius: 2px;
+            margin-bottom: 30px;
+        }
+
         .about-text {
             font-size: 0.95rem;
-            color: #666;
+            color: #555;
             line-height: 1.8;
             margin-bottom: 0;
         }
 
-        .projects-row {
+        .projects-grid {
             display: flex;
-            gap: 14px;
-            overflow-x: auto;
-            padding-bottom: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
         }
 
         .project-card {
-            flex-shrink: 0;
-            width: 150px;
+            width: 220px;
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.07);
             transition: all 0.3s;
             border: 1px solid #eee;
+            background: #fff;
         }
 
         .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(123,47,247,0.12);
         }
 
         .project-thumb {
             width: 100%;
-            height: 120px;
+            height: 130px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: #fff;
             padding: 15px;
             text-align: center;
-            position: relative;
+        }
+
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .project-thumb.gradient-1 {
@@ -269,25 +299,25 @@
         }
 
         .project-card-body {
-            padding: 12px;
-            background: #fff;
+            padding: 14px;
         }
 
         .project-card-title {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: #1a1a2e;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .project-card-desc {
-            font-size: 0.7rem;
-            color: #999;
-            line-height: 1.4;
+            font-size: 0.75rem;
+            color: #888;
+            line-height: 1.5;
+            margin-bottom: 6px;
         }
 
         .project-card-link {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: #7b2ff7;
             text-decoration: none;
             font-weight: 500;
@@ -295,31 +325,6 @@
 
         .project-card-link:hover {
             color: #4361ee;
-        }
-
-        .dark-section {
-            background: #0f0f1a;
-            padding: 50px;
-            color: #e0e0e0;
-        }
-
-        .dark-section .section-title {
-            color: #fff;
-        }
-
-        .dark-section .section-title span {
-            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-divider {
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
-            border-radius: 2px;
-            margin-bottom: 30px;
         }
 
         .timeline {
@@ -342,6 +347,10 @@
             margin-bottom: 30px;
         }
 
+        .timeline-entry:last-child {
+            margin-bottom: 0;
+        }
+
         .timeline-entry::before {
             content: '';
             position: absolute;
@@ -351,13 +360,13 @@
             height: 12px;
             border-radius: 50%;
             background: linear-gradient(135deg, #7b2ff7, #00d4aa);
-            box-shadow: 0 0 15px rgba(123,47,247,0.4);
+            box-shadow: 0 0 12px rgba(123,47,247,0.3);
         }
 
         .timeline-entry-title {
             font-size: 1rem;
             font-weight: 600;
-            color: #fff;
+            color: #1a1a2e;
         }
 
         .timeline-entry-company {
@@ -367,50 +376,35 @@
         }
 
         .timeline-entry-date {
-            color: #666;
+            color: #999;
             font-size: 0.8rem;
             margin-bottom: 6px;
         }
 
         .timeline-entry-desc {
-            color: #888;
+            color: #666;
             font-size: 0.85rem;
             line-height: 1.6;
         }
 
-        .gradient-section {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            padding: 50px;
-            color: #e0e0e0;
-        }
-
-        .gradient-section .section-title {
-            color: #fff;
-        }
-
-        .gradient-section .section-title span {
-            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         .edu-card {
-            background: rgba(255,255,255,0.05);
+            background: #fff;
             border-radius: 12px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.08);
+            padding: 22px 24px;
+            border: 1px solid #e8e0f5;
             margin-bottom: 12px;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(123,47,247,0.04);
         }
 
         .edu-card:hover {
-            border-color: rgba(123,47,247,0.3);
+            border-color: rgba(123,47,247,0.25);
+            box-shadow: 0 4px 16px rgba(123,47,247,0.08);
         }
 
         .edu-card-title {
             font-weight: 600;
-            color: #fff;
+            color: #1a1a2e;
             font-size: 0.95rem;
         }
 
@@ -420,23 +414,25 @@
         }
 
         .edu-card-date {
-            color: #666;
+            color: #999;
             font-size: 0.8rem;
         }
 
         .cert-badge {
-            background: rgba(255,255,255,0.05);
+            background: #fff;
             border-radius: 12px;
-            padding: 18px;
-            border: 1px solid rgba(255,255,255,0.08);
+            padding: 22px;
+            border: 1px solid #e0e0e0;
             text-align: center;
             transition: all 0.3s;
             height: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
         .cert-badge:hover {
-            border-color: rgba(123,47,247,0.3);
+            border-color: rgba(123,47,247,0.25);
             transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(123,47,247,0.08);
         }
 
         .cert-badge i {
@@ -450,7 +446,7 @@
 
         .cert-badge-name {
             font-weight: 600;
-            color: #fff;
+            color: #1a1a2e;
             font-size: 0.85rem;
             margin-bottom: 4px;
         }
@@ -461,7 +457,7 @@
         }
 
         .cert-badge-date {
-            color: #555;
+            color: #aaa;
             font-size: 0.7rem;
             margin-top: 4px;
         }
@@ -507,11 +503,11 @@
         }
 
         .footer {
-            background: #0a0a15;
+            background: #1a1a2e;
             text-align: center;
             padding: 20px;
             font-size: 0.75rem;
-            color: #555;
+            color: #aaa;
             border-radius: 0 0 20px 20px;
         }
 
@@ -539,9 +535,9 @@
                 height: 140px;
             }
 
-            .white-section,
-            .dark-section,
-            .gradient-section,
+            .section-light,
+            .section-light-alt,
+            .section-light-warm,
             .contact-section {
                 padding: 35px 25px;
             }
@@ -550,12 +546,12 @@
                 font-size: 1.4rem;
             }
 
-            .projects-row {
-                gap: 10px;
+            .projects-grid {
+                gap: 12px;
             }
 
             .project-card {
-                width: 130px;
+                width: 160px;
             }
         }
     </style>
@@ -599,26 +595,32 @@
         </section>
 
         {% if about and about.about %}
-        <div class="white-section">
+        <div class="section-light">
             <h2 class="section-title">About Me</h2>
             <p class="about-text">{{ about.about }}</p>
         </div>
         {% endif %}
 
         {% if portfolios %}
-        <div class="white-section" id="projects" style="padding-top: 0;">
+        <div class="section-light-alt" id="projects">
             <h2 class="section-title">Projects Showcase</h2>
-            <div class="projects-row">
+            <div class="projects-grid">
                 {% for project in portfolios %}
                 <div class="project-card">
+                    {% if project.portfolio_photo %}
+                    <div class="project-thumb">
+                        <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
+                    </div>
+                    {% else %}
                     <div class="project-thumb gradient-{% cycle '1' '2' '3' '4' %}">
                         <span>{{ project.title }}</span>
                     </div>
+                    {% endif %}
                     <div class="project-card-body">
                         <div class="project-card-title">{{ project.title }}</div>
                         <div class="project-card-desc">{{ project.description|truncatewords:8 }}</div>
                         {% if project.link %}
-                        <a href="{{ project.link }}" class="project-card-link" target="_blank">View Project</a>
+                        <a href="{{ project.link }}" class="project-card-link" target="_blank">View Project <i class="fas fa-arrow-right" style="font-size:0.6rem;"></i></a>
                         {% endif %}
                     </div>
                 </div>
@@ -628,7 +630,7 @@
         {% endif %}
 
         {% if employment %}
-        <div class="dark-section">
+        <div class="section-light">
             <h2 class="section-title"><span>Experience</span></h2>
             <div class="section-divider"></div>
             <div class="timeline">
@@ -649,7 +651,7 @@
         {% endif %}
 
         {% if education %}
-        <div class="gradient-section">
+        <div class="section-light-warm">
             <h2 class="section-title"><span>Education</span></h2>
             <div class="section-divider"></div>
             {% for edu in education %}
@@ -665,7 +667,7 @@
         {% endif %}
 
         {% if certifications %}
-        <div class="dark-section">
+        <div class="section-light-alt">
             <h2 class="section-title"><span>Certifications</span></h2>
             <div class="section-divider"></div>
             <div class="row g-3">
