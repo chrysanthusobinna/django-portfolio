@@ -29,14 +29,14 @@ class EditPortfolioViewTests(TestCase):
         })
         self.assertEqual(response.status_code, 404)
         self.portfolio1.refresh_from_db()
-        self.assertEqual(self.portfolio1.title, "Portfolio 1")  # Ensure the portfolio wasn't updated.
+        self.assertEqual(self.portfolio1.title, "Portfolio 1")
 
     def test_form_with_invalid_data(self):
         self.client.login(username="user1", password="password1")
         response = self.client.post(self.edit_url, {
-            "title": "",  # Invalid: Title is required.
+            "title": "",
             "description": "Updated Description",
         })
-        self.assertEqual(response.status_code, 302)  # Form re-renders on error.
+        self.assertEqual(response.status_code, 302)
         self.portfolio1.refresh_from_db()
-        self.assertEqual(self.portfolio1.description, "Description 1")  # Ensure data wasn't updated.
+        self.assertEqual(self.portfolio1.description, "Description 1")

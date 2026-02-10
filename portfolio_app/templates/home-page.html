@@ -145,96 +145,27 @@
             </p>
         </div>
         <div class="row g-4">
+            {% for template in templates %}
             <div class="col-md-6 col-lg-4">
                 <div class="template-card">
-                    <a href="{% url 'template_preview' 'minimalist' %}" class="template-image-wrapper" target="_blank">
-                        <img src="{% static 'images/template-minimalist.png' %}" alt="Minimalist Template" class="template-image">
+                    <a href="{% url 'template_preview' template.template_file %}" class="template-image-wrapper" >
+                        <img src="{% static template.image_path %}" alt="{{ template.name }} Template" class="template-image">
                         <div class="template-overlay">
                             <span class="template-preview-btn">Preview</span>
                         </div>
                     </a>
                     <div class="template-info">
-                        <h5 class="template-name">Minimalist</h5>
-                        <p class="template-desc">Clean, elegant design with focused typography and white space.</p>
-                        <span class="template-tag">Popular</span>
+                        <h5 class="template-name">{{ template.name }}</h5>
+                        <p class="template-desc">{{ template.description }}</p>
+                        <span class="template-tag{% if template.tag == 'New' or template.tag == 'Trending' %} tag-{{ template.tag|lower }}{% endif %}">{{ template.tag }}</span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="template-card">
-                    <a href="{% url 'template_preview' 'creative' %}" class="template-image-wrapper" target="_blank">
-                        <img src="{% static 'images/template-creative.png' %}" alt="Creative Template" class="template-image">
-                        <div class="template-overlay">
-                            <span class="template-preview-btn">Preview</span>
-                        </div>
-                    </a>
-                    <div class="template-info">
-                        <h5 class="template-name">Creative</h5>
-                        <p class="template-desc">Bold gradients and dynamic layouts for creative professionals.</p>
-                        <span class="template-tag tag-new">New</span>
-                    </div>
-                </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">No templates available at the moment.</p>
             </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="template-card">
-                    <a href="{% url 'template_preview' 'corporate' %}" class="template-image-wrapper" target="_blank">
-                        <img src="{% static 'images/template-corporate.png' %}" alt="Corporate Template" class="template-image">
-                        <div class="template-overlay">
-                            <span class="template-preview-btn">Preview</span>
-                        </div>
-                    </a>
-                    <div class="template-info">
-                        <h5 class="template-name">Corporate</h5>
-                        <p class="template-desc">Professional and structured layout ideal for business executives.</p>
-                        <span class="template-tag">Classic</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="template-card">
-                    <a href="{% url 'template_preview' 'professional' %}" class="template-image-wrapper" target="_blank">
-                        <img src="{% static 'images/template-developer.png' %}" alt="Professional Template" class="template-image">
-                        <div class="template-overlay">
-                            <span class="template-preview-btn">Preview</span>
-                        </div>
-                    </a>
-                    <div class="template-info">
-                        <h5 class="template-name">Professional</h5>
-                        <p class="template-desc">Warm, inviting layout with clean structure for any industry.</p>
-                        <span class="template-tag tag-new">Trending</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="template-card">
-                    <a href="{% url 'template_preview' 'elegant' %}" class="template-image-wrapper" target="_blank">
-                        <img src="{% static 'images/template-elegant.png' %}" alt="Elegant Template" class="template-image">
-                        <div class="template-overlay">
-                            <span class="template-preview-btn">Preview</span>
-                        </div>
-                    </a>
-                    <div class="template-info">
-                        <h5 class="template-name">Elegant</h5>
-                        <p class="template-desc">Soft pastels and refined typography for a sophisticated look.</p>
-                        <span class="template-tag">Stylish</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="template-card">
-                    <a href="{% url 'template_preview' 'bold' %}" class="template-image-wrapper" target="_blank">
-                        <img src="{% static 'images/template-bold.png' %}" alt="Bold Template" class="template-image">
-                        <div class="template-overlay">
-                            <span class="template-preview-btn">Preview</span>
-                        </div>
-                    </a>
-                    <div class="template-info">
-                        <h5 class="template-name">Bold</h5>
-                        <p class="template-desc">High impact visuals with striking colours that demand attention.</p>
-                        <span class="template-tag tag-new">New</span>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <div class="text-center mt-5">
             <a href="{% url 'account_signup' %}" class="btn btn-hero-primary btn-lg">Create Your Portfolio <i class="fas fa-arrow-right ms-2"></i></a>

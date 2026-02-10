@@ -8,6 +8,14 @@ urlpatterns = [
         views.template_preview,
         name='template_preview'),
     path(
+        'select-template/<int:template_id>/',
+        views.select_template,
+        name='select_template'),
+    path(
+        'logout/',
+        views.logout_view,
+        name='logout'),
+    path(
         '<str:username>/',
         views.user_profile,
         name='user_profile'),

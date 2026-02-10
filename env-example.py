@@ -1,9 +1,17 @@
 import os
 
-# POSTGRESQL URL
-os.environ.setdefault(
-    "DATABASE_URL", "<put DATABASE_URL here>"
-)
+
+# for local development
+os.environ["DATABASE_NAME"] = "hotel_booking"
+os.environ["DATABASE_USER"] = "postgres"
+os.environ["DATABASE_PASSWORD"] = "root"
+os.environ["DATABASE_HOST"] = "localhost"
+os.environ["DATABASE_PORT"] = "5432"
+
+# # POSTGRESQL URL
+# os.environ.setdefault(
+#     "DATABASE_URL", "<put DATABASE_URL here>"
+# )
 
 # DJANGO SECRET_KEY
 os.environ.setdefault(

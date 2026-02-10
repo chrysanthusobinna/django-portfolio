@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as auth_logout
+from django.http import JsonResponse
 from django.contrib import messages
 from .helpers import get_user_data
-from django.contrib.auth.decorators import login_required
 
 from .models import (
     Contact,
@@ -11,6 +13,8 @@ from .models import (
     Employment,
     About,
     Profilephoto,
+    Template,
+    UserTemplate,
 )
 from .forms import (
     ContactForm,
@@ -26,12 +30,14 @@ from django.conf import settings
 
 
 def home(request):
-    return render(request, "home-page.html")
+    templates = Template.objects.filter(is_active=True)
+    return render(request, "home-page.html", {'templates': templates})
 
 
 def template_preview(request, template_name):
-    valid_templates = ['minimalist', 'creative', 'corporate', 'professional', 'elegant', 'bold']
-    if template_name not in valid_templates:
+    try:
+        template = Template.objects.get(template_file=template_name, is_active=True)
+    except Template.DoesNotExist:
         messages.error(request, "Template not found.")
         return redirect("home")
 
@@ -42,6 +48,7 @@ def template_preview(request, template_name):
         'user_fullname': fullname,
         'user_initials': initials,
         'profilephoto': None,
+        'template_id': template.id,  
         'about': type('obj', (object,), {'about': 'Experienced software engineer and technology leader with over 10 years of expertise in full-stack development, cloud architecture, and team leadership. Passionate about building scalable solutions and mentoring the next generation of developers.'})(),
         'employment': [
             type('obj', (object,), {'employer_name': 'TechVision Solutions', 'job_title': 'Senior Software Engineer', 'description_of_duties': 'Led a team of 8 developers in designing and building enterprise-grade web applications using Django and React.', 'start_date': '2021-03-01', 'end_date': None})(),
@@ -68,6 +75,27 @@ def template_preview(request, template_name):
     return render(request, f"template-previews/{template_name}.html", sample_data)
 
 
+@login_required
+def select_template(request, template_id):
+    template = get_object_or_404(Template, id=template_id, is_active=True)
+    
+    if request.method == 'POST':
+        # Get or create UserTemplate for this user
+        user_template, created = UserTemplate.objects.get_or_create(
+            user=request.user,
+            defaults={'template': template}
+        )
+        
+        if not created:
+            user_template.template = template
+            user_template.save()
+        
+        messages.success(request, f"Template '{template.name}' has been selected for your portfolio!")
+        return JsonResponse({'success': True, 'message': 'Template selected successfully!'})
+    
+    return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=400)
+
+
 # render show portfolio page and handle contact form
 def user_profile(request, username):
     target_user, data = get_user_data(username)
@@ -75,6 +103,13 @@ def user_profile(request, username):
     if not target_user:
         messages.error(request, "The user you are looking for does not exist.")
         return redirect("home")
+
+    # Get user's selected template
+    try:
+        user_template = UserTemplate.objects.get(user=target_user)
+        template_name = user_template.template.template_file if user_template.template else 'minimalist'
+    except UserTemplate.DoesNotExist:
+        template_name = 'minimalist'  # default template
 
     if request.method == "POST":
         name = request.POST.get("name")
@@ -95,9 +130,10 @@ def user_profile(request, username):
 
     context = {
         "target_user": target_user,
+        "is_owner": request.user.is_authenticated and request.user.username == username,
         **data,  # Unpack the user-related data
     }
-    return render(request, "user-portfolio.html", context)
+    return render(request, f"template-previews/{template_name}.html", context)
 
 
 # render edit portfolio page
@@ -449,6 +485,16 @@ def delete_profile_photo(request):
         except Exception as e:
             messages.error(request, f"{error_msg}{e}")
     return redirect("edit_user_profile", username=request.user.username)
+
+
+@login_required
+def logout_view(request):
+    if request.method == 'POST':
+        auth_logout(request)
+        messages.success(request, "You have been logged out successfully.")
+        return JsonResponse({'success': True, 'message': 'Logged out successfully'})
+    
+    return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=400)
 
 
 @login_required

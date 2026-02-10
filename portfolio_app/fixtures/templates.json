@@ -1,0 +1,80 @@
+[
+    {
+        "model": "portfolio_app.template",
+        "pk": 1,
+        "fields": {
+            "name": "Minimalist",
+            "template_file": "minimalist",
+            "description": "Clean, elegant design with focused typography and white space.",
+            "image_path": "images/template-minimalist.png",
+            "tag": "Popular",
+            "is_active": true,
+            "created_at": "2025-02-10T00:00:00Z"
+        }
+    },
+    {
+        "model": "portfolio_app.template",
+        "pk": 2,
+        "fields": {
+            "name": "Creative",
+            "template_file": "creative",
+            "description": "Bold gradients and dynamic layouts for creative professionals.",
+            "image_path": "images/template-creative.png",
+            "tag": "New",
+            "is_active": true,
+            "created_at": "2025-02-10T00:00:00Z"
+        }
+    },
+    {
+        "model": "portfolio_app.template",
+        "pk": 3,
+        "fields": {
+            "name": "Corporate",
+            "template_file": "corporate",
+            "description": "Professional and structured layout ideal for business executives.",
+            "image_path": "images/template-corporate.png",
+            "tag": "Classic",
+            "is_active": true,
+            "created_at": "2025-02-10T00:00:00Z"
+        }
+    },
+    {
+        "model": "portfolio_app.template",
+        "pk": 4,
+        "fields": {
+            "name": "Professional",
+            "template_file": "professional",
+            "description": "Warm, inviting layout with clean structure for any industry.",
+            "image_path": "images/template-developer.png",
+            "tag": "Trending",
+            "is_active": true,
+            "created_at": "2025-02-10T00:00:00Z"
+        }
+    },
+    {
+        "model": "portfolio_app.template",
+        "pk": 5,
+        "fields": {
+            "name": "Elegant",
+            "template_file": "elegant",
+            "description": "Soft pastels and refined typography for a sophisticated look.",
+            "image_path": "images/template-elegant.png",
+            "tag": "Stylish",
+            "is_active": true,
+            "created_at": "2025-02-10T00:00:00Z"
+        }
+    },
+    {
+        "model": "portfolio_app.template",
+        "pk": 6,
+        "fields": {
+            "name": "Bold",
+            "template_file": "bold",
+            "description": "High impact visuals with striking colours that demand attention.",
+            "image_path": "images/template-bold.png",
+            "tag": "New",
+            "is_active": true,
+            "created_at": "2025-02-10T00:00:00Z"
+        }
+    }
+]

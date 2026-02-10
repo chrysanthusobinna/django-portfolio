@@ -2,7 +2,34 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
+# Template model
+class Template(models.Model):
+    name = models.CharField(max_length=255)
+    template_file = models.CharField(max_length=255)  # maps to template file name
+    description = models.TextField()
+    image_path = models.CharField(max_length=255)  # path to template preview image
+    tag = models.CharField(max_length=50, default='Classic')
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['name']
 
+    def __str__(self):
+        return self.name
+
+
+# UserTemplate model to store user's selected template
+class UserTemplate(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    template = models.ForeignKey(Template, on_delete=models.SET_NULL, null=True)
+    selected_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.template.name if self.template else 'No template'}"
+
+
+# Profile photo model
 class Profilephoto(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_photo = CloudinaryField('image', null=True, blank=True)
