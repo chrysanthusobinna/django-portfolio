@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.http import JsonResponse
 from django.contrib import messages
+import logging
+
 from .helpers import get_user_data
 
 from .models import (
@@ -15,6 +17,7 @@ from .models import (
     Profilephoto,
     Template,
     UserTemplate,
+    Skill,
 )
 from .forms import (
     ContactForm,
@@ -24,9 +27,14 @@ from .forms import (
     EmploymentForm,
     AboutForm,
     ProfilephotoForm,
+    CVUploadForm,
 )
 from .utils import validate_image_file, send_contact_email
+from .cv_parser import CVParser
+from .gemini_cv_extractor import GeminiCVExtractor
 from django.conf import settings
+
+logger = logging.getLogger(__name__)
 
 
 def home(request):
@@ -435,6 +443,54 @@ def delete_about(request):
     return redirect("edit_user_profile", username=request.user.username)
 
 
+# Handle Save and Delete for Skills
+@login_required
+def save_skills(request):
+    """Save skills from the tag/chip input (JSON array in hidden field)."""
+    import json
+
+    if request.method == "POST":
+        raw = request.POST.get("skills_json", "[]")
+        try:
+            skills_list = json.loads(raw)
+            if not isinstance(skills_list, list):
+                skills_list = []
+        except (json.JSONDecodeError, TypeError):
+            # Fallback: treat as comma-separated
+            skills_list = [s.strip() for s in raw.split(",") if s.strip()]
+
+        # Sanitise: trim, enforce max-length, deduplicate, cap at 30
+        seen = set()
+        clean = []
+        for s in skills_list:
+            s = str(s).strip()[:40]
+            if s and s.lower() not in seen:
+                seen.add(s.lower())
+                clean.append(s)
+            if len(clean) >= 30:
+                break
+
+        skill_obj, _ = Skill.objects.get_or_create(user=request.user)
+        skill_obj.skills = clean
+        skill_obj.save()
+        messages.success(request, "Skills saved successfully.")
+
+    return redirect("edit_user_profile", username=request.user.username)
+
+
+@login_required
+def delete_skills(request):
+    """Delete all skills for the current user."""
+    if request.method == "POST":
+        try:
+            skill_obj = Skill.objects.get(user=request.user)
+            skill_obj.delete()
+            messages.success(request, "Skills deleted successfully.")
+        except Skill.DoesNotExist:
+            messages.error(request, "No skills to delete.")
+    return redirect("edit_user_profile", username=request.user.username)
+
+
 # Handle Create, Update, and Delete for Profile Photo
 @login_required
 def save_profile_photo(request):
@@ -534,3 +590,232 @@ def contact_delete(request):
     except Exception as e:
         messages.error(request, f"An error occurred: {e}")
     return redirect("edit_user_profile", username=request.user.username)
+
+
+@login_required
+def upload_cv(request):
+    """Handle CV upload: extract text with pdfplumber, parse with Gemini,
+    fall back to regex CVParser if Gemini fails, then save."""
+    if request.method == "POST":
+        form = CVUploadForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            cv_file = form.cleaned_data['cv_file']
+
+            try:
+                # --- 1. Extract raw text via pdfplumber ---
+                try:
+                    import pdfplumber
+                except ImportError:
+                    messages.error(
+                        request,
+                        "PDF processing library not installed. "
+                        "Please contact administrator.",
+                    )
+                    return redirect(
+                        "edit_user_profile",
+                        username=request.user.username,
+                    )
+
+                try:
+                    with pdfplumber.open(cv_file) as pdf:
+                        cv_text = "\n".join(
+                            page.extract_text() or ""
+                            for page in pdf.pages
+                        )
+                except Exception as e:
+                    logger.error("pdfplumber extraction failed: %s", e)
+                    messages.error(
+                        request,
+                        "Could not read the PDF. Please ensure it is "
+                        "a valid PDF with readable text.",
+                    )
+                    return redirect(
+                        "edit_user_profile",
+                        username=request.user.username,
+                    )
+
+                if not cv_text or not cv_text.strip():
+                    messages.error(
+                        request,
+                        "The PDF appears to be empty or contains no "
+                        "readable text.",
+                    )
+                    return redirect(
+                        "edit_user_profile",
+                        username=request.user.username,
+                    )
+
+                # --- 2. Parse with Gemini (primary) ---
+                parsed_data = None
+                try:
+                    extractor = GeminiCVExtractor()
+                    parsed_data = extractor.extract(cv_text)
+                except ValueError as exc:
+                    # GEMINI_API_KEY not configured
+                    logger.warning("Gemini unavailable: %s", exc)
+                except Exception as exc:
+                    logger.error("Gemini extraction error: %s", exc)
+
+                # --- 3. Fallback to regex parser ---
+                if parsed_data is None:
+                    logger.info("Falling back to regex CVParser")
+                    cv_file.seek(0)  # rewind for re-read
+                    parser = CVParser()
+                    parsed_data = parser.parse_cv(cv_file)
+
+                if not parsed_data:
+                    messages.error(
+                        request,
+                        "Could not extract data from the CV. "
+                        "Please ensure it's a valid PDF with "
+                        "readable text.",
+                    )
+                    return redirect(
+                        "edit_user_profile",
+                        username=request.user.username,
+                    )
+
+                # --- 4. Save extracted data ---
+                _save_parsed_cv_data(request, parsed_data)
+
+                messages.success(
+                    request,
+                    "CV data has been successfully extracted "
+                    "and added to your portfolio!",
+                )
+
+            except Exception as e:
+                messages.error(request, f"Error processing CV: {str(e)}")
+                logger.error("CV processing error: %s", e, exc_info=True)
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"CV Upload Error: {error}")
+
+    return redirect("edit_user_profile", username=request.user.username)
+
+
+def _save_parsed_cv_data(request, parsed_data):
+    """
+    Save / upsert parsed CV data into Django models.
+
+    De-duplication rules:
+    - Contact & About  → get_or_create then update.
+    - Employment       → unique on (user, employer_name, job_title, start_date).
+    - Education        → unique on (user, institution_name, qualification, start_date).
+    - Certification    → unique on (user, name, issuer).
+    - Portfolio        → unique on (user, title).
+    """
+    user = request.user
+
+    # --- Contact ---
+    contact_raw = parsed_data.get("contact") or {}
+    # Support both key styles  (email_address / email, phone_number / phone)
+    email = (
+        contact_raw.get("email_address")
+        or contact_raw.get("email")
+    )
+    phone = (
+        contact_raw.get("phone_number")
+        or contact_raw.get("phone")
+    )
+    linkedin = contact_raw.get("linkedin")
+
+    if email or phone or linkedin:
+        contact, _ = Contact.objects.get_or_create(user=user)
+        if email:
+            contact.email_address = email
+        if phone:
+            contact.phone_number = phone
+        if linkedin:
+            contact.linkedin = linkedin
+        contact.save()
+
+    # --- About ---
+    about_text = parsed_data.get("about")
+    if about_text and str(about_text).strip():
+        about, _ = About.objects.get_or_create(user=user)
+        about.about = str(about_text).strip()
+        about.save()
+
+    # --- Employment (upsert) ---
+    for emp in parsed_data.get("employment") or []:
+        if not emp.get("employer_name") and not emp.get("job_title"):
+            continue
+        # start_date is NOT NULL in DB — use fallback if missing
+        start_date = emp.get("start_date") or "2000-01-01"
+        lookup = {
+            "user": user,
+            "employer_name": emp.get("employer_name") or "",
+            "job_title": emp.get("job_title") or "",
+            "start_date": start_date,
+        }
+        defaults = {
+            "description_of_duties": emp.get("description_of_duties") or "",
+            "end_date": emp.get("end_date"),
+        }
+        Employment.objects.update_or_create(defaults=defaults, **lookup)
+
+    # --- Education (upsert) ---
+    for edu in parsed_data.get("education") or []:
+        if not edu.get("institution_name"):
+            continue
+        # start_date is NOT NULL in DB — use fallback if missing
+        start_date = edu.get("start_date") or "2000-01-01"
+        lookup = {
+            "user": user,
+            "institution_name": edu.get("institution_name") or "",
+            "qualification": edu.get("qualification") or "",
+            "start_date": start_date,
+        }
+        defaults = {
+            "end_date": edu.get("end_date"),
+        }
+        Education.objects.update_or_create(defaults=defaults, **lookup)
+
+    # --- Certifications (upsert) ---
+    for cert in parsed_data.get("certifications") or []:
+        if not cert.get("name"):
+            continue
+        # date_issued is NOT NULL in DB — use fallback if missing
+        date_issued = cert.get("date_issued") or "2000-01-01"
+        lookup = {
+            "user": user,
+            "name": cert.get("name") or "",
+            "issuer": cert.get("issuer") or "",
+        }
+        defaults = {
+            "date_issued": date_issued,
+        }
+        Certification.objects.update_or_create(defaults=defaults, **lookup)
+
+    # --- Projects / Portfolio (upsert) ---
+    for proj in parsed_data.get("projects") or []:
+        if not proj.get("title"):
+            continue
+        lookup = {
+            "user": user,
+            "title": proj.get("title") or "",
+        }
+        defaults = {
+            "description": proj.get("description") or "",
+            "link": proj.get("link") or "",
+        }
+        Portfolio.objects.update_or_create(defaults=defaults, **lookup)
+
+    # --- Skills (merge with existing) ---
+    skills_raw = parsed_data.get("skills") or []
+    if skills_raw:
+        if isinstance(skills_raw, str):
+            skills_raw = [s.strip() for s in skills_raw.split(",") if s.strip()]
+        skill_obj, _ = Skill.objects.get_or_create(user=user)
+        existing = set(s.lower() for s in skill_obj.get_skills_list())
+        merged = list(skill_obj.get_skills_list())
+        for s in skills_raw:
+            s = str(s).strip()[:40]
+            if s and s.lower() not in existing and len(merged) < 30:
+                existing.add(s.lower())
+                merged.append(s)
+        skill_obj.skills = merged
+        skill_obj.save()

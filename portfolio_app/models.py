@@ -1,3 +1,5 @@
+import json
+
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
@@ -108,3 +110,29 @@ class Contact(models.Model):
 
     def __str__(self):
         return f"Contact Info for {self.user.username}"
+
+
+# Skill model – stores skills as a JSON array (e.g. ["Leadership", "Excel"])
+class Skill(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    skills = models.JSONField(default=list, blank=True)
+
+    def __str__(self):
+        return f"Skills for {self.user.username}"
+
+    def get_skills_list(self):
+        """Return skills as a Python list, handling edge cases safely."""
+        if isinstance(self.skills, list):
+            return self.skills
+        if isinstance(self.skills, str):
+            try:
+                parsed = json.loads(self.skills)
+                return parsed if isinstance(parsed, list) else []
+            except (json.JSONDecodeError, TypeError):
+                # Treat as comma-separated string
+                return [s.strip() for s in self.skills.split(",") if s.strip()]
+        return []
+
+    def get_skills_json(self):
+        """Return skills as a JSON string for the hidden input."""
+        return json.dumps(self.get_skills_list())

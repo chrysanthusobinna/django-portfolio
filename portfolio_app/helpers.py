@@ -7,7 +7,8 @@ from .models import (
     Certification,
     Education,
     Portfolio,
-    Contact
+    Contact,
+    Skill,
 )
 
 from django.contrib.auth.models import User
@@ -36,6 +37,7 @@ def get_user_data(username):
         'education': Education.objects.filter(user=user) or None,
         'portfolios': Portfolio.objects.filter(user=user) or None,
         'contact': Contact.objects.filter(user=user).first() or None,
+        'skill': Skill.objects.filter(user=user).first() or None,
         'user_fullname': user_fullname,
     }
     return user, data

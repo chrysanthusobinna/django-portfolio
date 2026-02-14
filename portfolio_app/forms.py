@@ -79,3 +79,28 @@ class ProfilephotoForm(forms.ModelForm):
     class Meta:
         model = Profilephoto
         fields = ['profile_photo']
+
+
+class CVUploadForm(forms.Form):
+    cv_file = forms.FileField(
+        label='Upload CV (PDF format)',
+        required=True,
+        widget=forms.FileInput(attrs={
+            'accept': '.pdf',
+            'class': 'form-control'
+        })
+    )
+    
+    def clean_cv_file(self):
+        cv_file = self.cleaned_data.get('cv_file')
+        
+        if cv_file:
+            # Check file extension
+            if not cv_file.name.lower().endswith('.pdf'):
+                raise forms.ValidationError('Only PDF files are allowed.')
+            
+            # Check file size (max 10MB)
+            if cv_file.size > 10 * 1024 * 1024:
+                raise forms.ValidationError('File size must be less than 10MB.')
+        
+        return cv_file

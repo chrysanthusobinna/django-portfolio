@@ -46,6 +46,46 @@
         </div>
     </div>
 
+    <!-- CV Upload Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <i class="fas fa-file-pdf me-2"></i>
+            Auto-Populate Portfolio from CV
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info">
+                <h6><i class="fas fa-info-circle me-2"></i>How it works:</h6>
+                <ul class="mb-0">
+                    <li>Upload your PDF CV to automatically extract and populate your portfolio information</li>
+                    <li>We'll extract: Contact info, Employment history, Education, Certifications, and Projects</li>
+                    <li>Supported formats: PDF files up to 10MB</li>
+                    <li>Extracted data will be added to your existing portfolio entries</li>
+                </ul>
+            </div>
+            
+            <form id="cvUploadForm" method="POST" enctype="multipart/form-data" action="{% url 'upload_cv' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="cv_file" class="form-label fw-bold">
+                        <i class="fas fa-upload me-2"></i>Upload CV (PDF format)
+                    </label>
+                    <input type="file" id="cv_file" name="cv_file" class="form-control" 
+                           accept=".pdf" required>
+                    <div class="form-text">Maximum file size: 10MB. Only PDF files are supported.</div>
+                </div>
+                
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" onclick="resetCVForm()">
+                        <i class="fas fa-times me-2"></i>Clear
+                    </button>
+                    <button type="submit" class="btn btn-success" id="uploadCVBtn">
+                        <i class="fas fa-magic me-2"></i>Extract & Populate Portfolio
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- About Section -->
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">About</div>
@@ -68,6 +108,124 @@
             <button class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#saveAboutModal">
                 {% if about %} Update {% else %} create {% endif %}
             </button>
+        </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Skills</div>
+        <div class="card-body">
+            <form id="skillsForm" method="POST" action="{% url 'save_skills' %}">
+                {% csrf_token %}
+
+                <!-- Hidden input stores the JSON array -->
+                <input type="hidden" id="skills_json" name="skills_json"
+                       value='{% if skill %}{{ skill.get_skills_json }}{% else %}[]{% endif %}'>
+
+                <!-- Autocomplete datalist with common skills -->
+                <datalist id="skillSuggestions">
+                    <option value="Communication">
+                    <option value="Teamwork">
+                    <option value="Time Management">
+                    <option value="Problem Solving">
+                    <option value="Leadership">
+                    <option value="Critical Thinking">
+                    <option value="Adaptability">
+                    <option value="Creativity">
+                    <option value="Project Management">
+                    <option value="Public Speaking">
+                    <option value="Data Analysis">
+                    <option value="Microsoft Excel">
+                    <option value="Microsoft Word">
+                    <option value="Microsoft PowerPoint">
+                    <option value="Customer Service">
+                    <option value="Sales">
+                    <option value="Marketing">
+                    <option value="Negotiation">
+                    <option value="Research">
+                    <option value="Writing">
+                    <option value="Budgeting">
+                    <option value="Strategic Planning">
+                    <option value="Python">
+                    <option value="JavaScript">
+                    <option value="SQL">
+                    <option value="HTML/CSS">
+                    <option value="Social Media">
+                    <option value="Graphic Design">
+                    <option value="Teaching">
+                    <option value="Accounting">
+                </datalist>
+
+                <!-- Tag input area -->
+                <div class="skills-input-wrapper form-control d-flex flex-wrap align-items-center gap-1"
+                     id="skillsInputWrapper">
+                    <!-- Tags render here dynamically -->
+                    <input type="text" id="skillInput"
+                           class="skills-text-input"
+                           list="skillSuggestions"
+                           placeholder="Type a skill and press Enter"
+                           maxlength="40"
+                           autocomplete="off"
+                           aria-label="Add a skill">
+                </div>
+
+                <!-- Helper / warning text -->
+                <div class="d-flex justify-content-between align-items-center mt-1">
+                    <small class="text-muted" id="skillHelperText">
+                        Press Enter to add. Click &times; to remove.
+                    </small>
+                    <small class="text-muted" id="skillCount">0 / 30</small>
+                </div>
+                <small class="text-danger d-none" id="skillWarning"></small>
+            </form>
+        </div>
+        <div class="card-footer {% if skill %}d-flex justify-content-between{% endif %}">
+            {% if skill %}
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSkillsModal">
+                Delete Skills
+            </button>
+            {% endif %}
+            <button type="button" class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#saveSkillsModal">
+                {% if skill %} Update {% else %} Save {% endif %}
+            </button>
+        </div>
+    </div>
+
+    <!-- Save Skills Confirmation Modal -->
+    <div class="modal fade" id="saveSkillsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Save Skills</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Are you sure you want to save your skills?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-warning"
+                            onclick="document.getElementById('skillsForm').submit();">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Skills Confirmation Modal -->
+    <div class="modal fade" id="deleteSkillsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="{% url 'delete_skills' %}">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Skills</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">Are you sure you want to delete all your skills?</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -296,5 +454,57 @@
 {% include 'modal-employment.html' %}
 {% include 'modal-about.html' %}
 {% include 'modal-profilephoto.html' %}
+
+<script>
+function resetCVForm() {
+    document.getElementById('cvUploadForm').reset();
+}
+
+// CV Upload Form Handling
+document.getElementById('cvUploadForm').addEventListener('submit', function(e) {
+    const submitBtn = document.getElementById('uploadCVBtn');
+    const originalText = submitBtn.innerHTML;
+    
+    // Show loading state
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+    submitBtn.disabled = true;
+    
+    // Form will submit normally, but we'll restore the button if there's an error
+    setTimeout(() => {
+        if (submitBtn.disabled) {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    }, 10000); // Reset after 10 seconds if no redirect happened
+});
+
+// File validation
+document.getElementById('cv_file').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const submitBtn = document.getElementById('uploadCVBtn');
+    
+    if (file) {
+        // Check file size (10MB limit)
+        if (file.size > 10 * 1024 * 1024) {
+            alert('File size must be less than 10MB.');
+            e.target.value = '';
+            submitBtn.disabled = true;
+            return;
+        }
+        
+        // Check file type
+        if (!file.name.toLowerCase().endsWith('.pdf')) {
+            alert('Only PDF files are allowed.');
+            e.target.value = '';
+            submitBtn.disabled = true;
+            return;
+        }
+        
+        submitBtn.disabled = false;
+    } else {
+        submitBtn.disabled = true;
+    }
+});
+</script>
 
 {% endblock %}
