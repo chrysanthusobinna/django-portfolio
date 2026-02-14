@@ -693,7 +693,7 @@
         {% if about and about.about %}
         <div class="section">
             <div class="section-title">About</div>
-            <p class="about-text">{{ about.about }}</p>
+            <div class="about-text">{{ about.about|safe }}</div>
         </div>
         <div class="divider"></div>
         {% endif %}

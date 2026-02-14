@@ -455,7 +455,7 @@
         {% if about and about.about %}
         <div class="card-block">
             <div class="card-heading">About Me</div>
-            <p class="about-text">{{ about.about }}</p>
+            <div class="about-text">{{ about.about|safe }}</div>
         </div>
         {% endif %}
 

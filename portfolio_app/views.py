@@ -696,6 +696,50 @@ def delete_all_contact_methods(request):
     return redirect("edit_user_profile", username=request.user.username)
 
 
+# ── CV content validation ────────────────────────────────────────────
+import re as _re
+
+# Keywords grouped by CV section — we require matches across
+# at least 3 distinct groups to consider the document a CV.
+_CV_KEYWORD_GROUPS = [
+    # Contact / personal info
+    [r'email', r'phone', r'linkedin', r'contact', r'address'],
+    # Work experience
+    [r'experience', r'employment', r'work\s+history', r'job\s+title',
+     r'employer', r'responsibilities', r'duties'],
+    # Education
+    [r'education', r'university', r'college', r'degree', r'bachelor',
+     r'master', r'diploma', r'qualification', r'school'],
+    # Skills
+    [r'skills?', r'proficien', r'competenc', r'technologies',
+     r'tools', r'frameworks?', r'languages?'],
+    # Certifications / achievements
+    [r'certifi', r'accreditation', r'credential', r'license',
+     r'award', r'achievement', r'accomplishment'],
+    # Projects / portfolio
+    [r'project', r'portfolio', r'publication', r'research'],
+    # Generic CV / resume header markers
+    [r'curriculum\s+vitae', r'\bresume\b', r'\bcv\b',
+     r'professional\s+summary', r'objective', r'profile',
+     r'career\s+summary', r'about\s+me', r'personal\s+statement'],
+]
+
+
+def _looks_like_cv(text: str, min_groups: int = 3) -> bool:
+    """Return True if *text* matches keywords from at least *min_groups*
+    distinct CV-related keyword groups."""
+    text_lower = text.lower()
+    matched = 0
+    for group in _CV_KEYWORD_GROUPS:
+        for kw in group:
+            if _re.search(kw, text_lower):
+                matched += 1
+                break  # one match per group is enough
+        if matched >= min_groups:
+            return True
+    return False
+
+
 @login_required
 def upload_cv(request):
     """Handle CV upload: extract text with pdfplumber, parse with Gemini,
@@ -744,6 +788,18 @@ def upload_cv(request):
                         request,
                         "The PDF appears to be empty or contains no "
                         "readable text.",
+                    )
+                    return redirect(
+                        "edit_user_profile",
+                        username=request.user.username,
+                    )
+
+                # --- 1b. Validate that the PDF looks like a CV ---
+                if not _looks_like_cv(cv_text):
+                    messages.error(
+                        request,
+                        "The uploaded file does not appear to be a CV "
+                        "or resume. Please upload a valid CV.",
                     )
                     return redirect(
                         "edit_user_profile",

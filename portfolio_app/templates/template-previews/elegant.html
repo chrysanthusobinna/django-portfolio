@@ -690,7 +690,7 @@
         <div class="about-band">
             <div class="about-label">Introduction</div>
             <h2 class="about-heading">About Me</h2>
-            <p class="about-text">{{ about.about }}</p>
+            <div class="about-text">{{ about.about|safe }}</div>
         </div>
         {% endif %}
 

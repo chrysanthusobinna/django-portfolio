@@ -593,7 +593,7 @@
         {% if about and about.about %}
         <div class="section-light">
             <h2 class="section-title">About Me</h2>
-            <p class="about-text">{{ about.about }}</p>
+            <div class="about-text">{{ about.about|safe }}</div>
         </div>
         {% endif %}
 

@@ -8,10 +8,35 @@
 
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/skills.css' %}">
+    <!-- Summernote Rich Text Editor -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block extra_js %}
     <script src="{% static 'js/skills.js' %}"></script>
+    <script src="{% static 'js/cv-upload.js' %}"></script>
+    <!-- Summernote Rich Text Editor -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
+    <script>
+    // Initialize Summernote rich text editor on the About textarea
+    $('#about').summernote({
+        placeholder: 'Write about yourself...',
+        height: 200,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link', 'hr']],
+            ['view', ['codeview', 'undo', 'redo', 'help']],
+        ],
+        callbacks: {
+            onInit: function () {
+                $('.note-editor').addClass('border-0');
+            }
+        }
+    });
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -101,8 +126,7 @@
             <form id="aboutForm" method="POST" action="{% url 'save_about' %}">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="about" class="form-label">About</label>
-                    <textarea id="about" name="about" class="form-control" rows="5">{{ about.about }}</textarea>
+                    <textarea id="about" name="about" class="form-control">{{ about.about|default:'' }}</textarea>
                 </div>
             </form>
         </div>
@@ -114,7 +138,7 @@
             {% endif %}
 
             <button class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#saveAboutModal">
-                {% if about %} Update {% else %} create {% endif %}
+               Save
             </button>
         </div>
     </div>
@@ -567,57 +591,5 @@
         </div>
     </div>
 </div>
-
-<script>
-function resetCVForm() {
-    document.getElementById('cvUploadForm').reset();
-}
-
-// CV Upload Form Handling
-document.getElementById('cvUploadForm').addEventListener('submit', function(e) {
-    const submitBtn = document.getElementById('uploadCVBtn');
-    const originalText = submitBtn.innerHTML;
-    
-    // Show loading state
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
-    submitBtn.disabled = true;
-    
-    // Form will submit normally, but we'll restore the button if there's an error
-    setTimeout(() => {
-        if (submitBtn.disabled) {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    }, 10000); // Reset after 10 seconds if no redirect happened
-});
-
-// File validation
-document.getElementById('cv_file').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    const submitBtn = document.getElementById('uploadCVBtn');
-    
-    if (file) {
-        // Check file size (10MB limit)
-        if (file.size > 10 * 1024 * 1024) {
-            alert('File size must be less than 10MB.');
-            e.target.value = '';
-            submitBtn.disabled = true;
-            return;
-        }
-        
-        // Check file type
-        if (!file.name.toLowerCase().endsWith('.pdf')) {
-            alert('Only PDF files are allowed.');
-            e.target.value = '';
-            submitBtn.disabled = true;
-            return;
-        }
-        
-        submitBtn.disabled = false;
-    } else {
-        submitBtn.disabled = true;
-    }
-});
-</script>
 
 {% endblock %}
