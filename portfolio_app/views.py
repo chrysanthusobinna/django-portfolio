@@ -623,17 +623,17 @@ def logout_view(request):
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=400)
 
 
-# ── Contact Method CRUD ──────────────────────────────────────────────
+# ── Contact CRUD ──────────────────────────────────────────────
 @login_required
 def add_contact_method(request):
-    error_msg = "Error Adding Contact Method: "
+    error_msg = "Error Adding Contact: "
     if request.method == "POST":
         form = ContactMethodForm(request.POST)
         if form.is_valid():
             cm = form.save(commit=False)
             cm.user = request.user
             cm.save()
-            messages.success(request, "Contact method added successfully.")
+            messages.success(request, "Contact added successfully.")
         else:
             for field, errors in form.errors.items():
                 label = form.fields[field].label or field
@@ -644,13 +644,13 @@ def add_contact_method(request):
 
 @login_required
 def edit_contact_method(request, id):
-    error_msg = "Error Updating Contact Method: "
+    error_msg = "Error Updating Contact: "
     cm = get_object_or_404(ContactMethod, id=id, user=request.user)
     if request.method == "POST":
         form = ContactMethodForm(request.POST, instance=cm)
         if form.is_valid():
             form.save()
-            messages.success(request, "Contact method updated successfully.")
+            messages.success(request, "Contact updated successfully.")
         else:
             for field, errors in form.errors.items():
                 label = form.fields[field].label or field
@@ -665,11 +665,11 @@ def delete_contact_method(request, id):
     if request.method == "POST":
         try:
             cm.delete()
-            messages.success(request, "Contact method deleted successfully.")
+            messages.success(request, "Contact deleted successfully.")
         except Exception as e:
             messages.error(
                 request,
-                f"An error occurred while deleting the contact method: {e}",
+                f"An error occurred while deleting the Contact: {e}",
             )
     else:
         messages.error(request, "Invalid request method.")
@@ -685,13 +685,13 @@ def delete_all_contact_methods(request):
             ).delete()
             messages.success(
                 request,
-                f"All contact methods deleted successfully "
+                f"All Contacts deleted successfully "
                 f"({deleted_count} removed).",
             )
         except Exception as e:
             messages.error(
                 request,
-                f"An error occurred while deleting contact methods: {e}",
+                f"An error occurred while deleting Contacts: {e}",
             )
     return redirect("edit_user_profile", username=request.user.username)
 
@@ -869,7 +869,7 @@ def _save_parsed_cv_data(request, parsed_data):
     """
     user = request.user
 
-    # --- Contact Methods ---
+    # --- Contacts ---
     contact_raw = parsed_data.get("contact") or {}
     # Support both key styles  (email_address / email, phone_number / phone)
     email = (

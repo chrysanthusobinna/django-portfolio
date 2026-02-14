@@ -100,7 +100,7 @@ class Portfolio(models.Model):
         return self.title
 
 
-# Flexible Contact Method model
+# Flexible Contact model
 class ContactMethod(models.Model):
     CONTACT_TYPE_CHOICES = [
         ('phone', 'Phone'),
@@ -153,7 +153,7 @@ class ContactMethod(models.Model):
 
     @property
     def link_url(self):
-        """Return a clickable URL for this contact method."""
+        """Return a clickable URL for this Contact."""
         prefix = self.CONTACT_TYPE_META.get(
             self.contact_type, ('', ''))[1]
 

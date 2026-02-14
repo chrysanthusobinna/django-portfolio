@@ -42,17 +42,188 @@ function viewProjectClickHandler() {
 }
 
 
-// Function to handle the "Edit Contact" button click event
-function editContactClickHandler() {
-    $('.edit-contact-btn').on('click', function() {
-        var phone = $(this).data('phone');
-        var email = $(this).data('email');
-        var linkedin = $(this).data('linkedin');
+// Dynamic label & placeholder mapping per contact type
+var contactFieldMeta = {
+    phone:     { label: 'Phone Number',       placeholder: 'e.g. +234 801 234 5678' },
+    email:     { label: 'Email Address',      placeholder: 'e.g. you@example.com' },
+    whatsapp:  { label: 'WhatsApp Number',    placeholder: 'e.g. +234 801 234 5678' },
+    instagram: { label: 'Instagram Username', placeholder: 'e.g. your_username' },
+    facebook:  { label: 'Facebook Profile',   placeholder: 'e.g. https://facebook.com/yourpage' },
+    linkedin:  { label: 'LinkedIn Profile',   placeholder: 'e.g. https://linkedin.com/in/yourname' },
+    twitter:   { label: 'Twitter / X Handle', placeholder: 'e.g. @yourhandle' },
+    website:   { label: 'Website URL',        placeholder: 'e.g. https://yourwebsite.com' },
+    other:     { label: 'Contact Details',    placeholder: 'Enter your contact info' },
+};
 
-        $('#editModal #id_phone_number').val(phone);
-        $('#editModal #id_email_address').val(email);
-        $('#editModal #id_linkedin').val(linkedin);
+// Validation patterns per contact type
+var contactValidation = {
+    phone:     { pattern: /^[+]?[\d\s\-().]{7,20}$/,                         msg: 'Please enter a valid phone number (e.g. +234 801 234 5678)' },
+    email:     { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,                      msg: 'Please enter a valid email address (e.g. you@example.com)' },
+    whatsapp:  { pattern: /^[+]?[\d\s\-().]{7,20}$/,                         msg: 'Please enter a valid WhatsApp number (e.g. +234 801 234 5678)' },
+    instagram: { pattern: /^@?[a-zA-Z0-9._]{1,30}$/,                        msg: 'Please enter a valid Instagram username (e.g. your_username)' },
+    facebook:  { pattern: /^(https?:\/\/(www\.)?facebook\.com\/.+|[a-zA-Z0-9.]+)$/, msg: 'Please enter a Facebook URL (e.g. https://facebook.com/yourpage) or username' },
+    linkedin:  { pattern: /^(https?:\/\/(www\.)?linkedin\.com\/.+|[a-zA-Z0-9\-]+)$/, msg: 'Please enter a LinkedIn URL (e.g. https://linkedin.com/in/yourname) or username' },
+    twitter:   { pattern: /^@?[a-zA-Z0-9_]{1,15}$/,                         msg: 'Please enter a valid Twitter/X handle (e.g. @yourhandle)' },
+    website:   { pattern: /^https?:\/\/.+\..+/,                              msg: 'Please enter a valid URL starting with http:// or https://' },
+};
+
+// Validate contact value against the selected type
+function validateContactValue(type, value) {
+    var rule = contactValidation[type];
+    if (!rule) return { valid: true };  // 'other' or unknown — no validation
+    if (rule.pattern.test(value.trim())) return { valid: true };
+    return { valid: false, msg: rule.msg };
+}
+
+// Show or clear validation feedback on an input
+function setContactValidationError(inputId, errorMsg) {
+    var input = document.getElementById(inputId);
+    var feedbackId = inputId + '_feedback';
+    var feedback = document.getElementById(feedbackId);
+
+    if (!feedback) {
+        // Create feedback element if it doesn't exist
+        feedback = document.createElement('div');
+        feedback.id = feedbackId;
+        feedback.className = 'invalid-feedback';
+        input.parentNode.appendChild(feedback);
+    }
+
+    if (errorMsg) {
+        input.classList.add('is-invalid');
+        input.classList.remove('is-valid');
+        feedback.textContent = errorMsg;
+    } else {
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+        feedback.textContent = '';
+    }
+}
+
+function clearContactValidation(inputId) {
+    var input = document.getElementById(inputId);
+    if (input) {
+        input.classList.remove('is-invalid', 'is-valid');
+    }
+    var feedback = document.getElementById(inputId + '_feedback');
+    if (feedback) feedback.textContent = '';
+}
+
+function updateContactValueField(selectId, labelId, inputId) {
+    var type = document.getElementById(selectId).value;
+    var meta = contactFieldMeta[type] || contactFieldMeta['other'];
+    document.getElementById(labelId).textContent = meta.label;
+    document.getElementById(inputId).placeholder = meta.placeholder;
+    clearContactValidation(inputId);
+}
+
+// Function to handle contact method modal interactions
+function contactMethodHandlers() {
+    // Add modal: update on type change
+    var addType = document.getElementById('add_contact_type');
+    if (addType) {
+        addType.addEventListener('change', function() {
+            updateContactValueField('add_contact_type', 'add_contact_value_label', 'add_contact_value');
+        });
+    }
+
+    // Edit modal: update on type change
+    var editType = document.getElementById('edit_contact_type');
+    if (editType) {
+        editType.addEventListener('change', function() {
+            updateContactValueField('edit_contact_type', 'edit_contact_value_label', 'edit_contact_value');
+        });
+    }
+
+    // Validate Add Contact form on submit
+    var addForm = document.querySelector('#addContactMethodModal form');
+    if (addForm) {
+        addForm.addEventListener('submit', function(e) {
+            var type = document.getElementById('add_contact_type').value;
+            var value = document.getElementById('add_contact_value').value;
+            var result = validateContactValue(type, value);
+            if (!result.valid) {
+                e.preventDefault();
+                setContactValidationError('add_contact_value', result.msg);
+            } else {
+                clearContactValidation('add_contact_value');
+            }
+        });
+    }
+
+    // Validate Edit Contact form on submit
+    var editForm = document.getElementById('editContactMethodForm');
+    if (editForm) {
+        editForm.addEventListener('submit', function(e) {
+            var type = document.getElementById('edit_contact_type').value;
+            var value = document.getElementById('edit_contact_value').value;
+            var result = validateContactValue(type, value);
+            if (!result.valid) {
+                e.preventDefault();
+                setContactValidationError('edit_contact_value', result.msg);
+            } else {
+                clearContactValidation('edit_contact_value');
+            }
+        });
+    }
+
+    // Live validation as user types (Add)
+    var addInput = document.getElementById('add_contact_value');
+    if (addInput) {
+        addInput.addEventListener('input', function() {
+            var type = document.getElementById('add_contact_type').value;
+            if (!type) return;
+            var result = validateContactValue(type, this.value);
+            if (this.value.length > 0) {
+                setContactValidationError('add_contact_value', result.valid ? null : result.msg);
+            } else {
+                clearContactValidation('add_contact_value');
+            }
+        });
+    }
+
+    // Live validation as user types (Edit)
+    var editInput = document.getElementById('edit_contact_value');
+    if (editInput) {
+        editInput.addEventListener('input', function() {
+            var type = document.getElementById('edit_contact_type').value;
+            var result = validateContactValue(type, this.value);
+            if (this.value.length > 0) {
+                setContactValidationError('edit_contact_value', result.valid ? null : result.msg);
+            } else {
+                clearContactValidation('edit_contact_value');
+            }
+        });
+    }
+
+    // Populate Edit Contact modal
+    document.querySelectorAll('.edit-contact-method-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.getElementById('editContactMethodForm').action = this.dataset.url;
+            document.getElementById('edit_contact_type').value = this.dataset.type;
+            document.getElementById('edit_contact_value').value = this.dataset.value;
+            document.getElementById('edit_contact_label').value = this.dataset.label || '';
+            updateContactValueField('edit_contact_type', 'edit_contact_value_label', 'edit_contact_value');
+        });
     });
+
+    // Populate Delete Contact modal
+    document.querySelectorAll('.delete-contact-method-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.getElementById('deleteContactMethodForm').action = this.dataset.url;
+            document.getElementById('deleteContactMethodType').textContent = this.dataset.type;
+        });
+    });
+
+    // Reset Add modal fields when it opens
+    var addModal = document.getElementById('addContactMethodModal');
+    if (addModal) {
+        addModal.addEventListener('show.bs.modal', function() {
+            document.getElementById('add_contact_value_label').textContent = 'Contact Details';
+            document.getElementById('add_contact_value').placeholder = 'Select a contact type above';
+            clearContactValidation('add_contact_value');
+        });
+    }
 }
 
  
@@ -239,7 +410,7 @@ $(function () {
     viewProjectClickHandler();
     videoPopupHandler();
 
-    editContactClickHandler();
+    contactMethodHandlers();
     editPortfolioClickHandler();
     editCertificationClickHandler();
     editEducationClickHandler();
@@ -279,7 +450,7 @@ if (typeof module !== 'undefined' && module.exports) {
         toggleNavbar, 
         viewProjectClickHandler, 
 
-        editContactClickHandler, 
+        contactMethodHandlers, 
         editPortfolioClickHandler, 
         editCertificationClickHandler, 
         editEducationClickHandler, 
