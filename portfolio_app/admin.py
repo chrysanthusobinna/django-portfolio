@@ -8,6 +8,7 @@ from .models import (
     Employment,
     Template,
     UserTemplate,
+    Skill,
 )
 
 
@@ -38,3 +39,9 @@ class UserTemplateAdmin(admin.ModelAdmin):
     list_filter = ('template', 'selected_at')
     search_fields = ('user__username', 'user__email', 'template__name')
     readonly_fields = ('selected_at',)
+
+
+@admin.register(Skill)
+class SkillAdmin(admin.ModelAdmin):
+    list_display = ('user', 'skills')
+    search_fields = ('user__username',)

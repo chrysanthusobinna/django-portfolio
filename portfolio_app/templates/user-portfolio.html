@@ -44,6 +44,8 @@
                         class="btn btn-outline-primary {% if not education %}d-none{% endif %}">Education</a>
                     <a href="#certifications"
                         class="btn btn-outline-primary {% if not certifications %}d-none{% endif %}">Certifications</a>
+                    <a href="#skills"
+                        class="btn btn-outline-primary {% if not skill %}d-none{% endif %}">Skills</a>
                     <a href="#portfolio"
                         class="btn btn-outline-primary {% if not portfolios %}d-none{% endif %}">Portfolio</a>
                 </div>
@@ -51,6 +53,18 @@
         </div>
 
     </section>
+
+    {% if skill and skill.get_skills_list %}
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">SKILLS</h2>
+        <div class="skills-display-area">
+            {% for s in skill.get_skills_list %}
+            <span class="skill-badge">{{ s }}</span>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
 
     {% if employment %}
     <!-- Employment Section -->

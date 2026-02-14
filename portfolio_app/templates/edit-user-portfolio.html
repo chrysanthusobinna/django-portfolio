@@ -6,6 +6,14 @@
     EDIT PORTFOLIO 
 {% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/skills.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/skills.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 {% include 'partials/_alert.html' %}
 {% include 'partials/_auth_user.html' %}
@@ -122,61 +130,18 @@
                 <input type="hidden" id="skills_json" name="skills_json"
                        value='{% if skill %}{{ skill.get_skills_json }}{% else %}[]{% endif %}'>
 
-                <!-- Autocomplete datalist with common skills -->
-                <datalist id="skillSuggestions">
-                    <option value="Communication">
-                    <option value="Teamwork">
-                    <option value="Time Management">
-                    <option value="Problem Solving">
-                    <option value="Leadership">
-                    <option value="Critical Thinking">
-                    <option value="Adaptability">
-                    <option value="Creativity">
-                    <option value="Project Management">
-                    <option value="Public Speaking">
-                    <option value="Data Analysis">
-                    <option value="Microsoft Excel">
-                    <option value="Microsoft Word">
-                    <option value="Microsoft PowerPoint">
-                    <option value="Customer Service">
-                    <option value="Sales">
-                    <option value="Marketing">
-                    <option value="Negotiation">
-                    <option value="Research">
-                    <option value="Writing">
-                    <option value="Budgeting">
-                    <option value="Strategic Planning">
-                    <option value="Python">
-                    <option value="JavaScript">
-                    <option value="SQL">
-                    <option value="HTML/CSS">
-                    <option value="Social Media">
-                    <option value="Graphic Design">
-                    <option value="Teaching">
-                    <option value="Accounting">
-                </datalist>
+                <!-- Selected skills box -->
+                <label class="form-label fw-semibold">Selected Skills</label>
+                <div id="selectedSkillsBox" class="skill-box" tabindex="-1" aria-label="Selected skills"></div>
+                <div class="form-text mb-3">Click tiles below to add or remove skills.</div>
+                <small class="text-danger d-none mb-2" id="skillWarning"></small>
 
-                <!-- Tag input area -->
-                <div class="skills-input-wrapper form-control d-flex flex-wrap align-items-center gap-1"
-                     id="skillsInputWrapper">
-                    <!-- Tags render here dynamically -->
-                    <input type="text" id="skillInput"
-                           class="skills-text-input"
-                           list="skillSuggestions"
-                           placeholder="Type a skill and press Enter"
-                           maxlength="40"
-                           autocomplete="off"
-                           aria-label="Add a skill">
-                </div>
+                <!-- Category filter tabs -->
+                <div class="skills-category-tabs mb-3" id="categoryTabs"></div>
 
-                <!-- Helper / warning text -->
-                <div class="d-flex justify-content-between align-items-center mt-1">
-                    <small class="text-muted" id="skillHelperText">
-                        Press Enter to add. Click &times; to remove.
-                    </small>
-                    <small class="text-muted" id="skillCount">0 / 30</small>
-                </div>
-                <small class="text-danger d-none" id="skillWarning"></small>
+                <!-- Skill tiles grid -->
+                <div class="row g-3" id="skillsGrid"></div>
+
             </form>
         </div>
         <div class="card-footer {% if skill %}d-flex justify-content-between{% endif %}">

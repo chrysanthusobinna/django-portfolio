@@ -1,0 +1,96 @@
+﻿/* Selected skills box */
+.skill-box {
+    min-height: 56px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    cursor: default;
+    user-select: none;
+}
+.skill-box:focus { outline: none; }
+
+/* Chips */
+.skill-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid #ced4da;
+    background: #f8f9fa;
+    font-size: 0.95rem;
+    line-height: 1;
+    white-space: nowrap;
+}
+.skill-chip .remove-btn {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    line-height: 1;
+    font-size: 1.05rem;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.skill-chip .remove-btn:hover { opacity: 1; }
+
+/* Placeholder chip */
+.placeholder-chip {
+    border-style: dashed;
+    background: #fff;
+    color: #6c757d;
+}
+
+/* Category tabs */
+.skills-category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.skill-category-btn {
+    border: 1.5px solid #dee2e6;
+    background: #fff;
+    color: #495057;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.skill-category-btn:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+.skill-category-btn.active {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+/* Skill tiles */
+.skill-tile {
+    border: 1px solid #dee2e6;
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.05s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    user-select: none;
+    height: 100%;
+    background: #fff;
+}
+.skill-tile:hover {
+    border-color: #adb5bd;
+    box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.06);
+    transform: translateY(-1px);
+}
+.skill-tile.selected {
+    border-color: #0d6efd;
+    box-shadow: 0 0.25rem 0.75rem rgba(13,110,253,.15);
+}
+.skill-tile .fw-semibold { font-size: 0.9rem; }
