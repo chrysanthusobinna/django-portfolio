@@ -56,10 +56,7 @@ DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
 
 REPLIT_DOMAINS = os.environ.get("REPLIT_DOMAINS", "")
 REPLIT_DEV_DOMAIN = os.environ.get("REPLIT_DEV_DOMAIN", "")
-ALLOWED_HOSTS = [
-    '.gitpod.io', '.herokuapp.com',
-    'localhost', '127.0.0.1', '0.0.0.0',
-]
+ALLOWED_HOSTS = ['*']
 if REPLIT_DOMAINS:
     ALLOWED_HOSTS.extend(REPLIT_DOMAINS.split(","))
 if REPLIT_DEV_DOMAIN:
