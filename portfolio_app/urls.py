@@ -13,18 +13,22 @@ urlpatterns = [
     path('portfolio/add/', views.add_portfolio, name='add_portfolio'),
     path('portfolio/edit/<int:id>/', views.edit_portfolio, name='edit_portfolio'),
     path('portfolio/delete/<int:id>/', views.delete_portfolio, name='delete_portfolio'),
+    path('portfolio/delete-all/', views.delete_all_portfolio, name='delete_all_portfolio'),
 
     path('certification/add/', views.add_certification, name='add_certification'),
     path('certification/edit/<int:id>/', views.edit_certification, name='edit_certification'),
     path('certification/delete/<int:id>/', views.delete_certification, name='delete_certification'),
+    path('certification/delete-all/', views.delete_all_certifications, name='delete_all_certifications'),
 
     path('education/add/', views.add_education, name='add_education'),
     path('education/edit/<int:id>/', views.edit_education, name='edit_education'),
     path('education/delete/<int:id>/', views.delete_education, name='delete_education'),
+    path('education/delete-all/', views.delete_all_education, name='delete_all_education'),
 
     path('employment/add/', views.add_employment, name='add_employment'),
     path('employment/edit/<int:id>/', views.edit_employment, name='edit_employment'),
     path('employment/delete/<int:id>/', views.delete_employment, name='delete_employment'),
+    path('employment/delete-all/', views.delete_all_employment, name='delete_all_employment'),
 
     path('about/save/', views.save_about, name='save_about'),
     path('about/delete/', views.delete_about, name='delete_about'),
@@ -37,4 +41,4 @@ urlpatterns = [
 
     path('profile/save-photo/', views.save_profile_photo, name='save_profile_photo'),
     path('profile/delete-photo/', views.delete_profile_photo, name='delete_profile_photo'),
-    ]
+]

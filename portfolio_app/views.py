@@ -443,6 +443,51 @@ def delete_about(request):
     return redirect("edit_user_profile", username=request.user.username)
 
 
+# Handle Delete All for Employment, Education, Certifications
+@login_required
+def delete_all_employment(request):
+    if request.method == "POST":
+        try:
+            deleted_count, _ = Employment.objects.filter(user=request.user).delete()
+            messages.success(request, f"All employment records deleted successfully ({deleted_count} removed).")
+        except Exception as e:
+            messages.error(request, f"An error occurred while deleting all employment records: {e}")
+    return redirect("edit_user_profile", username=request.user.username)
+
+
+@login_required
+def delete_all_education(request):
+    if request.method == "POST":
+        try:
+            deleted_count, _ = Education.objects.filter(user=request.user).delete()
+            messages.success(request, f"All education records deleted successfully ({deleted_count} removed).")
+        except Exception as e:
+            messages.error(request, f"An error occurred while deleting all education records: {e}")
+    return redirect("edit_user_profile", username=request.user.username)
+
+
+@login_required
+def delete_all_certifications(request):
+    if request.method == "POST":
+        try:
+            deleted_count, _ = Certification.objects.filter(user=request.user).delete()
+            messages.success(request, f"All certification records deleted successfully ({deleted_count} removed).")
+        except Exception as e:
+            messages.error(request, f"An error occurred while deleting all certification records: {e}")
+    return redirect("edit_user_profile", username=request.user.username)
+
+
+@login_required
+def delete_all_portfolio(request):
+    if request.method == "POST":
+        try:
+            deleted_count, _ = Portfolio.objects.filter(user=request.user).delete()
+            messages.success(request, f"All portfolio records deleted successfully ({deleted_count} removed).")
+        except Exception as e:
+            messages.error(request, f"An error occurred while deleting all portfolio records: {e}")
+    return redirect("edit_user_profile", username=request.user.username)
+
+
 # Handle Save and Delete for Skills
 @login_required
 def save_skills(request):
