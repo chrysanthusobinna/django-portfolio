@@ -681,27 +681,15 @@
         </div>
         {% endif %}
 
-        {% if contact %}
+        {% if contact_methods %}
         <section class="contact-section">
             <h2 class="section-title">Get In Touch</h2>
-            {% if contact.email_address %}
+            {% for cm in contact_methods %}
             <div class="contact-info-item">
-                <i class="fas fa-envelope"></i>
-                <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
+                <i class="{{ cm.icon_class }}"></i>
+                <a href="{{ cm.link_url }}" target="_blank">{{ cm.value }}{% if cm.label %} ({{ cm.label }}){% endif %}</a>
             </div>
-            {% endif %}
-            {% if contact.phone_number %}
-            <div class="contact-info-item">
-                <i class="fas fa-phone"></i>
-                <span>{{ contact.phone_number }}</span>
-            </div>
-            {% endif %}
-            {% if contact.linkedin %}
-            <div class="contact-info-item">
-                <i class="fab fa-linkedin"></i>
-                <a href="{{ contact.linkedin }}" target="_blank">LinkedIn Profile</a>
-            </div>
-            {% endif %}
+            {% endfor %}
         </section>
         {% endif %}
 

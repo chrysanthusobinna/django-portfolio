@@ -8,7 +8,7 @@ import logging
 from .helpers import get_user_data
 
 from .models import (
-    Contact,
+    ContactMethod,
     Portfolio,
     Certification,
     Education,
@@ -20,7 +20,7 @@ from .models import (
     Skill,
 )
 from .forms import (
-    ContactForm,
+    ContactMethodForm,
     PortfolioForm,
     CertificationForm,
     EducationForm,
@@ -77,7 +77,32 @@ def template_preview(request, template_name):
             type('obj', (object,), {'title': 'Task Management App', 'description': 'A collaborative project management tool with real-time updates.', 'link': '#', 'portfolio_photo': None})(),
             type('obj', (object,), {'title': 'Health & Fitness Tracker', 'description': 'A mobile-responsive health tracking application.', 'link': '#', 'portfolio_photo': None})(),
         ],
-        'contact': type('obj', (object,), {'phone_number': '+234 801 234 5678', 'email_address': 'chrysanthusobinna@gmail.com', 'linkedin': 'https://www.linkedin.com/in/chrysanthusobinna'})(),
+        'contact_methods': [
+            type('obj', (object,), {
+                'icon_class': 'fas fa-envelope',
+                'get_contact_type_display': lambda: 'Email',
+                'contact_type': 'email',
+                'value': 'chrysanthusobinna@gmail.com',
+                'label': '',
+                'link_url': 'mailto:chrysanthusobinna@gmail.com',
+            })(),
+            type('obj', (object,), {
+                'icon_class': 'fas fa-phone',
+                'get_contact_type_display': lambda: 'Phone',
+                'contact_type': 'phone',
+                'value': '+234 801 234 5678',
+                'label': '',
+                'link_url': 'tel:+234 801 234 5678',
+            })(),
+            type('obj', (object,), {
+                'icon_class': 'fab fa-linkedin-in',
+                'get_contact_type_display': lambda: 'LinkedIn',
+                'contact_type': 'linkedin',
+                'value': 'chrysanthusobinna',
+                'label': '',
+                'link_url': 'https://www.linkedin.com/in/chrysanthusobinna',
+            })(),
+        ],
     }
 
     return render(request, f"template-previews/{template_name}.html", sample_data)
@@ -598,42 +623,76 @@ def logout_view(request):
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=400)
 
 
+# ── Contact Method CRUD ──────────────────────────────────────────────
 @login_required
-def contact_update(request):
-    error_msg = "Error Saving Contact: "
-    try:
-        contact = Contact.objects.get(user=request.user)
-    except Contact.DoesNotExist:
-        contact = None
-
+def add_contact_method(request):
+    error_msg = "Error Adding Contact Method: "
     if request.method == "POST":
-        form = ContactForm(request.POST, instance=contact)
+        form = ContactMethodForm(request.POST)
         if form.is_valid():
-            contact = form.save(commit=False)
-            contact.user = request.user
-            contact.save()
-            messages.success(request, "Contact updated successfully.")
+            cm = form.save(commit=False)
+            cm.user = request.user
+            cm.save()
+            messages.success(request, "Contact method added successfully.")
         else:
             for field, errors in form.errors.items():
                 label = form.fields[field].label or field
                 for error in errors:
                     messages.error(request, f"{error_msg} '{label}': {error}")
-
     return redirect("edit_user_profile", username=request.user.username)
 
 
 @login_required
-def contact_delete(request):
-    try:
-        contact = Contact.objects.filter(user=request.user).first()
-        if request.method == "POST":
-            if contact:
-                contact.delete()
-                messages.success(request, "Contact deleted successfully.")
-            else:
-                messages.error(request, "Contact not found.")
-    except Exception as e:
-        messages.error(request, f"An error occurred: {e}")
+def edit_contact_method(request, id):
+    error_msg = "Error Updating Contact Method: "
+    cm = get_object_or_404(ContactMethod, id=id, user=request.user)
+    if request.method == "POST":
+        form = ContactMethodForm(request.POST, instance=cm)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Contact method updated successfully.")
+        else:
+            for field, errors in form.errors.items():
+                label = form.fields[field].label or field
+                for error in errors:
+                    messages.error(request, f"{error_msg} '{label}': {error}")
+    return redirect("edit_user_profile", username=request.user.username)
+
+
+@login_required
+def delete_contact_method(request, id):
+    cm = get_object_or_404(ContactMethod, id=id, user=request.user)
+    if request.method == "POST":
+        try:
+            cm.delete()
+            messages.success(request, "Contact method deleted successfully.")
+        except Exception as e:
+            messages.error(
+                request,
+                f"An error occurred while deleting the contact method: {e}",
+            )
+    else:
+        messages.error(request, "Invalid request method.")
+    return redirect("edit_user_profile", username=request.user.username)
+
+
+@login_required
+def delete_all_contact_methods(request):
+    if request.method == "POST":
+        try:
+            deleted_count, _ = ContactMethod.objects.filter(
+                user=request.user
+            ).delete()
+            messages.success(
+                request,
+                f"All contact methods deleted successfully "
+                f"({deleted_count} removed).",
+            )
+        except Exception as e:
+            messages.error(
+                request,
+                f"An error occurred while deleting contact methods: {e}",
+            )
     return redirect("edit_user_profile", username=request.user.username)
 
 
@@ -746,7 +805,7 @@ def _save_parsed_cv_data(request, parsed_data):
     Save / upsert parsed CV data into Django models.
 
     De-duplication rules:
-    - Contact & About  → get_or_create then update.
+    - ContactMethod & About → get_or_create then update.
     - Employment       → unique on (user, employer_name, job_title, start_date).
     - Education        → unique on (user, institution_name, qualification, start_date).
     - Certification    → unique on (user, name, issuer).
@@ -754,7 +813,7 @@ def _save_parsed_cv_data(request, parsed_data):
     """
     user = request.user
 
-    # --- Contact ---
+    # --- Contact Methods ---
     contact_raw = parsed_data.get("contact") or {}
     # Support both key styles  (email_address / email, phone_number / phone)
     email = (
@@ -767,15 +826,21 @@ def _save_parsed_cv_data(request, parsed_data):
     )
     linkedin = contact_raw.get("linkedin")
 
-    if email or phone or linkedin:
-        contact, _ = Contact.objects.get_or_create(user=user)
-        if email:
-            contact.email_address = email
-        if phone:
-            contact.phone_number = phone
-        if linkedin:
-            contact.linkedin = linkedin
-        contact.save()
+    if email:
+        ContactMethod.objects.get_or_create(
+            user=user, contact_type='email', value=email,
+            defaults={'label': ''},
+        )
+    if phone:
+        ContactMethod.objects.get_or_create(
+            user=user, contact_type='phone', value=phone,
+            defaults={'label': ''},
+        )
+    if linkedin:
+        ContactMethod.objects.get_or_create(
+            user=user, contact_type='linkedin', value=linkedin,
+            defaults={'label': ''},
+        )
 
     # --- About ---
     about_text = parsed_data.get("about")

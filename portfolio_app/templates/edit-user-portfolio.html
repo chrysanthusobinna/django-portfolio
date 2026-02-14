@@ -54,20 +54,20 @@
         </div>
     </div>
 
-    <!-- CV Upload Section -->
+    <!-- AI CV Upload Section -->
     <div class="card mb-4">
         <div class="card-header bg-success text-white">
-            <i class="fas fa-file-pdf me-2"></i>
-            Auto-Populate Portfolio from CV
+            <i class="fas fa-robot me-2"></i>
+            AI-Powered Portfolio Builder
         </div>
         <div class="card-body">
             <div class="alert alert-info">
-                <h6><i class="fas fa-info-circle me-2"></i>How it works:</h6>
+                <h6><i class="fas fa-wand-magic-sparkles me-2"></i>Let AI build your portfolio in seconds:</h6>
                 <ul class="mb-0">
-                    <li>Upload your PDF CV to automatically extract and populate your portfolio information</li>
-                    <li>We'll extract: Contact info, Employment history, Education, Certifications, and Projects</li>
-                    <li>Supported formats: PDF files up to 10MB</li>
-                    <li>Extracted data will be added to your existing portfolio entries</li>
+                    <li>Upload your CV and our AI will intelligently extract your professional information</li>
+                    <li>AI extracts: Contact info, Employment history, Education, Skills, Certifications, and Projects</li>
+                    <li>Accepted format: PDF (up to 10MB)</li>
+                    <li>Extracted data is merged with your existing portfolio entries</li>
                 </ul>
             </div>
             
@@ -87,7 +87,7 @@
                         <i class="fas fa-times me-2"></i>Clear
                     </button>
                     <button type="submit" class="btn btn-success" id="uploadCVBtn">
-                        <i class="fas fa-magic me-2"></i>Extract & Populate Portfolio
+                        <i class="fas fa-robot me-2"></i>AI Extract & Populate
                     </button>
                 </div>
             </form>
@@ -234,6 +234,10 @@
                             </button>
                         </td>
                     </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">No employment entries added yet.</td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -283,6 +287,10 @@
                             </button>
                         </td>
                     </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">No education entries added yet.</td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -327,6 +335,10 @@
                                 data-url="{% url 'delete_certification' cert.id %}" data-name="{{ cert.name }}">Delete
                             </button>
                         </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="text-center text-muted">No certifications added yet.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -377,6 +389,10 @@
                             </button>
                         </td>
                     </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="text-center text-muted">No portfolio entries added yet.</td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -390,49 +406,65 @@
         {% endif %}
     </div>
 
-<!-- Contact Information Section -->
+<!-- Contact Methods Section -->
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        Contact Information
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        Contact Methods
+        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addContactMethodModal">
+            Add Contact Method
+        </button>
     </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="custom-table table table-hover">
-                <tbody>
-                    <tr>
-                        <td><b>Phone Number</b></td>
-                        <td>{% if contact.phone_number %}{{ contact.phone_number }}{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Email</b></td>
-                        <td>{% if contact.email_address %}{{ contact.email_address }}{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <td><b>LinkedIn</b></td>
-                        <td>{% if contact.linkedin %} 
-                            <a href="{{ contact.linkedin }}" class="text-decoration-none">
-                                {{ contact.linkedin }}
-                            </a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="card-body table-responsive">
+        <table class="custom-table table table-hover">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Contact</th>
+                    <th>Label</th>
+                    <th class="d-flex justify-content-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cm in contact_methods %}
+                <tr>
+                    <td>
+                        <i class="{{ cm.icon_class }} me-1"></i>
+                        {{ cm.get_contact_type_display }}
+                    </td>
+                    <td>{{ cm.value }}</td>
+                    <td>{{ cm.label|default:"-" }}</td>
+                    <td class="d-flex justify-content-end">
+                        <button class="btn btn-sm btn-warning me-2 edit-contact-method-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editContactMethodModal"
+                            data-url="{% url 'edit_contact_method' cm.id %}"
+                            data-type="{{ cm.contact_type }}"
+                            data-value="{{ cm.value }}"
+                            data-label="{{ cm.label }}">Edit
+                        </button>
+                        <button class="btn btn-sm btn-danger delete-contact-method-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteContactMethodModal"
+                            data-url="{% url 'delete_contact_method' cm.id %}"
+                            data-type="{{ cm.get_contact_type_display }}">Delete
+                        </button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">No contact methods added yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <div class="card-footer {% if contact %}d-flex justify-content-between{% endif %}">
-        {% if contact %}
-        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-        {% endif %}
-        <button 
-        data-phone="{% if contact.phone_number %}{{ contact.phone_number }}{% endif %}" 
-        data-email="{% if contact.email_address %}{{ contact.email_address }}{% endif %}" 
-        data-linkedin="{% if contact.linkedin %}{{ contact.linkedin }}{% endif %}"
-        class="edit-contact-btn btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#editModal"> {% if contact %}Update Contact{% else %} Add Contact {% endif %}</button>
+    {% if contact_methods %}
+    <div class="card-footer">
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAllContactMethodsModal">
+            Delete All Contact Methods
+        </button>
     </div>
-
- 
-
+    {% endif %}
 </div>
 </div>
 
@@ -440,7 +472,7 @@
 
 {% include 'scroll-to-top.html' %}
 
-{% include 'modal-contact.html' %}
+{% include 'modal-contact-method.html' %}
 {% include 'modal-portfolio.html' %}
 {% include 'modal-certification.html' %}
 {% include 'modal-education.html' %}

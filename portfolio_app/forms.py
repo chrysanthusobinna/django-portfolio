@@ -2,7 +2,7 @@ from allauth.account.forms import SignupForm
 from django import forms
 
 from .models import (
-    Contact,
+    ContactMethod,
     Portfolio,
     Certification,
     Education,
@@ -33,12 +33,26 @@ class CustomSignupForm(SignupForm):
         return user
 
 
-class ContactForm(forms.ModelForm):
+class ContactMethodForm(forms.ModelForm):
     class Meta:
-        model = Contact
-        fields = [
-            'phone_number', 'email_address', 'linkedin'
-            ]
+        model = ContactMethod
+        fields = ['contact_type', 'value', 'label']
+        widgets = {
+            'contact_type': forms.Select(attrs={'class': 'form-select'}),
+            'value': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Phone number, email, URL, or username',
+            }),
+            'label': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'e.g. Work, Personal (optional)',
+            }),
+        }
+        labels = {
+            'contact_type': 'Contact Type',
+            'value': 'Value',
+            'label': 'Label (optional)',
+        }
 
 
 class PortfolioForm(forms.ModelForm):

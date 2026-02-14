@@ -804,47 +804,23 @@
         <div class="divider"></div>
         {% endif %}
 
-        {% if contact %}
+        {% if contact_methods %}
         <div class="section contact-section">
             <div class="section-title">Contact</div>
             <div class="contact-grid">
-                {% if contact.email_address %}
+                {% for cm in contact_methods %}
                 <div class="contact-item">
                     <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
+                        <i class="{{ cm.icon_class }}"></i>
                     </div>
                     <div>
-                        <div class="contact-label">Email</div>
+                        <div class="contact-label">{{ cm.get_contact_type_display }}{% if cm.label %} ({{ cm.label }}){% endif %}</div>
                         <div class="contact-value">
-                            <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
+                            <a href="{{ cm.link_url }}" target="_blank">{{ cm.value }}</a>
                         </div>
                     </div>
                 </div>
-                {% endif %}
-                {% if contact.phone_number %}
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <div>
-                        <div class="contact-label">Phone</div>
-                        <div class="contact-value">{{ contact.phone_number }}</div>
-                    </div>
-                </div>
-                {% endif %}
-                {% if contact.linkedin %}
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fab fa-linkedin-in"></i>
-                    </div>
-                    <div>
-                        <div class="contact-label">LinkedIn</div>
-                        <div class="contact-value">
-                            <a href="{{ contact.linkedin }}" target="_blank">Profile</a>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
+                {% endfor %}
             </div>
         </div>
         {% endif %}

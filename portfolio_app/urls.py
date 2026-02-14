@@ -36,8 +36,10 @@ urlpatterns = [
     path('skills/save/', views.save_skills, name='save_skills'),
     path('skills/delete/', views.delete_skills, name='delete_skills'),
 
-    path('contacts/update/', views.contact_update, name='contact_update'),
-    path('contacts/delete/', views.contact_delete, name='contact_delete'),
+    path('contact-method/add/', views.add_contact_method, name='add_contact_method'),
+    path('contact-method/edit/<int:id>/', views.edit_contact_method, name='edit_contact_method'),
+    path('contact-method/delete/<int:id>/', views.delete_contact_method, name='delete_contact_method'),
+    path('contact-method/delete-all/', views.delete_all_contact_methods, name='delete_all_contact_methods'),
 
     path('profile/save-photo/', views.save_profile_photo, name='save_profile_photo'),
     path('profile/delete-photo/', views.delete_profile_photo, name='delete_profile_photo'),

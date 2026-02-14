@@ -100,16 +100,70 @@ class Portfolio(models.Model):
         return self.title
 
 
-# Contact Section Model
-class Contact(models.Model):
+# Flexible Contact Method model
+class ContactMethod(models.Model):
+    CONTACT_TYPE_CHOICES = [
+        ('phone', 'Phone'),
+        ('email', 'Email'),
+        ('whatsapp', 'WhatsApp'),
+        ('instagram', 'Instagram'),
+        ('facebook', 'Facebook'),
+        ('linkedin', 'LinkedIn'),
+        ('twitter', 'Twitter / X'),
+        ('website', 'Website'),
+        ('other', 'Other'),
+    ]
+
+    # Maps each type to (Font Awesome icon class, URL prefix)
+    CONTACT_TYPE_META = {
+        'phone':     ('fas fa-phone',          'tel:'),
+        'email':     ('fas fa-envelope',       'mailto:'),
+        'whatsapp':  ('fab fa-whatsapp',       'https://wa.me/'),
+        'instagram': ('fab fa-instagram',      'https://instagram.com/'),
+        'facebook':  ('fab fa-facebook',       'https://facebook.com/'),
+        'linkedin':  ('fab fa-linkedin-in',    'https://linkedin.com/in/'),
+        'twitter':   ('fab fa-x-twitter',      'https://x.com/'),
+        'website':   ('fas fa-globe',          ''),
+        'other':     ('fas fa-address-card',   ''),
+    }
+
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='contacts')
-    phone_number = models.CharField(max_length=20)
-    email_address = models.EmailField()
-    linkedin = models.URLField(null=True, blank=True)
+        User, on_delete=models.CASCADE, related_name='contact_methods')
+    contact_type = models.CharField(
+        max_length=20, choices=CONTACT_TYPE_CHOICES, default='phone')
+    value = models.CharField(max_length=255)
+    label = models.CharField(
+        max_length=50, blank=True, default='',
+        help_text='Optional label, e.g. "Work", "Personal"')
+
+    class Meta:
+        ordering = ['contact_type', 'id']
 
     def __str__(self):
-        return f"Contact Info for {self.user.username}"
+        display = f"{self.get_contact_type_display()}: {self.value}"
+        if self.label:
+            display += f" ({self.label})"
+        return display
+
+    @property
+    def icon_class(self):
+        """Return the Font Awesome CSS class for this contact type."""
+        return self.CONTACT_TYPE_META.get(
+            self.contact_type, ('fas fa-address-card', ''))[0]
+
+    @property
+    def link_url(self):
+        """Return a clickable URL for this contact method."""
+        prefix = self.CONTACT_TYPE_META.get(
+            self.contact_type, ('', ''))[1]
+
+        # If value already looks like a full URL, use it as-is
+        if self.value.startswith(('http://', 'https://', 'mailto:', 'tel:')):
+            return self.value
+
+        if prefix:
+            return f"{prefix}{self.value}"
+        return self.value
 
 
 # Skill model – stores skills as a JSON array (e.g. ["Leadership", "Excel"])

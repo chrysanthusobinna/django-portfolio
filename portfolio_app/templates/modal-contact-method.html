@@ -1,0 +1,191 @@
+<!-- Add Contact Method Modal -->
+<div class="modal fade" id="addContactMethodModal" tabindex="-1" aria-labelledby="addContactMethodModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addContactMethodModalLabel">Add Contact Method</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{% url 'add_contact_method' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="add_contact_type" class="form-label">Contact Type</label>
+                        <select class="form-select" id="add_contact_type" name="contact_type" required>
+                            <option value="" disabled selected>-- Select type --</option>
+                            <option value="phone">Phone</option>
+                            <option value="email">Email</option>
+                            <option value="whatsapp">WhatsApp</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="linkedin">LinkedIn</option>
+                            <option value="twitter">Twitter / X</option>
+                            <option value="website">Website</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="add_contact_value" class="form-label" id="add_contact_value_label">Contact Details</label>
+                        <input type="text" class="form-control" id="add_contact_value" name="value"
+                               placeholder="Select a contact type above" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="add_contact_label" class="form-label">Label (optional)</label>
+                        <input type="text" class="form-control" id="add_contact_label" name="label"
+                               placeholder='e.g. "Work", "Personal"'>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Add Contact Method</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Contact Method Modal -->
+<div class="modal fade" id="editContactMethodModal" tabindex="-1" aria-labelledby="editContactMethodModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editContactMethodModalLabel">Edit Contact Method</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editContactMethodForm" method="POST" action="">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="edit_contact_type" class="form-label">Contact Type</label>
+                        <select class="form-select" id="edit_contact_type" name="contact_type" required>
+                            <option value="phone">Phone</option>
+                            <option value="email">Email</option>
+                            <option value="whatsapp">WhatsApp</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="linkedin">LinkedIn</option>
+                            <option value="twitter">Twitter / X</option>
+                            <option value="website">Website</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_contact_value" class="form-label" id="edit_contact_value_label">Contact Details</label>
+                        <input type="text" class="form-control" id="edit_contact_value" name="value"
+                               placeholder="Select a contact type above" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_contact_label" class="form-label">Label (optional)</label>
+                        <input type="text" class="form-control" id="edit_contact_label" name="label"
+                               placeholder='e.g. "Work", "Personal"'>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Contact Method Modal -->
+<div class="modal fade" id="deleteContactMethodModal" tabindex="-1" aria-labelledby="deleteContactMethodModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteContactMethodModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="deleteContactMethodForm" method="POST" action="">
+                {% csrf_token %}
+                <div class="modal-body">
+                    Are you sure you want to delete this <strong id="deleteContactMethodType"></strong> contact method?
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete All Contact Methods Modal -->
+<div class="modal fade" id="deleteAllContactMethodsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{% url 'delete_all_contact_methods' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <p>Are you sure you want to delete all contact methods?</p>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Dynamic label & placeholder mapping per contact type
+var contactFieldMeta = {
+    phone:     { label: 'Phone Number',       placeholder: 'e.g. +234 801 234 5678' },
+    email:     { label: 'Email Address',      placeholder: 'e.g. you@example.com' },
+    whatsapp:  { label: 'WhatsApp Number',    placeholder: 'e.g. +234 801 234 5678' },
+    instagram: { label: 'Instagram Username', placeholder: 'e.g. your_username' },
+    facebook:  { label: 'Facebook Profile',   placeholder: 'e.g. https://facebook.com/yourpage' },
+    linkedin:  { label: 'LinkedIn Profile',   placeholder: 'e.g. https://linkedin.com/in/yourname' },
+    twitter:   { label: 'Twitter / X Handle', placeholder: 'e.g. @yourhandle' },
+    website:   { label: 'Website URL',        placeholder: 'e.g. https://yourwebsite.com' },
+    other:     { label: 'Contact Details',    placeholder: 'Enter your contact info' },
+};
+
+function updateValueField(selectId, labelId, inputId) {
+    var type = document.getElementById(selectId).value;
+    var meta = contactFieldMeta[type] || contactFieldMeta['other'];
+    document.getElementById(labelId).textContent = meta.label;
+    document.getElementById(inputId).placeholder = meta.placeholder;
+}
+
+// Add modal: update on type change
+document.getElementById('add_contact_type').addEventListener('change', function() {
+    updateValueField('add_contact_type', 'add_contact_value_label', 'add_contact_value');
+});
+
+// Edit modal: update on type change
+document.getElementById('edit_contact_type').addEventListener('change', function() {
+    updateValueField('edit_contact_type', 'edit_contact_value_label', 'edit_contact_value');
+});
+
+// Populate Edit Contact Method modal
+document.querySelectorAll('.edit-contact-method-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.getElementById('editContactMethodForm').action = this.dataset.url;
+        document.getElementById('edit_contact_type').value = this.dataset.type;
+        document.getElementById('edit_contact_value').value = this.dataset.value;
+        document.getElementById('edit_contact_label').value = this.dataset.label || '';
+        // Update label & placeholder to match selected type
+        updateValueField('edit_contact_type', 'edit_contact_value_label', 'edit_contact_value');
+    });
+});
+
+// Populate Delete Contact Method modal
+document.querySelectorAll('.delete-contact-method-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.getElementById('deleteContactMethodForm').action = this.dataset.url;
+        document.getElementById('deleteContactMethodType').textContent = this.dataset.type;
+    });
+});
+
+// Reset Add modal fields when it opens
+document.getElementById('addContactMethodModal').addEventListener('show.bs.modal', function() {
+    document.getElementById('add_contact_value_label').textContent = 'Contact Details';
+    document.getElementById('add_contact_value').placeholder = 'Select a contact type above';
+});
+</script>

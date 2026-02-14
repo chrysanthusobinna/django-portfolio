@@ -540,28 +540,16 @@
         </div>
         {% endif %}
 
-        {% if contact %}
+        {% if contact_methods %}
         <div class="contact-block">
             <div class="card-heading">Get In Touch</div>
             <div class="contact-grid">
-                {% if contact.email_address %}
+                {% for cm in contact_methods %}
                 <div class="contact-card">
-                    <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
-                    <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
+                    <div class="contact-card-icon"><i class="{{ cm.icon_class }}"></i></div>
+                    <a href="{{ cm.link_url }}" target="_blank">{{ cm.value }}{% if cm.label %} ({{ cm.label }}){% endif %}</a>
                 </div>
-                {% endif %}
-                {% if contact.phone_number %}
-                <div class="contact-card">
-                    <div class="contact-card-icon"><i class="fas fa-phone"></i></div>
-                    <span>{{ contact.phone_number }}</span>
-                </div>
-                {% endif %}
-                {% if contact.linkedin %}
-                <div class="contact-card">
-                    <div class="contact-card-icon"><i class="fab fa-linkedin"></i></div>
-                    <a href="{{ contact.linkedin }}" target="_blank">LinkedIn Profile</a>
-                </div>
-                {% endif %}
+                {% endfor %}
             </div>
         </div>
         {% endif %}

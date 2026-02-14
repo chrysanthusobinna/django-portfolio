@@ -135,7 +135,7 @@
         });
         var ph = document.createElement("span");
         ph.className = "skill-chip placeholder-chip";
-        ph.textContent = selected.size ? "Add more\u2026" : "Add skill\u2026 (select below)";
+        ph.textContent = selected.size ? "Add more" : "Add skill";
         selectedBox.appendChild(ph);
     }
 

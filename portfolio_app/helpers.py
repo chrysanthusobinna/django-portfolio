@@ -7,7 +7,7 @@ from .models import (
     Certification,
     Education,
     Portfolio,
-    Contact,
+    ContactMethod,
     Skill,
 )
 
@@ -36,7 +36,7 @@ def get_user_data(username):
         'certifications': Certification.objects.filter(user=user) or None,
         'education': Education.objects.filter(user=user) or None,
         'portfolios': Portfolio.objects.filter(user=user) or None,
-        'contact': Contact.objects.filter(user=user).first() or None,
+        'contact_methods': ContactMethod.objects.filter(user=user),
         'skill': Skill.objects.filter(user=user).first() or None,
         'user_fullname': user_fullname,
     }

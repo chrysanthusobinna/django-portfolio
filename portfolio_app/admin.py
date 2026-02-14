@@ -3,7 +3,7 @@ from .models import (
     Education,
     Certification,
     Portfolio,
-    Contact,
+    ContactMethod,
     About,
     Employment,
     Template,
@@ -45,3 +45,10 @@ class UserTemplateAdmin(admin.ModelAdmin):
 class SkillAdmin(admin.ModelAdmin):
     list_display = ('user', 'skills')
     search_fields = ('user__username',)
+
+
+@admin.register(ContactMethod)
+class ContactMethodAdmin(admin.ModelAdmin):
+    list_display = ('user', 'contact_type', 'value', 'label')
+    list_filter = ('contact_type',)
+    search_fields = ('user__username', 'value', 'label')
