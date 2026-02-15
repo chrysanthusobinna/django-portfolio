@@ -179,12 +179,12 @@
         </div>
     </div>
 
-    <!-- Employment Section -->
+    <!-- Experience Section -->
     <div class="card mb-4">
         <div class="card-header ep-header text-white d-flex justify-content-between align-items-center">
-            Employment
+            Experience
             <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addEmploymentModal">Add
-                Employment</button>
+                Experience</button>
         </div>
         <div class="card-body">
             {% for job in employment %}
@@ -224,13 +224,13 @@
                 </div>
             </div>
             {% empty %}
-            <p class="ep-empty">No employment entries added yet.</p>
+            <p class="ep-empty">No experience entries added yet.</p>
             {% endfor %}
         </div>
         {% if employment %}
         <div class="card-footer">
             <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteAllEmploymentModal">
-                Delete All Employment
+                Delete All Experience
             </button>
         </div>
         {% endif %}
@@ -340,12 +340,12 @@
         {% endif %}
     </div>
 
-    <!-- Portfolio Section -->
+    <!-- Project Section -->
     <div class="card mb-4">
         <div class="card-header ep-header text-white d-flex justify-content-between align-items-center">
-            Portfolio
+            Projects
             <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addPortfolioModal">Add
-                Portfolio
+                Project
             </button>
         </div>
         <div class="card-body">
@@ -382,75 +382,73 @@
                 </div>
             </div>
             {% empty %}
-            <p class="ep-empty">No portfolio entries added yet.</p>
+            <p class="ep-empty">No project entries added yet.</p>
             {% endfor %}
         </div>
         {% if portfolios %}
         <div class="card-footer">
             <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteAllPortfolioModal">
-                Delete All Portfolio
+                Delete All Projects
             </button>
         </div>
         {% endif %}
     </div>
 
-<!-- Contacts Section -->
-<div class="card mb-4">
-    <div class="card-header ep-header text-white d-flex justify-content-between align-items-center">
-        Contacts
-        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addContactMethodModal">
-            Add Contact
-        </button>
-    </div>
-    <div class="card-body">
-        {% for cm in contact_methods %}
-        <div class="ep-tile">
-            <table class="ep-tile-table">
-                <tr>
-                    <td class="ep-tile-label">Type</td>
-                    <td class="ep-tile-value"><i class="{{ cm.icon_class }} me-1"></i>{{ cm.get_contact_type_display }}</td>
-                </tr>
-                <tr>
-                    <td class="ep-tile-label">Contact</td>
-                    <td class="ep-tile-value">{{ cm.value }}</td>
-                </tr>
-                {% if cm.label %}
-                <tr>
-                    <td class="ep-tile-label">Label</td>
-                    <td class="ep-tile-value">{{ cm.label }}</td>
-                </tr>
-                {% endif %}
-            </table>
-            <div class="ep-tile-actions">
-                <button class="btn btn-sm btn-outline-primary edit-contact-method-btn"
-                    data-bs-toggle="modal"
-                    data-bs-target="#editContactMethodModal"
-                    data-url="{% url 'edit_contact_method' cm.id %}"
-                    data-type="{{ cm.contact_type }}"
-                    data-value="{{ cm.value }}"
-                    data-label="{{ cm.label }}">Edit</button>
-                <button class="btn btn-sm btn-outline-danger delete-contact-method-btn"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteContactMethodModal"
-                    data-url="{% url 'delete_contact_method' cm.id %}"
-                    data-type="{{ cm.get_contact_type_display }}">Delete</button>
-            </div>
+    <!-- Contacts Section -->
+    <div class="card mb-4">
+        <div class="card-header ep-header text-white d-flex justify-content-between align-items-center">
+            Contacts
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addContactMethodModal">
+                Add Contact
+            </button>
         </div>
-        {% empty %}
-        <p class="ep-empty">No contacts added yet.</p>
-        {% endfor %}
+        <div class="card-body">
+            {% for cm in contact_methods %}
+            <div class="ep-tile">
+                <table class="ep-tile-table">
+                    <tr>
+                        <td class="ep-tile-label">Type</td>
+                        <td class="ep-tile-value"><i class="{{ cm.icon_class }} me-1"></i>{{ cm.get_contact_type_display }}</td>
+                    </tr>
+                    <tr>
+                        <td class="ep-tile-label">Contact</td>
+                        <td class="ep-tile-value">{{ cm.value }}</td>
+                    </tr>
+                    {% if cm.label %}
+                    <tr>
+                        <td class="ep-tile-label">Label</td>
+                        <td class="ep-tile-value">{{ cm.label }}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+                <div class="ep-tile-actions">
+                    <button class="btn btn-sm btn-outline-primary edit-contact-method-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editContactMethodModal"
+                        data-url="{% url 'edit_contact_method' cm.id %}"
+                        data-type="{{ cm.contact_type }}"
+                        data-value="{{ cm.value }}"
+                        data-label="{{ cm.label }}">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger delete-contact-method-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteContactMethodModal"
+                        data-url="{% url 'delete_contact_method' cm.id %}"
+                        data-type="{{ cm.get_contact_type_display }}">Delete</button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="ep-empty">No contacts added yet.</p>
+            {% endfor %}
+        </div>
+        {% if contact_methods %}
+        <div class="card-footer">
+            <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteAllContactMethodsModal">
+                Delete All Contacts
+            </button>
+        </div>
+        {% endif %}
     </div>
-    {% if contact_methods %}
-    <div class="card-footer">
-        <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteAllContactMethodsModal">
-            Delete All Contacts
-        </button>
-    </div>
-    {% endif %}
 </div>
-</div>
-
-
 
 {% include 'scroll-to-top.html' %}
 

@@ -4,6 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ user_fullname }} - Professional Portfolio. {% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <meta name="author" content="{{ user_fullname }}">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="{{ user_fullname }} - Portfolio">
+    <meta property="og:description" content="{% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ user_fullname }} - Portfolio">
+    <meta name="twitter:description" content="{% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
     <title>{{ user_fullname }} - Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -256,6 +265,8 @@
             transition: all 0.3s;
             border: 1px solid #eee;
             background: #fff;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
@@ -282,24 +293,27 @@
             object-fit: cover;
         }
 
-        .project-thumb.gradient-1 {
+        .gradient-1 {
             background: linear-gradient(135deg, #e040fb, #7b2ff7);
         }
 
-        .project-thumb.gradient-2 {
+        .gradient-2 {
             background: linear-gradient(135deg, #00d4aa, #2196f3);
         }
 
-        .project-thumb.gradient-3 {
+        .gradient-3 {
             background: linear-gradient(135deg, #ff6b6b, #feca57);
         }
 
-        .project-thumb.gradient-4 {
+        .gradient-4 {
             background: linear-gradient(135deg, #4361ee, #7b2ff7);
         }
 
         .project-card-body {
             padding: 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card-title {
@@ -313,18 +327,101 @@
             font-size: 0.75rem;
             color: #888;
             line-height: 1.5;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
+            flex: 1;
         }
 
-        .project-card-link {
+        .project-card-btn {
+            display: inline-block;
+            padding: 6px 16px;
+            border: none;
+            border-radius: 20px;
             font-size: 0.75rem;
-            color: #7b2ff7;
-            text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #7b2ff7, #4361ee);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            width: 100%;
         }
 
-        .project-card-link:hover {
-            color: #4361ee;
+        .project-card-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(123,47,247,0.3);
+        }
+
+        .project-modal .modal-content {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .project-modal .modal-header {
+            background: linear-gradient(135deg, #7b2ff7, #4361ee);
+            border: none;
+            padding: 20px 28px;
+        }
+
+        .project-modal .modal-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+
+        .project-modal .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .project-modal .modal-body {
+            padding: 28px;
+        }
+
+        .project-modal-img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .project-modal-placeholder {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .project-modal-desc {
+            font-size: 0.92rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .project-modal-link {
+            display: inline-block;
+            padding: 10px 28px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .project-modal-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(123,47,247,0.25);
+            color: #fff;
         }
 
         .timeline {
@@ -528,10 +625,38 @@
         .footer {
             background: #1a1a2e;
             text-align: center;
-            padding: 20px;
-            font-size: 0.75rem;
-            color: #aaa;
+            padding: 25px 20px;
             border-radius: 0 0 20px 20px;
+        }
+
+        .footer-promo {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 6px;
+        }
+
+        .footer-promo a {
+            color: #00d4aa;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-promo a:hover {
+            color: #7b2ff7;
+        }
+
+        .footer-copy {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .footer-copy a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .footer-copy a:hover {
+            color: #00d4aa;
         }
 
         @media (max-width: 768px) {
@@ -634,7 +759,7 @@
 
         {% if portfolios %}
         <div class="section-light-alt" id="projects">
-            <h2 class="section-title">Projects Showcase</h2>
+            <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
                 {% for project in portfolios %}
                 <div class="project-card">
@@ -649,14 +774,13 @@
                     {% endif %}
                     <div class="project-card-body">
                         <div class="project-card-title">{{ project.title }}</div>
-                        <div class="project-card-desc">{{ project.description|truncatewords:8 }}</div>
-                        {% if project.link %}
-                        <a href="{{ project.link }}" class="project-card-link" target="_blank">View Project <i class="fas fa-arrow-right" style="font-size:0.6rem;"></i></a>
-                        {% endif %}
+                        <div class="project-card-desc">{{ project.description|truncatewords:6 }}</div>
+                        <button class="project-card-btn" data-bs-toggle="modal" data-bs-target="#projectModal{{ forloop.counter }}">Details</button>
                     </div>
                 </div>
                 {% endfor %}
             </div>
+
         </div>
         {% endif %}
 
@@ -729,11 +853,40 @@
         {% endif %}
 
         <footer class="footer">
-            Powered by MIfolio
+            <div class="footer-promo">Want a portfolio like this? <a target="_blank" href="{% url 'home' %}">Create yours with {{ SITE_NAME }}</a></div>
+            <div class="footer-copy">&copy; Powered by <a href="{% url 'home' %}">{{ SITE_NAME }}</a></div>
         </footer>
     </div>
 
 
+
+    {% if portfolios %}
+    {% for project in portfolios %}
+    <div class="modal fade project-modal" id="projectModal{{ forloop.counter }}" tabindex="-1" aria-labelledby="projectModalLabel{{ forloop.counter }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectModalLabel{{ forloop.counter }}">{{ project.title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% if project.portfolio_photo %}
+                    <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}" class="project-modal-img">
+                    {% else %}
+                    <div class="project-modal-placeholder gradient-{% cycle '1' '2' '3' '4' %}">
+                        {{ project.title }}
+                    </div>
+                    {% endif %}
+                    <div class="project-modal-desc">{{ project.description }}</div>
+                    {% if project.link %}
+                    <a href="{{ project.link }}" class="project-modal-link" target="_blank"><i class="fas fa-external-link-alt me-2"></i>Visit Project</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

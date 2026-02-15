@@ -52,7 +52,7 @@ def template_preview(request, template_name):
         messages.error(request, "Template not found.")
         return redirect("home")
 
-    fullname = 'Chrysanthus Obinna'
+    fullname = 'Your Name'
     initials = ''.join([part[0].upper() for part in fullname.split() if part])
 
     sample_data = {
@@ -60,53 +60,61 @@ def template_preview(request, template_name):
         'user_initials': initials,
         'profilephoto': None,
         'template_id': template.id,  
-        'about': type('obj', (object,), {'about': 'Experienced software engineer and technology leader with over 10 years of expertise in full-stack development, cloud architecture, and team leadership. Passionate about building scalable solutions and mentoring the next generation of developers.'})(),
+        'about': type('obj', (object,), {'about': 'Results-driven Senior Project Manager with 12+ years of experience leading cross-functional teams at top-tier technology companies. Skilled in Agile methodologies, stakeholder management, and delivering complex programmes on time and within budget. Passionate about fostering collaboration and driving innovation across global teams.'})(),
         'employment': [
-            type('obj', (object,), {'employer_name': 'TechVision Solutions', 'job_title': 'Senior Software Engineer', 'description_of_duties': 'Led a team of 8 developers in designing and building enterprise-grade web applications using Django and React.', 'start_date': '2021-03-01', 'end_date': None})(),
-            type('obj', (object,), {'employer_name': 'CloudFirst Technologies', 'job_title': 'Full-Stack Developer', 'description_of_duties': 'Developed and maintained cloud-native applications on AWS. Built RESTful APIs and responsive front-end interfaces.', 'start_date': '2018-06-15', 'end_date': '2021-02-28'})(),
-            type('obj', (object,), {'employer_name': 'Digital Innovations Ltd', 'job_title': 'Junior Software Developer', 'description_of_duties': 'Contributed to the development of client-facing web applications using Python and JavaScript.', 'start_date': '2015-09-01', 'end_date': '2018-05-31'})(),
+            type('obj', (object,), {'employer_name': 'Apple', 'job_title': 'Senior Project Manager', 'description_of_duties': 'Managed end-to-end delivery of flagship product launches across hardware and software teams. Coordinated with 50+ stakeholders to align timelines, budgets, and quality standards.', 'start_date': '2021-04-01', 'end_date': None})(),
+            type('obj', (object,), {'employer_name': 'Google', 'job_title': 'Technical Programme Manager', 'description_of_duties': 'Led cross-functional programmes for Google Cloud, overseeing roadmap planning, risk mitigation, and delivery of enterprise solutions to Fortune 500 clients.', 'start_date': '2017-09-15', 'end_date': '2021-03-31'})(),
+            type('obj', (object,), {'employer_name': 'Microsoft', 'job_title': 'Project Coordinator', 'description_of_duties': 'Supported the Azure platform team with sprint planning, backlog grooming, and stakeholder reporting. Helped reduce delivery cycle times by 20%.', 'start_date': '2014-01-10', 'end_date': '2017-08-31'})(),
         ],
         'education': [
-            type('obj', (object,), {'qualification': 'MSc Computer Science', 'institution_name': 'University of Lagos', 'start_date': '2013-09-01', 'end_date': '2015-07-15'})(),
-            type('obj', (object,), {'qualification': 'BSc Information Technology', 'institution_name': 'Federal University of Technology, Owerri', 'start_date': '2009-09-01', 'end_date': '2013-06-30'})(),
+            type('obj', (object,), {'qualification': 'MBA Business Administration', 'institution_name': 'London Business School', 'start_date': '2012-09-01', 'end_date': '2014-06-30'})(),
+            type('obj', (object,), {'qualification': 'BSc Business Management', 'institution_name': 'University of Manchester', 'start_date': '2008-09-01', 'end_date': '2012-06-30'})(),
         ],
         'certifications': [
-            type('obj', (object,), {'name': 'AWS Certified Solutions Architect', 'issuer': 'Amazon Web Services', 'date_issued': '2023-05-10'})(),
-            type('obj', (object,), {'name': 'Google Professional Cloud Developer', 'issuer': 'Google Cloud', 'date_issued': '2022-11-20'})(),
-            type('obj', (object,), {'name': 'Django Developer Certification', 'issuer': 'Django Software Foundation', 'date_issued': '2021-08-15'})(),
+            type('obj', (object,), {'name': 'PMP - Project Management Professional', 'issuer': 'Project Management Institute', 'date_issued': '2023-02-15'})(),
+            type('obj', (object,), {'name': 'Certified ScrumMaster (CSM)', 'issuer': 'Scrum Alliance', 'date_issued': '2022-06-10'})(),
+            type('obj', (object,), {'name': 'PRINCE2 Practitioner', 'issuer': 'Axelos', 'date_issued': '2020-11-20'})(),
         ],
         'portfolios': [
-            type('obj', (object,), {'title': 'E-Commerce Platform', 'description': 'A full-featured online shopping platform built with Django and React.', 'link': '#', 'portfolio_photo': None})(),
-            type('obj', (object,), {'title': 'Task Management App', 'description': 'A collaborative project management tool with real-time updates.', 'link': '#', 'portfolio_photo': None})(),
-            type('obj', (object,), {'title': 'Health & Fitness Tracker', 'description': 'A mobile-responsive health tracking application.', 'link': '#', 'portfolio_photo': None})(),
+            type('obj', (object,), {'title': 'Global Product Launch', 'description': 'Led the coordinated launch of a new consumer device across 30 markets, managing timelines, vendor relationships, and cross-team dependencies to deliver on schedule.', 'link': '#', 'portfolio_photo': None})(),
+            type('obj', (object,), {'title': 'Cloud Migration Programme', 'description': 'Directed a large-scale enterprise cloud migration programme for 15 clients, achieving 99.9% uptime during transition and reducing infrastructure costs by 35%.', 'link': '#', 'portfolio_photo': None})(),
+            type('obj', (object,), {'title': 'Agile Transformation Initiative', 'description': 'Spearheaded the adoption of Agile practices across a 200-person engineering organisation, resulting in a 40% improvement in sprint velocity.', 'link': '#', 'portfolio_photo': None})(),
         ],
         'contact_methods': [
             type('obj', (object,), {
                 'icon_class': 'fas fa-envelope',
                 'get_contact_type_display': lambda: 'Email',
                 'contact_type': 'email',
-                'value': 'chrysanthusobinna@gmail.com',
+                'value': 'yourname@example.com',
                 'label': '',
-                'link_url': 'mailto:chrysanthusobinna@gmail.com',
+                'link_url': 'mailto:yourname@example.com',
             })(),
             type('obj', (object,), {
                 'icon_class': 'fas fa-phone',
                 'get_contact_type_display': lambda: 'Phone',
                 'contact_type': 'phone',
-                'value': '+234 801 234 5678',
+                'value': '+1 234 567 8900',
                 'label': '',
-                'link_url': 'tel:+234 801 234 5678',
+                'link_url': 'tel:+12345678900',
             })(),
             type('obj', (object,), {
                 'icon_class': 'fab fa-linkedin-in',
                 'get_contact_type_display': lambda: 'LinkedIn',
                 'contact_type': 'linkedin',
-                'value': 'chrysanthusobinna',
+                'value': 'yourname',
                 'label': '',
-                'link_url': 'https://www.linkedin.com/in/chrysanthusobinna',
+                'link_url': 'https://www.linkedin.com/in/yourname',
+            })(),
+            type('obj', (object,), {
+                'icon_class': 'fas fa-map-marker-alt',
+                'get_contact_type_display': lambda: 'Address',
+                'contact_type': 'address',
+                'value': 'London, United Kingdom',
+                'label': '',
+                'link_url': '#',
             })(),
         ],
-        'skill': type('obj', (object,), {'skills': ['Python', 'Django', 'JavaScript', 'React', 'AWS', 'Docker', 'PostgreSQL', 'Git', 'REST APIs', 'CI/CD']})(),
+        'skill': type('obj', (object,), {'skills': ['Leadership', 'Stakeholder Management', 'Agile & Scrum', 'Strategic Planning', 'Risk Management', 'Team Building', 'Communication', 'Budgeting', 'Conflict Resolution', 'Problem Solving']})(),
     }
 
     return render(request, f"template-previews/{template_name}.html", sample_data)
