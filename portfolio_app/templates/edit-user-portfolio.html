@@ -186,46 +186,42 @@
             <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addEmploymentModal">Add
                 Employment</button>
         </div>
-        <div class="card-body table-responsive">
-            <table class="custom-table table table-hover">
-                <thead>
+        <div class="card-body">
+            {% for job in employment %}
+            <div class="ep-tile">
+                <table class="ep-tile-table">
                     <tr>
-                        <th>Employer Name</th>
-                        <th>Job Title</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th class="d-flex justify-content-end">Actions</th>
+                        <td class="ep-tile-label">Employer</td>
+                        <td class="ep-tile-value">{{ job.employer_name }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for job in employment %}
                     <tr>
-                        <td>{{ job.employer_name }}</td>
-                        <td>{{ job.job_title }}</td>
-                        <td>{{ job.start_date|date:"Y-m-d" }}</td>
-                        <td>{{ job.end_date|date:"F Y"|default:"Present" }}</td>
-                        <td class="d-flex justify-content-end">
-                            <button class="btn btn-sm btn-outline-primary me-2 edit-employment-btn" data-bs-toggle="modal"
-                                data-bs-target="#editEmploymentModal" data-url="{% url 'edit_employment' job.id %}"
-                                data-employer="{{ job.employer_name }}" data-title="{{ job.job_title }}"
-                                data-description="{{ job.description_of_duties }}"
-                                data-start="{{ job.start_date|date:"Y-m-d" }}"
-                                data-end="{{ job.end_date|date:"Y-m-d" }}">Edit
-                            </button>
-
-                            <button class="btn btn-sm btn-outline-danger delete-employment-btn" data-bs-toggle="modal"
-                                data-bs-target="#deleteEmploymentModal" data-url="{% url 'delete_employment' job.id %}"
-                                data-employer="{{ job.employer_name }}">Delete
-                            </button>
-                        </td>
+                        <td class="ep-tile-label">Title</td>
+                        <td class="ep-tile-value">{{ job.job_title }}</td>
                     </tr>
-                    {% empty %}
                     <tr>
-                        <td colspan="5" class="text-center text-muted">No employment entries added yet.</td>
+                        <td class="ep-tile-label">Start</td>
+                        <td class="ep-tile-value">{{ job.start_date|date:"Y-m-d" }}</td>
                     </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    <tr>
+                        <td class="ep-tile-label">End</td>
+                        <td class="ep-tile-value">{{ job.end_date|date:"F Y"|default:"Present" }}</td>
+                    </tr>
+                </table>
+                <div class="ep-tile-actions">
+                    <button class="btn btn-sm btn-outline-primary edit-employment-btn" data-bs-toggle="modal"
+                        data-bs-target="#editEmploymentModal" data-url="{% url 'edit_employment' job.id %}"
+                        data-employer="{{ job.employer_name }}" data-title="{{ job.job_title }}"
+                        data-description="{{ job.description_of_duties }}"
+                        data-start="{{ job.start_date|date:"Y-m-d" }}"
+                        data-end="{{ job.end_date|date:"Y-m-d" }}">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger delete-employment-btn" data-bs-toggle="modal"
+                        data-bs-target="#deleteEmploymentModal" data-url="{% url 'delete_employment' job.id %}"
+                        data-employer="{{ job.employer_name }}">Delete</button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="ep-empty">No employment entries added yet.</p>
+            {% endfor %}
         </div>
         {% if employment %}
         <div class="card-footer">
@@ -243,42 +239,42 @@
             <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addEducationModal">Add
                 Education</button>
         </div>
-        <div class="card-body table-responsive">
-            <table class="custom-table table table-hover">
-                <thead>
+        <div class="card-body">
+            {% for edu in education %}
+            <div class="ep-tile">
+                <table class="ep-tile-table">
                     <tr>
-                        <th>Qualification</th>
-                        <th>Institution Name</th>
-                        <th class="d-flex justify-content-end">Actions</th>
+                        <td class="ep-tile-label">Qualification</td>
+                        <td class="ep-tile-value">{{ edu.qualification }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for edu in education %}
                     <tr>
-                        <td>{{ edu.qualification }}</td>
-                        <td>{{ edu.institution_name }}</td>
-                        <td class="d-flex justify-content-end">
-                            <button class="btn btn-sm btn-outline-primary me-2 edit-education-btn" data-bs-toggle="modal"
-                                data-bs-target="#editEducationModal" data-url="{% url 'edit_education' edu.id %}"
-                                data-qualification="{{ edu.qualification }}"
-                                data-institution="{{ edu.institution_name }}"
-                                data-start="{{ edu.start_date|date:"Y-m-d" }}"
-                                data-end="{{ edu.end_date|date:"Y-m-d" }}">Edit
-                            </button>
-
-                            <button class="btn btn-sm btn-outline-danger delete-education-btn" data-bs-toggle="modal"
-                                data-bs-target="#deleteEducationModal" data-url="{% url 'delete_education' edu.id %}"
-                                data-qualification="{{ edu.qualification }}">Delete
-                            </button>
-                        </td>
+                        <td class="ep-tile-label">Institution</td>
+                        <td class="ep-tile-value">{{ edu.institution_name }}</td>
                     </tr>
-                    {% empty %}
                     <tr>
-                        <td colspan="3" class="text-center text-muted">No education entries added yet.</td>
+                        <td class="ep-tile-label">Start</td>
+                        <td class="ep-tile-value">{{ edu.start_date|date:"Y-m-d" }}</td>
                     </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    <tr>
+                        <td class="ep-tile-label">End</td>
+                        <td class="ep-tile-value">{{ edu.end_date|date:"F Y"|default:"Present" }}</td>
+                    </tr>
+                </table>
+                <div class="ep-tile-actions">
+                    <button class="btn btn-sm btn-outline-primary edit-education-btn" data-bs-toggle="modal"
+                        data-bs-target="#editEducationModal" data-url="{% url 'edit_education' edu.id %}"
+                        data-qualification="{{ edu.qualification }}"
+                        data-institution="{{ edu.institution_name }}"
+                        data-start="{{ edu.start_date|date:"Y-m-d" }}"
+                        data-end="{{ edu.end_date|date:"Y-m-d" }}">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger delete-education-btn" data-bs-toggle="modal"
+                        data-bs-target="#deleteEducationModal" data-url="{% url 'delete_education' edu.id %}"
+                        data-qualification="{{ edu.qualification }}">Delete</button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="ep-empty">No education entries added yet.</p>
+            {% endfor %}
         </div>
         {% if education %}
         <div class="card-footer">
@@ -296,38 +292,40 @@
             <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addCertificationModal">Add
                 Certification</button>
         </div>
-        <div class="card-body table-responsive">
-            <table class="custom-table table table-hover">
-                <thead>
+        <div class="card-body">
+            {% for cert in certifications %}
+            <div class="ep-tile">
+                <table class="ep-tile-table">
                     <tr>
-                        <th>Certification Name</th>
-                        <th class="d-flex justify-content-end">Actions</th>
+                        <td class="ep-tile-label">Name</td>
+                        <td class="ep-tile-value">{{ cert.name }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for cert in certifications %}
+                    {% if cert.issuer %}
                     <tr>
-                        <td>{{ cert.name }}</td>
-                        <td class="d-flex justify-content-end">
-                            <button class="btn btn-sm btn-outline-primary me-2 edit-certification-btn" data-bs-toggle="modal"
-                                data-bs-target="#editCertificationModal"
-                                data-url="{% url 'edit_certification' cert.id %}" data-name="{{ cert.name }}"
-                                data-issuer="{{ cert.issuer }}" data-date="{{ cert.date_issued|date:"Y-m-d" }}">Edit
-                            </button>
-
-                            <button class="btn btn-sm btn-outline-danger delete-certification-btn" data-bs-toggle="modal"
-                                data-bs-target="#deleteCertificationModal"
-                                data-url="{% url 'delete_certification' cert.id %}" data-name="{{ cert.name }}">Delete
-                            </button>
-                        </td>
+                        <td class="ep-tile-label">Issuer</td>
+                        <td class="ep-tile-value">{{ cert.issuer }}</td>
                     </tr>
-                    {% empty %}
+                    {% endif %}
+                    {% if cert.date_issued %}
                     <tr>
-                        <td colspan="2" class="text-center text-muted">No certifications added yet.</td>
+                        <td class="ep-tile-label">Date Issued</td>
+                        <td class="ep-tile-value">{{ cert.date_issued|date:"F Y" }}</td>
                     </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    {% endif %}
+                </table>
+                <div class="ep-tile-actions">
+                    <button class="btn btn-sm btn-outline-primary edit-certification-btn" data-bs-toggle="modal"
+                        data-bs-target="#editCertificationModal"
+                        data-url="{% url 'edit_certification' cert.id %}" data-name="{{ cert.name }}"
+                        data-issuer="{{ cert.issuer }}" data-date="{{ cert.date_issued|date:"Y-m-d" }}">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger delete-certification-btn" data-bs-toggle="modal"
+                        data-bs-target="#deleteCertificationModal"
+                        data-url="{% url 'delete_certification' cert.id %}" data-name="{{ cert.name }}">Delete</button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="ep-empty">No certifications added yet.</p>
+            {% endfor %}
         </div>
         {% if certifications %}
         <div class="card-footer">
@@ -346,41 +344,42 @@
                 Portfolio
             </button>
         </div>
-        <div class="card-body table-responsive">
-            <table class="custom-table table table-hover">
-                <thead>
+        <div class="card-body">
+            {% for portfolio in portfolios %}
+            <div class="ep-tile">
+                <table class="ep-tile-table">
                     <tr>
-                        <th>Title</th>
-                        <th class="d-flex justify-content-end">Actions</th>
+                        <td class="ep-tile-label">Title</td>
+                        <td class="ep-tile-value">{{ portfolio.title }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for portfolio in portfolios %}
+                    {% if portfolio.description %}
                     <tr>
-                        <td>{{ portfolio.title }}</td>
-                        <td class="d-flex justify-content-end">
-                            <button class="btn btn-sm btn-outline-primary me-2 edit-portfolio-btn" data-bs-toggle="modal"
-                                data-bs-target="#editPortfolioModal" data-url="{% url 'edit_portfolio' portfolio.id %}"
-                                data-title="{{ portfolio.title }}" data-description="{{ portfolio.description }}"
-                                data-link="{{ portfolio.link }}"
-                                data-portfolio_photo="{% if portfolio.portfolio_photo %}{{ portfolio.portfolio_photo.url }}{% else %}{% static 'images/default.png' %}{% endif %}">
-                                Edit
-                            </button>
-
-                            <button class="btn btn-sm btn-outline-danger delete-portfolio-btn" data-bs-toggle="modal"
-                                data-bs-target="#deletePortfolioModal"
-                                data-url="{% url 'delete_portfolio' portfolio.id %}"
-                                data-title="{{ portfolio.title }}">Delete
-                            </button>
-                        </td>
+                        <td class="ep-tile-label">Description</td>
+                        <td class="ep-tile-value">{{ portfolio.description|truncatechars:80 }}</td>
                     </tr>
-                    {% empty %}
+                    {% endif %}
+                    {% if portfolio.link %}
                     <tr>
-                        <td colspan="2" class="text-center text-muted">No portfolio entries added yet.</td>
+                        <td class="ep-tile-label">Link</td>
+                        <td class="ep-tile-value">{{ portfolio.link|cut:"https://"|cut:"http://"|truncatechars:50 }}</td>
                     </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    {% endif %}
+                </table>
+                <div class="ep-tile-actions">
+                    <button class="btn btn-sm btn-outline-primary edit-portfolio-btn" data-bs-toggle="modal"
+                        data-bs-target="#editPortfolioModal" data-url="{% url 'edit_portfolio' portfolio.id %}"
+                        data-title="{{ portfolio.title }}" data-description="{{ portfolio.description }}"
+                        data-link="{{ portfolio.link }}"
+                        data-portfolio_photo="{% if portfolio.portfolio_photo %}{{ portfolio.portfolio_photo.url }}{% else %}{% static 'images/default.png' %}{% endif %}">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger delete-portfolio-btn" data-bs-toggle="modal"
+                        data-bs-target="#deletePortfolioModal"
+                        data-url="{% url 'delete_portfolio' portfolio.id %}"
+                        data-title="{{ portfolio.title }}">Delete</button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="ep-empty">No portfolio entries added yet.</p>
+            {% endfor %}
         </div>
         {% if portfolios %}
         <div class="card-footer">
@@ -399,49 +398,43 @@
             Add Contact
         </button>
     </div>
-    <div class="card-body table-responsive">
-        <table class="custom-table table table-hover">
-            <thead>
+    <div class="card-body">
+        {% for cm in contact_methods %}
+        <div class="ep-tile">
+            <table class="ep-tile-table">
                 <tr>
-                    <th>Type</th>
-                    <th>Contact</th>
-                    <th>Label</th>
-                    <th class="d-flex justify-content-end">Actions</th>
+                    <td class="ep-tile-label">Type</td>
+                    <td class="ep-tile-value"><i class="{{ cm.icon_class }} me-1"></i>{{ cm.get_contact_type_display }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                {% for cm in contact_methods %}
                 <tr>
-                    <td>
-                        <i class="{{ cm.icon_class }} me-1"></i>
-                        {{ cm.get_contact_type_display }}
-                    </td>
-                    <td>{{ cm.value }}</td>
-                    <td>{{ cm.label|default:"-" }}</td>
-                    <td class="d-flex justify-content-end">
-                        <button class="btn btn-sm btn-outline-primary me-2 edit-contact-method-btn"
-                            data-bs-toggle="modal"
-                            data-bs-target="#editContactMethodModal"
-                            data-url="{% url 'edit_contact_method' cm.id %}"
-                            data-type="{{ cm.contact_type }}"
-                            data-value="{{ cm.value }}"
-                            data-label="{{ cm.label }}">Edit
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger delete-contact-method-btn"
-                            data-bs-toggle="modal"
-                            data-bs-target="#deleteContactMethodModal"
-                            data-url="{% url 'delete_contact_method' cm.id %}"
-                            data-type="{{ cm.get_contact_type_display }}">Delete
-                        </button>
-                    </td>
+                    <td class="ep-tile-label">Contact</td>
+                    <td class="ep-tile-value">{{ cm.value }}</td>
                 </tr>
-                {% empty %}
+                {% if cm.label %}
                 <tr>
-                    <td colspan="4" class="text-center text-muted">No Contacts added yet.</td>
+                    <td class="ep-tile-label">Label</td>
+                    <td class="ep-tile-value">{{ cm.label }}</td>
                 </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                {% endif %}
+            </table>
+            <div class="ep-tile-actions">
+                <button class="btn btn-sm btn-outline-primary edit-contact-method-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editContactMethodModal"
+                    data-url="{% url 'edit_contact_method' cm.id %}"
+                    data-type="{{ cm.contact_type }}"
+                    data-value="{{ cm.value }}"
+                    data-label="{{ cm.label }}">Edit</button>
+                <button class="btn btn-sm btn-outline-danger delete-contact-method-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteContactMethodModal"
+                    data-url="{% url 'delete_contact_method' cm.id %}"
+                    data-type="{{ cm.get_contact_type_display }}">Delete</button>
+            </div>
+        </div>
+        {% empty %}
+        <p class="ep-empty">No contacts added yet.</p>
+        {% endfor %}
     </div>
     {% if contact_methods %}
     <div class="card-footer">
