@@ -28,3 +28,7 @@ os.environ.setdefault("EMAIL_HOST", "<put smtp server here>")
 os.environ.setdefault("EMAIL_PORT", "<put email port here>")
 os.environ.setdefault("EMAIL_HOST_USER", "<put your-email-address here>")
 os.environ.setdefault("EMAIL_HOST_PASSWORD", "<put your-email-password here>")
+
+# Google OAuth
+os.environ.setdefault("GOOGLE_CLIENT_ID", "<put Google OAuth client ID here>")
+os.environ.setdefault("GOOGLE_CLIENT_SECRET", "<put Google OAuth client secret here>")

@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'portfolio_app',
     'cloudinary',
 ]
@@ -195,6 +196,21 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_FORMS = {
     'signup': 'portfolio_app.forms.CustomSignupForm',
 }
+
+# Google OAuth
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.environ.get('GOOGLE_CLIENT_ID', ''),
+            'secret': os.environ.get('GOOGLE_CLIENT_SECRET', ''),
+        },
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+    }
+}
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'info',

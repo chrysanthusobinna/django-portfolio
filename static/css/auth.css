@@ -368,3 +368,32 @@
     border-radius: 12px;
     font-size: 0.9rem;
 }
+
+/* Google sign-in button */
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #3c4043;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-google:hover {
+    background: #ffffff;
+    color: #3c4043;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.btn-google .google-icon {
+    flex-shrink: 0;
+}
