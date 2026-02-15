@@ -72,13 +72,21 @@ class TestUrls(SimpleTestCase):
         url = reverse('delete_about')
         self.assertEqual(resolve(url).func, views.delete_about)
 
-    def test_contact_update_url_resolves(self):
-        url = reverse('contact_update')
-        self.assertEqual(resolve(url).func, views.contact_update)
+    def test_add_contact_method_url_resolves(self):
+        url = reverse('add_contact_method')
+        self.assertEqual(resolve(url).func, views.add_contact_method)
 
-    def test_contact_delete_url_resolves(self):
-        url = reverse('contact_delete')
-        self.assertEqual(resolve(url).func, views.contact_delete)
+    def test_edit_contact_method_url_resolves(self):
+        url = reverse('edit_contact_method', kwargs={'id': 1})
+        self.assertEqual(resolve(url).func, views.edit_contact_method)
+
+    def test_delete_contact_method_url_resolves(self):
+        url = reverse('delete_contact_method', kwargs={'id': 1})
+        self.assertEqual(resolve(url).func, views.delete_contact_method)
+
+    def test_delete_all_contact_methods_url_resolves(self):
+        url = reverse('delete_all_contact_methods')
+        self.assertEqual(resolve(url).func, views.delete_all_contact_methods)
 
     def test_save_profile_photo_url_resolves(self):
         url = reverse('save_profile_photo')
