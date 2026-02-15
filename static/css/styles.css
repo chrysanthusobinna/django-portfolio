@@ -1269,3 +1269,63 @@ button.btn {
     border-top: 5px solid #007bff; 
     border-radius: 10px; 
 }
+
+/* ===== jQuery Toast Plugin Overrides ===== */
+.jq-toast-wrap {
+    z-index: 99999 !important;
+}
+
+.jq-toast-single {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif !important;
+    font-size: 0.92rem !important;
+    border-radius: 10px !important;
+    padding: 15px 20px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+    border: none !important;
+}
+
+.jq-toast-single h2 {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 4px !important;
+}
+
+.jq-toast-single .jq-toast-loader {
+    border-radius: 0 0 10px 10px !important;
+    height: 3px !important;
+}
+
+.jq-icon-success {
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border-left: 4px solid #28a745 !important;
+}
+
+.jq-icon-error {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    border-left: 4px solid #dc3545 !important;
+}
+
+.jq-icon-warning {
+    background-color: #fff3cd !important;
+    color: #856404 !important;
+    border-left: 4px solid #ffc107 !important;
+}
+
+.jq-icon-info {
+    background-color: #d1ecf1 !important;
+    color: #0c5460 !important;
+    border-left: 4px solid #17a2b8 !important;
+}
+
+.close-jq-toast-single {
+    font-size: 1.2rem !important;
+    color: inherit !important;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.close-jq-toast-single:hover {
+    opacity: 1;
+}

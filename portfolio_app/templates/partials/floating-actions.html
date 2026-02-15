@@ -191,16 +191,22 @@ function getCookie(name) {
 }
 
 function showNotification(message, type) {
-    const notification = document.createElement('div');
-    notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} position-fixed top-0 start-50 translate-middle-x mt-3`;
-    notification.style.zIndex = '9999';
-    notification.textContent = message;
+    var icon = type === 'success' ? 'success' : 'error';
+    var heading = type === 'success' ? 'Success' : 'Error';
+    var loaderBg = type === 'success' ? '#2ecc71' : '#e74c3c';
     
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
+    $.toast({
+        heading: heading,
+        text: message,
+        icon: icon,
+        position: 'top-right',
+        showHideTransition: 'slide',
+        allowToastClose: true,
+        hideAfter: 5000,
+        stack: 5,
+        loader: true,
+        loaderBg: loaderBg
+    });
 }
 </script>
 {% endif %}
