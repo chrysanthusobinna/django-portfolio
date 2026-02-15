@@ -14,6 +14,9 @@ header {
     color: white;
     padding: 0;
     text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
 }
 
 /* FOOTER STYLE */
@@ -53,6 +56,52 @@ footer {
     border-radius: 8px;
     border: none;
     margin: 0.25rem 0.15rem;
+}
+
+/* Navbar Dropdown Styles */
+.navbar .dropdown-menu {
+    background: linear-gradient(135deg, #1a1a3e, #2d2b55);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    min-width: 200px;
+}
+
+.navbar .dropdown-item {
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0.55rem 1.25rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.navbar .dropdown-item.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.navbar .dropdown-item i {
+    width: 20px;
+    text-align: center;
+    opacity: 0.75;
+}
+
+.navbar .dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 0.35rem 0;
+}
+
+.navbar .dropdown-toggle::after {
+    margin-left: 0.4rem;
+    vertical-align: 0.15em;
 }
 
 /* General styles for the logo */
@@ -270,7 +319,17 @@ button.btn {
 .portfolio-card .card-body .btn {
     margin-top: auto;
 }
- 
+
+/* EDIT PORTFOLIO — card headers */
+.card-header.ep-header {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    border-bottom: none;
+}
+
+.card-header.ep-header-ai {
+    background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+    border-bottom: none;
+}
 
 /* Profile Photo Container */
 .profile-photo-container {
@@ -304,22 +363,55 @@ button.btn {
     }
 }
 
-/* CUSTOM STYLES FOR THE TABLE */
-.table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;  
+/* EDIT-PORTFOLIO TILES */
+.ep-tile {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    transition: box-shadow 0.2s ease;
 }
-.custom-table .table th, 
-.custom-table .table td {
-    white-space: nowrap;  
+.ep-tile:hover {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
 }
-.custom-table .table td {
-    padding: 0.75rem;
+.ep-tile-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.ep-tile-table td {
+    padding: 6px 0;
     vertical-align: top;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
-.custom-table .table th {
-    font-weight: bold;
+.ep-tile-table tr:last-child td {
+    border-bottom: none;
+}
+.ep-tile-table .ep-tile-label {
+    width: 120px;
+    padding-right: 12px;
+}
+.ep-tile-label {
+    font-weight: 600;
+    color: #636e72;
+    white-space: nowrap;
+}
+.ep-tile-value {
+    color: #2d3436;
+    word-break: break-word;
+}
+.ep-tile-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    justify-content: flex-end;
+}
+.ep-empty {
     text-align: center;
+    color: #b2bec3;
+    padding: 20px 0;
+    font-style: italic;
 }
 
 /* CONTACT INFO STYLE */
@@ -780,6 +872,8 @@ button.btn {
     position: relative;
     overflow: hidden;
     height: 280px;
+    display: block;
+    text-decoration: none;
 }
 
 .template-image {
@@ -1220,86 +1314,67 @@ button.btn {
     }
 }
 
-/* ORIGINAL STYLES KEPT FOR OTHER PAGES */
-.hero-section {
-    background: linear-gradient(rgba(0, 0, 255, 0.4), rgba(4, 0, 255, 0.418)), url('../images/hero-image.jpg') no-repeat center center/cover;
-    color: white;
-    text-align: center;
-    padding: 100px 20px;
-}
-
-.hero-section h1 {
-    font-size: 3rem;
-    font-weight: bold;
-}
-
-.hero-section p {
-    font-size: 1.25rem;
-}
-
-.section {
-    padding: 60px 20px;
-}
-
-.bg-white-smoke {
-    background-color: #f8f9fa;
-}
-
-.custom-accordion .accordion-button {
-    background-color: #e9ecef;
-    color: #000;
-}
-
-.custom-accordion .accordion-button:focus {
-    box-shadow: none;
-}
-
-.contact-icons .icon-container-home {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.contact-icons .icon-container-home:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.contact-icons .list-group-item {
-    border: none;
-    background: none;
-    padding-left: 0;
-}
-
-.about-home {
-    background-color: whitesmoke;  
-    border-radius: 15px;  
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;  
-}
-
-.about-home:hover {
-    transform: translateY(-5px); 
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);  
-}
-
-.about-home h2 {
-    font-weight: bold;  
-    margin-bottom: 1rem;
-}
-
-.about-home p {
-    font-size: 1rem;
-    line-height: 1.6; 
-    color: #555;  
-}
-
-
 .custom-outline {
     border-top: 5px solid #007bff; 
     border-radius: 10px; 
+}
+
+/* ===== jQuery Toast Plugin Overrides ===== */
+.jq-toast-wrap {
+    z-index: 99999 !important;
+}
+
+.jq-toast-single {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif !important;
+    font-size: 0.92rem !important;
+    border-radius: 10px !important;
+    padding: 15px 20px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+    border: none !important;
+}
+
+.jq-toast-single h2 {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 4px !important;
+}
+
+.jq-toast-single .jq-toast-loader {
+    border-radius: 0 0 10px 10px !important;
+    height: 3px !important;
+}
+
+.jq-icon-success {
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border-left: 4px solid #28a745 !important;
+}
+
+.jq-icon-error {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    border-left: 4px solid #dc3545 !important;
+}
+
+.jq-icon-warning {
+    background-color: #fff3cd !important;
+    color: #856404 !important;
+    border-left: 4px solid #ffc107 !important;
+}
+
+.jq-icon-info {
+    background-color: #d1ecf1 !important;
+    color: #0c5460 !important;
+    border-left: 4px solid #17a2b8 !important;
+}
+
+.close-jq-toast-single {
+    font-size: 1.2rem !important;
+    color: inherit !important;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.close-jq-toast-single:hover {
+    opacity: 1;
 }

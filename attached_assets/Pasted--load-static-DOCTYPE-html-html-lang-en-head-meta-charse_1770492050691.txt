@@ -1,0 +1,749 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ user_fullname }} - Portfolio</title>
+
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+    :root{
+      --bg: #070A12;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.86);
+      --muted: rgba(255,255,255,.60);
+      --muted2: rgba(255,255,255,.45);
+      --brand: #7C3AED; /* violet */
+      --brand2: #22D3EE; /* cyan */
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(124,58,237,.22), transparent 55%),
+        radial-gradient(1000px 700px at 90% 20%, rgba(34,211,238,.18), transparent 60%),
+        radial-gradient(900px 700px at 50% 100%, rgba(124,58,237,.14), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Top Back Button */
+    .lux-back{
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      color: rgba(255,255,255,.86);
+      text-decoration: none;
+      background: rgba(0,0,0,.30);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(12px);
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      font-weight: 600;
+      font-size: .85rem;
+      letter-spacing: .2px;
+    }
+    .lux-back:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.42);
+      border-color: rgba(124,58,237,.35);
+      color: #fff;
+    }
+
+    /* Page Container */
+    .lux-wrap{
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 18px 70px;
+    }
+
+    /* HERO */
+    .lux-hero{
+      position: relative;
+      border-radius: 26px;
+      padding: 46px 34px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .lux-hero::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(700px 240px at 15% 15%, rgba(124,58,237,.40), transparent 60%),
+        radial-gradient(600px 260px at 90% 10%, rgba(34,211,238,.28), transparent 62%);
+      opacity: .55;
+      pointer-events:none;
+      filter: blur(0px);
+    }
+    .lux-hero::after{
+      content:"";
+      position:absolute;
+      top:-120px;
+      right:-140px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,.20), transparent 60%);
+      opacity:.25;
+      pointer-events:none;
+    }
+
+    .lux-hero-inner{
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .lux-avatar{
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,.16);
+      box-shadow: 0 18px 42px rgba(0,0,0,.42);
+      background: rgba(255,255,255,.05);
+    }
+    .lux-avatar-fallback{
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 800;
+      font-size: 2.4rem;
+      letter-spacing: 2px;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,.16);
+      box-shadow: 0 18px 42px rgba(0,0,0,.42);
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(34,211,238,.75));
+    }
+
+    .lux-name{
+      font-size: clamp(1.65rem, 3.4vw, 2.65rem);
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      line-height: 1.1;
+      margin: 0 0 10px 0;
+    }
+
+    .lux-badges{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .lux-pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.78);
+      font-size: .86rem;
+      font-weight: 600;
+    }
+    .lux-pill i{
+      color: rgba(34,211,238,.85);
+      font-size: .9rem;
+    }
+
+    .lux-subtitle{
+      color: var(--muted);
+      font-weight: 500;
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.7;
+      max-width: 58ch;
+    }
+
+    /* SECTIONS */
+    .lux-grid{
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 18px;
+    }
+    .lux-card{
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 14px 46px rgba(0,0,0,.25);
+      overflow: hidden;
+    }
+    .lux-card-inner{
+      padding: 22px;
+    }
+
+    .lux-head{
+      display:flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .lux-title{
+      margin:0;
+      font-weight: 800;
+      letter-spacing: -.2px;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.92);
+    }
+    .lux-kicker{
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      color: rgba(34,211,238,.85);
+    }
+
+    .lux-prose{
+      color: rgba(255,255,255,.70);
+      line-height: 1.85;
+      margin: 0;
+      font-size: .98rem;
+    }
+
+    /* EXPERIENCE */
+    .lux-timeline{
+      margin-top: 6px;
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .lux-job{
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .lux-job:hover{
+      transform: translateY(-1px);
+      border-color: rgba(124,58,237,.35);
+      background: rgba(255,255,255,.06);
+    }
+    .lux-job-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .lux-job-role{
+      font-weight: 800;
+      color: rgba(255,255,255,.90);
+      margin:0;
+      font-size: .98rem;
+    }
+    .lux-job-company{
+      color: rgba(34,211,238,.80);
+      font-weight: 700;
+      margin: 4px 0 0 0;
+      font-size: .9rem;
+    }
+    .lux-job-date{
+      font-size: .78rem;
+      color: rgba(255,255,255,.52);
+      font-weight: 700;
+      letter-spacing: .6px;
+      white-space: nowrap;
+    }
+    .lux-job-desc{
+      margin: 8px 0 0 0;
+      color: rgba(255,255,255,.68);
+      font-size: .92rem;
+      line-height: 1.75;
+    }
+
+    /* RIGHT COLUMN LISTS */
+    .lux-mini{
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .lux-mini-item{
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .lux-mini-item:hover{
+      transform: translateY(-1px);
+      border-color: rgba(34,211,238,.30);
+      background: rgba(255,255,255,.06);
+    }
+    .lux-mini-title{
+      margin: 0 0 4px 0;
+      font-weight: 800;
+      color: rgba(255,255,255,.90);
+      font-size: .94rem;
+    }
+    .lux-mini-sub{
+      margin: 0;
+      color: rgba(255,255,255,.62);
+      font-size: .86rem;
+      line-height: 1.6;
+    }
+    .lux-mini-meta{
+      margin-top: 8px;
+      font-size: .78rem;
+      color: rgba(255,255,255,.48);
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
+
+    /* PORTFOLIO GRID */
+    .lux-projects{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .lux-project{
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+      display:flex;
+      flex-direction: column;
+      min-height: 230px;
+    }
+    .lux-project:hover{
+      transform: translateY(-2px);
+      border-color: rgba(124,58,237,.35);
+      background: rgba(255,255,255,.06);
+    }
+    .lux-project-media{
+      height: 140px;
+      background:
+        radial-gradient(280px 140px at 20% 40%, rgba(124,58,237,.35), transparent 60%),
+        radial-gradient(260px 140px at 90% 10%, rgba(34,211,238,.22), transparent 60%),
+        rgba(255,255,255,.03);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .lux-project-media img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .lux-project-media i{
+      font-size: 1.9rem;
+      color: rgba(255,255,255,.35);
+    }
+    .lux-project-body{
+      padding: 14px 14px 16px;
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 100%;
+    }
+    .lux-project-name{
+      margin:0;
+      font-weight: 900;
+      letter-spacing: -.2px;
+      color: rgba(255,255,255,.92);
+      font-size: .98rem;
+    }
+    .lux-project-desc{
+      margin:0;
+      color: rgba(255,255,255,.65);
+      font-size: .88rem;
+      line-height: 1.65;
+      flex: 1;
+    }
+    .lux-project-link{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      color: rgba(34,211,238,.90);
+      text-decoration:none;
+      font-weight: 800;
+      font-size: .86rem;
+      width: fit-content;
+      transition: transform .2s ease, color .2s ease;
+    }
+    .lux-project-link:hover{
+      color: #fff;
+      transform: translateX(2px);
+    }
+
+    /* CERT TAGS */
+    .lux-tags{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .lux-tag{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.78);
+      font-size: .86rem;
+      font-weight: 700;
+    }
+    .lux-tag small{
+      color: rgba(34,211,238,.80);
+      font-weight: 800;
+      font-size: .78rem;
+    }
+
+    /* CONTACT */
+    .lux-contact{
+      margin-top: 18px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 14px 46px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+    .lux-contact-inner{
+      padding: 22px;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    .lux-contact-item{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+      min-height: 62px;
+    }
+    .lux-contact-item:hover{
+      transform: translateY(-1px);
+      border-color: rgba(34,211,238,.30);
+      background: rgba(255,255,255,.06);
+    }
+    .lux-ico{
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(124,58,237,.18);
+      border: 1px solid rgba(124,58,237,.25);
+      flex: 0 0 auto;
+    }
+    .lux-ico i{
+      color: rgba(255,255,255,.85);
+      font-size: .95rem;
+    }
+    .lux-contact-item a,
+    .lux-contact-item span{
+      color: rgba(255,255,255,.78);
+      text-decoration:none;
+      font-weight: 700;
+      font-size: .9rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .lux-contact-item a:hover{ color: #fff; }
+
+    /* FOOTER */
+    .lux-footer{
+      margin-top: 22px;
+      text-align:center;
+      color: rgba(255,255,255,.35);
+      font-size: .82rem;
+      letter-spacing: .6px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px){
+      .lux-grid{ grid-template-columns: 1fr; }
+      .lux-contact-inner{ grid-template-columns: 1fr; }
+      .lux-projects{ grid-template-columns: 1fr; }
+      .lux-hero-inner{ grid-template-columns: 1fr; text-align:center; }
+      .lux-badges{ justify-content:center; }
+    }
+    @media (max-width: 520px){
+      .lux-hero{ padding: 34px 18px; border-radius: 22px; }
+      .lux-card-inner{ padding: 18px; }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="{% url 'home' %}#templates" class="lux-back">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+
+  <div class="lux-wrap">
+
+    <!-- HERO -->
+    <section class="lux-hero">
+      <div class="lux-hero-inner">
+        <div class="d-flex justify-content-center justify-content-lg-start">
+          {% if profilephoto and profilephoto.profile_photo %}
+            <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}" class="lux-avatar">
+          {% else %}
+            <div class="lux-avatar-fallback">{{ user_initials }}</div>
+          {% endif %}
+        </div>
+
+        <div>
+          <h1 class="lux-name">{{ user_fullname }}</h1>
+
+          <div class="lux-badges">
+            {% if employment %}
+              <span class="lux-pill"><i class="fa-solid fa-briefcase"></i>{{ employment.0.job_title }}</span>
+            {% endif %}
+            <span class="lux-pill"><i class="fa-solid fa-sparkles"></i>Portfolio</span>
+          </div>
+
+          {% if about and about.about %}
+            <p class="lux-subtitle">{{ about.about|truncatewords:35 }}</p>
+          {% else %}
+            <p class="lux-subtitle">Welcome to my portfolio. Explore my work, background, and contact details below.</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN GRID -->
+    <section class="lux-grid">
+
+      <!-- LEFT: About + Experience + Portfolio -->
+      <div class="d-flex flex-column gap-3">
+
+        {% if about and about.about %}
+        <div class="lux-card">
+          <div class="lux-card-inner">
+            <div class="lux-head">
+              <div>
+                <div class="lux-kicker">About</div>
+                <h2 class="lux-title">A little about me</h2>
+              </div>
+              <i class="fa-regular fa-user" style="color: rgba(255,255,255,.28);"></i>
+            </div>
+            <p class="lux-prose">{{ about.about }}</p>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if employment %}
+        <div class="lux-card">
+          <div class="lux-card-inner">
+            <div class="lux-head">
+              <div>
+                <div class="lux-kicker">Experience</div>
+                <h2 class="lux-title">Where I’ve worked</h2>
+              </div>
+              <i class="fa-solid fa-timeline" style="color: rgba(255,255,255,.28);"></i>
+            </div>
+
+            <div class="lux-timeline">
+              {% for job in employment %}
+              <div class="lux-job">
+                <div class="lux-job-top">
+                  <div>
+                    <p class="lux-job-role">{{ job.job_title }}</p>
+                    <p class="lux-job-company">{{ job.employer_name }}</p>
+                  </div>
+                  <div class="lux-job-date">
+                    {{ job.start_date|slice:":4" }} — {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}
+                  </div>
+                </div>
+
+                {% if job.description_of_duties %}
+                  <p class="lux-job-desc">{{ job.description_of_duties }}</p>
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+        {% endif %}
+
+        {% if portfolios %}
+        <div class="lux-card">
+          <div class="lux-card-inner">
+            <div class="lux-head">
+              <div>
+                <div class="lux-kicker">Portfolio</div>
+                <h2 class="lux-title">Selected projects</h2>
+              </div>
+              <i class="fa-solid fa-layer-group" style="color: rgba(255,255,255,.28);"></i>
+            </div>
+
+            <div class="lux-projects">
+              {% for project in portfolios %}
+              <div class="lux-project">
+                <div class="lux-project-media">
+                  {% if project.portfolio_photo %}
+                    <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
+                  {% else %}
+                    <i class="fa-solid fa-code"></i>
+                  {% endif %}
+                </div>
+
+                <div class="lux-project-body">
+                  <h3 class="lux-project-name">{{ project.title }}</h3>
+                  <p class="lux-project-desc">{{ project.description|truncatewords:18 }}</p>
+
+                  {% if project.link %}
+                    <a class="lux-project-link" href="{{ project.link }}" target="_blank" rel="noopener">
+                      View Project <i class="fa-solid fa-arrow-right" style="font-size:.8rem;"></i>
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+        {% endif %}
+
+        {% if certifications %}
+        <div class="lux-card">
+          <div class="lux-card-inner">
+            <div class="lux-head">
+              <div>
+                <div class="lux-kicker">Certifications</div>
+                <h2 class="lux-title">Credentials</h2>
+              </div>
+              <i class="fa-solid fa-certificate" style="color: rgba(255,255,255,.28);"></i>
+            </div>
+
+            <div class="lux-tags">
+              {% for cert in certifications %}
+                <span class="lux-tag">
+                  {{ cert.name }}
+                  {% if cert.issuer %}<small>{{ cert.issuer }}</small>{% endif %}
+                </span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+      </div>
+
+      <!-- RIGHT: Education -->
+      <div class="d-flex flex-column gap-3">
+        {% if education %}
+        <div class="lux-card">
+          <div class="lux-card-inner">
+            <div class="lux-head">
+              <div>
+                <div class="lux-kicker">Education</div>
+                <h2 class="lux-title">Academic background</h2>
+              </div>
+              <i class="fa-solid fa-graduation-cap" style="color: rgba(255,255,255,.28);"></i>
+            </div>
+
+            <div class="lux-mini">
+              {% for edu in education %}
+              <div class="lux-mini-item">
+                <p class="lux-mini-title">{{ edu.qualification }}</p>
+                <p class="lux-mini-sub">{{ edu.institution_name }}</p>
+                <div class="lux-mini-meta">
+                  {{ edu.start_date|slice:":4" }} — {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+    </section>
+
+    <!-- CONTACT -->
+    {% if contact %}
+    <section class="lux-contact">
+      <div class="lux-card-inner">
+        <div class="lux-head" style="margin-bottom: 14px;">
+          <div>
+            <div class="lux-kicker">Contact</div>
+            <h2 class="lux-title">Let’s connect</h2>
+          </div>
+          <i class="fa-regular fa-paper-plane" style="color: rgba(255,255,255,.28);"></i>
+        </div>
+      </div>
+
+      <div class="lux-contact-inner">
+        {% if contact.email_address %}
+        <div class="lux-contact-item">
+          <div class="lux-ico"><i class="fa-solid fa-envelope"></i></div>
+          <a href="mailto:{{ contact.email_address }}">{{ contact.email_address }}</a>
+        </div>
+        {% endif %}
+
+        {% if contact.phone_number %}
+        <div class="lux-contact-item">
+          <div class="lux-ico"><i class="fa-solid fa-phone"></i></div>
+          <span>{{ contact.phone_number }}</span>
+        </div>
+        {% endif %}
+
+        {% if contact.linkedin %}
+        <div class="lux-contact-item">
+          <div class="lux-ico"><i class="fa-brands fa-linkedin-in"></i></div>
+          <a href="{{ contact.linkedin }}" target="_blank" rel="noopener">LinkedIn Profile</a>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
+
+    <div class="lux-footer">
+      Powered by MIfolio
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

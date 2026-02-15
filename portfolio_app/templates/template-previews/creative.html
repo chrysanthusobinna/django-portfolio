@@ -1,0 +1,893 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ user_fullname }} - Professional Portfolio. {% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <meta name="author" content="{{ user_fullname }}">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="{{ user_fullname }} - Portfolio">
+    <meta property="og:description" content="{% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ user_fullname }} - Portfolio">
+    <meta name="twitter:description" content="{% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <title>{{ user_fullname }} - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #7b2ff7 0%, #2196f3 40%, #00d4aa 100%);
+            color: #333;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.35);
+            color: #fff;
+        }
+
+        .portfolio-page {
+            max-width: 900px;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+        }
+
+        .hero-section {
+            background: linear-gradient(160deg, #7b2ff7 0%, #4361ee 30%, #2196f3 50%, #00bcd4 70%, #00d4aa 100%);
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px 50px;
+        }
+
+        .hero-blob-1 {
+            position: absolute;
+            top: -80px;
+            right: -60px;
+            width: 350px;
+            height: 350px;
+            background: rgba(0, 212, 170, 0.4);
+            border-radius: 50%;
+            filter: blur(40px);
+        }
+
+        .hero-blob-2 {
+            position: absolute;
+            top: 50px;
+            left: -40px;
+            width: 250px;
+            height: 250px;
+            background: rgba(123, 47, 247, 0.3);
+            border-radius: 50%;
+            filter: blur(50px);
+        }
+
+        .hero-blob-3 {
+            position: absolute;
+            bottom: 60px;
+            right: 200px;
+            width: 80px;
+            height: 80px;
+            background: rgba(233, 30, 99, 0.6);
+            border-radius: 50%;
+            filter: blur(5px);
+        }
+
+        .hero-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+        }
+
+        .hero-wave svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 30px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-name {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 400;
+            margin-bottom: 25px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background: #fff;
+            color: #333;
+            padding: 10px 28px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            color: #333;
+        }
+
+        .hero-photo-wrapper {
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .hero-photo-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid rgba(255,255,255,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .hero-photo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(255,255,255,0.15);
+            letter-spacing: 3px;
+        }
+
+        .section-light {
+            background: #ffffff;
+            padding: 50px;
+        }
+
+        .section-light-alt {
+            background: #f8f9fc;
+            padding: 55px 50px;
+        }
+
+        .section-light-warm {
+            background: #f3f0ff;
+            padding: 60px 50px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 30px;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-divider {
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
+            border-radius: 2px;
+            margin-bottom: 30px;
+        }
+
+        .about-text {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .projects-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .project-card {
+            width: 220px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+            transition: all 0.3s;
+            border: 1px solid #eee;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(123,47,247,0.12);
+        }
+
+        .project-thumb {
+            width: 100%;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gradient-1 {
+            background: linear-gradient(135deg, #e040fb, #7b2ff7);
+        }
+
+        .gradient-2 {
+            background: linear-gradient(135deg, #00d4aa, #2196f3);
+        }
+
+        .gradient-3 {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+        }
+
+        .gradient-4 {
+            background: linear-gradient(135deg, #4361ee, #7b2ff7);
+        }
+
+        .project-card-body {
+            padding: 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+
+        .project-card-desc {
+            font-size: 0.75rem;
+            color: #888;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            flex: 1;
+        }
+
+        .project-card-btn {
+            display: inline-block;
+            padding: 6px 16px;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #7b2ff7, #4361ee);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+        }
+
+        .project-card-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(123,47,247,0.3);
+        }
+
+        .project-modal .modal-content {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .project-modal .modal-header {
+            background: linear-gradient(135deg, #7b2ff7, #4361ee);
+            border: none;
+            padding: 20px 28px;
+        }
+
+        .project-modal .modal-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+
+        .project-modal .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .project-modal .modal-body {
+            padding: 28px;
+        }
+
+        .project-modal-img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .project-modal-placeholder {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .project-modal-desc {
+            font-size: 0.92rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .project-modal-link {
+            display: inline-block;
+            padding: 10px 28px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .project-modal-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(123,47,247,0.25);
+            color: #fff;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 35px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #7b2ff7, #00d4aa);
+        }
+
+        .timeline-entry {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-entry:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-entry::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
+            box-shadow: 0 0 12px rgba(123,47,247,0.3);
+        }
+
+        .timeline-entry-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .timeline-entry-company {
+            color: #7b2ff7;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .timeline-entry-date {
+            color: #999;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+        }
+
+        .timeline-entry-desc {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .edu-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 22px 24px;
+            border: 1px solid #e8e0f5;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(123,47,247,0.04);
+        }
+
+        .edu-card:hover {
+            border-color: rgba(123,47,247,0.25);
+            box-shadow: 0 4px 16px rgba(123,47,247,0.08);
+        }
+
+        .edu-card-title {
+            font-weight: 600;
+            color: #1a1a2e;
+            font-size: 0.95rem;
+        }
+
+        .edu-card-institution {
+            color: #7b2ff7;
+            font-size: 0.85rem;
+        }
+
+        .edu-card-date {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .cert-badge {
+            background: #fff;
+            border-radius: 12px;
+            padding: 22px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            transition: all 0.3s;
+            height: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .cert-badge:hover {
+            border-color: rgba(123,47,247,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(123,47,247,0.08);
+        }
+
+        .cert-badge i {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #7b2ff7, #00d4aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .cert-badge-name {
+            font-weight: 600;
+            color: #1a1a2e;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .cert-badge-issuer {
+            color: #888;
+            font-size: 0.75rem;
+        }
+
+        .cert-badge-date {
+            color: #aaa;
+            font-size: 0.7rem;
+            margin-top: 4px;
+        }
+
+        .skills-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-chip {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #fff;
+            background: linear-gradient(135deg, #7b2ff7, #4361ee);
+            box-shadow: 0 3px 10px rgba(123,47,247,0.15);
+            transition: all 0.3s;
+        }
+
+        .skill-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(123,47,247,0.25);
+        }
+
+        .contact-section {
+            background: linear-gradient(160deg, #7b2ff7 0%, #4361ee 50%, #00d4aa 100%);
+            padding: 50px;
+        }
+
+        .contact-section .section-title {
+            color: #fff;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+
+        .contact-info-item i {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            font-size: 1rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .contact-info-item a,
+        .contact-info-item span {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .contact-info-item a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background: #1a1a2e;
+            text-align: center;
+            padding: 25px 20px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .footer-promo {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 6px;
+        }
+
+        .footer-promo a {
+            color: #00d4aa;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-promo a:hover {
+            color: #7b2ff7;
+        }
+
+        .footer-copy {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .footer-copy a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .footer-copy a:hover {
+            color: #00d4aa;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            .hero-section {
+                min-height: auto;
+                padding: 40px 30px;
+            }
+
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .hero-name {
+                font-size: 2rem;
+            }
+
+            .hero-photo-circle {
+                width: 140px;
+                height: 140px;
+            }
+
+            .section-light,
+            .section-light-alt,
+            .section-light-warm,
+            .contact-section {
+                padding: 35px 25px;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .projects-grid {
+                gap: 12px;
+            }
+
+            .project-card {
+                width: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="portfolio-page">
+        <section class="hero-section">
+            <div class="hero-blob-1"></div>
+            <div class="hero-blob-2"></div>
+            <div class="hero-blob-3"></div>
+
+            <div class="hero-wave">
+                <svg viewBox="0 0 900 120" preserveAspectRatio="none">
+                    <path d="M0,60 C150,120 350,0 500,60 C650,120 800,30 900,80 L900,120 L0,120 Z" fill="rgba(200,100,255,0.5)"/>
+                    <path d="M0,80 C200,40 400,120 600,60 C750,20 850,80 900,60 L900,120 L0,120 Z" fill="#fff"/>
+                </svg>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-name">{{ user_fullname }}</h1>
+                    {% if employment %}
+                    <p class="hero-subtitle">{{ employment.0.job_title }}</p>
+                    {% endif %}
+                    <a href="#projects" class="hero-btn">View Portfolio</a>
+                </div>
+                <div class="hero-photo-wrapper">
+                    <div class="hero-photo-circle">
+                        {% if profilephoto and profilephoto.profile_photo %}
+                            <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
+                        {% else %}
+                            <div class="hero-placeholder">{{ user_initials }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% if about and about.about %}
+        <div class="section-light">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-text">{{ about.about|safe }}</div>
+        </div>
+        {% endif %}
+
+        {% if skill and skill.skills %}
+        <div class="section-light-warm">
+            <h2 class="section-title"><span>Skills</span></h2>
+            <div class="section-divider"></div>
+            <div class="skills-section">
+                {% for s in skill.skills %}
+                <span class="skill-chip">{{ s }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if portfolios %}
+        <div class="section-light-alt" id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                {% for project in portfolios %}
+                <div class="project-card">
+                    {% if project.portfolio_photo %}
+                    <div class="project-thumb">
+                        <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
+                    </div>
+                    {% else %}
+                    <div class="project-thumb gradient-{% cycle '1' '2' '3' '4' %}">
+                        <span>{{ project.title }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="project-card-body">
+                        <div class="project-card-title">{{ project.title }}</div>
+                        <div class="project-card-desc">{{ project.description|truncatewords:6 }}</div>
+                        <button class="project-card-btn" data-bs-toggle="modal" data-bs-target="#projectModal{{ forloop.counter }}">Details</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        {% endif %}
+
+        {% if employment %}
+        <div class="section-light">
+            <h2 class="section-title"><span>Experience</span></h2>
+            <div class="section-divider"></div>
+            <div class="timeline">
+                {% for job in employment %}
+                <div class="timeline-entry">
+                    <div class="timeline-entry-title">{{ job.job_title }}</div>
+                    <div class="timeline-entry-company">{{ job.employer_name }}</div>
+                    <div class="timeline-entry-date">
+                        {{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}
+                    </div>
+                    {% if job.description_of_duties %}
+                    <div class="timeline-entry-desc">{{ job.description_of_duties }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if education %}
+        <div class="section-light-warm">
+            <h2 class="section-title"><span>Education</span></h2>
+            <div class="section-divider"></div>
+            {% for edu in education %}
+            <div class="edu-card">
+                <div class="edu-card-title">{{ edu.qualification }}</div>
+                <div class="edu-card-institution">{{ edu.institution_name }}</div>
+                <div class="edu-card-date">
+                    {{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if certifications %}
+        <div class="section-light-alt">
+            <h2 class="section-title"><span>Certifications</span></h2>
+            <div class="section-divider"></div>
+            <div class="row g-3">
+                {% for cert in certifications %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="cert-badge">
+                        <i class="fas fa-award"></i>
+                        <div class="cert-badge-name">{{ cert.name }}</div>
+                        <div class="cert-badge-issuer">{{ cert.issuer }}</div>
+                        <div class="cert-badge-date">{{ cert.date_issued }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if contact_methods %}
+        <section class="contact-section">
+            <h2 class="section-title">Get In Touch</h2>
+            {% for cm in contact_methods %}
+            <div class="contact-info-item">
+                <i class="{{ cm.icon_class }}"></i>
+                <a href="{{ cm.link_url }}" target="_blank">{{ cm.value }}{% if cm.label %} ({{ cm.label }}){% endif %}</a>
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <footer class="footer">
+            <div class="footer-promo">Want a portfolio like this? <a target="_blank" href="{% url 'home' %}">Create yours with {{ SITE_NAME }}</a></div>
+            <div class="footer-copy">&copy; Powered by <a href="{% url 'home' %}">{{ SITE_NAME }}</a></div>
+        </footer>
+    </div>
+
+
+
+    {% if portfolios %}
+    {% for project in portfolios %}
+    <div class="modal fade project-modal" id="projectModal{{ forloop.counter }}" tabindex="-1" aria-labelledby="projectModalLabel{{ forloop.counter }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectModalLabel{{ forloop.counter }}">{{ project.title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% if project.portfolio_photo %}
+                    <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}" class="project-modal-img">
+                    {% else %}
+                    <div class="project-modal-placeholder gradient-{% cycle '1' '2' '3' '4' %}">
+                        {{ project.title }}
+                    </div>
+                    {% endif %}
+                    <div class="project-modal-desc">{{ project.description }}</div>
+                    {% if project.link %}
+                    <a href="{{ project.link }}" class="project-modal-link" target="_blank"><i class="fas fa-external-link-alt me-2"></i>Visit Project</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

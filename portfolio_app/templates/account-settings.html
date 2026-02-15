@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Account Settings{% endblock %}
+
+{% block content %}
+{% include 'partials/_alert.html' %}
+
+<div class="container py-5">
+  
+    <!-- Account Info Card -->
+    <div class="card mb-4">
+        <div class="card-header ep-header text-white">
+            Account Settings
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{% url 'account_settings' %}" id="settingsForm">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_first_name" class="form-label fw-bold">First Name</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_last_name" class="form-label fw-bold">Last Name</label>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_username" class="form-label fw-bold">Username</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_country" class="form-label fw-bold">Country</label>
+                        {{ form.country }}
+                        <datalist id="country-list">
+                            {% for country_name in form.COUNTRY_LIST %}
+                                <option value="{{ country_name }}">
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_address" class="form-label fw-bold">Address</label>
+                        {{ form.address }}
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+            <button type="submit" form="settingsForm" class="btn btn-outline-primary">
+                Save Changes
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,877 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ user_fullname }} - Professional Portfolio. {% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <meta name="author" content="{{ user_fullname }}">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="{{ user_fullname }} - Portfolio">
+    <meta property="og:description" content="{% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ user_fullname }} - Portfolio">
+    <meta name="twitter:description" content="{% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <title>{{ user_fullname }} - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background: #f5f0eb;
+            color: #3a3330;
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+            background: rgba(58,51,48,0.75);
+            backdrop-filter: blur(12px);
+            color: #e8ddd3;
+            padding: 8px 20px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border: 1px solid rgba(200,180,155,0.3);
+        }
+
+        .back-link:hover {
+            background: rgba(58,51,48,0.92);
+            color: #d4b896;
+        }
+
+        .portfolio-page {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ── Hero ── */
+        .hero-section {
+            background: #2c2522;
+            position: relative;
+            overflow: hidden;
+            padding: 90px 60px 80px;
+            text-align: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(200,170,130,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(200,170,130,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c8aa82, transparent);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .hero-photo-wrapper {
+            flex-shrink: 0;
+        }
+
+        .hero-photo-circle {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(200,170,130,0.4);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+            background: rgba(200,170,130,0.1);
+        }
+
+        .hero-photo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #c8aa82;
+            background: rgba(200,170,130,0.08);
+            letter-spacing: 4px;
+        }
+
+        .hero-text {
+            text-align: center;
+        }
+
+        .hero-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #f0e6da;
+            line-height: 1.15;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 0.95rem;
+            color: rgba(200,170,130,0.7);
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 28px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background: transparent;
+            color: #c8aa82;
+            padding: 11px 36px;
+            border: 1px solid rgba(200,170,130,0.5);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            transition: all 0.4s;
+        }
+
+        .hero-btn:hover {
+            background: #c8aa82;
+            color: #2c2522;
+            border-color: #c8aa82;
+        }
+
+        /* ── Sections ── */
+        .section-light {
+            background: #ffffff;
+            padding: 60px;
+            border-bottom: 1px solid #e8e0d6;
+        }
+
+        .section-light-alt {
+            background: #faf7f3;
+            padding: 60px;
+            border-bottom: 1px solid #e8e0d6;
+        }
+
+        .section-light-warm {
+            background: #f5f0eb;
+            padding: 60px;
+            border-bottom: 1px solid #e8e0d6;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 600;
+            color: #2c2522;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title span {
+            color: #2c2522;
+            -webkit-text-fill-color: #2c2522;
+        }
+
+        .section-divider {
+            width: 40px;
+            height: 1px;
+            background: #c8aa82;
+            margin-bottom: 32px;
+        }
+
+        .about-text {
+            font-size: 0.95rem;
+            color: #5c524a;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+
+        /* ── Skills ── */
+        .skills-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-chip {
+            display: inline-block;
+            padding: 7px 22px;
+            border: 1px solid #c8aa82;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #5c524a;
+            background: transparent;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .skill-chip:hover {
+            background: #c8aa82;
+            color: #fff;
+            border-color: #c8aa82;
+        }
+
+        /* ── Projects ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            overflow: hidden;
+            border: 1px solid #e0d6cc;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 8px 30px rgba(58,51,48,0.08);
+            border-color: #c8aa82;
+        }
+
+        .project-thumb {
+            width: 100%;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #f0e6da;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+        }
+
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gradient-1 {
+            background: linear-gradient(135deg, #5c524a, #3a3330);
+        }
+
+        .gradient-2 {
+            background: linear-gradient(135deg, #8a7b6b, #5c524a);
+        }
+
+        .gradient-3 {
+            background: linear-gradient(135deg, #c8aa82, #8a7b6b);
+        }
+
+        .gradient-4 {
+            background: linear-gradient(135deg, #3a3330, #6b5d52);
+        }
+
+        .project-card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2c2522;
+            margin-bottom: 6px;
+        }
+
+        .project-card-desc {
+            font-size: 0.8rem;
+            color: #8a7b6b;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            flex: 1;
+        }
+
+        .project-card-btn {
+            display: inline-block;
+            padding: 8px 0;
+            border: none;
+            border-top: 1px solid #e0d6cc;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #c8aa82;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .project-card-btn:hover {
+            color: #2c2522;
+            background: #faf7f3;
+        }
+
+        /* ── Project Modal ── */
+        .project-modal .modal-content {
+            border: none;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+
+        .project-modal .modal-header {
+            background: #2c2522;
+            border: none;
+            padding: 22px 30px;
+        }
+
+        .project-modal .modal-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #f0e6da;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .project-modal .btn-close {
+            filter: brightness(0) invert(1);
+            opacity: 0.5;
+        }
+
+        .project-modal .modal-body {
+            padding: 30px;
+            background: #fff;
+        }
+
+        .project-modal-img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .project-modal-placeholder {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 500;
+            font-style: italic;
+            color: #f0e6da;
+            margin-bottom: 24px;
+        }
+
+        .project-modal-desc {
+            font-size: 0.92rem;
+            color: #5c524a;
+            line-height: 1.85;
+            margin-bottom: 24px;
+        }
+
+        .project-modal-link {
+            display: inline-block;
+            padding: 11px 32px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            background: #2c2522;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid #2c2522;
+        }
+
+        .project-modal-link:hover {
+            background: #c8aa82;
+            border-color: #c8aa82;
+            color: #fff;
+        }
+
+        /* ── Timeline ── */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 4px;
+            bottom: 4px;
+            width: 1px;
+            background: #c8aa82;
+        }
+
+        .timeline-entry {
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .timeline-entry:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-entry::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #c8aa82;
+            box-shadow: 0 0 0 3px #f5f0eb, 0 0 0 4px rgba(200,170,130,0.3);
+        }
+
+        .timeline-entry-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c2522;
+        }
+
+        .timeline-entry-company {
+            color: #c8aa82;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+
+        .timeline-entry-date {
+            color: #a09488;
+            font-size: 0.78rem;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-entry-desc {
+            color: #6b5d52;
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+
+        /* ── Education ── */
+        .edu-card {
+            background: #fff;
+            padding: 22px 28px;
+            border-left: 2px solid #c8aa82;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+
+        .edu-card:hover {
+            background: #faf7f3;
+        }
+
+        .edu-card-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            color: #2c2522;
+            font-size: 0.95rem;
+        }
+
+        .edu-card-institution {
+            color: #c8aa82;
+            font-size: 0.85rem;
+        }
+
+        .edu-card-date {
+            color: #a09488;
+            font-size: 0.78rem;
+        }
+
+        /* ── Certifications ── */
+        .cert-badge {
+            background: #fff;
+            padding: 24px;
+            border: 1px solid #e0d6cc;
+            text-align: center;
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .cert-badge:hover {
+            border-color: #c8aa82;
+            background: #faf7f3;
+        }
+
+        .cert-badge i {
+            font-size: 1.6rem;
+            color: #c8aa82;
+            -webkit-text-fill-color: #c8aa82;
+            margin-bottom: 12px;
+        }
+
+        .cert-badge-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            color: #2c2522;
+            font-size: 0.88rem;
+            margin-bottom: 4px;
+        }
+
+        .cert-badge-issuer {
+            color: #8a7b6b;
+            font-size: 0.78rem;
+        }
+
+        .cert-badge-date {
+            color: #a09488;
+            font-size: 0.72rem;
+            margin-top: 6px;
+        }
+
+        /* ── Contact ── */
+        .contact-section {
+            background: #2c2522;
+            padding: 60px;
+            position: relative;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c8aa82, transparent);
+        }
+
+        .contact-section .section-title {
+            color: #f0e6da;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            font-size: 0.92rem;
+        }
+
+        .contact-info-item i {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(200,170,130,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 0.9rem;
+            color: #c8aa82;
+            flex-shrink: 0;
+        }
+
+        .contact-info-item a,
+        .contact-info-item span {
+            color: rgba(240,230,218,0.85);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info-item a:hover {
+            color: #c8aa82;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background: #231e1b;
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        .footer-promo {
+            font-size: 0.78rem;
+            color: rgba(200,170,130,0.5);
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-promo a {
+            color: #c8aa82;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-promo a:hover {
+            color: #f0e6da;
+        }
+
+        .footer-copy {
+            font-size: 0.7rem;
+            color: rgba(200,170,130,0.35);
+        }
+
+        .footer-copy a {
+            color: rgba(200,170,130,0.5);
+            text-decoration: none;
+        }
+
+        .footer-copy a:hover {
+            color: #c8aa82;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 30px 50px;
+            }
+
+            .hero-name {
+                font-size: 2rem;
+            }
+
+            .hero-photo-circle {
+                width: 120px;
+                height: 120px;
+            }
+
+            .section-light,
+            .section-light-alt,
+            .section-light-warm,
+            .contact-section {
+                padding: 40px 24px;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="portfolio-page">
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-photo-wrapper">
+                    <div class="hero-photo-circle">
+                        {% if profilephoto and profilephoto.profile_photo %}
+                            <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
+                        {% else %}
+                            <div class="hero-placeholder">{{ user_initials }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="hero-text">
+                    <h1 class="hero-name">{{ user_fullname }}</h1>
+                    {% if employment %}
+                    <p class="hero-subtitle">{{ employment.0.job_title }}</p>
+                    {% endif %}
+                    <a href="#projects" class="hero-btn">View Portfolio</a>
+                </div>
+            </div>
+        </section>
+
+        {% if about and about.about %}
+        <div class="section-light">
+            <h2 class="section-title">About Me</h2>
+            <div class="section-divider"></div>
+            <div class="about-text">{{ about.about|safe }}</div>
+        </div>
+        {% endif %}
+
+        {% if skill and skill.skills %}
+        <div class="section-light-warm">
+            <h2 class="section-title"><span>Skills</span></h2>
+            <div class="section-divider"></div>
+            <div class="skills-section">
+                {% for s in skill.skills %}
+                <span class="skill-chip">{{ s }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if portfolios %}
+        <div class="section-light-alt" id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="section-divider"></div>
+            <div class="projects-grid">
+                {% for project in portfolios %}
+                <div class="project-card">
+                    {% if project.portfolio_photo %}
+                    <div class="project-thumb">
+                        <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
+                    </div>
+                    {% else %}
+                    <div class="project-thumb gradient-{% cycle '1' '2' '3' '4' %}">
+                        <span>{{ project.title }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="project-card-body">
+                        <div class="project-card-title">{{ project.title }}</div>
+                        <div class="project-card-desc">{{ project.description|truncatewords:6 }}</div>
+                        <button class="project-card-btn" data-bs-toggle="modal" data-bs-target="#projectModal{{ forloop.counter }}">Details</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        {% endif %}
+
+        {% if employment %}
+        <div class="section-light">
+            <h2 class="section-title"><span>Experience</span></h2>
+            <div class="section-divider"></div>
+            <div class="timeline">
+                {% for job in employment %}
+                <div class="timeline-entry">
+                    <div class="timeline-entry-title">{{ job.job_title }}</div>
+                    <div class="timeline-entry-company">{{ job.employer_name }}</div>
+                    <div class="timeline-entry-date">
+                        {{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}
+                    </div>
+                    {% if job.description_of_duties %}
+                    <div class="timeline-entry-desc">{{ job.description_of_duties }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if education %}
+        <div class="section-light-warm">
+            <h2 class="section-title"><span>Education</span></h2>
+            <div class="section-divider"></div>
+            {% for edu in education %}
+            <div class="edu-card">
+                <div class="edu-card-title">{{ edu.qualification }}</div>
+                <div class="edu-card-institution">{{ edu.institution_name }}</div>
+                <div class="edu-card-date">
+                    {{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if certifications %}
+        <div class="section-light-alt">
+            <h2 class="section-title"><span>Certifications</span></h2>
+            <div class="section-divider"></div>
+            <div class="row g-3">
+                {% for cert in certifications %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="cert-badge">
+                        <i class="fas fa-award"></i>
+                        <div class="cert-badge-name">{{ cert.name }}</div>
+                        <div class="cert-badge-issuer">{{ cert.issuer }}</div>
+                        <div class="cert-badge-date">{{ cert.date_issued }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if contact_methods %}
+        <section class="contact-section">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="section-divider"></div>
+            {% for cm in contact_methods %}
+            <div class="contact-info-item">
+                <i class="{{ cm.icon_class }}"></i>
+                <a href="{{ cm.link_url }}" target="_blank">{{ cm.value }}{% if cm.label %} ({{ cm.label }}){% endif %}</a>
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <footer class="footer">
+            <div class="footer-promo">Want a portfolio like this? <a target="_blank" href="{% url 'home' %}">Create yours with {{ SITE_NAME }}</a></div>
+            <div class="footer-copy">&copy; Powered by <a href="{% url 'home' %}">{{ SITE_NAME }}</a></div>
+        </footer>
+    </div>
+
+
+
+    {% if portfolios %}
+    {% for project in portfolios %}
+    <div class="modal fade project-modal" id="projectModal{{ forloop.counter }}" tabindex="-1" aria-labelledby="projectModalLabel{{ forloop.counter }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectModalLabel{{ forloop.counter }}">{{ project.title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% if project.portfolio_photo %}
+                    <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}" class="project-modal-img">
+                    {% else %}
+                    <div class="project-modal-placeholder gradient-{% cycle '1' '2' '3' '4' %}">
+                        {{ project.title }}
+                    </div>
+                    {% endif %}
+                    <div class="project-modal-desc">{{ project.description }}</div>
+                    {% if project.link %}
+                    <a href="{{ project.link }}" class="project-modal-link" target="_blank"><i class="fas fa-external-link-alt me-2"></i>Visit Project</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

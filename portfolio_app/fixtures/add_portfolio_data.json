@@ -1,0 +1,157 @@
+[
+    {
+        "model": "portfolio_app.profilephoto",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "profile_photo": ""
+        }
+    },
+    {
+        "model": "portfolio_app.about",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "about": "Passionate software engineer with 8+ years of experience in full-stack web development, cloud architecture, and team leadership. Specializing in Django, React, and AWS technologies. I love building scalable solutions that solve real-world problems and mentoring the next generation of developers. Currently focused on creating innovative portfolio management systems that help professionals showcase their work effectively."
+        }
+    },
+    {
+        "model": "portfolio_app.employment",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "employer_name": "TechVision Solutions",
+            "job_title": "Senior Software Engineer",
+            "description_of_duties": "Led a team of 8 developers in designing and building enterprise-grade web applications using Django and React. Implemented microservices architecture and improved system performance by 40%. Mentored junior developers and conducted code reviews to ensure quality standards.",
+            "start_date": "2021-03-01",
+            "end_date": null
+        }
+    },
+    {
+        "model": "portfolio_app.employment",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "employer_name": "CloudFirst Technologies",
+            "job_title": "Full-Stack Developer",
+            "description_of_duties": "Developed and maintained cloud-native applications on AWS. Built RESTful APIs and responsive front-end interfaces. Implemented CI/CD pipelines and reduced deployment time by 60%.",
+            "start_date": "2018-06-15",
+            "end_date": "2021-02-28"
+        }
+    },
+    {
+        "model": "portfolio_app.employment",
+        "pk": 3,
+        "fields": {
+            "user": 2,
+            "employer_name": "Digital Innovations Ltd",
+            "job_title": "Junior Software Developer",
+            "description_of_duties": "Contributed to the development of client-facing web applications using Python and JavaScript. Participated in agile development processes and improved code quality through testing and documentation.",
+            "start_date": "2015-09-01",
+            "end_date": "2018-05-31"
+        }
+    },
+    {
+        "model": "portfolio_app.education",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "qualification": "MSc Computer Science",
+            "institution_name": "University of Lagos",
+            "start_date": "2013-09-01",
+            "end_date": "2015-07-15"
+        }
+    },
+    {
+        "model": "portfolio_app.education",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "qualification": "BSc Information Technology",
+            "institution_name": "Federal University of Technology, Owerri",
+            "start_date": "2009-09-01",
+            "end_date": "2013-06-30"
+        }
+    },
+    {
+        "model": "portfolio_app.certification",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "name": "AWS Certified Solutions Architect",
+            "issuer": "Amazon Web Services",
+            "date_issued": "2023-05-10"
+        }
+    },
+    {
+        "model": "portfolio_app.certification",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "name": "Google Professional Cloud Developer",
+            "issuer": "Google Cloud",
+            "date_issued": "2022-11-20"
+        }
+    },
+    {
+        "model": "portfolio_app.certification",
+        "pk": 3,
+        "fields": {
+            "user": 2,
+            "name": "Django Developer Certification",
+            "issuer": "Django Software Foundation",
+            "date_issued": "2021-08-15"
+        }
+    },
+    {
+        "model": "portfolio_app.portfolio",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "title": "E-Commerce Platform",
+            "description": "A full-featured online shopping platform built with Django and React. Includes user authentication, payment processing, inventory management, and admin dashboard. Handles over 10,000 daily transactions.",
+            "link": "https://github.com/cchiagwah/ecommerce-platform",
+            "portfolio_photo": "images/ecommerce-screenshot.jpg"
+        }
+    },
+    {
+        "model": "portfolio_app.portfolio",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "title": "Task Management App",
+            "description": "A collaborative project management tool with real-time updates. Features include task assignment, progress tracking, team collaboration, and notification system. Built with Django channels for WebSocket functionality.",
+            "link": "https://github.com/cchiagwah/task-manager",
+            "portfolio_photo": "images/task-manager-screenshot.jpg"
+        }
+    },
+    {
+        "model": "portfolio_app.portfolio",
+        "pk": 3,
+        "fields": {
+            "user": 2,
+            "title": "Health & Fitness Tracker",
+            "description": "A mobile-responsive health tracking application with calorie counting, workout planning, and progress visualization. Includes integration with wearable devices and social features for motivation.",
+            "link": "https://github.com/cchiagwah/fitness-tracker",
+            "portfolio_photo": "images/fitness-tracker-screenshot.jpg"
+        }
+    },
+    {
+        "model": "portfolio_app.contact",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "phone_number": "+234 801 234 5678",
+            "email_address": "chrysanthusobinna@example.com",
+            "linkedin": "https://www.linkedin.com/in/chrysanthusobinna"
+        }
+    },
+    {
+        "model": "portfolio_app.usertemplate",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "template": 1
+        }
+    }
+]

@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import pymysql
+pymysql.install_as_MySQLdb()
+
 if os.path.isfile('env.py'):
     import env
 from django.contrib.messages import constants as messages
@@ -39,6 +42,9 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_TIMEOUT = 10
 
+# Gemini API Key for CV parsing
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+
 # Site Information Constants
 SITE_NAME = "MIfolio"
 SITE_CONTACT_EMAIL_ADDRESS = EMAIL_HOST_USER
@@ -48,16 +54,7 @@ SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
 
-REPLIT_DOMAINS = os.environ.get("REPLIT_DOMAINS", "")
-REPLIT_DEV_DOMAIN = os.environ.get("REPLIT_DEV_DOMAIN", "")
-ALLOWED_HOSTS = [
-    '.gitpod.io', '.herokuapp.com',
-    'localhost', '127.0.0.1', '0.0.0.0',
-]
-if REPLIT_DOMAINS:
-    ALLOWED_HOSTS.extend(REPLIT_DOMAINS.split(","))
-if REPLIT_DEV_DOMAIN:
-    ALLOWED_HOSTS.append(REPLIT_DEV_DOMAIN)
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -73,6 +70,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'portfolio_app',
     'cloudinary',
 ]
@@ -126,17 +124,31 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+# }
+
+
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.environ.get("DATABASE_NAME"),
+        "USER": os.environ.get("DATABASE_USER"),
+        "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
+        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
+        "PORT": os.environ.get("DATABASE_PORT", "3306"),
+        "OPTIONS": {
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    }
 }
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
     "https://*.herokuapp.com",
     "https://*.gitpod.io",
-    "https://*.replit.dev",
-    "https://*.repl.co",
-    "https://*.replit.app",
+    "http://localhost:*",
+    "http://127.0.0.1:*",
 ]
 
 # Password validation
@@ -178,12 +190,27 @@ ACCOUNT_FORMS = {
     'signup': 'portfolio_app.forms.CustomSignupForm',
 }
 
+# Google OAuth
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.environ.get('GOOGLE_CLIENT_ID', ''),
+            'secret': os.environ.get('GOOGLE_CLIENT_SECRET', ''),
+        },
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+    }
+}
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+
 MESSAGE_TAGS = {
-    messages.DEBUG: 'alert-secondary',
-    messages.INFO: 'alert-info',
-    messages.SUCCESS: 'alert-success',
-    messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-danger',
+    messages.DEBUG: 'info',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'error',
 }
 
 # Internationalization

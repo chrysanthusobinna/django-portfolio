@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block head_title %}{% endblock head_title %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
     {% block extra_head %}
     {% endblock extra_head %}
   </head>
@@ -12,14 +13,26 @@
     {% block body %}
 
     {% if messages %}
-    <div>
-      <strong>{% trans "Messages:" %}</strong>
-      <ul>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+    <script>
+    $(document).ready(function() {
         {% for message in messages %}
-        <li>{{message}}</li>
+        $.toast({
+            heading: '{% if message.tags == "success" %}Success{% elif message.tags == "error" %}Error{% elif message.tags == "warning" %}Warning{% else %}Info{% endif %}',
+            text: '{{ message|escapejs }}',
+            icon: '{{ message.tags|default:"info" }}',
+            position: 'top-right',
+            showHideTransition: 'slide',
+            allowToastClose: true,
+            hideAfter: 5000,
+            stack: 5,
+            loader: true,
+            loaderBg: '{% if message.tags == "success" %}#2ecc71{% elif message.tags == "error" %}#e74c3c{% elif message.tags == "warning" %}#f39c12{% else %}#3498db{% endif %}'
+        });
         {% endfor %}
-      </ul>
-    </div>
+    });
+    </script>
     {% endif %}
 
     <div>
