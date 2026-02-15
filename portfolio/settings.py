@@ -54,13 +54,7 @@ SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
 
-REPLIT_DOMAINS = os.environ.get("REPLIT_DOMAINS", "")
-REPLIT_DEV_DOMAIN = os.environ.get("REPLIT_DEV_DOMAIN", "")
 ALLOWED_HOSTS = ['*']
-if REPLIT_DOMAINS:
-    ALLOWED_HOSTS.extend(REPLIT_DOMAINS.split(","))
-if REPLIT_DEV_DOMAIN:
-    ALLOWED_HOSTS.append(REPLIT_DEV_DOMAIN)
 
 
 # Application definition
@@ -153,9 +147,6 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
     "https://*.herokuapp.com",
     "https://*.gitpod.io",
-    "https://*.replit.dev",
-    "https://*.repl.co",
-    "https://*.replit.app",
     "http://localhost:*",
     "http://127.0.0.1:*",
 ]
