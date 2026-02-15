@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('template-preview/<str:template_name>/', views.template_preview, name='template_preview'),
+    path('template-preview-raw/<str:template_name>/', views.template_preview_raw, name='template_preview_raw'),
     path('select-template/<int:template_id>/', views.select_template, name='select_template'),
     path('logout/', views.logout_view, name='logout'),
     path('upload-cv/', views.upload_cv, name='upload_cv'),

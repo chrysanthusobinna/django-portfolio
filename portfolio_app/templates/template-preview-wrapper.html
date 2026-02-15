@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Preview - {{ template.name }}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .preview-container {
+        width: 100%;
+        height: calc(100vh - 60px);
+        border: none;
+        display: block;
+    }
+    .preview-toolbar {
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        padding: 8px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+    .preview-toolbar .btn {
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+    .preview-toolbar .btn-use-template {
+        background: linear-gradient(135deg, #0f0c29, #302b63);
+        border: none;
+        color: #fff;
+        padding: 6px 18px;
+        border-radius: 4px;
+    }
+    .preview-toolbar .btn-use-template:hover {
+        background: linear-gradient(135deg, #302b63, #24243e);
+        color: #fff;
+    }
+    @media (max-width: 576px) {
+        .preview-toolbar {
+            padding: 8px 10px;
+        }
+        .preview-toolbar .btn {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+        }
+    }
+    body > footer {
+        display: none !important;
+    }
+    #confirmTemplateModal .modal-header {
+        background: linear-gradient(135deg, #0f0c29, #302b63);
+        color: #fff;
+        border-bottom: none;
+    }
+    #confirmTemplateModal .modal-header .btn-close {
+        filter: brightness(0) invert(1);
+    }
+    #confirmTemplateModal .modal-body {
+        padding: 1.5rem;
+        font-size: 0.95rem;
+        text-align: center;
+    }
+    #confirmTemplateModal .modal-body i {
+        font-size: 2.5rem;
+        color: #302b63;
+        margin-bottom: 0.75rem;
+    }
+    #confirmTemplateModal .modal-footer {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid #eee;
+        padding: 0.75rem 1.5rem;
+    }
+    #confirmTemplateModal .btn-use-template {
+        background: linear-gradient(135deg, #0f0c29, #302b63);
+        border: none;
+        color: #fff;
+        padding: 6px 18px;
+        border-radius: 4px;
+    }
+    #confirmTemplateModal .btn-use-template:hover {
+        background: linear-gradient(135deg, #302b63, #24243e);
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="preview-toolbar">
+    <a href="{% url 'home' %}" class="btn btn-sm btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i>Back
+    </a>
+    {% if user.is_authenticated %}
+        {% if is_current_template %}
+        <span class="btn btn-sm btn-success disabled">
+            <i class="fas fa-check-circle me-1"></i>Current Template
+        </span>
+        {% else %}
+        <button type="button" class="btn btn-sm btn-use-template" data-bs-toggle="modal" data-bs-target="#confirmTemplateModal">
+            <i class="fas fa-check me-1"></i>Use This Template
+        </button>
+        {% endif %}
+    {% endif %}
+</div>
+<iframe src="{% url 'template_preview_raw' template_name %}" class="preview-container"></iframe>
+
+{% if user.is_authenticated and not is_current_template %}
+<!-- Confirm Modal -->
+<div class="modal fade" id="confirmTemplateModal" tabindex="-1" aria-labelledby="confirmTemplateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 10px; overflow: hidden;">
+            <div class="modal-header">
+                <h6 class="modal-title" id="confirmTemplateModalLabel">Confirm Template Selection</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <i class="fas fa-palette d-block"></i>
+                Are you sure you want to use the <strong>{{ template.name }}</strong> template for your portfolio?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Cancel
+                </button>
+                <form method="POST" action="{% url 'select_template' template.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-use-template">
+                        <i class="fas fa-check me-1"></i>Yes, Use This Template
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

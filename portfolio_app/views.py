@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 import logging
 
@@ -46,6 +48,25 @@ def home(request):
 
 
 def template_preview(request, template_name):
+    try:
+        template = Template.objects.get(template_file=template_name, is_active=True)
+    except Template.DoesNotExist:
+        messages.error(request, "Template not found.")
+        return redirect("home")
+
+    is_current = False
+    if request.user.is_authenticated:
+        is_current = UserTemplate.objects.filter(user=request.user, template=template).exists()
+
+    return render(request, "template-preview-wrapper.html", {
+        'template_name': template_name,
+        'template': template,
+        'is_current_template': is_current,
+    })
+
+
+@xframe_options_exempt
+def template_preview_raw(request, template_name):
     try:
         template = Template.objects.get(template_file=template_name, is_active=True)
     except Template.DoesNotExist:
@@ -120,7 +141,9 @@ def template_preview(request, template_name):
     return render(request, f"template-previews/{template_name}.html", sample_data)
 
 
+
 @login_required
+@csrf_exempt
 def select_template(request, template_id):
     template = get_object_or_404(Template, id=template_id, is_active=True)
     
@@ -136,9 +159,9 @@ def select_template(request, template_id):
             user_template.save()
         
         messages.success(request, f"Template '{template.name}' has been selected for your portfolio!")
-        return JsonResponse({'success': True, 'message': 'Template selected successfully!'})
+        return redirect('template_preview', template_name=template.template_file)
     
-    return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=400)
+    return redirect('home')
 
 
 # render show portfolio page and handle contact form
