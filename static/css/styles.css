@@ -55,6 +55,52 @@ footer {
     margin: 0.25rem 0.15rem;
 }
 
+/* Navbar Dropdown Styles */
+.navbar .dropdown-menu {
+    background: linear-gradient(135deg, #1a1a3e, #2d2b55);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    min-width: 200px;
+}
+
+.navbar .dropdown-item {
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0.55rem 1.25rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.navbar .dropdown-item.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.navbar .dropdown-item i {
+    width: 20px;
+    text-align: center;
+    opacity: 0.75;
+}
+
+.navbar .dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 0.35rem 0;
+}
+
+.navbar .dropdown-toggle::after {
+    margin-left: 0.4rem;
+    vertical-align: 0.15em;
+}
+
 /* General styles for the logo */
 .navbar-brand img {
     max-width: 100%;

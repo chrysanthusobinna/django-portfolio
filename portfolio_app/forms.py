@@ -1,5 +1,6 @@
 from allauth.account.forms import SignupForm
 from django import forms
+from django.contrib.auth.models import User
 
 from .models import (
     ContactMethod,
@@ -10,6 +11,51 @@ from .models import (
     About,
     Profilephoto
 )
+
+
+class AccountSettingsForm(forms.ModelForm):
+    first_name = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your first name',
+        })
+    )
+    last_name = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your last name',
+        })
+    )
+    username = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your username',
+            'id': 'id_username',
+        })
+    )
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username']
+
+    def __init__(self, *args, **kwargs):
+        self.current_user = kwargs.pop('current_user', None)
+        super().__init__(*args, **kwargs)
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if self.current_user and username != self.current_user.username:
+            if User.objects.filter(username__iexact=username).exists():
+                raise forms.ValidationError(
+                    'This username is already taken. Please choose another.'
+                )
+        return username
 
 
 class CustomSignupForm(SignupForm):

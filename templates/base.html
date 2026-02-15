@@ -50,7 +50,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">Home page</a>
+                            <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">Home</a>
                         </li>
                         {% if user.is_authenticated %}
                         {% if user.is_staff %}
@@ -58,14 +58,27 @@
                             <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
                         </li>
                         {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path == user_profile_url %}active{% endif %}" href="{{ user_profile_url }}">View My Portfolio</a>
+                        <!-- My Portfolio Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {% if request.path == user_profile_url or request.path == edit_user_profile_url %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                My Portfolio
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item {% if request.path == user_profile_url %}active{% endif %}" href="{{ user_profile_url }}"><i class="fas fa-eye me-2"></i>View Portfolio</a></li>
+                                <li><a class="dropdown-item {% if request.path == edit_user_profile_url %}active{% endif %}" href="{{ edit_user_profile_url }}"><i class="fas fa-edit me-2"></i>Edit Portfolio</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path == edit_user_profile_url %}active{% endif %}" href="{{ edit_user_profile_url }}">Edit My Portfolio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" href="{{ logout_url }}">Logout</a>
+                        <!-- Account Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'account_settings' %}"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                                <li><a class="dropdown-item" href="{% url 'account_change_password' %}"><i class="fas fa-key me-2"></i>Change Password</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ logout_url }}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                            </ul>
                         </li>
                         {% else %}
                         <li class="nav-item">

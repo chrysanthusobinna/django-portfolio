@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.contrib import messages
 import logging
@@ -28,6 +29,7 @@ from .forms import (
     AboutForm,
     ProfilephotoForm,
     CVUploadForm,
+    AccountSettingsForm,
 )
 from .utils import validate_image_file, send_contact_email
 from .cv_parser import CVParser
@@ -985,3 +987,35 @@ def _save_parsed_cv_data(request, parsed_data):
                 merged.append(s)
         skill_obj.skills = merged
         skill_obj.save()
+
+
+@login_required
+def account_settings(request):
+    """Account settings view for editing first name, last name, and username."""
+    if request.method == 'POST':
+        form = AccountSettingsForm(
+            request.POST,
+            instance=request.user,
+            current_user=request.user,
+        )
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Account settings updated successfully.")
+            return redirect('account_settings')
+        else:
+            # Username failed validation — save first/last name anyway
+            user = request.user
+            user.first_name = request.POST.get('first_name', user.first_name).strip()
+            user.last_name = request.POST.get('last_name', user.last_name).strip()
+            user.save(update_fields=['first_name', 'last_name'])
+            messages.success(request, "Name updated successfully.")
+            for field, errors in form.errors.items():
+                label = form.fields[field].label or field.capitalize()
+                for error in errors:
+                    messages.error(request, f"{label}: {error}")
+    else:
+        form = AccountSettingsForm(
+            instance=request.user,
+            current_user=request.user,
+        )
+    return render(request, 'account-settings.html', {'form': form})

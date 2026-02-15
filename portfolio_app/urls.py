@@ -43,4 +43,6 @@ urlpatterns = [
 
     path('profile/save-photo/', views.save_profile_photo, name='save_profile_photo'),
     path('profile/delete-photo/', views.delete_profile_photo, name='delete_profile_photo'),
+
+    path('account/settings/', views.account_settings, name='account_settings'),
 ]
