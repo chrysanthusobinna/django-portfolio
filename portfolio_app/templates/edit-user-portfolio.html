@@ -91,7 +91,7 @@
                 <ul class="mb-0">
                     <li>Upload your CV and our AI will intelligently extract your professional information</li>
                     <li>AI extracts: Contact info, Employment history, Education, Skills, Certifications, and Projects</li>
-                    <li>Accepted format: PDF (up to 10MB)</li>
+                    <li>Accepted formats: PDF and Word (.docx) (up to 10MB)</li>
                     <li>Extracted data is merged with your existing portfolio entries</li>
                 </ul>
             </div>
@@ -100,10 +100,10 @@
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="cv_file" class="form-label fw-bold">
-                        <i class="fas fa-upload me-2"></i>Upload CV (PDF format)
+                        <i class="fas fa-upload me-2"></i>Upload CV (PDF or Word format)
                     </label>
                     <input type="file" id="cv_file" name="cv_file" class="form-control" 
-                           accept=".pdf" required>
+                           accept=".pdf,.docx" required>
                 </div>
                 
                 <div class="d-flex justify-content-between">

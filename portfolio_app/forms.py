@@ -213,10 +213,10 @@ class ProfilephotoForm(forms.ModelForm):
 
 class CVUploadForm(forms.Form):
     cv_file = forms.FileField(
-        label='Upload CV (PDF format)',
+        label='Upload CV (PDF or Word format)',
         required=True,
         widget=forms.FileInput(attrs={
-            'accept': '.pdf',
+            'accept': '.pdf,.docx',
             'class': 'form-control'
         })
     )
@@ -226,8 +226,9 @@ class CVUploadForm(forms.Form):
         
         if cv_file:
             # Check file extension
-            if not cv_file.name.lower().endswith('.pdf'):
-                raise forms.ValidationError('Only PDF files are allowed.')
+            name_lower = cv_file.name.lower()
+            if not (name_lower.endswith('.pdf') or name_lower.endswith('.docx')):
+                raise forms.ValidationError('Only PDF and Word (.docx) files are allowed.')
             
             # Check file size (max 10MB)
             if cv_file.size > 10 * 1024 * 1024:

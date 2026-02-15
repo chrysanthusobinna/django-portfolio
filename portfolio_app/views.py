@@ -777,59 +777,96 @@ def _looks_like_cv(text: str, min_groups: int = 3) -> bool:
 
 @login_required
 def upload_cv(request):
-    """Handle CV upload: extract text with pdfplumber, parse with Gemini,
-    fall back to regex CVParser if Gemini fails, then save."""
+    """Handle CV upload: extract text from PDF or Word (.docx), parse with
+    Gemini, fall back to regex CVParser if Gemini fails, then save."""
     if request.method == "POST":
         form = CVUploadForm(request.POST, request.FILES)
 
         if form.is_valid():
             cv_file = form.cleaned_data['cv_file']
+            file_name = cv_file.name.lower()
 
             try:
-                # --- 1. Extract raw text via pdfplumber ---
-                try:
-                    import pdfplumber
-                except ImportError:
-                    messages.error(
-                        request,
-                        "PDF processing library not installed. "
-                        "Please contact administrator.",
-                    )
-                    return redirect(
-                        "edit_user_profile",
-                        username=request.user.username,
-                    )
+                # --- 1. Extract raw text based on file type ---
+                cv_text = ""
 
-                try:
-                    with pdfplumber.open(cv_file) as pdf:
-                        cv_text = "\n".join(
-                            page.extract_text() or ""
-                            for page in pdf.pages
+                if file_name.endswith('.docx'):
+                    # Word document extraction
+                    try:
+                        import docx
+                    except ImportError:
+                        messages.error(
+                            request,
+                            "Word document processing library not installed. "
+                            "Please contact administrator.",
                         )
-                except Exception as e:
-                    logger.error("pdfplumber extraction failed: %s", e)
-                    messages.error(
-                        request,
-                        "Could not read the PDF. Please ensure it is "
-                        "a valid PDF with readable text.",
-                    )
-                    return redirect(
-                        "edit_user_profile",
-                        username=request.user.username,
-                    )
+                        return redirect(
+                            "edit_user_profile",
+                            username=request.user.username,
+                        )
+
+                    try:
+                        document = docx.Document(cv_file)
+                        cv_text = "\n".join(
+                            para.text for para in document.paragraphs
+                        )
+                    except Exception as e:
+                        logger.error("docx extraction failed: %s", e)
+                        messages.error(
+                            request,
+                            "Could not read the Word document. Please ensure "
+                            "it is a valid .docx file with readable text.",
+                        )
+                        return redirect(
+                            "edit_user_profile",
+                            username=request.user.username,
+                        )
+
+                else:
+                    # PDF extraction
+                    try:
+                        import pdfplumber
+                    except ImportError:
+                        messages.error(
+                            request,
+                            "PDF processing library not installed. "
+                            "Please contact administrator.",
+                        )
+                        return redirect(
+                            "edit_user_profile",
+                            username=request.user.username,
+                        )
+
+                    try:
+                        with pdfplumber.open(cv_file) as pdf:
+                            cv_text = "\n".join(
+                                page.extract_text() or ""
+                                for page in pdf.pages
+                            )
+                    except Exception as e:
+                        logger.error("pdfplumber extraction failed: %s", e)
+                        messages.error(
+                            request,
+                            "Could not read the PDF. Please ensure it is "
+                            "a valid PDF with readable text.",
+                        )
+                        return redirect(
+                            "edit_user_profile",
+                            username=request.user.username,
+                        )
 
                 if not cv_text or not cv_text.strip():
                     messages.error(
                         request,
-                        "The PDF appears to be empty or contains no "
-                        "readable text.",
+                        "The uploaded file appears to be empty or contains "
+                        "no readable text.",
                     )
                     return redirect(
                         "edit_user_profile",
                         username=request.user.username,
                     )
 
-                # --- 1b. Validate that the PDF looks like a CV ---
+                # --- 1b. Validate that the file looks like a CV ---
                 if not _looks_like_cv(cv_text):
                     messages.error(
                         request,
@@ -863,7 +900,7 @@ def upload_cv(request):
                     messages.error(
                         request,
                         "Could not extract data from the CV. "
-                        "Please ensure it's a valid PDF with "
+                        "Please ensure it's a valid file with "
                         "readable text.",
                     )
                     return redirect(

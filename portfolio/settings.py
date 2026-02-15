@@ -156,6 +156,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.replit.dev",
     "https://*.repl.co",
     "https://*.replit.app",
+    "http://localhost:*",
+    "http://127.0.0.1:*",
 ]
 
 # Password validation

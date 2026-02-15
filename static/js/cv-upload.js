@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // File input validation (PDF only, max 10 MB)
+    // File input validation (PDF and Word, max 10 MB)
     var cvFileInput = document.getElementById('cv_file');
     if (cvFileInput) {
         cvFileInput.addEventListener('change', function (e) {
@@ -45,8 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
 
-                if (!file.name.toLowerCase().endsWith('.pdf')) {
-                    alert('Only PDF files are allowed.');
+                var fileName = file.name.toLowerCase();
+                if (!fileName.endsWith('.pdf') && !fileName.endsWith('.docx')) {
+                    alert('Only PDF and Word (.docx) files are allowed.');
                     e.target.value = '';
                     submitBtn.disabled = true;
                     return;
