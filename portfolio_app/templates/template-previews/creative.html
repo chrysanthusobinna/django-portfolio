@@ -462,6 +462,29 @@
             margin-top: 4px;
         }
 
+        .skills-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-chip {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #fff;
+            background: linear-gradient(135deg, #7b2ff7, #4361ee);
+            box-shadow: 0 3px 10px rgba(123,47,247,0.15);
+            transition: all 0.3s;
+        }
+
+        .skill-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(123,47,247,0.25);
+        }
+
         .contact-section {
             background: linear-gradient(160deg, #7b2ff7 0%, #4361ee 50%, #00d4aa 100%);
             padding: 50px;
@@ -597,6 +620,18 @@
         </div>
         {% endif %}
 
+        {% if skill and skill.skills %}
+        <div class="section-light-warm">
+            <h2 class="section-title"><span>Skills</span></h2>
+            <div class="section-divider"></div>
+            <div class="skills-section">
+                {% for s in skill.skills %}
+                <span class="skill-chip">{{ s }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
         {% if portfolios %}
         <div class="section-light-alt" id="projects">
             <h2 class="section-title">Projects Showcase</h2>
@@ -698,8 +733,7 @@
         </footer>
     </div>
 
-    <!-- Include floating actions -->
-    {% include 'partials/floating-actions.html' %}
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

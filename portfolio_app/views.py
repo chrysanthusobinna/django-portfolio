@@ -106,6 +106,7 @@ def template_preview(request, template_name):
                 'link_url': 'https://www.linkedin.com/in/chrysanthusobinna',
             })(),
         ],
+        'skill': type('obj', (object,), {'skills': ['Python', 'Django', 'JavaScript', 'React', 'AWS', 'Docker', 'PostgreSQL', 'Git', 'REST APIs', 'CI/CD']})(),
     }
 
     return render(request, f"template-previews/{template_name}.html", sample_data)
