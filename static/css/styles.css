@@ -270,7 +270,17 @@ button.btn {
 .portfolio-card .card-body .btn {
     margin-top: auto;
 }
- 
+
+/* EDIT PORTFOLIO — card headers */
+.card-header.ep-header {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    border-bottom: none;
+}
+
+.card-header.ep-header-ai {
+    background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+    border-bottom: none;
+}
 
 /* Profile Photo Container */
 .profile-photo-container {
@@ -309,17 +319,17 @@ button.btn {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;  
 }
-.custom-table .table th, 
-.custom-table .table td {
+.custom-table th, 
+.custom-table td {
     white-space: nowrap;  
 }
-.custom-table .table td {
+.custom-table td {
     padding: 0.75rem;
     vertical-align: top;
 }
-.custom-table .table th {
+.custom-table th {
     font-weight: bold;
-    text-align: center;
+    text-align: left;
 }
 
 /* CONTACT INFO STYLE */
