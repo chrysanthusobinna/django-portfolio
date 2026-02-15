@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ user_fullname }} - Professional Portfolio. {% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <meta name="author" content="{{ user_fullname }}">
     <title>{{ user_fullname }} - Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
         * {
             margin: 0;
@@ -16,16 +18,27 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bold-black: #0a0a0a;
+            --bold-dark: #141414;
+            --bold-accent: #CCFF00;
+            --bold-accent-dim: rgba(204,255,0,0.15);
+            --bold-white: #f0f0f0;
+            --bold-gray: #888;
+            --bold-gray-dark: #333;
+            --bold-border: #2a2a2a;
+        }
+
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
-            color: #333;
-            line-height: 1.7;
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bold-black);
+            color: var(--bold-white);
+            line-height: 1.6;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 40px 20px;
+            padding: 0;
         }
 
         .back-link {
@@ -33,171 +46,157 @@
             top: 20px;
             left: 20px;
             z-index: 99999;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: #fff;
+            background: var(--bold-accent);
+            color: var(--bold-black);
             padding: 8px 18px;
-            border-radius: 25px;
+            border-radius: 0;
             text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.3s;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            border: 2px solid var(--bold-accent);
         }
 
         .back-link:hover {
-            background: rgba(229,62,62,0.8);
-            color: #fff;
+            background: transparent;
+            color: var(--bold-accent);
         }
 
         .portfolio-page {
-            max-width: 900px;
+            max-width: 1000px;
             width: 100%;
-            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.35);
         }
 
-        /* ── Hero Section ── */
-        .hero-bold {
-            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%);
-            min-height: 500px;
+        /* ── HERO ── */
+        .bold-hero {
+            background: var(--bold-black);
+            min-height: 520px;
             position: relative;
             overflow: hidden;
             display: flex;
-            align-items: flex-end;
-            padding: 60px 50px;
+            align-items: center;
+            padding: 80px 60px;
+            border-bottom: 6px solid var(--bold-accent);
         }
 
-        .hero-blob-1 {
+        .bold-hero::before {
+            content: '';
             position: absolute;
-            top: -80px;
-            right: -60px;
-            width: 350px;
-            height: 350px;
-            background: rgba(229,62,62,0.25);
-            border-radius: 50%;
-            filter: blur(60px);
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: var(--bold-accent);
+            opacity: 0.04;
+            transform: rotate(45deg);
         }
 
-        .hero-blob-2 {
+        .bold-hero::after {
+            content: 'BOLD';
             position: absolute;
-            top: 60px;
-            left: -40px;
-            width: 250px;
-            height: 250px;
-            background: rgba(229,62,62,0.12);
-            border-radius: 50%;
-            filter: blur(50px);
+            bottom: -30px;
+            right: 40px;
+            font-size: 12rem;
+            font-weight: 700;
+            color: rgba(204,255,0,0.03);
+            letter-spacing: -5px;
+            line-height: 1;
+            pointer-events: none;
         }
 
-        .hero-blob-3 {
-            position: absolute;
-            bottom: 80px;
-            right: 180px;
-            width: 80px;
-            height: 80px;
-            background: rgba(229,62,62,0.5);
-            border-radius: 50%;
-            filter: blur(8px);
-        }
-
-        .hero-wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 120px;
-        }
-
-        .hero-wave svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        .hero-content {
+        .hero-grid {
             position: relative;
             z-index: 2;
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            gap: 30px;
+            gap: 50px;
         }
 
-        .hero-text {
+        .hero-info {
             flex: 1;
         }
 
-        .hero-stripe {
-            width: 50px;
-            height: 4px;
-            background: #e53e3e;
-            border-radius: 2px;
-            margin-bottom: 18px;
+        .hero-label {
+            display: inline-block;
+            background: var(--bold-accent);
+            color: var(--bold-black);
+            padding: 4px 14px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
         }
 
         .hero-name {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #fff;
-            line-height: 1.1;
+            font-size: 3.8rem;
+            font-weight: 700;
+            color: var(--bold-white);
+            line-height: 1.0;
             text-transform: uppercase;
-            letter-spacing: -1px;
-            margin-bottom: 8px;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+            letter-spacing: -2px;
+            margin-bottom: 12px;
         }
 
-        .hero-subtitle {
-            font-size: 0.95rem;
-            color: #e53e3e;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 25px;
+        .hero-name span {
+            color: var(--bold-accent);
         }
 
-        .hero-btn {
-            display: inline-block;
-            background: #e53e3e;
-            color: #fff;
-            padding: 10px 28px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        .hero-role {
+            font-size: 1rem;
+            color: var(--bold-gray);
+            font-weight: 400;
             letter-spacing: 1px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(229,62,62,0.3);
+            margin-bottom: 30px;
+            padding-left: 2px;
         }
 
-        .hero-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(229,62,62,0.4);
-            background: #c53030;
-            color: #fff;
+        .hero-cta {
+            display: inline-block;
+            background: transparent;
+            color: var(--bold-accent);
+            padding: 12px 36px;
+            border: 3px solid var(--bold-accent);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s;
         }
 
-        .hero-photo-wrapper {
+        .hero-cta:hover {
+            background: var(--bold-accent);
+            color: var(--bold-black);
+        }
+
+        .hero-photo-wrap {
             flex-shrink: 0;
         }
 
-        .hero-photo-circle {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
+        .hero-photo {
+            width: 220px;
+            height: 220px;
             overflow: hidden;
-            border: 4px solid rgba(229,62,62,0.5);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            background: rgba(229,62,62,0.1);
+            border: 4px solid var(--bold-accent);
+            position: relative;
         }
 
-        .hero-photo-circle img {
+        .hero-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: grayscale(30%);
+            transition: filter 0.3s;
+        }
+
+        .hero-photo:hover img {
+            filter: grayscale(0%);
         }
 
         .hero-placeholder {
@@ -206,419 +205,558 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #fff;
-            background: rgba(229,62,62,0.2);
-            letter-spacing: 3px;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--bold-accent);
+            background: var(--bold-dark);
+            letter-spacing: 4px;
         }
 
-        /* ── Section Styles ── */
-        .section-light {
-            background: #ffffff;
-            padding: 50px;
+        /* ── SECTION BASE ── */
+        .bold-section {
+            padding: 60px;
+            position: relative;
         }
 
-        .section-light-alt {
-            background: #faf8f8;
-            padding: 55px 50px;
+        .bold-section--dark {
+            background: var(--bold-black);
         }
 
-        .section-light-warm {
-            background: #fdf2f2;
-            padding: 60px 50px;
+        .bold-section--darker {
+            background: var(--bold-dark);
+        }
+
+        .bold-section--accent {
+            background: var(--bold-accent);
+            color: var(--bold-black);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .section-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--bold-accent);
+            line-height: 1;
+            opacity: 0.3;
         }
 
         .section-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #1a1a2e;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--bold-white);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
+            letter-spacing: 2px;
+            margin-bottom: 0;
         }
 
-        .section-title span {
-            color: #e53e3e;
+        .bold-section--accent .section-title {
+            color: var(--bold-black);
         }
 
-        .section-divider {
-            width: 50px;
+        .bold-section--accent .section-number {
+            color: var(--bold-black);
+            opacity: 0.2;
+        }
+
+        .section-stripe {
+            flex: 1;
             height: 3px;
-            background: #e53e3e;
-            border-radius: 2px;
-            margin-bottom: 30px;
+            background: var(--bold-border);
+        }
+
+        .bold-section--accent .section-stripe {
+            background: rgba(0,0,0,0.15);
+        }
+
+        /* ── ABOUT ── */
+        .about-block {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .about-accent-bar {
+            width: 4px;
+            min-height: 60px;
+            background: var(--bold-accent);
+            flex-shrink: 0;
         }
 
         .about-text {
             font-size: 0.95rem;
-            color: #555;
+            color: var(--bold-gray);
             line-height: 1.9;
-            margin-bottom: 0;
         }
 
-        /* ── Portfolio / Projects ── */
-        .projects-grid {
+        /* ── PORTFOLIO / PROJECTS ── */
+        .projects-list {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+            flex-direction: column;
+            gap: 0;
         }
 
-        .project-card {
-            width: 220px;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.07);
-            transition: all 0.3s;
-            border: 1px solid #eee;
-            background: #fff;
+        .project-row {
+            display: flex;
+            align-items: stretch;
+            border-bottom: 1px solid var(--bold-border);
+            transition: all 0.2s;
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(229,62,62,0.12);
+        .project-row:first-child {
+            border-top: 1px solid var(--bold-border);
         }
 
-        .project-thumb {
-            width: 100%;
-            height: 130px;
+        .project-row:hover {
+            background: var(--bold-accent-dim);
+        }
+
+        .project-index {
+            width: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
+            color: var(--bold-accent);
+            border-right: 1px solid var(--bold-border);
+            flex-shrink: 0;
+        }
+
+        .project-thumb {
+            width: 120px;
+            height: 90px;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .project-thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: grayscale(50%);
+            transition: filter 0.3s;
         }
 
-        .project-thumb.gradient-1 {
-            background: linear-gradient(135deg, #e53e3e, #1a1a2e);
+        .project-row:hover .project-thumb img {
+            filter: grayscale(0%);
         }
 
-        .project-thumb.gradient-2 {
-            background: linear-gradient(135deg, #0f3460, #e53e3e);
-        }
-
-        .project-thumb.gradient-3 {
-            background: linear-gradient(135deg, #1a1a2e, #c53030);
-        }
-
-        .project-thumb.gradient-4 {
-            background: linear-gradient(135deg, #16213e, #e53e3e);
-        }
-
-        .project-card-body {
-            padding: 14px;
-        }
-
-        .project-card-title {
-            font-size: 0.85rem;
+        .project-thumb-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
             font-weight: 700;
-            color: #1a1a2e;
+            color: var(--bold-black);
             text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .project-thumb-placeholder.bg-1 { background: var(--bold-accent); }
+        .project-thumb-placeholder.bg-2 { background: #00ffc8; }
+        .project-thumb-placeholder.bg-3 { background: #ff6b6b; color: #fff; }
+        .project-thumb-placeholder.bg-4 { background: #6c5ce7; color: #fff; }
+
+        .project-details {
+            flex: 1;
+            padding: 18px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--bold-white);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             margin-bottom: 4px;
         }
 
-        .project-card-desc {
-            font-size: 0.75rem;
-            color: #888;
+        .project-desc {
+            font-size: 0.8rem;
+            color: var(--bold-gray);
             line-height: 1.5;
             margin-bottom: 6px;
         }
 
-        .project-card-link {
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             font-size: 0.75rem;
-            color: #e53e3e;
+            color: var(--bold-accent);
             text-decoration: none;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            transition: gap 0.2s;
         }
 
-        .project-card-link:hover {
-            color: #c53030;
+        .project-link:hover {
+            gap: 12px;
+            color: var(--bold-accent);
         }
 
-        /* ── Experience Timeline ── */
-        .timeline {
-            position: relative;
-            padding-left: 35px;
+        /* ── EXPERIENCE ── */
+        .exp-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
         }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 12px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, #e53e3e, #1a1a2e);
+        .exp-item {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--bold-border);
+            padding: 28px 0;
         }
 
-        .timeline-entry {
-            position: relative;
-            margin-bottom: 30px;
+        .exp-item:first-child {
+            padding-top: 0;
         }
 
-        .timeline-entry:last-child {
-            margin-bottom: 0;
+        .exp-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
         }
 
-        .timeline-entry::before {
-            content: '';
-            position: absolute;
-            left: -28px;
-            top: 6px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #e53e3e;
-            box-shadow: 0 0 12px rgba(229,62,62,0.4);
+        .exp-date-col {
+            width: 140px;
+            flex-shrink: 0;
+            padding-right: 24px;
+            border-right: 3px solid var(--bold-accent);
         }
 
-        .timeline-entry-title {
-            font-size: 1rem;
+        .exp-date {
+            font-size: 0.78rem;
             font-weight: 700;
-            color: #1a1a2e;
-            text-transform: uppercase;
-        }
-
-        .timeline-entry-company {
-            color: #e53e3e;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .timeline-entry-date {
-            color: #999;
-            font-size: 0.8rem;
-            font-weight: 600;
+            color: var(--bold-accent);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 6px;
         }
 
-        .timeline-entry-desc {
-            color: #666;
+        .exp-content {
+            flex: 1;
+            padding-left: 24px;
+        }
+
+        .exp-role {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--bold-white);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .exp-company {
+            font-size: 0.88rem;
+            color: var(--bold-accent);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .exp-desc {
             font-size: 0.85rem;
+            color: var(--bold-gray);
             line-height: 1.7;
         }
 
-        /* ── Education ── */
+        /* ── EDUCATION ── */
+        .edu-stack {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
         .edu-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 22px 24px;
-            border: 1px solid #f0e0e0;
-            margin-bottom: 12px;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(229,62,62,0.04);
+            background: var(--bold-dark);
+            border: 2px solid var(--bold-border);
+            padding: 24px;
+            transition: all 0.2s;
         }
 
         .edu-card:hover {
-            border-color: rgba(229,62,62,0.25);
-            box-shadow: 0 4px 16px rgba(229,62,62,0.08);
+            border-color: var(--bold-accent);
         }
 
         .edu-card-title {
             font-weight: 700;
-            color: #1a1a2e;
+            color: var(--bold-white);
             font-size: 0.95rem;
-            text-transform: uppercase;
-        }
-
-        .edu-card-institution {
-            color: #e53e3e;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .edu-card-date {
-            color: #999;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* ── Certifications ── */
-        .cert-badge {
-            background: #fff;
-            border-radius: 12px;
-            padding: 22px;
-            border: 1px solid #e0e0e0;
-            text-align: center;
-            transition: all 0.3s;
-            height: 100%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        }
-
-        .cert-badge:hover {
-            border-color: rgba(229,62,62,0.25);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(229,62,62,0.08);
-        }
-
-        .cert-badge i {
-            font-size: 1.8rem;
-            color: #e53e3e;
-            margin-bottom: 10px;
-        }
-
-        .cert-badge-name {
-            font-weight: 700;
-            color: #1a1a2e;
-            font-size: 0.85rem;
             text-transform: uppercase;
             margin-bottom: 4px;
         }
 
-        .cert-badge-issuer {
-            color: #888;
-            font-size: 0.75rem;
-        }
-
-        .cert-badge-date {
-            color: #aaa;
-            font-size: 0.7rem;
-            margin-top: 4px;
-        }
-
-        /* ── Contact ── */
-        .contact-section {
-            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            padding: 50px;
-        }
-
-        .contact-section .section-title {
-            color: #fff;
-        }
-
-        .contact-info-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-            font-size: 0.95rem;
-        }
-
-        .contact-info-item i {
-            width: 44px;
-            height: 44px;
-            background: rgba(229,62,62,0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 14px;
-            font-size: 1rem;
-            color: #fff;
-            flex-shrink: 0;
-        }
-
-        .contact-info-item a,
-        .contact-info-item span {
-            color: #fff;
-            text-decoration: none;
+        .edu-card-institution {
+            color: var(--bold-accent);
+            font-size: 0.85rem;
             font-weight: 500;
         }
 
-        .contact-info-item a:hover {
-            color: #e53e3e;
+        .edu-card-date {
+            color: var(--bold-gray);
+            font-size: 0.78rem;
+            font-weight: 500;
+            margin-top: 8px;
+            letter-spacing: 1px;
         }
 
-        /* ── Footer ── */
-        .footer {
-            background: #0d0d1a;
-            text-align: center;
-            padding: 20px;
+        /* ── CERTIFICATIONS ── */
+        .cert-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .cert-chip {
+            background: var(--bold-black);
+            border: 2px solid var(--bold-accent);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.2s;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cert-chip:hover {
+            background: var(--bold-accent);
+            color: var(--bold-black);
+        }
+
+        .cert-chip:hover .cert-chip-name,
+        .cert-chip:hover .cert-chip-issuer,
+        .cert-chip:hover .cert-chip-date {
+            color: var(--bold-black);
+        }
+
+        .cert-chip:hover .cert-chip-icon {
+            background: var(--bold-black);
+            color: var(--bold-accent);
+        }
+
+        .cert-chip-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--bold-accent);
+            color: var(--bold-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .cert-chip-info {
+            flex: 1;
+        }
+
+        .cert-chip-name {
+            font-weight: 700;
+            color: var(--bold-white);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .cert-chip-issuer {
+            color: var(--bold-gray);
             font-size: 0.75rem;
-            color: #666;
-            border-radius: 0 0 20px 20px;
+            transition: color 0.2s;
         }
 
-        /* ── Responsive ── */
+        .cert-chip-date {
+            color: var(--bold-accent);
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-top: 2px;
+            transition: color 0.2s;
+        }
+
+        /* ── CONTACT ── */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--bold-border);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bold-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--bold-black);
+            flex-shrink: 0;
+        }
+
+        .contact-item a {
+            color: var(--bold-white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .contact-item a:hover {
+            opacity: 0.7;
+        }
+
+        /* ── FOOTER ── */
+        .bold-footer {
+            background: var(--bold-black);
+            text-align: center;
+            padding: 24px;
+            font-size: 0.72rem;
+            color: var(--bold-gray-dark);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-top: 1px solid var(--bold-border);
+        }
+
+        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
-            body {
-                padding: 20px 10px;
-            }
-
-            .hero-bold {
+            .bold-hero {
                 min-height: auto;
-                padding: 40px 30px;
+                padding: 50px 28px;
             }
 
-            .hero-content {
+            .hero-grid {
                 flex-direction: column-reverse;
                 text-align: center;
+                gap: 30px;
             }
 
             .hero-name {
-                font-size: 2rem;
+                font-size: 2.4rem;
+                letter-spacing: -1px;
             }
 
-            .hero-stripe {
-                margin: 0 auto 18px;
+            .hero-photo {
+                width: 160px;
+                height: 160px;
             }
 
-            .hero-photo-circle {
-                width: 140px;
-                height: 140px;
-            }
-
-            .section-light,
-            .section-light-alt,
-            .section-light-warm,
-            .contact-section {
-                padding: 35px 25px;
+            .bold-section {
+                padding: 40px 24px;
             }
 
             .section-title {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
             }
 
-            .projects-grid {
+            .section-number {
+                font-size: 2rem;
+            }
+
+            .about-block {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .about-accent-bar {
+                width: 40px;
+                min-height: 4px;
+                height: 4px;
+            }
+
+            .project-row {
+                flex-direction: column;
+            }
+
+            .project-index {
+                width: 100%;
+                height: 40px;
+                border-right: none;
+                border-bottom: 1px solid var(--bold-border);
+                font-size: 1rem;
+            }
+
+            .project-thumb {
+                width: 100%;
+                height: 140px;
+            }
+
+            .exp-item {
+                flex-direction: column;
                 gap: 12px;
             }
 
-            .project-card {
-                width: 160px;
+            .exp-date-col {
+                width: 100%;
+                border-right: none;
+                border-bottom: 3px solid var(--bold-accent);
+                padding: 0 0 8px 0;
+            }
+
+            .exp-content {
+                padding-left: 0;
+            }
+
+            .edu-stack {
+                grid-template-columns: 1fr;
+            }
+
+            .cert-chip {
+                min-width: 100%;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bold-hero::after {
+                font-size: 6rem;
+                right: 10px;
             }
         }
     </style>
 </head>
 <body>
     <div class="portfolio-page">
-        <section class="hero-bold">
-            <div class="hero-blob-1"></div>
-            <div class="hero-blob-2"></div>
-            <div class="hero-blob-3"></div>
-
-            <div class="hero-wave">
-                <svg viewBox="0 0 900 120" preserveAspectRatio="none">
-                    <path d="M0,60 C150,120 350,0 500,60 C650,120 800,30 900,80 L900,120 L0,120 Z" fill="rgba(229,62,62,0.3)"/>
-                    <path d="M0,80 C200,40 400,120 600,60 C750,20 850,80 900,60 L900,120 L0,120 Z" fill="#fff"/>
-                </svg>
-            </div>
-
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="hero-stripe"></div>
+        <section class="bold-hero">
+            <div class="hero-grid">
+                <div class="hero-info">
+                    <div class="hero-label">Portfolio</div>
                     <h1 class="hero-name">{{ user_fullname }}</h1>
                     {% if employment %}
-                    <p class="hero-subtitle">{{ employment.0.job_title }}</p>
+                    <p class="hero-role">{{ employment.0.job_title }}</p>
                     {% endif %}
-                    <a href="#projects" class="hero-btn">View Portfolio</a>
+                    <a href="#projects" class="hero-cta">View Work &rarr;</a>
                 </div>
-                <div class="hero-photo-wrapper">
-                    <div class="hero-photo-circle">
+                <div class="hero-photo-wrap">
+                    <div class="hero-photo">
                         {% if profilephoto and profilephoto.profile_photo %}
                             <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
                         {% else %}
@@ -630,33 +768,42 @@
         </section>
 
         {% if about and about.about %}
-        <div class="section-light">
-            <h2 class="section-title">About <span>Me</span></h2>
-            <div class="about-text">{{ about.about|safe }}</div>
+        <div class="bold-section bold-section--darker">
+            <div class="section-header">
+                <h2 class="section-title">About</h2>
+                <div class="section-stripe"></div>
+            </div>
+            <div class="about-block">
+                <div class="about-accent-bar"></div>
+                <div class="about-text">{{ about.about|safe }}</div>
+            </div>
         </div>
         {% endif %}
 
         {% if portfolios %}
-        <div class="section-light-alt" id="projects">
-            <h2 class="section-title">Port<span>folio</span></h2>
-            <div class="section-divider"></div>
-            <div class="projects-grid">
+        <div class="bold-section bold-section--dark" id="projects">
+            <div class="section-header">
+                <h2 class="section-title">Portfolio</h2>
+                <div class="section-stripe"></div>
+            </div>
+            <div class="projects-list">
                 {% for project in portfolios %}
-                <div class="project-card">
+                <div class="project-row">
+                    <div class="project-index">{{ forloop.counter|stringformat:"02d" }}</div>
                     {% if project.portfolio_photo %}
                     <div class="project-thumb">
                         <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
                     </div>
                     {% else %}
-                    <div class="project-thumb gradient-{% cycle '1' '2' '3' '4' %}">
-                        <span>{{ project.title }}</span>
+                    <div class="project-thumb">
+                        <div class="project-thumb-placeholder bg-{% cycle '1' '2' '3' '4' %}">{{ project.title }}</div>
                     </div>
                     {% endif %}
-                    <div class="project-card-body">
-                        <div class="project-card-title">{{ project.title }}</div>
-                        <div class="project-card-desc">{{ project.description|truncatewords:8 }}</div>
+                    <div class="project-details">
+                        <div class="project-title">{{ project.title }}</div>
+                        <div class="project-desc">{{ project.description|truncatewords:8 }}</div>
                         {% if project.link %}
-                        <a href="{{ project.link }}" class="project-card-link" target="_blank">View Project <i class="fas fa-arrow-right" style="font-size:0.6rem;"></i></a>
+                        <a href="{{ project.link }}" class="project-link" target="_blank">View Project <i class="fas fa-arrow-right" style="font-size:0.6rem;"></i></a>
                         {% endif %}
                     </div>
                 </div>
@@ -666,20 +813,26 @@
         {% endif %}
 
         {% if employment %}
-        <div class="section-light">
-            <h2 class="section-title">Work <span>Experience</span></h2>
-            <div class="section-divider"></div>
-            <div class="timeline">
+        <div class="bold-section bold-section--darker">
+            <div class="section-header">
+                <h2 class="section-title">Experience</h2>
+                <div class="section-stripe"></div>
+            </div>
+            <div class="exp-grid">
                 {% for job in employment %}
-                <div class="timeline-entry">
-                    <div class="timeline-entry-title">{{ job.job_title }}</div>
-                    <div class="timeline-entry-company">{{ job.employer_name }}</div>
-                    <div class="timeline-entry-date">
-                        {{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}
+                <div class="exp-item">
+                    <div class="exp-date-col">
+                        <div class="exp-date">
+                            {{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}
+                        </div>
                     </div>
-                    {% if job.description_of_duties %}
-                    <div class="timeline-entry-desc">{{ job.description_of_duties }}</div>
-                    {% endif %}
+                    <div class="exp-content">
+                        <div class="exp-role">{{ job.job_title }}</div>
+                        <div class="exp-company">{{ job.employer_name }}</div>
+                        {% if job.description_of_duties %}
+                        <div class="exp-desc">{{ job.description_of_duties }}</div>
+                        {% endif %}
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -687,33 +840,39 @@
         {% endif %}
 
         {% if education %}
-        <div class="section-light-warm">
-            <h2 class="section-title">Edu<span>cation</span></h2>
-            <div class="section-divider"></div>
-            {% for edu in education %}
-            <div class="edu-card">
-                <div class="edu-card-title">{{ edu.qualification }}</div>
-                <div class="edu-card-institution">{{ edu.institution_name }}</div>
-                <div class="edu-card-date">
-                    {{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}
-                </div>
+        <div class="bold-section bold-section--dark">
+            <div class="section-header">
+                <h2 class="section-title">Education</h2>
+                <div class="section-stripe"></div>
             </div>
-            {% endfor %}
+            <div class="edu-stack">
+                {% for edu in education %}
+                <div class="edu-card">
+                    <div class="edu-card-title">{{ edu.qualification }}</div>
+                    <div class="edu-card-institution">{{ edu.institution_name }}</div>
+                    <div class="edu-card-date">
+                        {{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         {% endif %}
 
         {% if certifications %}
-        <div class="section-light-alt">
-            <h2 class="section-title">Certifi<span>cations</span></h2>
-            <div class="section-divider"></div>
-            <div class="row g-3">
+        <div class="bold-section bold-section--darker">
+            <div class="section-header">
+                <h2 class="section-title">Certifications</h2>
+                <div class="section-stripe"></div>
+            </div>
+            <div class="cert-row">
                 {% for cert in certifications %}
-                <div class="col-md-6 col-lg-4">
-                    <div class="cert-badge">
-                        <i class="fas fa-award"></i>
-                        <div class="cert-badge-name">{{ cert.name }}</div>
-                        <div class="cert-badge-issuer">{{ cert.issuer }}</div>
-                        <div class="cert-badge-date">{{ cert.date_issued }}</div>
+                <div class="cert-chip">
+                    <div class="cert-chip-icon"><i class="fas fa-award"></i></div>
+                    <div class="cert-chip-info">
+                        <div class="cert-chip-name">{{ cert.name }}</div>
+                        <div class="cert-chip-issuer">{{ cert.issuer }}</div>
+                        <div class="cert-chip-date">{{ cert.date_issued }}</div>
                     </div>
                 </div>
                 {% endfor %}
@@ -722,23 +881,26 @@
         {% endif %}
 
         {% if contact_methods %}
-        <section class="contact-section">
-            <h2 class="section-title">Get In <span>Touch</span></h2>
-            {% for cm in contact_methods %}
-            <div class="contact-info-item">
-                <i class="{{ cm.icon_class }}"></i>
-                <a href="{{ cm.link_url }}" target="_blank">{{ cm.value }}{% if cm.label %} ({{ cm.label }}){% endif %}</a>
+        <section class="bold-section bold-section--dark">
+            <div class="section-header">
+                <h2 class="section-title">Contact</h2>
+                <div class="section-stripe"></div>
             </div>
-            {% endfor %}
+            <div class="contact-grid">
+                {% for cm in contact_methods %}
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="{{ cm.icon_class }}"></i></div>
+                    <a href="{{ cm.link_url }}" target="_blank">{{ cm.value }}{% if cm.label %} ({{ cm.label }}){% endif %}</a>
+                </div>
+                {% endfor %}
+            </div>
         </section>
         {% endif %}
 
-        <footer class="footer">
+        <footer class="bold-footer">
             Powered by MIfolio
         </footer>
     </div>
-
- 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

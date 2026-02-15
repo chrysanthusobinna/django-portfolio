@@ -4,672 +4,703 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ user_fullname }} - Professional Portfolio. {% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <meta name="author" content="{{ user_fullname }}">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="{{ user_fullname }} - Portfolio">
+    <meta property="og:description" content="{% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ user_fullname }} - Portfolio">
+    <meta name="twitter:description" content="{% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
     <title>{{ user_fullname }} - Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(160deg, #0f0a1a 0%, #f1eef9 30%, #19181a 60%, #1a1030 100%);
-            color: #2d2a3e;
-            line-height: 1.7;
+            font-family: 'Lora', Georgia, serif;
+            background: #f5f0eb;
+            color: #3a3330;
+            line-height: 1.8;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 40px 20px;
         }
 
         .back-link {
             position: fixed;
             top: 24px;
             left: 24px;
-            z-index: 99999;
-            background: rgba(255,255,255,0.1);
+            z-index: 1000;
+            background: rgba(58,51,48,0.75);
             backdrop-filter: blur(12px);
-            color: #fff;
-            padding: 9px 20px;
-            border-radius: 50px;
+            color: #e8ddd3;
+            padding: 8px 20px;
+            border-radius: 2px;
             text-decoration: none;
             font-size: 0.78rem;
-            font-weight: 600;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(200,180,155,0.3);
         }
 
         .back-link:hover {
-            background: rgba(255,255,255,0.2);
-            color: #fff;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-18px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.7; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(25px); }
-            to { opacity: 1; transform: translateY(0); }
+            background: rgba(58,51,48,0.92);
+            color: #d4b896;
         }
 
         .portfolio-page {
-            max-width: 880px;
+            max-width: 960px;
             width: 100%;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.5), 0 0 80px rgba(138,92,246,0.08);
+            margin: 0 auto;
         }
 
-        .hero {
-            background: linear-gradient(160deg, #1a1030 0%, #2d1b4e 30%, #3a1d5c 55%, #4a2068 75%, #2d1b4e 100%);
-            padding: 70px 40px 90px;
-            text-align: center;
+        /* ── Hero ── */
+        .hero-section {
+            background: #2c2522;
             position: relative;
             overflow: hidden;
+            padding: 90px 60px 80px;
+            text-align: center;
         }
 
-        .hero-orb-1 {
+        .hero-section::before {
+            content: '';
             position: absolute;
-            top: -40px;
-            left: -20px;
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(168,85,247,0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 9s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(200,170,130,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(200,170,130,0.06) 0%, transparent 50%);
+            pointer-events: none;
         }
 
-        .hero-orb-2 {
+        .hero-section::after {
+            content: '';
             position: absolute;
-            bottom: -30px;
-            right: -30px;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(236,72,153,0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 11s ease-in-out infinite 2s;
-        }
-
-        .hero-orb-3 {
-            position: absolute;
-            top: 40%;
-            right: 15%;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 8s ease-in-out infinite 1s;
-        }
-
-        .hero-star {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255,255,255,0.4);
-            border-radius: 50%;
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        .hero-star-1 { top: 18%; right: 20%; animation-delay: 0s; }
-        .hero-star-2 { top: 55%; left: 12%; animation-delay: 1s; width: 3px; height: 3px; }
-        .hero-star-3 { bottom: 25%; right: 30%; animation-delay: 2s; width: 5px; height: 5px; background: rgba(168,85,247,0.5); }
-        .hero-star-4 { top: 30%; left: 25%; animation-delay: 0.5s; width: 3px; height: 3px; background: rgba(236,72,153,0.4); }
-
-        .hero-ring {
-            position: absolute;
-            top: 14%;
-            right: 8%;
-            width: 80px;
-            height: 80px;
-            border: 1px solid rgba(168,85,247,0.12);
-            border-radius: 50%;
-            animation: float 10s ease-in-out infinite 3s;
-        }
-
-        .hero-ring-2 {
-            position: absolute;
-            bottom: 20%;
-            left: 6%;
-            width: 55px;
-            height: 55px;
-            border: 1px solid rgba(236,72,153,0.1);
-            border-radius: 50%;
-            animation: float 12s ease-in-out infinite 1s;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c8aa82, transparent);
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            animation: slideUp 0.8s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
         }
 
-        .hero-photo-area {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 36px;
-        }
-
-        .hero-photo-glow {
-            position: absolute;
-            inset: -28px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        .hero-photo-outer {
-            position: absolute;
-            inset: -14px;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 50%;
+        .hero-photo-wrapper {
+            flex-shrink: 0;
         }
 
         .hero-photo-circle {
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid rgba(255,255,255,0.15);
-            position: relative;
-            box-shadow: 0 0 40px rgba(168,85,247,0.15), 0 15px 50px rgba(0,0,0,0.3);
+            border: 2px solid rgba(200,170,130,0.4);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+            background: rgba(200,170,130,0.1);
         }
 
         .hero-photo-circle img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
         }
 
         .hero-placeholder {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #3a1d5c, #4a2068);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', Georgia, serif;
             font-size: 3rem;
             font-weight: 700;
-            color: rgba(255,255,255,0.7);
-            letter-spacing: 5px;
-        }
-
-        .hero-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.6rem;
-            font-weight: 600;
-            color: #fff;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .hero-divider {
-            width: 45px;
-            height: 2px;
-            margin: 0 auto 14px;
-            background: linear-gradient(90deg, #a855f7, #ec4899);
-            border-radius: 2px;
-        }
-
-        .hero-tagline {
-            font-size: 0.82rem;
-            color: rgba(255,255,255,0.45);
-            text-transform: uppercase;
+            color: #c8aa82;
+            background: rgba(200,170,130,0.08);
             letter-spacing: 4px;
-            font-weight: 400;
         }
 
-        .about-band {
-            background: #fff;
-            padding: 55px 50px;
+        .hero-text {
             text-align: center;
         }
 
-        .about-label {
-            font-size: 0.62rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            color: #a855f7;
+        .hero-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.8rem;
             font-weight: 700;
-            margin-bottom: 6px;
+            color: #f0e6da;
+            line-height: 1.15;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
-        .about-heading {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
+        .hero-subtitle {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 0.95rem;
+            color: rgba(200,170,130,0.7);
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 28px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background: transparent;
+            color: #c8aa82;
+            padding: 11px 36px;
+            border: 1px solid rgba(200,170,130,0.5);
+            text-decoration: none;
+            font-size: 0.75rem;
             font-weight: 600;
-            color: #2d1b4e;
-            margin-bottom: 18px;
-        }
-
-        .about-text {
-            font-size: 0.9rem;
-            color: #6b5f7a;
-            line-height: 2;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .section-light {
-            background: #faf8fc;
-            padding: 55px 50px;
-        }
-
-        .section-white {
-            background: #fff;
-            padding: 55px 50px;
-        }
-
-        .section-dark {
-            background: linear-gradient(160deg, #1a1030 0%, #2d1b4e 50%, #231545 100%);
-            padding: 55px 50px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-dark-glow {
-            position: absolute;
-            width: 350px;
-            height: 350px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%);
-            top: -100px;
-            right: -80px;
-        }
-
-        .section-dark-glow-2 {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(236,72,153,0.04) 0%, transparent 70%);
-            bottom: -60px;
-            left: -40px;
-        }
-
-        .section-label {
-            font-size: 0.62rem;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            color: #a855f7;
-            font-weight: 700;
-            margin-bottom: 6px;
+            transition: all 0.4s;
+        }
+
+        .hero-btn:hover {
+            background: #c8aa82;
+            color: #2c2522;
+            border-color: #c8aa82;
+        }
+
+        /* ── Sections ── */
+        .section-light {
+            background: #ffffff;
+            padding: 60px;
+            border-bottom: 1px solid #e8e0d6;
+        }
+
+        .section-light-alt {
+            background: #faf7f3;
+            padding: 60px;
+            border-bottom: 1px solid #e8e0d6;
+        }
+
+        .section-light-warm {
+            background: #f5f0eb;
+            padding: 60px;
+            border-bottom: 1px solid #e8e0d6;
         }
 
         .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.65rem;
             font-weight: 600;
-            color: #2d1b4e;
+            color: #2c2522;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title span {
+            color: #2c2522;
+            -webkit-text-fill-color: #2c2522;
+        }
+
+        .section-divider {
+            width: 40px;
+            height: 1px;
+            background: #c8aa82;
             margin-bottom: 32px;
         }
 
-        .section-dark .section-label {
-            color: rgba(168,85,247,0.6);
+        .about-text {
+            font-size: 0.95rem;
+            color: #5c524a;
+            line-height: 1.9;
+            margin-bottom: 0;
         }
 
-        .section-dark .section-title {
-            color: #fff;
+        /* ── Skills ── */
+        .skills-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .timeline {
-            position: relative;
-            padding-left: 38px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 12px;
-            top: 6px;
-            bottom: 6px;
-            width: 2px;
-            background: linear-gradient(to bottom, #a855f7, #ec4899, rgba(236,72,153,0.1));
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 28px;
-            padding: 22px 24px;
-            background: #fff;
-            border-radius: 14px;
-            border: 1px solid rgba(168,85,247,0.06);
-            box-shadow: 0 2px 14px rgba(168,85,247,0.03);
-            transition: all 0.3s;
-        }
-
-        .timeline-item:hover {
-            border-color: rgba(168,85,247,0.15);
-            box-shadow: 0 6px 28px rgba(168,85,247,0.07);
-            transform: translateX(4px);
-        }
-
-        .timeline-item:last-child { margin-bottom: 0; }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -31px;
-            top: 28px;
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #a855f7, #ec4899);
-            box-shadow: 0 0 0 4px #faf8fc, 0 0 10px rgba(168,85,247,0.2);
-        }
-
-        .timeline-role {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #2d1b4e;
-        }
-
-        .timeline-company {
-            color: #a855f7;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .timeline-date {
-            font-size: 0.73rem;
-            color: #b0a3c0;
-            margin-bottom: 6px;
-        }
-
-        .timeline-desc {
-            color: #6b5f7a;
-            font-size: 0.85rem;
-            line-height: 1.7;
-        }
-
-        .edu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .edu-card {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 14px;
-            padding: 26px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-
-        .edu-card:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(168,85,247,0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 35px rgba(0,0,0,0.15);
-        }
-
-        .edu-qual {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.05rem;
-            color: #fff;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .edu-inst {
-            color: #c084fc;
-            font-size: 0.82rem;
+        .skill-chip {
+            display: inline-block;
+            padding: 7px 22px;
+            border: 1px solid #c8aa82;
+            font-size: 0.8rem;
             font-weight: 500;
-        }
-
-        .edu-date {
-            color: rgba(255,255,255,0.28);
-            font-size: 0.72rem;
-            margin-top: 6px;
-        }
-
-        .cert-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .cert-card {
-            background: #fff;
-            border: 1px solid rgba(168,85,247,0.06);
-            border-radius: 14px;
-            padding: 22px;
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
+            color: #5c524a;
+            background: transparent;
+            letter-spacing: 0.5px;
             transition: all 0.3s;
-            box-shadow: 0 2px 10px rgba(168,85,247,0.02);
         }
 
-        .cert-card:hover {
-            border-color: rgba(168,85,247,0.18);
-            box-shadow: 0 6px 24px rgba(168,85,247,0.06);
-            transform: translateY(-3px);
-        }
-
-        .cert-icon-wrap {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #a855f7, #ec4899);
-            border-radius: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .cert-icon-wrap i {
+        .skill-chip:hover {
+            background: #c8aa82;
             color: #fff;
-            font-size: 0.85rem;
+            border-color: #c8aa82;
         }
 
-        .cert-name {
-            font-size: 0.88rem;
-            color: #2d1b4e;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .cert-issuer {
-            color: #8b7fa0;
-            font-size: 0.76rem;
-        }
-
-        .portfolio-grid {
+        /* ── Projects ── */
+        .projects-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
         }
 
-        .portfolio-card {
-            background: #fff;
-            border: 1px solid rgba(168,85,247,0.05);
-            border-radius: 16px;
+        .project-card {
             overflow: hidden;
-            transition: all 0.35s;
-            box-shadow: 0 3px 16px rgba(0,0,0,0.03);
+            border: 1px solid #e0d6cc;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
         }
 
-        .portfolio-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 14px 45px rgba(168,85,247,0.1);
-            border-color: rgba(168,85,247,0.15);
+        .project-card:hover {
+            box-shadow: 0 8px 30px rgba(58,51,48,0.08);
+            border-color: #c8aa82;
         }
 
-        .portfolio-img {
+        .project-thumb {
             width: 100%;
             height: 160px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #ece5f5, #f0e8fa);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #f0e6da;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
         }
 
-        .portfolio-img img {
+        .project-thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .portfolio-img i {
-            color: #c084fc;
-            font-size: 1.8rem;
+        .gradient-1 {
+            background: linear-gradient(135deg, #5c524a, #3a3330);
         }
 
-        .portfolio-body {
+        .gradient-2 {
+            background: linear-gradient(135deg, #8a7b6b, #5c524a);
+        }
+
+        .gradient-3 {
+            background: linear-gradient(135deg, #c8aa82, #8a7b6b);
+        }
+
+        .gradient-4 {
+            background: linear-gradient(135deg, #3a3330, #6b5d52);
+        }
+
+        .project-card-body {
             padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
-        .portfolio-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.05rem;
-            color: #2d1b4e;
-            font-weight: 700;
-            margin-bottom: 5px;
+        .project-card-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2c2522;
+            margin-bottom: 6px;
         }
 
-        .portfolio-desc {
-            color: #8b7fa0;
+        .project-card-desc {
             font-size: 0.8rem;
+            color: #8a7b6b;
             line-height: 1.6;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            flex: 1;
         }
 
-        .portfolio-link {
-            color: #a855f7;
-            text-decoration: none;
+        .project-card-btn {
+            display: inline-block;
+            padding: 8px 0;
+            border: none;
+            border-top: 1px solid #e0d6cc;
             font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: gap 0.3s;
-        }
-
-        .portfolio-link:hover {
-            gap: 9px;
-            color: #7c3aed;
-        }
-
-        .contact-items {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-chip {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 14px;
-            padding: 16px 24px;
-            backdrop-filter: blur(10px);
+            font-weight: 600;
+            color: #c8aa82;
+            background: transparent;
+            cursor: pointer;
             transition: all 0.3s;
-        }
-
-        .contact-chip:hover {
-            background: rgba(255,255,255,0.12);
-            border-color: rgba(168,85,247,0.3);
-            transform: translateY(-2px);
-        }
-
-        .contact-chip-icon {
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(135deg, #a855f7, #ec4899);
-            border-radius: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .contact-chip-icon i {
-            color: #fff;
-            font-size: 0.8rem;
-        }
-
-        .contact-chip a,
-        .contact-chip span {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .contact-chip a:hover {
-            color: #c084fc;
-        }
-
-        .footer {
-            background: #1a1030;
             text-align: center;
-            padding: 22px 30px;
-        }
-
-        .footer span {
-            font-size: 0.68rem;
-            color: rgba(255,255,255,0.18);
+            width: 100%;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
+        .project-card-btn:hover {
+            color: #2c2522;
+            background: #faf7f3;
+        }
+
+        /* ── Project Modal ── */
+        .project-modal .modal-content {
+            border: none;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+
+        .project-modal .modal-header {
+            background: #2c2522;
+            border: none;
+            padding: 22px 30px;
+        }
+
+        .project-modal .modal-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #f0e6da;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .project-modal .btn-close {
+            filter: brightness(0) invert(1);
+            opacity: 0.5;
+        }
+
+        .project-modal .modal-body {
+            padding: 30px;
+            background: #fff;
+        }
+
+        .project-modal-img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .project-modal-placeholder {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 500;
+            font-style: italic;
+            color: #f0e6da;
+            margin-bottom: 24px;
+        }
+
+        .project-modal-desc {
+            font-size: 0.92rem;
+            color: #5c524a;
+            line-height: 1.85;
+            margin-bottom: 24px;
+        }
+
+        .project-modal-link {
+            display: inline-block;
+            padding: 11px 32px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            background: #2c2522;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid #2c2522;
+        }
+
+        .project-modal-link:hover {
+            background: #c8aa82;
+            border-color: #c8aa82;
+            color: #fff;
+        }
+
+        /* ── Timeline ── */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 4px;
+            bottom: 4px;
+            width: 1px;
+            background: #c8aa82;
+        }
+
+        .timeline-entry {
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .timeline-entry:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-entry::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #c8aa82;
+            box-shadow: 0 0 0 3px #f5f0eb, 0 0 0 4px rgba(200,170,130,0.3);
+        }
+
+        .timeline-entry-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c2522;
+        }
+
+        .timeline-entry-company {
+            color: #c8aa82;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+
+        .timeline-entry-date {
+            color: #a09488;
+            font-size: 0.78rem;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-entry-desc {
+            color: #6b5d52;
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+
+        /* ── Education ── */
+        .edu-card {
+            background: #fff;
+            padding: 22px 28px;
+            border-left: 2px solid #c8aa82;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+
+        .edu-card:hover {
+            background: #faf7f3;
+        }
+
+        .edu-card-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            color: #2c2522;
+            font-size: 0.95rem;
+        }
+
+        .edu-card-institution {
+            color: #c8aa82;
+            font-size: 0.85rem;
+        }
+
+        .edu-card-date {
+            color: #a09488;
+            font-size: 0.78rem;
+        }
+
+        /* ── Certifications ── */
+        .cert-badge {
+            background: #fff;
+            padding: 24px;
+            border: 1px solid #e0d6cc;
+            text-align: center;
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .cert-badge:hover {
+            border-color: #c8aa82;
+            background: #faf7f3;
+        }
+
+        .cert-badge i {
+            font-size: 1.6rem;
+            color: #c8aa82;
+            -webkit-text-fill-color: #c8aa82;
+            margin-bottom: 12px;
+        }
+
+        .cert-badge-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            color: #2c2522;
+            font-size: 0.88rem;
+            margin-bottom: 4px;
+        }
+
+        .cert-badge-issuer {
+            color: #8a7b6b;
+            font-size: 0.78rem;
+        }
+
+        .cert-badge-date {
+            color: #a09488;
+            font-size: 0.72rem;
+            margin-top: 6px;
+        }
+
+        /* ── Contact ── */
+        .contact-section {
+            background: #2c2522;
+            padding: 60px;
+            position: relative;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c8aa82, transparent);
+        }
+
+        .contact-section .section-title {
+            color: #f0e6da;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            font-size: 0.92rem;
+        }
+
+        .contact-info-item i {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(200,170,130,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 0.9rem;
+            color: #c8aa82;
+            flex-shrink: 0;
+        }
+
+        .contact-info-item a,
+        .contact-info-item span {
+            color: rgba(240,230,218,0.85);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info-item a:hover {
+            color: #c8aa82;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background: #231e1b;
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        .footer-promo {
+            font-size: 0.78rem;
+            color: rgba(200,170,130,0.5);
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-promo a {
+            color: #c8aa82;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-promo a:hover {
+            color: #f0e6da;
+        }
+
+        .footer-copy {
+            font-size: 0.7rem;
+            color: rgba(200,170,130,0.35);
+        }
+
+        .footer-copy a {
+            color: rgba(200,170,130,0.5);
+            text-decoration: none;
+        }
+
+        .footer-copy a:hover {
+            color: #c8aa82;
+        }
+
+        /* ── Responsive ── */
         @media (max-width: 768px) {
-            body { padding: 20px 12px; }
-            .hero-name { font-size: 1.8rem; letter-spacing: 2px; }
-            .hero { padding: 50px 24px 70px; }
-            .about-band, .section-light, .section-white, .section-dark { padding: 45px 24px; }
-            .edu-grid, .cert-grid, .portfolio-grid { grid-template-columns: 1fr; }
-            .contact-items { flex-direction: column; align-items: center; }
-            .hero-ring, .hero-ring-2 { display: none; }
+            .hero-section {
+                padding: 60px 30px 50px;
+            }
+
+            .hero-name {
+                font-size: 2rem;
+            }
+
+            .hero-photo-circle {
+                width: 120px;
+                height: 120px;
+            }
+
+            .section-light,
+            .section-light-alt,
+            .section-light-warm,
+            .contact-section {
+                padding: 40px 24px;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="portfolio-page">
-        <div class="hero">
-            <div class="hero-orb-1"></div>
-            <div class="hero-orb-2"></div>
-            <div class="hero-orb-3"></div>
-            <div class="hero-star hero-star-1"></div>
-            <div class="hero-star hero-star-2"></div>
-            <div class="hero-star hero-star-3"></div>
-            <div class="hero-star hero-star-4"></div>
-            <div class="hero-ring"></div>
-            <div class="hero-ring-2"></div>
-
+        <section class="hero-section">
             <div class="hero-content">
-                <div class="hero-photo-area">
-                    <div class="hero-photo-glow"></div>
-                    <div class="hero-photo-outer"></div>
+                <div class="hero-photo-wrapper">
                     <div class="hero-photo-circle">
                         {% if profilephoto and profilephoto.profile_photo %}
                             <img src="{{ profilephoto.profile_photo.url }}" alt="{{ user_fullname }}">
@@ -678,34 +709,78 @@
                         {% endif %}
                     </div>
                 </div>
-                <h1 class="hero-name">{{ user_fullname }}</h1>
-                <div class="hero-divider"></div>
-                {% if employment %}
-                <div class="hero-tagline">{{ employment.0.job_title }}</div>
-                {% endif %}
+                <div class="hero-text">
+                    <h1 class="hero-name">{{ user_fullname }}</h1>
+                    {% if employment %}
+                    <p class="hero-subtitle">{{ employment.0.job_title }}</p>
+                    {% endif %}
+                    <a href="#projects" class="hero-btn">View Portfolio</a>
+                </div>
             </div>
-        </div>
+        </section>
 
         {% if about and about.about %}
-        <div class="about-band">
-            <div class="about-label">Introduction</div>
-            <h2 class="about-heading">About Me</h2>
+        <div class="section-light">
+            <h2 class="section-title">About Me</h2>
+            <div class="section-divider"></div>
             <div class="about-text">{{ about.about|safe }}</div>
+        </div>
+        {% endif %}
+
+        {% if skill and skill.skills %}
+        <div class="section-light-warm">
+            <h2 class="section-title"><span>Skills</span></h2>
+            <div class="section-divider"></div>
+            <div class="skills-section">
+                {% for s in skill.skills %}
+                <span class="skill-chip">{{ s }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if portfolios %}
+        <div class="section-light-alt" id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="section-divider"></div>
+            <div class="projects-grid">
+                {% for project in portfolios %}
+                <div class="project-card">
+                    {% if project.portfolio_photo %}
+                    <div class="project-thumb">
+                        <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
+                    </div>
+                    {% else %}
+                    <div class="project-thumb gradient-{% cycle '1' '2' '3' '4' %}">
+                        <span>{{ project.title }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="project-card-body">
+                        <div class="project-card-title">{{ project.title }}</div>
+                        <div class="project-card-desc">{{ project.description|truncatewords:6 }}</div>
+                        <button class="project-card-btn" data-bs-toggle="modal" data-bs-target="#projectModal{{ forloop.counter }}">Details</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
         </div>
         {% endif %}
 
         {% if employment %}
         <div class="section-light">
-            <div class="section-label">Career</div>
-            <h2 class="section-title">Experience</h2>
+            <h2 class="section-title"><span>Experience</span></h2>
+            <div class="section-divider"></div>
             <div class="timeline">
                 {% for job in employment %}
-                <div class="timeline-item">
-                    <div class="timeline-role">{{ job.job_title }}</div>
-                    <div class="timeline-company">{{ job.employer_name }}</div>
-                    <div class="timeline-date">{{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}</div>
+                <div class="timeline-entry">
+                    <div class="timeline-entry-title">{{ job.job_title }}</div>
+                    <div class="timeline-entry-company">{{ job.employer_name }}</div>
+                    <div class="timeline-entry-date">
+                        {{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}
+                    </div>
                     {% if job.description_of_duties %}
-                    <div class="timeline-desc">{{ job.description_of_duties }}</div>
+                    <div class="timeline-entry-desc">{{ job.description_of_duties }}</div>
                     {% endif %}
                 </div>
                 {% endfor %}
@@ -714,61 +789,33 @@
         {% endif %}
 
         {% if education %}
-        <div class="section-dark">
-            <div class="section-dark-glow"></div>
-            <div class="section-dark-glow-2"></div>
-            <div class="section-label">Academic</div>
-            <h2 class="section-title">Education</h2>
-            <div class="edu-grid">
-                {% for edu in education %}
-                <div class="edu-card">
-                    <div class="edu-qual">{{ edu.qualification }}</div>
-                    <div class="edu-inst">{{ edu.institution_name }}</div>
-                    <div class="edu-date">{{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}</div>
+        <div class="section-light-warm">
+            <h2 class="section-title"><span>Education</span></h2>
+            <div class="section-divider"></div>
+            {% for edu in education %}
+            <div class="edu-card">
+                <div class="edu-card-title">{{ edu.qualification }}</div>
+                <div class="edu-card-institution">{{ edu.institution_name }}</div>
+                <div class="edu-card-date">
+                    {{ edu.start_date|slice:":4" }} &mdash; {% if edu.end_date %}{{ edu.end_date|slice:":4" }}{% else %}Present{% endif %}
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
         {% endif %}
 
         {% if certifications %}
-        <div class="section-white">
-            <div class="section-label">Credentials</div>
-            <h2 class="section-title">Certifications</h2>
-            <div class="cert-grid">
+        <div class="section-light-alt">
+            <h2 class="section-title"><span>Certifications</span></h2>
+            <div class="section-divider"></div>
+            <div class="row g-3">
                 {% for cert in certifications %}
-                <div class="cert-card">
-                    <div class="cert-icon-wrap"><i class="fas fa-award"></i></div>
-                    <div>
-                        <div class="cert-name">{{ cert.name }}</div>
-                        <div class="cert-issuer">{{ cert.issuer }}</div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if portfolios %}
-        <div class="section-light">
-            <div class="section-label">Work</div>
-            <h2 class="section-title">Portfolio</h2>
-            <div class="portfolio-grid">
-                {% for project in portfolios %}
-                <div class="portfolio-card">
-                    <div class="portfolio-img">
-                        {% if project.portfolio_photo %}
-                        <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}">
-                        {% else %}
-                        <i class="fas fa-layer-group"></i>
-                        {% endif %}
-                    </div>
-                    <div class="portfolio-body">
-                        <div class="portfolio-title">{{ project.title }}</div>
-                        <div class="portfolio-desc">{{ project.description|truncatewords:16 }}</div>
-                        {% if project.link %}
-                        <a href="{{ project.link }}" class="portfolio-link" target="_blank">View Project <i class="fas fa-arrow-right" style="font-size:0.6rem;"></i></a>
-                        {% endif %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="cert-badge">
+                        <i class="fas fa-award"></i>
+                        <div class="cert-badge-name">{{ cert.name }}</div>
+                        <div class="cert-badge-issuer">{{ cert.issuer }}</div>
+                        <div class="cert-badge-date">{{ cert.date_issued }}</div>
                     </div>
                 </div>
                 {% endfor %}
@@ -777,27 +824,54 @@
         {% endif %}
 
         {% if contact_methods %}
-        <div class="section-dark" style="text-align:center;">
-            <div class="section-dark-glow"></div>
-            <div class="section-label">Connect</div>
-            <h2 class="section-title">Contact</h2>
-            <div class="contact-items">
-                {% for cm in contact_methods %}
-                <div class="contact-chip">
-                    <div class="contact-chip-icon"><i class="{{ cm.icon_class }}"></i></div>
-                    <a href="{{ cm.link_url }}" target="_blank">{{ cm.value }}{% if cm.label %} ({{ cm.label }}){% endif %}</a>
-                </div>
-                {% endfor %}
+        <section class="contact-section">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="section-divider"></div>
+            {% for cm in contact_methods %}
+            <div class="contact-info-item">
+                <i class="{{ cm.icon_class }}"></i>
+                <a href="{{ cm.link_url }}" target="_blank">{{ cm.value }}{% if cm.label %} ({{ cm.label }}){% endif %}</a>
             </div>
-        </div>
+            {% endfor %}
+        </section>
         {% endif %}
 
-        <div class="footer">
-            <span>Powered by MIfolio</span>
-        </div>
+        <footer class="footer">
+            <div class="footer-promo">Want a portfolio like this? <a target="_blank" href="{% url 'home' %}">Create yours with {{ SITE_NAME }}</a></div>
+            <div class="footer-copy">&copy; Powered by <a href="{% url 'home' %}">{{ SITE_NAME }}</a></div>
+        </footer>
     </div>
 
- 
+
+
+    {% if portfolios %}
+    {% for project in portfolios %}
+    <div class="modal fade project-modal" id="projectModal{{ forloop.counter }}" tabindex="-1" aria-labelledby="projectModalLabel{{ forloop.counter }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectModalLabel{{ forloop.counter }}">{{ project.title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% if project.portfolio_photo %}
+                    <img src="{{ project.portfolio_photo.url }}" alt="{{ project.title }}" class="project-modal-img">
+                    {% else %}
+                    <div class="project-modal-placeholder gradient-{% cycle '1' '2' '3' '4' %}">
+                        {{ project.title }}
+                    </div>
+                    {% endif %}
+                    <div class="project-modal-desc">{{ project.description }}</div>
+                    {% if project.link %}
+                    <a href="{{ project.link }}" class="project-modal-link" target="_blank"><i class="fas fa-external-link-alt me-2"></i>Visit Project</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
