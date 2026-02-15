@@ -206,6 +206,10 @@
                         <td class="ep-tile-label">End</td>
                         <td class="ep-tile-value">{{ job.end_date|date:"F Y"|default:"Present" }}</td>
                     </tr>
+                    <tr>
+                        <td class="ep-tile-label">Description of Duties</td>
+                        <td class="ep-tile-value">{{ job.description_of_duties|truncatechars:80 }}</td>
+                    </tr>
                 </table>
                 <div class="ep-tile-actions">
                     <button class="btn btn-sm btn-outline-primary edit-employment-btn" data-bs-toggle="modal"

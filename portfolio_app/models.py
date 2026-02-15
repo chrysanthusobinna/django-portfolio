@@ -166,6 +166,16 @@ class ContactMethod(models.Model):
         return self.value
 
 
+# UserProfile model – extra user fields (country, address)
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    country = models.CharField(max_length=100, blank=True, default='')
+    address = models.CharField(max_length=255, blank=True, default='')
+
+    def __str__(self):
+        return f"Profile for {self.user.username}"
+
+
 # Skill model – stores skills as a JSON array (e.g. ["Leadership", "Excel"])
 class Skill(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

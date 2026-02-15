@@ -33,6 +33,22 @@
                     {{ form.username }}
                 </div>
 
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_country" class="form-label fw-bold">Country</label>
+                        {{ form.country }}
+                        <datalist id="country-list">
+                            {% for country_name in form.COUNTRY_LIST %}
+                                <option value="{{ country_name }}">
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_address" class="form-label fw-bold">Address</label>
+                        {{ form.address }}
+                    </div>
+                </div>
+
             </form>
         </div>
         <div class="card-footer d-flex justify-content-end">

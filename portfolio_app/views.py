@@ -19,6 +19,7 @@ from .models import (
     Template,
     UserTemplate,
     Skill,
+    UserProfile,
 )
 from .forms import (
     ContactMethodForm,
@@ -992,6 +993,8 @@ def _save_parsed_cv_data(request, parsed_data):
 @login_required
 def account_settings(request):
     """Account settings view for editing first name, last name, and username."""
+    profile, _ = UserProfile.objects.get_or_create(user=request.user)
+
     if request.method == 'POST':
         form = AccountSettingsForm(
             request.POST,
@@ -1000,6 +1003,9 @@ def account_settings(request):
         )
         if form.is_valid():
             form.save()
+            profile.country = form.cleaned_data.get('country', '')
+            profile.address = form.cleaned_data.get('address', '')
+            profile.save()
             messages.success(request, "Account settings updated successfully.")
             return redirect('account_settings')
         else:
@@ -1008,6 +1014,10 @@ def account_settings(request):
             user.first_name = request.POST.get('first_name', user.first_name).strip()
             user.last_name = request.POST.get('last_name', user.last_name).strip()
             user.save(update_fields=['first_name', 'last_name'])
+            # Still save profile fields
+            profile.country = request.POST.get('country', profile.country).strip()
+            profile.address = request.POST.get('address', profile.address).strip()
+            profile.save()
             messages.success(request, "Name updated successfully.")
             for field, errors in form.errors.items():
                 label = form.fields[field].label or field.capitalize()
@@ -1017,5 +1027,9 @@ def account_settings(request):
         form = AccountSettingsForm(
             instance=request.user,
             current_user=request.user,
+            initial={
+                'country': profile.country,
+                'address': profile.address,
+            },
         )
     return render(request, 'account-settings.html', {'form': form})

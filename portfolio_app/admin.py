@@ -9,6 +9,7 @@ from .models import (
     Template,
     UserTemplate,
     Skill,
+    UserProfile,
 )
 
 
@@ -52,3 +53,9 @@ class ContactMethodAdmin(admin.ModelAdmin):
     list_display = ('user', 'contact_type', 'value', 'label')
     list_filter = ('contact_type',)
     search_fields = ('user__username', 'value', 'label')
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'country', 'address')
+    search_fields = ('user__username', 'country', 'address')

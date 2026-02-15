@@ -321,7 +321,7 @@ class GeminiCVExtractor:
         # --- About ---
         about = data.get("about")
         if about and isinstance(about, str) and about.strip():
-            result["about"] = about.strip()[:1000]
+            result["about"] = about.strip()[:1500]
 
         # --- Employment ---
         for emp in data.get("employment") or []:
@@ -331,7 +331,7 @@ class GeminiCVExtractor:
                 "employer_name": (emp.get("employer_name") or "").strip(),
                 "job_title": (emp.get("job_title") or "").strip(),
                 "description_of_duties": (
-                    (emp.get("description_of_duties") or "").strip()[:500]
+                    (emp.get("description_of_duties") or "").strip()[:9500]
                 ),
                 "start_date": _normalize_date(emp.get("start_date")),
                 "end_date": _normalize_date(emp.get("end_date")),
