@@ -901,6 +901,17 @@ def _save_parsed_cv_data(request, parsed_data):
             defaults={'label': ''},
         )
 
+    # --- Country & Address ---
+    country = parsed_data.get("country")
+    address = parsed_data.get("address")
+    if country or address:
+        profile, _ = UserProfile.objects.get_or_create(user=user)
+        if country:
+            profile.country = str(country).strip()[:100]
+        if address:
+            profile.address = str(address).strip()[:255]
+        profile.save()
+
     # --- About ---
     about_text = parsed_data.get("about")
     if about_text and str(about_text).strip():

@@ -35,6 +35,8 @@ SYSTEM_PROMPT = (
     "Return this EXACT JSON schema (no additional keys):\n"
     "{\n"
     '  "contact": {"email_address": null, "phone_number": null, "linkedin": null},\n'
+    '  "country": null,\n'
+    '  "address": null,\n'
     '  "about": null,\n'
     '  "employment": [\n'
     '    {"employer_name": null, "job_title": null, "description_of_duties": null, '
@@ -295,6 +297,8 @@ class GeminiCVExtractor:
         """Validate fields, normalise dates, de-duplicate lists."""
         result = {
             "contact": {},
+            "country": None,
+            "address": None,
             "about": None,
             "employment": [],
             "education": [],
@@ -317,6 +321,15 @@ class GeminiCVExtractor:
                 contact_raw.get("linkedin"), LINKEDIN_RE
             ),
         }
+
+        # --- Country & Address ---
+        country = data.get("country")
+        if country and isinstance(country, str) and country.strip():
+            result["country"] = country.strip()[:100]
+
+        address = data.get("address")
+        if address and isinstance(address, str) and address.strip():
+            result["address"] = address.strip()[:255]
 
         # --- About ---
         about = data.get("about")
