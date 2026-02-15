@@ -15,7 +15,7 @@
                 <h1 class="hero-title">Build Your <span class="text-gradient">Professional Portfolio</span> in Minutes</h1>
                 <p class="hero-subtitle">Showcase your skills, experiences, and achievements with a stunning online presence. Stand out from the crowd with beautifully designed portfolio templates.</p>
                 <div class="hero-actions">
-                    <a href="{% url 'account_signup' %}" class="btn btn-hero-primary">Get Started Free <i class="fas fa-arrow-right ms-2"></i></a>
+                    <a href="{% if user.is_authenticated %}{% url 'edit_user_profile' user.username %}{% else %}{% url 'account_signup' %}{% endif %}" class="btn btn-hero-primary">{% if user.is_authenticated %}Edit Portfolio{% else %}Get Started Free{% endif %} <i class="fas fa-arrow-right ms-2"></i></a>
                     <a href="#templates" class="btn btn-hero-outline">View Templates</a>
                 </div>
                 <div class="hero-stats">
@@ -168,7 +168,7 @@
             {% endfor %}
         </div>
         <div class="text-center mt-5">
-            <a href="{% url 'account_signup' %}" class="btn btn-hero-primary btn-lg">Create Your Portfolio <i class="fas fa-arrow-right ms-2"></i></a>
+            <a href="{% if user.is_authenticated %}{% url 'edit_user_profile' user.username %}{% else %}{% url 'account_signup' %}{% endif %}" class="btn btn-hero-primary btn-lg">{% if user.is_authenticated %}Edit Portfolio{% else %}Create Your Portfolio{% endif %} <i class="fas fa-arrow-right ms-2"></i></a>
         </div>
     </div>
 </section>
@@ -247,7 +247,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{% url 'account_signup' %}" class="btn btn-hero-primary mt-4">Try It Now <i class="fas fa-arrow-right ms-2"></i></a>
+                    <a href="{% if user.is_authenticated %}{% url 'edit_user_profile' user.username %}{% else %}{% url 'account_signup' %}{% endif %}" class="btn btn-hero-primary mt-4">{% if user.is_authenticated %}Edit Portfolio{% else %}Try It Now{% endif %} <i class="fas fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>

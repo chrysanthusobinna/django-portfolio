@@ -64,7 +64,7 @@
                                 My Portfolio
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item {% if request.path == user_profile_url %}active{% endif %}" href="{{ user_profile_url }}"><i class="fas fa-eye me-2"></i>View Portfolio</a></li>
+                                <li><a class="dropdown-item {% if request.path == user_profile_url %}active{% endif %}" target="_blank" href="{{ user_profile_url }}"><i class="fas fa-eye me-2"></i>View Portfolio</a></li>
                                 <li><a class="dropdown-item {% if request.path == edit_user_profile_url %}active{% endif %}" href="{{ edit_user_profile_url }}"><i class="fas fa-edit me-2"></i>Edit Portfolio</a></li>
                             </ul>
                         </li>

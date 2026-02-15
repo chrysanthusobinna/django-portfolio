@@ -29,6 +29,15 @@ def get_user_data(username):
         user_fullname += " " + user.last_name
     user_fullname = user_fullname.strip() or user.email
 
+    # Compute initials from first/last name, fallback to first 2 chars of email
+    initials = ""
+    if user.first_name:
+        initials += user.first_name[0].upper()
+    if user.last_name:
+        initials += user.last_name[0].upper()
+    if not initials:
+        initials = user.email[:2].upper()
+
     data = {
         'profilephoto': Profilephoto.objects.filter(user=user).first() or None,
         'about': About.objects.filter(user=user).first() or None,
@@ -39,5 +48,6 @@ def get_user_data(username):
         'contact_methods': ContactMethod.objects.filter(user=user),
         'skill': Skill.objects.filter(user=user).first() or None,
         'user_fullname': user_fullname,
+        'user_initials': initials,
     }
     return user, data
