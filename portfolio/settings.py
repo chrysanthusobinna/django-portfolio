@@ -45,6 +45,7 @@ EMAIL_TIMEOUT = 10
 # Vertex AI Configuration for CV parsing
 VERTEXAI_PROJECT_ID = os.environ.get("VERTEXAI_PROJECT_ID", "")
 VERTEXAI_LOCATION = os.environ.get("VERTEXAI_LOCATION", "us-central1")
+GOOGLE_APPLICATION_CREDENTIALS = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "")
 
 # Site Information Constants
 SITE_NAME = "MIfolio"
