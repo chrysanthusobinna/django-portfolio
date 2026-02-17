@@ -32,3 +32,11 @@ os.environ.setdefault("EMAIL_HOST_PASSWORD", "<put your-email-password here>")
 # Google OAuth
 os.environ.setdefault("GOOGLE_CLIENT_ID", "<put Google OAuth client ID here>")
 os.environ.setdefault("GOOGLE_CLIENT_SECRET", "<put Google OAuth client secret here>")
+
+
+# Vertex AI Configuration (replace with your actual values)
+VERTEXAI_PROJECT_ID = os.environ.get("VERTEXAI_PROJECT_ID", "your-project-id-here")
+VERTEXAI_LOCATION = os.environ.get("VERTEXAI_LOCATION", "us-central1")
+
+# Google Cloud credentials (set this to the path of your service account key)
+os.environ.setdefault("GOOGLE_APPLICATION_CREDENTIALS", "/path/to/your/service-account-key.json")

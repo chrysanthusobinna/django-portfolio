@@ -15,3 +15,4 @@ build/
 .coverage
 *.sqlite3
 staticfiles/
+veritas-ai-creds.json

@@ -36,7 +36,7 @@ from .forms import (
 )
 from .utils import validate_image_file, send_contact_email
 from .cv_parser import CVParser
-from .gemini_cv_extractor import GeminiCVExtractor
+from .vertex_ai_cv_extractor import VertexAICVExtractor
 from django.conf import settings
 
 logger = logging.getLogger(__name__)
@@ -878,16 +878,16 @@ def upload_cv(request):
                         username=request.user.username,
                     )
 
-                # --- 2. Parse with Gemini (primary) ---
+                # --- 2. Parse with Vertex AI (primary) ---
                 parsed_data = None
                 try:
-                    extractor = GeminiCVExtractor()
+                    extractor = VertexAICVExtractor()
                     parsed_data = extractor.extract(cv_text)
-                except ValueError as exc:
-                    # GEMINI_API_KEY not configured
-                    logger.warning("Gemini unavailable: %s", exc)
+                except (ValueError, ImportError) as exc:
+                    # Vertex AI not configured or libraries not installed
+                    logger.warning("Vertex AI unavailable: %s", exc)
                 except Exception as exc:
-                    logger.error("Gemini extraction error: %s", exc)
+                    logger.error("Vertex AI extraction error: %s", exc)
 
                 # --- 3. Fallback to regex parser ---
                 if parsed_data is None:
