@@ -2,8 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.profile_router, name="profile_router"),
-    path('', views.home, name='home'),
+    path('', views.profile_router, name='profile_router'),
     path('templates/', views.templates_page, name='templates_page'),
     path('template-preview/<str:template_name>/', views.template_preview, name='template_preview'),
     path('template-preview-raw/<str:template_name>/', views.template_preview_raw, name='template_preview_raw'),
