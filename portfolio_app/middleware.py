@@ -16,5 +16,6 @@ class SubdomainUsernameMiddleware:
             # ignore common subdomains
             if sub and sub not in ("www", "api"):
                 request.subdomain_username = sub
+                print(f"DEBUG: Subdomain detected - username: {sub}")
 
         return self.get_response(request)

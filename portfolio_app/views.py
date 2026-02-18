@@ -49,10 +49,15 @@ def home(request):
 
 def profile_router(request):
     # If subdomain exists, show that user profile
-    if getattr(request, "subdomain_username", None):
-        return user_profile(request, request.subdomain_username)
+    subdomain_username = getattr(request, "subdomain_username", None)
+    print(f"DEBUG: profile_router called, subdomain_username: {subdomain_username}")
+    
+    if subdomain_username:
+        print(f"DEBUG: Routing to user profile for: {subdomain_username}")
+        return user_profile(request, subdomain_username)
 
     # Otherwise show your normal home page (or landing page)
+    print("DEBUG: No subdomain, showing home page")
     return render(request, "pages/home.html")
 
 
