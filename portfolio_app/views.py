@@ -47,6 +47,15 @@ def home(request):
     return render(request, "home-page.html", {'templates': templates})
 
 
+def profile_router(request):
+    # If subdomain exists, show that user profile
+    if getattr(request, "subdomain_username", None):
+        return user_profile(request, request.subdomain_username)
+
+    # Otherwise show your normal home page (or landing page)
+    return render(request, "pages/home.html")
+
+
 def templates_page(request):
     templates = Template.objects.filter(is_active=True)
     return render(request, "templates-page.html", {'templates': templates})

@@ -91,6 +91,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'portfolio_app.middleware.SubdomainUsernameMiddleware',
 ]
 
 
@@ -144,13 +145,14 @@ DATABASES = {
         },
     }
 }
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://*.codeinstitute-ide.net/",
-    "https://*.herokuapp.com",
-    "https://*.gitpod.io",
     "http://localhost:*",
     "http://127.0.0.1:*",
+    "https://mifolio.live",
+    "https://*.mifolio.live",
 ]
 
 # Password validation

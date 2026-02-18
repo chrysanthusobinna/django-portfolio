@@ -9,6 +9,7 @@ urlpatterns = [
     path('select-template/<int:template_id>/', views.select_template, name='select_template'),
     path('logout/', views.logout_view, name='logout'),
     path('upload-cv/', views.upload_cv, name='upload_cv'),
+    path("", views.profile_router, name="profile_router"),
     path('<str:username>/', views.user_profile, name='user_profile'),
     path('edit/<str:username>/', views.edit_user_profile, name='edit_user_profile'),
 
