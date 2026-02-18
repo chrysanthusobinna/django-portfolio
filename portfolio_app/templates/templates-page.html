@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Portfolio Templates - {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+
+ 
+
+{% include 'partials/_alert.html' %}
+{% include 'partials/_auth_user.html' %}
+
+<section class="section-modern templates-section" id="templates">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-label">Portfolio Templates</span>
+            <h2 class="section-heading">Discover Your <span class="text-gradient">Perfect Design</span></h2>
+            <p class="section-text mx-auto" style="max-width: 650px;">
+                Explore our curated collection of professional portfolio templates, each meticulously designed to showcase your unique story. 
+                From sleek minimalist layouts to bold creative designs, find the perfect canvas that amplifies your professional brand and captivates your audience.
+            </p>
+        </div>
+        <div class="row g-4">
+            {% for template in templates %}
+            <div class="col-md-6 col-lg-4">
+                <div class="template-card">
+                    <a href="{% url 'template_preview' template.template_file %}" class="template-image-wrapper" >
+                        <img src="{% static template.image_path %}" alt="{{ template.name }} Template" class="template-image">
+                        <div class="template-overlay">
+                            <span class="template-preview-btn">Preview</span>
+                        </div>
+                    </a>
+                    <div class="template-info">
+                        <h5 class="template-name">{{ template.name }}</h5>
+                        <p class="template-desc">{{ template.description }}</p>
+                        <span class="template-tag{% if template.tag == 'New' or template.tag == 'Trending' %} tag-{{ template.tag|lower }}{% endif %}">{{ template.tag }}</span>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">No templates available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5">
+            {% if user.is_authenticated %}
+                <a href="{% url 'edit_user_profile' user.username %}" class="btn btn-hero-primary btn-lg">Edit Portfolio <i class="fas fa-arrow-right ms-2"></i></a>
+            {% else %}
+                <p class="text-muted mb-4">Please login or create an account to start building your professional portfolio</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{% url 'account_login' %}" class="btn btn-outline-primary btn-lg">Login</a>
+                    <a href="{% url 'account_signup' %}" class="btn btn-hero-primary btn-lg">Sign Up <i class="fas fa-arrow-right ms-2"></i></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

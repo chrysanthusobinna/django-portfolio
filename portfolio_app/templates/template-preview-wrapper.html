@@ -94,14 +94,18 @@
     </a>
     {% if user.is_authenticated %}
         {% if is_current_template %}
-        <span class="btn btn-sm btn-success disabled">
+        <a href="{% url 'user_profile' request.user.username %}" target="_blank" class="btn btn-sm btn-success">
             <i class="fas fa-check-circle me-1"></i>Current Template
-        </span>
+        </a>
         {% else %}
         <button type="button" class="btn btn-sm btn-use-template" data-bs-toggle="modal" data-bs-target="#confirmTemplateModal">
             <i class="fas fa-check me-1"></i>Use This Template
         </button>
         {% endif %}
+    {% else %}
+        <a href="{% url 'account_login' %}" class="btn btn-sm btn-primary">
+            <i class="fas fa-sign-in-alt me-1"></i>Login
+        </a>
     {% endif %}
 </div>
 <iframe src="{% url 'template_preview_raw' template_name %}" class="preview-container"></iframe>

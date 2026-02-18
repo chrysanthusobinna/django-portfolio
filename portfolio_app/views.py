@@ -47,6 +47,11 @@ def home(request):
     return render(request, "home-page.html", {'templates': templates})
 
 
+def templates_page(request):
+    templates = Template.objects.filter(is_active=True)
+    return render(request, "templates-page.html", {'templates': templates})
+
+
 def template_preview(request, template_name):
     try:
         template = Template.objects.get(template_file=template_name, is_active=True)

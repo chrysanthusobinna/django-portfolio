@@ -52,6 +52,9 @@
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/templates/' %}active{% endif %}" href="{% url 'templates_page' %}">Templates</a>
+                        </li>
                         {% if user.is_authenticated %}
                         {% if user.is_staff %}
                         <li class="nav-item">
