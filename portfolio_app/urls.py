@@ -2,14 +2,16 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.profile_router, name='profile_router'),
+    path('', views.root_dispatch, name='home'),
+
     path('templates/', views.templates_page, name='templates_page'),
     path('template-preview/<str:template_name>/', views.template_preview, name='template_preview'),
     path('template-preview-raw/<str:template_name>/', views.template_preview_raw, name='template_preview_raw'),
     path('select-template/<int:template_id>/', views.select_template, name='select_template'),
+
     path('logout/', views.logout_view, name='logout'),
     path('upload-cv/', views.upload_cv, name='upload_cv'),
-    path('<str:username>/', views.user_profile, name='user_profile'),
+
     path('edit/<str:username>/', views.edit_user_profile, name='edit_user_profile'),
 
     path('portfolio/add/', views.add_portfolio, name='add_portfolio'),
@@ -47,4 +49,6 @@ urlpatterns = [
     path('profile/delete-photo/', views.delete_profile_photo, name='delete_profile_photo'),
 
     path('account/settings/', views.account_settings, name='account_settings'),
+
+    path('user/<str:username>/', views.user_profile, name='user_profile'),
 ]

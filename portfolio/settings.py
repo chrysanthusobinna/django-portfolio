@@ -56,7 +56,13 @@ SITE_CONTACT_LINKEDIN_URL = "https://linkedin.com/in/ccportfolio"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    "mifolio.live",
+    ".mifolio.live",
+    "127.0.0.1",
+    "localhost",
+]
+
 
 
 # Application definition
@@ -91,7 +97,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'portfolio_app.middleware.SubdomainUsernameMiddleware',
+    "portfolio_app.middleware.subdomain.SubdomainMiddleware",
 ]
 
 

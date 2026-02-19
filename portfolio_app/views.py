@@ -41,20 +41,19 @@ from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
+def root_dispatch(request):
+    """
+    If user visits:
+      - mifolio.live/ -> homepage
+      - <username>.mifolio.live/ -> that user's profile page
+    """
+    username = getattr(request, "subdomain", None)
+    if username:
+        return user_profile(request, username=username)
+    return home(request)
+
 
 def home(request):
-    templates = Template.objects.filter(is_active=True)
-    return render(request, "home-page.html", {'templates': templates})
-
-
-def profile_router(request):
-    # If subdomain exists, show that user profile
-    subdomain_username = getattr(request, "subdomain_username", None)
-    
-    if subdomain_username:
-        return user_profile(request, subdomain_username)
-
-    # Otherwise show your normal home page (or landing page)
     templates = Template.objects.filter(is_active=True)
     return render(request, "home-page.html", {'templates': templates})
 
@@ -182,11 +181,18 @@ def select_template(request, template_id):
 
 
 # render show portfolio page and handle contact form
-def user_profile(request, username):
-    target_user, data = get_user_data(username)
+# def user_profile(request, username):
+#     target_user, data = get_user_data(username)
 
-    if not target_user:
-        messages.error(request, "The user you are looking for does not exist.")
+#     if not target_user:
+#         messages.error(request, "The user you are looking for does not exist.")
+#         return redirect("home")
+def user_profile(request, username=None):
+    # If someone reaches here via subdomain root
+    if not username:
+        username = getattr(request, "subdomain", None)
+
+    if not username:
         return redirect("home")
 
     # Get user's selected template
