@@ -665,7 +665,9 @@
                     {% if employment %}
                     <p class="hero-subtitle">{{ employment.0.job_title }}</p>
                     {% endif %}
-                    <a href="#projects" class="hero-btn">View Portfolio &darr;</a>
+                    {% if portfolios %}
+                    <a href="#projects" class="hero-btn">View Projects &darr;</a>
+                    {% endif %}
                 </div>
             </div>
         </section>

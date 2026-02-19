@@ -753,7 +753,9 @@
                     {% if employment %}
                     <p class="hero-role">{{ employment.0.job_title }}</p>
                     {% endif %}
-                    <a href="#projects" class="hero-cta">View Work &rarr;</a>
+                    {% if portfolios %}
+                    <a href="#projects" class="hero-cta">View Projects &rarr;</a>
+                    {% endif %}
                 </div>
                 <div class="hero-photo-wrap">
                     <div class="hero-photo">
