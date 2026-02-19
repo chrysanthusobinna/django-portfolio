@@ -1,0 +1,44 @@
+name: Deploy Django App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+
+            cd /home/chrysanthusobinna/apps/mifolio
+
+            # update code
+            git fetch origin main
+            git reset --hard origin/main
+
+            # activate venv
+            source venv/bin/activate
+
+            # install/update deps
+            pip install --upgrade pip
+            pip install -r requirements.txt
+
+            # django housekeeping
+            python manage.py migrate --noinput
+            python manage.py collectstatic --noinput
+
+            # restart app + reload nginx
+            sudo systemctl restart mifolio
+            sudo systemctl reload nginx
