@@ -5,10 +5,10 @@ class SubdomainMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
-        # Your base domain (change if you move domain later)
+        # domain
         self.base_domain = "mifolio.live"
 
-        # Subdomains you never want treated as usernames
+        # Subdomains  not acting as usernames
         self.reserved = {"www", "admin", "api", "static", "media"}
 
     def __call__(self, request):
