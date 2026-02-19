@@ -837,8 +837,8 @@
         {% endif %}
 
         <footer class="footer">
-            <div class="footer-promo">Want a portfolio like this? <a target="_blank" href="{% url 'home' %}">Create yours with {{ SITE_NAME }}</a></div>
-            <div class="footer-copy">&copy; Powered by <a href="{% url 'home' %}">{{ SITE_NAME }}</a></div>
+            <div class="footer-promo">Want a portfolio like this? <a target="_blank" href="{{ MAIN_DOMAIN_URL }}">Create yours with {{ SITE_NAME }}</a></div>
+            <div class="footer-copy">&copy; Powered by <a href="{{ MAIN_DOMAIN_URL }}">{{ SITE_NAME }}</a></div>
         </footer>
     </div>
 
