@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}SHARE PORTFOLIO - {{ target_user.username|upper }}{% endblock %}
+
+{% block content %}
+{% include 'partials/_alert.html' %}
+{% include 'partials/_auth_user.html' %}
+<div class="container py-5">
+ 
+
+    <!-- Share Portfolio Card -->
+    <div class="card mb-4">
+        <div class="card-header ep-header text-white">
+            <i class="fas fa-share-alt me-2"></i>
+            Share Portfolio
+        </div>
+        <div class="card-body">
+            <p class="text-muted mb-4">Share this link with others to showcase your portfolio</p>
+
+            <!-- Subdomain URL Display -->
+            <div class="mb-4">
+                <label for="subdomainUrl" class="form-label fw-bold">
+                    <i class="fas fa-link me-2"></i>Your Portfolio Link:
+                </label>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="subdomainUrl" 
+                        class="form-control" 
+                        value="{{ subdomain_url }}" 
+                        readonly 
+                        onclick="this.select()"
+                    >
+                    <button 
+                        class="btn btn-outline-primary" 
+                        type="button" 
+                        id="copyBtn"
+                        onclick="copyToClipboard()"
+                    >
+                        <i class="fas fa-copy me-1"></i>
+                        Copy
+                    </button>
+                </div>
+                <div class="form-text text-muted">
+                    <small>Click the link to select it, or use the Copy button</small>
+                </div>
+            </div>
+
+            <!-- Success Message -->
+            <div id="copySuccess" class="alert alert-success d-none" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                Link copied to clipboard successfully!
+            </div>
+        </div>
+        <div class="card-footer text-center d-flex justify-content-between">
+            <a href="{% url 'edit_user_profile' target_user.username %}" class="btn btn-outline-secondary">
+                Back to Edit
+            </a>
+            <a href="{{ subdomain_url }}" target="_blank" class="btn btn-outline-primary">
+                Visit Portfolio
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyToClipboard() {
+    const urlInput = document.getElementById('subdomainUrl');
+    const copyBtn = document.getElementById('copyBtn');
+    const successAlert = document.getElementById('copySuccess');
+    
+    // Select the text
+    urlInput.select();
+    urlInput.setSelectionRange(0, 99999); // For mobile devices
+    
+    try {
+        // Copy the text
+        document.execCommand('copy');
+        
+        // Update button text temporarily
+        const originalHTML = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
+        copyBtn.classList.remove('btn-outline-primary');
+        copyBtn.classList.add('btn-success');
+        
+        // Show success message
+        successAlert.classList.remove('d-none');
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+            copyBtn.innerHTML = originalHTML;
+            copyBtn.classList.remove('btn-success');
+            copyBtn.classList.add('btn-outline-primary');
+            successAlert.classList.add('d-none');
+        }, 2000);
+        
+    } catch (err) {
+        console.error('Failed to copy text: ', err);
+        
+        // Fallback for modern browsers
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(urlInput.value).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
+                copyBtn.classList.remove('btn-outline-primary');
+                copyBtn.classList.add('btn-success');
+                
+                successAlert.classList.remove('d-none');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.classList.remove('btn-success');
+                    copyBtn.classList.add('btn-outline-primary');
+                    successAlert.classList.add('d-none');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    }
+}
+
+// Auto-select input when clicked
+document.getElementById('subdomainUrl').addEventListener('click', function() {
+    this.select();
+});
+</script>
+{% endblock %}

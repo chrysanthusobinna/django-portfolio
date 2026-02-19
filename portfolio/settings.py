@@ -47,6 +47,9 @@ VERTEXAI_PROJECT_ID = os.environ.get("VERTEXAI_PROJECT_ID", "")
 VERTEXAI_LOCATION = os.environ.get("VERTEXAI_LOCATION", "us-central1")
 GOOGLE_APPLICATION_CREDENTIALS = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "")
 
+# Domain Configuration
+BASE_DOMAIN = os.environ.get("BASE_DOMAIN", "mifolio.live")
+
 # Site Information Constants
 SITE_NAME = "MIfolio"
 SITE_CONTACT_EMAIL_ADDRESS = EMAIL_HOST_USER

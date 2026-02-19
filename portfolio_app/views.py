@@ -42,11 +42,6 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 def root_dispatch(request):
-    """
-    If user visits:
-      - mifolio.live/ -> homepage
-      - <username>.mifolio.live/ -> that user's profile page
-    """
     username = getattr(request, "subdomain", None)
     if username:
         return user_profile(request, username=username)
@@ -234,6 +229,34 @@ def edit_user_profile(request, username):
         **data,  # Unpack the user-related data
     }
     return render(request, "edit-user-portfolio.html", context)
+
+
+@login_required
+def share_subdomain(request, username):
+    if request.user.username != username:
+        messages.error(request, "You cannot access another user's share page.")
+        return redirect("home")
+
+    target_user, data = get_user_data(username)
+
+    if not target_user:
+        messages.error(request, "The user you are looking for does not exist.")
+        return redirect("home")
+
+    # Construct the subdomain URL
+    if 'localhost' in request.get_host() or '127.0.0.1' in request.get_host():
+        # For local development, use localhost with subdomain
+        subdomain_url = f"http://{username}.localhost:8000"
+    else:
+        # For production, use https and the configured base domain
+        subdomain_url = f"https://{username}.{settings.BASE_DOMAIN}"
+
+    context = {
+        "target_user": target_user,
+        "subdomain_url": subdomain_url,
+        **data,  # Unpack the user-related data
+    }
+    return render(request, "share-subdomain.html", context)
 
 
 # Handle Create, Update and Delete for Portfolio
