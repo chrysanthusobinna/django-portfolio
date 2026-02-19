@@ -9,6 +9,7 @@
 - Verified smooth transitions between pages.
 - Checked that all links direct to the correct destinations.
 
+
 ### Responsive Design
 - Tested the site on various devices and screen sizes (mobile, tablet, desktop).
 - Confirmed consistent layout and functionality across devices.
