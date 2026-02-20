@@ -35,9 +35,9 @@
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}{% block og_title %}MiFolio - Create Your Professional Portfolio{% endblock %}{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}{% block og_description %}Build a stunning professional portfolio in minutes with AI-powered tools. Perfect for developers, designers, and professionals.{% endblock %}{% endblock %}">
-    <meta name="twitter:image" content="{% block twitter_image %}{% block og_image %}{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.get_host }}{% static 'images/mifolio-img.png' %}{% endblock %}{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}MiFolio - Create Your Professional Portfolio{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Build a stunning professional portfolio in minutes with AI-powered tools. Perfect for developers, designers, and professionals.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.get_host }}{% static 'images/mifolio-img.png' %}{% endblock %}">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{% static 'favicon_io/favicon.ico' %}">
