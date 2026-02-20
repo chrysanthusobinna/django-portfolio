@@ -173,14 +173,14 @@
                     </tr>
                     <tr>
                         <td class="ep-tile-label">Description of Duties</td>
-                        <td class="ep-tile-value">{{ job.description_of_duties|truncatechars:80 }}</td>
+                        <td class="ep-tile-value">{{ job.description_of_duties|striptags|truncatechars:80 }}</td>
                     </tr>
                 </table>
                 <div class="ep-tile-actions">
                     <button class="btn btn-sm btn-outline-primary edit-employment-btn" data-bs-toggle="modal"
                         data-bs-target="#editEmploymentModal" data-url="{% url 'edit_employment' job.id %}"
                         data-employer="{{ job.employer_name }}" data-title="{{ job.job_title }}"
-                        data-description="{{ job.description_of_duties }}"
+                        data-description="{{ job.description_of_duties|escape }}"
                         data-start="{{ job.start_date|date:"Y-m-d" }}"
                         data-end="{{ job.end_date|date:"Y-m-d" }}">Edit</button>
                     <button class="btn btn-sm btn-outline-danger delete-employment-btn" data-bs-toggle="modal"

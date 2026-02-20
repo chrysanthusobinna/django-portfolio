@@ -789,7 +789,7 @@
                         {{ job.start_date|slice:":4" }} &mdash; {% if job.end_date %}{{ job.end_date|slice:":4" }}{% else %}Present{% endif %}
                     </div>
                     {% if job.description_of_duties %}
-                    <div class="timeline-entry-desc">{{ job.description_of_duties }}</div>
+                    <div class="timeline-entry-desc">{{ job.description_of_duties|safe }}</div>
                     {% endif %}
                 </div>
                 {% endfor %}

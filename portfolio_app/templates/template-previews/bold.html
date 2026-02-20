@@ -848,7 +848,7 @@
                         <div class="exp-role">{{ job.job_title }}</div>
                         <div class="exp-company">{{ job.employer_name }}</div>
                         {% if job.description_of_duties %}
-                        <div class="exp-desc">{{ job.description_of_duties }}</div>
+                        <div class="exp-desc">{{ job.description_of_duties|safe }}</div>
                         {% endif %}
                     </div>
                 </div>

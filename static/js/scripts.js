@@ -291,9 +291,13 @@ function editEmploymentClickHandler() {
         $('#editEmploymentForm').attr('action', url);
         $('#editEmploymentModal #editEmployerName').val(employer);
         $('#editEmploymentModal #editJobTitle').val(title);
-        $('#editEmploymentModal #editDescriptionOfDuties').val(description);
         $('#editEmploymentModal #editEmploymentStartDate').val(start);
         $('#editEmploymentModal #editEmploymentEndDate').val(end);
+        
+        // Set description using Summernote code method after modal is shown
+        $('#editEmploymentModal').on('shown.bs.modal', function () {
+            $('#editDescriptionOfDuties').summernote('code', description);
+        });
     });
 }
 
