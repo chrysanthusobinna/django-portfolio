@@ -38,6 +38,12 @@
         margin: 0 auto;
     }
 
+    .option-card-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
     .option-card {
         background: white;
         border-radius: 15px;
@@ -50,7 +56,7 @@
         display: block;
     }
 
-    .option-card:hover {
+    .option-card-link:hover .option-card {
         transform: translateY(-5px);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         border-color: #667eea;
@@ -111,31 +117,29 @@
     </div>
     
     <div class="options-grid">
-        <div class="option-card">
-            <div class="option-icon">
-                <i class="fas fa-file-upload"></i>
+        <a href="{% url 'build_from_cv' %}" class="option-card-link">
+            <div class="option-card">
+                <div class="option-icon">
+                    <i class="fas fa-file-upload"></i>
+                </div>
+                <h2 class="option-title">Create Using My CV</h2>
+                <p class="option-description">
+                    Upload your CV and let AI automatically create your portfolio
+                </p>
             </div>
-            <h2 class="option-title">Create Using My CV</h2>
-            <p class="option-description">
-                Upload your CV and let AI automatically create your portfolio
-            </p>
-            <a href="{% url 'build_from_cv' %}" class="btn btn-outline-primary">
-               Get Started
-            </a>
-        </div>
+        </a>
         
-        <div class="option-card">
-            <div class="option-icon">
-                <i class="fas fa-edit"></i>
+        <a href="{% url 'edit_user_profile' request.user.username %}" class="option-card-link">
+            <div class="option-card">
+                <div class="option-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <h2 class="option-title">Update Portfolio</h2>
+                <p class="option-description">
+                    Manually build your portfolio with our easy editor
+                </p>
             </div>
-            <h2 class="option-title">Update Portfolio</h2>
-            <p class="option-description">
-                Manually build your portfolio with our easy editor
-            </p>
-            <a href="{% url 'edit_user_profile' request.user.username %}" class="btn btn-outline-primary">
-               Get Started
-            </a>
-        </div>
+        </a>
     </div>
 </div>
 {% endblock %}
