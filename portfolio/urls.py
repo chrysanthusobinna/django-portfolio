@@ -16,9 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+# Custom error handlers
+handler404 = 'portfolio_app.views.custom_404'
+handler500 = 'portfolio_app.views.custom_500'
 
 urlpatterns = [
     path('admin-panel/', admin.site.urls),
     path('', include('portfolio_app.urls')),
     path("accounts/", include("allauth.urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

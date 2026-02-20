@@ -1148,3 +1148,13 @@ def account_settings(request):
             },
         )
     return render(request, 'account-settings.html', {'form': form})
+
+
+def custom_404(request, exception):
+    """Custom 404 error handler."""
+    return render(request, '404.html', status=404)
+
+
+def custom_500(request):
+    """Custom 500 error handler."""
+    return render(request, '500.html', status=500)
