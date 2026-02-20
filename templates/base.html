@@ -85,7 +85,11 @@
                                 My Portfolio
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item {% if request.path == user_profile_url %}active{% endif %}" target="_blank" href="{{ user_profile_url }}"><i class="fas fa-eye me-2"></i>View Portfolio</a></li>
+                                {% if BASE_DOMAIN in request.get_host %}
+                                    <li><a class="dropdown-item {% if request.path == user_profile_url %}active{% endif %}" target="_blank" href="https://{{ request.user.username }}.{{ BASE_DOMAIN }}"><i class="fas fa-eye me-2"></i>View Portfolio</a></li>
+                                {% else %}
+                                    <li><a class="dropdown-item {% if request.path == user_profile_url %}active{% endif %}" target="_blank" href="{{ user_profile_url }}"><i class="fas fa-eye me-2"></i>View Portfolio</a></li>
+                                {% endif %}
                                 <li><a class="dropdown-item {% if request.path == edit_user_profile_url %}active{% endif %}" href="{{ edit_user_profile_url }}"><i class="fas fa-edit me-2"></i>Edit Portfolio</a></li>
                                 <li><a class="dropdown-item {% if request.path == build_from_cv_url %}active{% endif %}" href="{{ build_from_cv_url }}"><i class="fas fa-file-upload me-2"></i>Build from CV</a></li>
                                 <li><a class="dropdown-item {% if request.path == share_subdomain_url %}active{% endif %}" href="{{ share_subdomain_url }}"><i class="fas fa-share-alt me-2"></i>Share Portfolio</a></li>

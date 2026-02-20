@@ -56,5 +56,8 @@ urlpatterns = [
     path('build-method/', views.build_method, name='build_method'),
     path('build-from-cv/', views.build_from_cv, name='build_from_cv'),
 
+    # OG Image Generator
+    path('og-image/<str:username>/<str:template_name>/', views.generate_og_image, name='generate_og_image'),
+
     path('<str:username>/', views.user_profile, name='user_profile'),
 ]

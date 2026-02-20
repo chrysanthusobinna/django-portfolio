@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 import logging
+from PIL import Image, ImageDraw, ImageFont
+import io
 
 from .helpers import get_user_data
 
@@ -1250,3 +1252,117 @@ def choose_template(request):
 def build_from_cv(request):
     """Build portfolio from CV page."""
     return render(request, 'build_from_cv.html')
+
+
+def generate_og_image(request, username, template_name):
+    """Generate dynamic OG image with user initials."""
+    try:
+        # Get user
+        user = get_object_or_404(User, username=username)
+        
+        # Get user initials
+        first_name = user.first_name.strip() if user.first_name else ''
+        last_name = user.last_name.strip() if user.last_name else ''
+        
+        if first_name and last_name:
+            initials = f"{first_name[0]}{last_name[0]}".upper()
+        elif first_name:
+            initials = first_name[0].upper()
+        elif last_name:
+            initials = last_name[0].upper()
+        else:
+            initials = username[0].upper()
+        
+        # Create image
+        width, height = 1200, 630
+        image = Image.new('RGB', (width, height), color='#1e3a8a')  # Dark blue background
+        
+        # Create gradient effect
+        draw = ImageDraw.Draw(image)
+        for y in range(height):
+            # Create gradient from dark blue to slightly lighter blue
+            r = int(30 + (y / height) * 20)  # 30 to 50
+            g = int(58 + (y / height) * 20)  # 58 to 78  
+            b = int(138 + (y / height) * 30) # 138 to 168
+            draw.line([(0, y), (width, y)], fill=(r, g, b))
+        
+        # Try to load a font, fallback to default if not available
+        try:
+            # Try different font paths that might be available
+            font_paths = [
+                'arial.ttf',  # Windows
+                '/System/Library/Fonts/Arial.ttf',  # macOS
+                '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',  # Linux
+                '/usr/share/fonts/TTF/arial.ttf',  # Linux alternative
+            ]
+            font = None
+            for font_path in font_paths:
+                try:
+                    font = ImageFont.truetype(font_path, 120)
+                    break
+                except:
+                    continue
+            
+            if font is None:
+                font = ImageFont.load_default()
+        except:
+            font = ImageFont.load_default()
+        
+        # Get text bounding box to center it properly
+        bbox = draw.textbbox((0, 0), initials, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+        
+        # Center the text
+        x = (width - text_width) / 2
+        y = (height - text_height) / 2
+        
+        # Draw initials with shadow effect
+        shadow_offset = 3
+        draw.text((x + shadow_offset, y + shadow_offset), initials, font=font, fill='#0f172a')  # Darker shadow
+        draw.text((x, y), initials, font=font, fill='#ffffff')  # White text
+        
+        # Add template name at bottom
+        template_font = None
+        try:
+            for font_path in font_paths:
+                try:
+                    template_font = ImageFont.truetype(font_path, 40)
+                    break
+                except:
+                    continue
+            if template_font is None:
+                template_font = ImageFont.load_default()
+        except:
+            template_font = ImageFont.load_default()
+        
+        template_text = f"{template_name.title()} Portfolio"
+        template_bbox = draw.textbbox((0, 0), template_text, font=template_font)
+        template_width = template_bbox[2] - template_bbox[0]
+        template_x = (width - template_width) / 2
+        template_y = height - 60
+        
+        draw.text((template_x, template_y), template_text, font=template_font, fill='#e2e8f0')
+        
+        # Save image to bytes
+        img_buffer = io.BytesIO()
+        image.save(img_buffer, format='PNG')
+        img_buffer.seek(0)
+        
+        # Return as PNG response
+        response = HttpResponse(img_buffer.getvalue(), content_type='image/png')
+        response['Cache-Control'] = 'public, max-age=3600'  # Cache for 1 hour
+        return response
+        
+    except Exception as e:
+        logger.error(f"Error generating OG image for {username}: {str(e)}")
+        # Return a simple fallback image
+        image = Image.new('RGB', (1200, 630), color='#1e3a8a')
+        draw = ImageDraw.Draw(image)
+        draw.text((600, 315), "Portfolio", fill='white', anchor='mm')
+        
+        img_buffer = io.BytesIO()
+        image.save(img_buffer, format='PNG')
+        img_buffer.seek(0)
+        
+        return HttpResponse(img_buffer.getvalue(), content_type='image/png')
