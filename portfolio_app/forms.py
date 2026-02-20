@@ -172,6 +172,25 @@ class ContactMethodForm(forms.ModelForm):
 
 
 class PortfolioForm(forms.ModelForm):
+    portfolio_photo = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(attrs={
+            'class': 'form-control',
+            'accept': 'image/*'
+        })
+    )
+    
+    def clean_portfolio_photo(self):
+        portfolio_photo = self.cleaned_data.get('portfolio_photo')
+        
+        if portfolio_photo:
+            # Check file size (max 5MB)
+            max_size = 5 * 1024 * 1024  # 5MB in bytes
+            if portfolio_photo.size > max_size:
+                raise forms.ValidationError('Portfolio photo size must be less than 5MB.')
+        
+        return portfolio_photo
+    
     class Meta:
         model = Portfolio
         fields = ['title', 'description', 'link', 'portfolio_photo']
@@ -206,6 +225,25 @@ class AboutForm(forms.ModelForm):
 
 
 class ProfilephotoForm(forms.ModelForm):
+    profile_photo = forms.ImageField(
+        required=True,
+        widget=forms.FileInput(attrs={
+            'class': 'form-control',
+            'accept': 'image/*'
+        })
+    )
+    
+    def clean_profile_photo(self):
+        profile_photo = self.cleaned_data.get('profile_photo')
+        
+        if profile_photo:
+            # Check file size (max 5MB)
+            max_size = 5 * 1024 * 1024  # 5MB in bytes
+            if profile_photo.size > max_size:
+                raise forms.ValidationError('Profile photo size must be less than 5MB.')
+        
+        return profile_photo
+    
     class Meta:
         model = Profilephoto
         fields = ['profile_photo']

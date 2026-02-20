@@ -3,19 +3,28 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 
-def validate_image_file(request, file_field_name, label_name):
+def validate_image_file(request, file_field_name, label_name, max_size_mb=5):
     allowed_extensions = ('jpg', 'jpeg', 'png', 'gif')
     error_msg = (
         "Invalid file type for {label_name}. Only "
         "{extensions} files are allowed."
     ).format(label_name=label_name, extensions=', '.join(allowed_extensions))
 
-    # Validates if the uploaded file is an image with an allowed extension.
+    # Validates if the uploaded file is an image with an allowed extension and size
     if file_field_name in request.FILES:
         file = request.FILES[file_field_name]
+        
+        # Check file extension
         if not file.name.lower().endswith(allowed_extensions):
             error_message = error_msg
             return False, error_message
+        
+        # Check file size (max_size_mb MB)
+        max_size_bytes = max_size_mb * 1024 * 1024
+        if file.size > max_size_bytes:
+            error_message = f"File size must be less than {max_size_mb}MB."
+            return False, error_message
+    
     return True, None
 
 
