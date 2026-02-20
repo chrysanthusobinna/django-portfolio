@@ -1136,7 +1136,7 @@ def account_settings(request):
     profile, _ = UserProfile.objects.get_or_create(user=request.user)
 
     # Handle delete account form submission
-    if request.method == 'POST' and 'password' in request.POST:
+    if request.method == 'POST' and 'confirmation' in request.POST:
         delete_form = DeleteAccountForm(request.POST, user=request.user)
         if delete_form.is_valid():
             try:
