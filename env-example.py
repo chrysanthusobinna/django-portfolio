@@ -42,3 +42,6 @@ os.environ.setdefault("GOOGLE_APPLICATION_CREDENTIALS", "/path/to/your/service-a
 
 # Base Domain for Subdomain URLs
 os.environ.setdefault("BASE_DOMAIN", "mifolio.live")
+
+# Debug mode for development
+os.environ.setdefault("DEBUG", "True")

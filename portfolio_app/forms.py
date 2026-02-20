@@ -1,6 +1,7 @@
 from allauth.account.forms import SignupForm
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 from .models import (
     ContactMethod,
@@ -306,3 +307,34 @@ class CVUploadForm(forms.Form):
                 raise forms.ValidationError('File size must be less than 10MB.')
         
         return cv_file
+
+
+class DeleteAccountForm(forms.Form):
+    password = forms.CharField(
+        label='Current Password',
+        required=True,
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your current password',
+        })
+    )
+    
+    confirmation = forms.BooleanField(
+        label='I understand that this action cannot be undone',
+        required=True,
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input',
+        })
+    )
+    
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+    
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if self.user:
+            user = authenticate(username=self.user.username, password=password)
+            if not user:
+                raise forms.ValidationError('Incorrect password. Please try again.')
+        return password

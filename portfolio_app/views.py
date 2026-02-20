@@ -24,6 +24,9 @@ from .models import (
     UserProfile,
 )
 from .forms import (
+    AccountSettingsForm,
+    CustomSignupForm,
+    DeleteAccountForm,
     ContactMethodForm,
     PortfolioForm,
     CertificationForm,
@@ -32,7 +35,6 @@ from .forms import (
     AboutForm,
     ProfilephotoForm,
     CVUploadForm,
-    AccountSettingsForm,
 )
 from .utils import validate_image_file, send_contact_email
 from .cv_parser import CVParser
@@ -173,6 +175,23 @@ def select_template(request, template_id):
         return redirect('build_method')
     
     return redirect('home')
+
+
+@login_required
+def delete_account(request):
+    """Close user account page."""
+    if request.method == 'POST':
+        form = DeleteAccountForm(request.POST, user=request.user)
+        if form.is_valid():
+            # Delete user and all related data
+            user = request.user
+            user.delete()
+            messages.success(request, "Your account has been permanently closed.")
+            return redirect('home')
+    else:
+        form = DeleteAccountForm(user=request.user)
+    
+    return render(request, 'delete_account.html', {'form': form})
 
 
 @login_required
@@ -1116,6 +1135,50 @@ def account_settings(request):
     """Account settings view for editing first name, last name, and username."""
     profile, _ = UserProfile.objects.get_or_create(user=request.user)
 
+    # Handle delete account form submission
+    if request.method == 'POST' and 'password' in request.POST:
+        delete_form = DeleteAccountForm(request.POST, user=request.user)
+        if delete_form.is_valid():
+            try:
+                # Delete user and all related data
+                user = request.user
+                username = user.username
+                
+                # Delete all related records first to avoid foreign key constraints
+                UserTemplate.objects.filter(user=user).delete()
+                Profilephoto.objects.filter(user=user).delete()
+                About.objects.filter(user=user).delete()
+                UserProfile.objects.filter(user=user).delete()
+                Skill.objects.filter(user=user).delete()
+                Employment.objects.filter(user=user).delete()
+                Education.objects.filter(user=user).delete()
+                Certification.objects.filter(user=user).delete()
+                Portfolio.objects.filter(user=user).delete()
+                ContactMethod.objects.filter(user=user).delete()
+                
+                # Try to delete CustomDomain if it exists
+                try:
+                    from .models import CustomDomain
+                    CustomDomain.objects.filter(user=user).delete()
+                except ImportError:
+                    pass
+                except:
+                    pass
+                
+                user.delete()
+                messages.success(request, f"Account for {username} has been permanently closed.")
+                return redirect('home')
+            except Exception as e:
+                messages.error(request, "An error occurred while closing your account. Please try again.")
+                return redirect('account_settings')
+        else:
+            # Return delete form errors
+            for field, errors in delete_form.errors.items():
+                label = delete_form.fields[field].label or field.capitalize()
+                for error in errors:
+                    messages.error(request, f"{label}: {error}")
+            return redirect('account_settings')
+
     if request.method == 'POST':
         form = AccountSettingsForm(
             request.POST,
@@ -1153,7 +1216,11 @@ def account_settings(request):
                 'address': profile.address,
             },
         )
-    return render(request, 'account-settings.html', {'form': form})
+    
+    # Create delete account form for the modal
+    delete_form = DeleteAccountForm(user=request.user)
+    
+    return render(request, 'account-settings.html', {'form': form, 'delete_form': delete_form})
 
 
 def custom_404(request, exception):
