@@ -15,6 +15,7 @@ MiPortfolio is open to everyone, regardless of their job specialty, enabling use
  
 ## UX
 
+
 #### Color Scheme
 
 - **Background Color:** `#f8f9fa`
