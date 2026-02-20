@@ -3,7 +3,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 
-def validate_image_file(request, file_field_name, label_name, max_size_mb=5):
+def validate_image_file(request, file_field_name, label_name, max_size_mb=20):
     allowed_extensions = ('jpg', 'jpeg', 'png', 'gif')
     error_msg = (
         "Invalid file type for {label_name}. Only "

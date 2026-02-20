@@ -11,6 +11,7 @@ from .models import (
     About,
     Profilephoto
 )
+from .image_utils import compress_image
 
 
 class AccountSettingsForm(forms.ModelForm):
@@ -184,10 +185,26 @@ class PortfolioForm(forms.ModelForm):
         portfolio_photo = self.cleaned_data.get('portfolio_photo')
         
         if portfolio_photo:
-            # Check file size (max 5MB)
-            max_size = 5 * 1024 * 1024  # 5MB in bytes
+            # Check file size (max 20MB)
+            max_size = 20 * 1024 * 1024  # 20MB in bytes
             if portfolio_photo.size > max_size:
-                raise forms.ValidationError('Portfolio photo size must be less than 5MB.')
+                raise forms.ValidationError('Portfolio photo size must be less than 20MB.')
+            
+            # Compress the image
+            try:
+                compressed_photo = compress_image(
+                    portfolio_photo, 
+                    max_width=800,  # Portfolio photos can be larger
+                    quality=85,
+                    format='JPEG'
+                )
+                
+                return compressed_photo
+                
+            except Exception as e:
+                # If compression fails, return original file
+                print(f"Portfolio photo compression failed: {e}")
+                return portfolio_photo
         
         return portfolio_photo
     
@@ -237,10 +254,26 @@ class ProfilephotoForm(forms.ModelForm):
         profile_photo = self.cleaned_data.get('profile_photo')
         
         if profile_photo:
-            # Check file size (max 5MB)
-            max_size = 5 * 1024 * 1024  # 5MB in bytes
+            # Check file size (max 20MB)
+            max_size = 20 * 1024 * 1024  # 20MB in bytes
             if profile_photo.size > max_size:
-                raise forms.ValidationError('Profile photo size must be less than 5MB.')
+                raise forms.ValidationError('Profile photo size must be less than 20MB.')
+            
+            # Compress the image
+            try:
+                compressed_photo = compress_image(
+                    profile_photo, 
+                    max_width=800,  # Portfolio photos can be larger
+                    quality=85,
+                    format='JPEG'
+                )
+                
+                return compressed_photo
+                
+            except Exception as e:
+                # If compression fails, return original file
+                print(f"Profile photo compression failed: {e}")
+                return profile_photo
         
         return profile_photo
     
