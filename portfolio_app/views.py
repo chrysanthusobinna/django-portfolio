@@ -170,9 +170,15 @@ def select_template(request, template_id):
             user_template.save()
         
         messages.success(request, f"Template '{template.name}' has been selected for your portfolio!")
-        return redirect('template_preview', template_name=template.template_file)
+        return redirect('build_method')
     
     return redirect('home')
+
+
+@login_required
+def build_method(request):
+    """Choose build method after template selection."""
+    return render(request, 'build_method.html')
 
 
 # render show portfolio page and handle contact form
@@ -1158,3 +1164,22 @@ def custom_404(request, exception):
 def custom_500(request):
     """Custom 500 error handler."""
     return render(request, '500.html', status=500)
+
+
+@login_required
+def get_started(request):
+    """Get started page with template selection."""
+    templates = Template.objects.filter(is_active=True)
+    return render(request, 'get_started.html', {'templates': templates})
+
+
+@login_required
+def choose_template(request):
+    """Choose template page for portfolio creation."""
+    templates = Template.objects.filter(is_active=True)
+    return render(request, 'choose_template.html', {'templates': templates})
+
+
+def build_from_cv(request):
+    """Build portfolio from CV page."""
+    return render(request, 'build_from_cv.html')

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Build Portfolio from CV{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    
+    {% include 'partials/_portfolio_nav.html' %}
+    
+    <!-- AI CV Upload Card -->
+    <div class="card mb-4">
+        <div class="card-header ep-header text-white">
+            <i class="fas fa-robot me-2"></i>
+            AI-Powered Portfolio Builder
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info">
+                <h6><i class="fas fa-wand-magic-sparkles me-2"></i>Let AI build your portfolio in seconds:</h6>
+                <ul class="mb-0">
+                    <li>Upload your CV and our AI will intelligently extract your professional information</li>
+                    <li>AI extracts: Contact info, Employment history, Education, Skills, Certifications, and Projects</li>
+                    <li>Accepted formats: PDF and Word (.docx) (up to 10MB)</li>
+                    <li>Extracted data is merged with your existing portfolio entries</li>
+                </ul>
+            </div>
+            
+            <form id="cvUploadForm" method="POST" enctype="multipart/form-data" action="{% url 'upload_cv' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="cv_file" class="form-label fw-bold">
+                        <i class="fas fa-upload me-2"></i>Upload CV (PDF or Word format)
+                    </label>
+                    <input type="file" id="cv_file" name="cv_file" class="form-control" 
+                           accept=".pdf,.docx" required>
+                </div>
+                <button type="submit" style="display: none;"></button>
+            </form>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-secondary" onclick="resetCVForm()">
+                <i class="fas fa-times me-2"></i>Clear
+            </button>
+            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('cvUploadForm').submit()">
+                <i class="fas fa-robot me-2"></i>AI Extract & Save
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function resetCVForm() {
+    document.getElementById('cvUploadForm').reset();
+}
+</script>
+{% endblock %}

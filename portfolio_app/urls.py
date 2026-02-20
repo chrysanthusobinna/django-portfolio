@@ -51,5 +51,10 @@ urlpatterns = [
 
     path('account/settings/', views.account_settings, name='account_settings'),
 
-    path('user/<str:username>/', views.user_profile, name='user_profile'),
+    path('get-started/', views.get_started, name='get_started'),
+    path('choose-template/', views.choose_template, name='choose_template'),
+    path('build-method/', views.build_method, name='build_method'),
+    path('build-from-cv/', views.build_from_cv, name='build_from_cv'),
+
+    path('<str:username>/', views.user_profile, name='user_profile'),
 ]

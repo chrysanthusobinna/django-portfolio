@@ -454,6 +454,74 @@ button.btn {
     background-clip: text;
 }
 
+/* PORTFOLIO NAVIGATION BUTTONS */
+.btn-theme-outline {
+    color: #667eea;
+    border-color: #667eea;
+    background-color: transparent;
+}
+
+.btn-theme-outline:hover {
+    color: white;
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.btn-theme-outline:focus {
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-theme-outline.active {
+    color: white;
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+/* OVERRIDE BOOTSTRAP PRIMARY BUTTONS WITH THEME COLOR */
+.btn-primary {
+    color: white;
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.btn-primary:hover {
+    color: white;
+    background-color: #5a6fd8;
+    border-color: #5a6fd8;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-primary:active {
+    color: white;
+    background-color: #5568d3;
+    border-color: #5568d3;
+}
+
+.btn-outline-primary {
+    color: #667eea;
+    border-color: #667eea;
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+    color: white;
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.btn-outline-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-outline-primary:active {
+    color: white;
+    background-color: #5568d3;
+    border-color: #5568d3;
+}
+
 /* HERO SECTION */
 .hero-modern {
     position: relative;

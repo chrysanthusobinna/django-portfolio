@@ -14,4 +14,5 @@ def site_info(request):
         'SITE_CONTACT_PHONE_NUMBER': settings.SITE_CONTACT_PHONE_NUMBER,
         'SITE_CONTACT_LINKEDIN_URL': settings.SITE_CONTACT_LINKEDIN_URL,
         'MAIN_DOMAIN_URL': main_domain_url,
+        'BASE_DOMAIN': settings.BASE_DOMAIN,
     }

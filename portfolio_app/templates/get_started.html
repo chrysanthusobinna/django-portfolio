@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Get Started - Choose Template{% endblock %}
+
+{% block extra_css %}
+<style>
+    .get-started-container {
+        padding: 4rem 2rem;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        min-height: calc(100vh - 200px);
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 0;
+    }
+
+    .templates-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .template-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #e9ecef;
+    }
+
+    .template-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .template-image-wrapper {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .template-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .template-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .template-card:hover .template-overlay {
+        opacity: 1;
+    }
+
+    .template-info {
+        padding: 1rem;
+    }
+
+    .template-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .template-desc {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+
+    .template-tag {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: #e9ecef;
+        color: #495057;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .template-tag.tag-new {
+        background: #28a745;
+        color: white;
+    }
+
+    .template-tag.tag-trending {
+        background: #ffc107;
+        color: #212529;
+    }
+
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 2rem;
+        }
+        
+        .templates-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="get-started-container">
+    <div class="page-header">
+        <h1 class="page-title">Let's Build Your Portfolio</h1>
+        <p class="page-subtitle">Choose a template for your professional portfolio</p>
+    </div>
+    
+    <div class="templates-grid">
+        {% for template in templates %}
+        <div class="template-card">
+            <div class="template-image-wrapper">
+                <img src="{% static template.image_path %}" alt="{{ template.name }} Template" class="template-image">
+                <div class="template-overlay">
+                    <form method="POST" action="{% url 'select_template' template.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check me-1"></i>Choose This Template
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="template-info">
+                <h5 class="template-name">{{ template.name }}</h5>
+                <p class="template-desc">{{ template.description }}</p>
+                <span class="template-tag{% if template.tag == 'New' or template.tag == 'Trending' %} tag-{{ template.tag|lower }}{% endif %}">{{ template.tag }}</span>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-warning text-center">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                No templates available at the moment. Please check back later.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
