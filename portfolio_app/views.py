@@ -1254,8 +1254,8 @@ def build_from_cv(request):
     return render(request, 'build_from_cv.html')
 
 
-def generate_og_image(request, username, template_name):
-    """Generate dynamic OG image with user initials."""
+def generate_og_image(request, username):
+    """Generate simple OG image with user initials."""
     try:
         # Get user
         user = get_object_or_404(User, username=username)
@@ -1273,24 +1273,18 @@ def generate_og_image(request, username, template_name):
         else:
             initials = username[0].upper()
         
-        # Create image
-        width, height = 1200, 630
-        image = Image.new('RGB', (width, height), color='#1e3a8a')  # Dark blue background
+        # Create smaller square image
+        size = 200
+        image = Image.new('RGB', (size, size), color='#ffffff')
         
-        # Create gradient effect
         draw = ImageDraw.Draw(image)
-        for y in range(height):
-            # Create gradient from dark blue to slightly lighter blue
-            r = int(30 + (y / height) * 20)  # 30 to 50
-            g = int(58 + (y / height) * 20)  # 58 to 78  
-            b = int(138 + (y / height) * 30) # 138 to 168
-            draw.line([(0, y), (width, y)], fill=(r, g, b))
         
-        # Try to load a font, fallback to default if not available
+        # Try to load fonts, fallback to default if not available
         try:
-            # Try different font paths that might be available
             font_paths = [
+                'arialbd.ttf',  # Windows Bold
                 'arial.ttf',  # Windows
+                '/System/Library/Fonts/Arial Bold.ttf',  # macOS Bold
                 '/System/Library/Fonts/Arial.ttf',  # macOS
                 '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',  # Linux
                 '/usr/share/fonts/TTF/arial.ttf',  # Linux alternative
@@ -1298,7 +1292,7 @@ def generate_og_image(request, username, template_name):
             font = None
             for font_path in font_paths:
                 try:
-                    font = ImageFont.truetype(font_path, 120)
+                    font = ImageFont.truetype(font_path, 80)  # Smaller font for smaller image
                     break
                 except:
                     continue
@@ -1308,41 +1302,25 @@ def generate_og_image(request, username, template_name):
         except:
             font = ImageFont.load_default()
         
+        # Use consistent color for all templates
+        text_color = '#1e293b'  # Navy blue
+        
         # Get text bounding box to center it properly
         bbox = draw.textbbox((0, 0), initials, font=font)
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
         
-        # Center the text
-        x = (width - text_width) / 2
-        y = (height - text_height) / 2
+        # Center the text in the image
+        x = (size - text_width) / 2
+        y = (size - text_height) / 2
         
-        # Draw initials with shadow effect
-        shadow_offset = 3
-        draw.text((x + shadow_offset, y + shadow_offset), initials, font=font, fill='#0f172a')  # Darker shadow
-        draw.text((x, y), initials, font=font, fill='#ffffff')  # White text
+        # Add shadow for depth
+        shadow_offset = 2
+        shadow_color = '#00000020'  # Lighter shadow for smaller image
+        draw.text((x + shadow_offset, y + shadow_offset), initials, font=font, fill=shadow_color)
         
-        # Add template name at bottom
-        template_font = None
-        try:
-            for font_path in font_paths:
-                try:
-                    template_font = ImageFont.truetype(font_path, 40)
-                    break
-                except:
-                    continue
-            if template_font is None:
-                template_font = ImageFont.load_default()
-        except:
-            template_font = ImageFont.load_default()
-        
-        template_text = f"{template_name.title()} Portfolio"
-        template_bbox = draw.textbbox((0, 0), template_text, font=template_font)
-        template_width = template_bbox[2] - template_bbox[0]
-        template_x = (width - template_width) / 2
-        template_y = height - 60
-        
-        draw.text((template_x, template_y), template_text, font=template_font, fill='#e2e8f0')
+        # Draw main text
+        draw.text((x, y), initials, font=font, fill=text_color)
         
         # Save image to bytes
         img_buffer = io.BytesIO()
@@ -1357,9 +1335,9 @@ def generate_og_image(request, username, template_name):
     except Exception as e:
         logger.error(f"Error generating OG image for {username}: {str(e)}")
         # Return a simple fallback image
-        image = Image.new('RGB', (1200, 630), color='#1e3a8a')
+        image = Image.new('RGB', (200, 200), color='#1e3a8a')
         draw = ImageDraw.Draw(image)
-        draw.text((600, 315), "Portfolio", fill='white', anchor='mm')
+        draw.text((100, 100), "Portfolio", fill='white', anchor='mm')
         
         img_buffer = io.BytesIO()
         image.save(img_buffer, format='PNG')

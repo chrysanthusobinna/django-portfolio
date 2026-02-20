@@ -10,7 +10,7 @@
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="{{ user_fullname }} - Bold Portfolio">
     <meta property="og:description" content="{% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
-    <meta property="og:image" content="{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.get_host }}{% url 'generate_og_image' user.username 'bold' %}">
+    <meta property="og:image" content="{{ MAIN_DOMAIN_URL }}{% url 'generate_og_image' user.username %}">
     <meta property="og:image:alt" content="Bold Portfolio Template">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -20,7 +20,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ user_fullname }} - Bold Portfolio">
     <meta name="twitter:description" content="{% if about and about.about %}{{ about.about|truncatewords:25 }}{% endif %}">
-    <meta name="twitter:image" content="{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.get_host }}{% url 'generate_og_image' user.username 'bold' %}">
+    <meta name="twitter:image" content="{{ MAIN_DOMAIN_URL }}{% url 'generate_og_image' user.username %}">
     
     <title>{{ user_fullname }} - Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -916,7 +916,8 @@
         {% endif %}
 
         <footer class="bold-footer">
-            Powered by MIfolio
+            <div class="footer-promo">Want a portfolio like this? <a target="_blank" href="{{ MAIN_DOMAIN_URL }}">Create yours with {{ SITE_NAME }}</a></div>
+            <div class="footer-copy">&copy; Powered by <a href="{{ MAIN_DOMAIN_URL }}">{{ SITE_NAME }}</a></div>
         </footer>
     </div>
 
