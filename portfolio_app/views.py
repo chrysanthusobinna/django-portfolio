@@ -24,6 +24,7 @@ from .models import (
     UserTemplate,
     Skill,
     UserProfile,
+    CustomDomain,
 )
 from .forms import (
     AccountSettingsForm,
@@ -37,6 +38,7 @@ from .forms import (
     AboutForm,
     ProfilephotoForm,
     CVUploadForm,
+    CustomDomainForm,
 )
 from .utils import validate_image_file, send_contact_email
 from .cv_parser import CVParser
@@ -1344,3 +1346,52 @@ def generate_og_image(request, username):
         img_buffer.seek(0)
         
         return HttpResponse(img_buffer.getvalue(), content_type='image/png')
+
+
+@login_required
+def custom_domain_settings(request):
+    """View for managing custom domain settings."""
+    try:
+        custom_domain = CustomDomain.objects.get(user=request.user)
+    except CustomDomain.DoesNotExist:
+        custom_domain = None
+    
+    if request.method == 'POST':
+        if custom_domain:
+            form = CustomDomainForm(request.POST, instance=custom_domain)
+        else:
+            form = CustomDomainForm(request.POST)
+        
+        if form.is_valid():
+            custom_domain = form.save(commit=False)
+            custom_domain.user = request.user
+            custom_domain.save()
+            messages.success(request, 'Custom domain saved successfully!')
+            return redirect('custom_domain_settings')
+    else:
+        if custom_domain:
+            form = CustomDomainForm(instance=custom_domain)
+        else:
+            form = CustomDomainForm()
+    
+    context = {
+        'form': form,
+        'custom_domain': custom_domain,
+    }
+    return render(request, 'custom-domain.html', context)
+
+
+@login_required
+def delete_custom_domain(request):
+    """View for deleting custom domain."""
+    try:
+        custom_domain = CustomDomain.objects.get(user=request.user)
+        if request.method == 'POST':
+            custom_domain.delete()
+            messages.success(request, 'Custom domain removed successfully!')
+            return redirect('custom_domain_settings')
+    except CustomDomain.DoesNotExist:
+        messages.error(request, 'No custom domain found.')
+        return redirect('custom_domain_settings')
+    
+    return render(request, 'delete-custom-domain.html', {'custom_domain': custom_domain})

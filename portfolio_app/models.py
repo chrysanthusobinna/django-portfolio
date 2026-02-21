@@ -200,3 +200,28 @@ class Skill(models.Model):
     def get_skills_json(self):
         """Return skills as a JSON string for the hidden input."""
         return json.dumps(self.get_skills_list())
+
+
+# Custom Domain model
+class CustomDomain(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    domain = models.CharField(max_length=255, unique=True, help_text="Custom domain name (e.g., example.com)")
+    is_verified = models.BooleanField(default=False, help_text="Whether the domain has been verified")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.domain} for {self.user.username}"
+
+    def clean(self):
+        """Clean the domain to ensure proper format."""
+        if self.domain:
+            # Remove protocol if present
+            self.domain = self.domain.replace('https://', '').replace('http://', '').replace('www.', '')
+            # Remove trailing slash
+            self.domain = self.domain.rstrip('/')
+            # Convert to lowercase
+            self.domain = self.domain.lower()

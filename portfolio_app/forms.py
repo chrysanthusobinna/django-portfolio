@@ -10,7 +10,8 @@ from .models import (
     Education,
     Employment,
     About,
-    Profilephoto
+    Profilephoto,
+    CustomDomain
 )
 from .image_utils import compress_image
 
@@ -340,3 +341,40 @@ class DeleteAccountForm(forms.Form):
             if not user:
                 raise forms.ValidationError('Incorrect password. Please try again.')
         return password
+
+
+class CustomDomainForm(forms.ModelForm):
+    class Meta:
+        model = CustomDomain
+        fields = ['domain']
+        widgets = {
+            'domain': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your custom domain (e.g., example.com)',
+                'pattern': '^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\\.[a-zA-Z]{2,}$',
+                'title': 'Please enter a valid domain name (e.g., example.com)',
+            })
+        }
+        labels = {
+            'domain': 'Custom Domain'
+        }
+        help_texts = {
+            'domain': 'Enter your custom domain name without http:// or www. (e.g., example.com)'
+        }
+
+    def clean_domain(self):
+        domain = self.cleaned_data.get('domain')
+        if domain:
+            # Basic domain validation
+            domain = domain.lower().strip()
+            if not domain or '.' not in domain:
+                raise forms.ValidationError('Please enter a valid domain name.')
+            
+            # Check if domain already exists
+            if CustomDomain.objects.filter(domain=domain).exists():
+                raise forms.ValidationError('This domain is already registered by another user.')
+            
+            # Clean the domain
+            domain = domain.replace('https://', '').replace('http://', '').replace('www.', '').rstrip('/')
+            
+        return domain

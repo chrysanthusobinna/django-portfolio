@@ -59,5 +59,9 @@ urlpatterns = [
     # OG Image Generator
     path('og-image/<str:username>/', views.generate_og_image, name='generate_og_image'),
 
+    # Custom Domain
+    path('custom-domain/', views.custom_domain_settings, name='custom_domain_settings'),
+    path('custom-domain/delete/', views.delete_custom_domain, name='delete_custom_domain'),
+
     path('<str:username>/', views.user_profile, name='user_profile'),
 ]
