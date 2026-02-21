@@ -198,8 +198,15 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
 
+# Authentication backends to support both username and email login
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 ACCOUNT_FORMS = {
     'signup': 'portfolio_app.forms.CustomSignupForm',
+    'login': 'portfolio_app.forms.CustomLoginForm',
 }
 
 # Google OAuth

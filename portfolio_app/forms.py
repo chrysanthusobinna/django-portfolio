@@ -1,4 +1,4 @@
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm, LoginForm
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -40,6 +40,14 @@ class AccountSettingsForm(forms.ModelForm):
             'class': 'form-control',
             'placeholder': 'Enter your username',
             'id': 'id_username',
+        })
+    )
+    email = forms.EmailField(
+        max_length=254,
+        required=True,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your email address',
         })
     )
     COUNTRY_LIST = [
@@ -107,7 +115,7 @@ class AccountSettingsForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username']
+        fields = ['first_name', 'last_name', 'username', 'email']
 
     def __init__(self, *args, **kwargs):
         self.current_user = kwargs.pop('current_user', None)
@@ -130,6 +138,15 @@ class AccountSettingsForm(forms.ModelForm):
                 )
         return username
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if self.current_user and email != self.current_user.email:
+            if User.objects.filter(email__iexact=email).exists():
+                raise forms.ValidationError(
+                    'This email address is already in use. Please choose another.'
+                )
+        return email
+
 
 class CustomSignupForm(SignupForm):
     first_name = forms.CharField(
@@ -150,6 +167,16 @@ class CustomSignupForm(SignupForm):
         user.username = self.cleaned_data['username']
         user.save()
         return user
+
+
+class CustomLoginForm(LoginForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Update the login field label and placeholder to indicate both username and email are accepted
+        self.fields['login'].label = "Username or Email"
+        self.fields['login'].widget.attrs.update({
+            'placeholder': 'Enter your username or email'
+        })
 
 
 class ContactMethodForm(forms.ModelForm):

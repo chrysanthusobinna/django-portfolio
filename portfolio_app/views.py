@@ -1143,7 +1143,7 @@ def _save_parsed_cv_data(request, parsed_data):
 
 @login_required
 def account_settings(request):
-    """Account settings view for editing first name, last name, and username."""
+    """Account settings view for editing first name, last name, username, and email."""
     profile, _ = UserProfile.objects.get_or_create(user=request.user)
 
     # Handle delete account form submission
@@ -1204,11 +1204,12 @@ def account_settings(request):
             messages.success(request, "Account settings updated successfully.")
             return redirect('account_settings')
         else:
-            # Username failed validation — save first/last name anyway
+            # Username failed validation — save first/last name/email anyway
             user = request.user
             user.first_name = request.POST.get('first_name', user.first_name).strip()
             user.last_name = request.POST.get('last_name', user.last_name).strip()
-            user.save(update_fields=['first_name', 'last_name'])
+            user.email = request.POST.get('email', user.email).strip()
+            user.save(update_fields=['first_name', 'last_name', 'email'])
             # Still save profile fields
             profile.country = request.POST.get('country', profile.country).strip()
             profile.address = request.POST.get('address', profile.address).strip()
