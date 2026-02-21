@@ -49,8 +49,15 @@ logger = logging.getLogger(__name__)
 
 def root_dispatch(request):
     username = getattr(request, "subdomain", None)
-    if username:
+    custom_domain_user = getattr(request, "custom_domain_user", None)
+    
+    # Handle custom domain first
+    if custom_domain_user:
+        return user_profile(request, username=custom_domain_user.username)
+    # Handle subdomain
+    elif username:
         return user_profile(request, username=username)
+    # Handle home page
     return home(request)
 
 
