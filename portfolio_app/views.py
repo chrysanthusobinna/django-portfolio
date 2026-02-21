@@ -1361,8 +1361,27 @@ def delete_custom_domain(request):
     if request.method == 'POST':
         try:
             custom_domain = CustomDomain.objects.get(user=request.user)
+            
+            # Try to delete from Cloudflare
+            from .cloudflare_service import CloudflareService
+            cloudflare_service = CloudflareService()
+            
+            try:
+                cloudflare_result = cloudflare_service.delete_domain(custom_domain.domain)
+                if cloudflare_result['success']:
+                    messages.success(request, f'{cloudflare_result["message"]} and removed from your portfolio.')
+                else:
+                    messages.warning(request, f'Domain removed from portfolio but Cloudflare deletion failed: {cloudflare_result["message"]}')
+                    messages.info(request, 'You may need to manually delete the zone from Cloudflare.')
+            except Exception as e:
+                logger.error(f"Cloudflare delete error: {e}")
+                messages.warning(request, 'Domain removed from portfolio but automatic Cloudflare deletion failed.')
+                messages.info(request, 'You may need to manually delete the zone from Cloudflare.')
+            
+            # Delete from database regardless of Cloudflare status
             custom_domain.delete()
             messages.success(request, 'Custom domain removed successfully!')
+            
         except CustomDomain.DoesNotExist:
             messages.error(request, 'No custom domain found.')
     
@@ -1387,8 +1406,45 @@ def custom_domain_settings(request):
         if form.is_valid():
             custom_domain = form.save(commit=False)
             custom_domain.user = request.user
+            
+            # Try to add domain to Cloudflare
+            from .cloudflare_service import CloudflareService
+            cloudflare_service = CloudflareService()
+            
+            try:
+                cloudflare_result = cloudflare_service.add_domain(custom_domain.domain)
+                
+                if cloudflare_result['success']:
+                    custom_domain.is_verified = True
+                    custom_domain.zone_id = cloudflare_result['zone_id']
+                    
+                    # Get and store nameservers once
+                    dns_info = cloudflare_service.get_dns_records(cloudflare_result['zone_id'])
+                    if dns_info['success'] and dns_info['name_servers']:
+                        custom_domain.name_servers = dns_info['name_servers']
+                    
+                    messages.success(request, f'Custom domain added successfully! {cloudflare_result["message"]}')
+                    
+                    # Show DNS configuration info
+                    if custom_domain.name_servers:
+                        ns_list = ', '.join(custom_domain.name_servers)
+                        messages.info(request, f'Please update your domain nameservers to: {ns_list}')
+                        messages.info(request, 'DNS changes may take up to 24 hours to propagate worldwide.')
+                    
+                else:
+                    # Still save the domain but mark as unverified
+                    custom_domain.is_verified = False
+                    messages.warning(request, f'Custom domain added but Cloudflare setup failed: {cloudflare_result["message"]}')
+                    messages.info(request, 'You can manually configure the domain in Cloudflare later.')
+                
+            except Exception as e:
+                # Still save the domain but mark as unverified
+                custom_domain.is_verified = False
+                logger.error(f"Cloudflare API error: {e}")
+                messages.warning(request, 'Custom domain added but automatic Cloudflare setup failed. Please configure manually.')
+                messages.info(request, 'You can manually configure the domain in Cloudflare later.')
+            
             custom_domain.save()
-            messages.success(request, 'Custom domain added successfully!')
             return redirect('custom_domain_settings')
     else:
         if custom_domain:

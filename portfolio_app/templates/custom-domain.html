@@ -77,6 +77,55 @@
         {% endif %}
     </div>
 
+    {% if custom_domain and custom_domain.is_verified and custom_domain.name_servers %}
+    <!-- DNS Configuration Card -->
+    <div class="card mb-4">
+        <div class="card-header ep-header text-white">
+            <i class="fas fa-network-wired me-2"></i>
+            DNS Configuration Required
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info mb-3">
+                <h6 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Complete Your Domain Setup</h6>
+                <p class="mb-0">Update your domain's nameservers at your registrar to point to Cloudflare.</p>
+            </div>
+            
+            <div class="mb-4">
+                <h6><i class="fas fa-server me-2"></i>Nameservers</h6>
+                <hr>
+                <div class="table-responsive">
+                    <table class="table" style="border: none; border-collapse: collapse;">
+                        <tbody style="border: none;">
+                            {% for ns in custom_domain.name_servers %}
+                                <tr style="border-bottom: 1px solid #dee2e6;">
+                                    <td width="40%" style="border: none; padding: 12px 15px;"><strong>Nameserver {{ forloop.counter }}</strong></td>
+                                    <td width="45%" style="border: none; padding: 12px 15px;">
+                                        <code>{{ ns }}</code>
+                                    </td>
+                                    <td width="15%" style="border: none; padding: 12px 15px; text-align: right;">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('{{ ns }}')">
+                                            <i class="fas fa-copy"></i> Copy
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr style="border-bottom: 1px solid #dee2e6;">
+                                    <td colspan="3" class="text-center text-muted" style="border: none; padding: 12px 15px;">No nameservers found</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <h6><i class="fas fa-clock me-2"></i>Propagation Time</h6>
+                <p class="mb-0"><strong>DNS changes may take up to 24 hours to propagate worldwide.</strong> Your domain will start working once the DNS changes have propagated across all servers globally.</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
  
 </div>
 
@@ -196,6 +245,27 @@ document.addEventListener('DOMContentLoaded', function() {
         form.id = 'theForm';
     }
 });
+
+// Copy to clipboard function
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        // Show success feedback
+        const button = event.target.closest('button');
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        button.classList.remove('btn-outline-secondary');
+        button.classList.add('btn-success');
+        
+        // Reset after 2 seconds
+        setTimeout(function() {
+            button.innerHTML = originalHTML;
+            button.classList.remove('btn-success');
+            button.classList.add('btn-outline-secondary');
+        }, 2000);
+    }).catch(function(err) {
+        console.error('Failed to copy: ', err);
+    });
+}
 </script>
 
 {% endblock %}

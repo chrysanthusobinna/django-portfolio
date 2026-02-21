@@ -207,6 +207,8 @@ class CustomDomain(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     domain = models.CharField(max_length=255, unique=True, help_text="Custom domain name (e.g., example.com)")
     is_verified = models.BooleanField(default=False, help_text="Whether the domain has been verified")
+    zone_id = models.CharField(max_length=100, blank=True, null=True, help_text="Cloudflare zone ID")
+    name_servers = models.JSONField(default=list, blank=True, help_text="Stored nameservers from Cloudflare")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
