@@ -48,7 +48,7 @@ class SubdomainMiddleware:
     def _get_custom_domain_user(self, host):
         """Check if host is a custom domain and return the associated user"""
         try:
-            from .models import CustomDomain
+            from portfolio_app.models import CustomDomain
             custom_domain = CustomDomain.objects.get(domain=host, is_verified=True)
             return custom_domain.user
         except CustomDomain.DoesNotExist:
