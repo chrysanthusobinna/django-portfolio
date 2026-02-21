@@ -1356,28 +1356,43 @@ def generate_og_image(request, username):
 
 
 @login_required
+def delete_custom_domain(request):
+    """View for deleting custom domain."""
+    if request.method == 'POST':
+        try:
+            custom_domain = CustomDomain.objects.get(user=request.user)
+            custom_domain.delete()
+            messages.success(request, 'Custom domain removed successfully!')
+        except CustomDomain.DoesNotExist:
+            messages.error(request, 'No custom domain found.')
+    
+    return redirect('custom_domain_settings')
+
+
+@login_required
 def custom_domain_settings(request):
     """View for managing custom domain settings."""
+    # Handle delete action
+    if request.method == 'POST' and 'delete_domain' in request.POST:
+        return delete_custom_domain(request)
+    
     try:
         custom_domain = CustomDomain.objects.get(user=request.user)
     except CustomDomain.DoesNotExist:
         custom_domain = None
     
-    if request.method == 'POST':
-        if custom_domain:
-            form = CustomDomainForm(request.POST, instance=custom_domain)
-        else:
-            form = CustomDomainForm(request.POST)
-        
+    if request.method == 'POST' and not custom_domain:
+        # Only allow adding new domain, not editing existing ones
+        form = CustomDomainForm(request.POST)
         if form.is_valid():
             custom_domain = form.save(commit=False)
             custom_domain.user = request.user
             custom_domain.save()
-            messages.success(request, 'Custom domain saved successfully!')
+            messages.success(request, 'Custom domain added successfully!')
             return redirect('custom_domain_settings')
     else:
         if custom_domain:
-            form = CustomDomainForm(instance=custom_domain)
+            form = None  # No form needed when domain exists
         else:
             form = CustomDomainForm()
     
@@ -1386,19 +1401,3 @@ def custom_domain_settings(request):
         'custom_domain': custom_domain,
     }
     return render(request, 'custom-domain.html', context)
-
-
-@login_required
-def delete_custom_domain(request):
-    """View for deleting custom domain."""
-    try:
-        custom_domain = CustomDomain.objects.get(user=request.user)
-        if request.method == 'POST':
-            custom_domain.delete()
-            messages.success(request, 'Custom domain removed successfully!')
-            return redirect('custom_domain_settings')
-    except CustomDomain.DoesNotExist:
-        messages.error(request, 'No custom domain found.')
-        return redirect('custom_domain_settings')
-    
-    return render(request, 'delete-custom-domain.html', {'custom_domain': custom_domain})
