@@ -204,6 +204,13 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
 
+# Prevent duplicate accounts and enable email-based account linking
+ACCOUNT_UNIQUE_EMAIL = True
+SOCIALACCOUNT_AUTO_SIGNUP = False  # Don't auto-create accounts
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_QUERY_EMAIL = True  # Check for existing accounts by email
+
 # Authentication backends to support both username and email login
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -221,14 +228,17 @@ SOCIALACCOUNT_PROVIDERS = {
         'APP': {
             'client_id': os.environ.get('GOOGLE_CLIENT_ID', ''),
             'secret': os.environ.get('GOOGLE_CLIENT_SECRET', ''),
+            'key': os.environ.get('GOOGLE_CLIENT_ID', ''),
         },
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
     }
 }
 
+# Custom adapter for social account linking
+SOCIALACCOUNT_ADAPTER = 'portfolio_app.social_adapter.CustomSocialAccountAdapter'
+
 SOCIALACCOUNT_LOGIN_ON_GET = True
-SOCIALACCOUNT_AUTO_SIGNUP = True
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'info',
