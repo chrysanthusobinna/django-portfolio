@@ -99,7 +99,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    "portfolio_app.middleware.subdomain.SubdomainMiddleware",
+    "portfolio_app.middleware.domain.DomainMiddleware",
 ]
 
 

@@ -13,7 +13,7 @@ urlpatterns = [
     path('upload-cv/', views.upload_cv, name='upload_cv'),
 
     path('edit/<str:username>/', views.edit_user_profile, name='edit_user_profile'),
-    path('share/<str:username>/', views.share_subdomain, name='share_subdomain'),
+    path('share/<str:username>/', views.share_portfolio, name='share_portfolio'),
 
     path('portfolio/add/', views.add_portfolio, name='add_portfolio'),
     path('portfolio/edit/<int:id>/', views.edit_portfolio, name='edit_portfolio'),

@@ -251,7 +251,7 @@ def user_profile(request, username=None):
 @login_required
 def edit_user_profile(request, username):
     if request.user.username != username:
-        messages.error(request, "You cannot update another user's profile.")
+        messages.error(request, "Unauthorised request.")
         return redirect("home")
 
     target_user, data = get_user_data(username)
@@ -268,9 +268,9 @@ def edit_user_profile(request, username):
 
 
 @login_required
-def share_subdomain(request, username):
+def share_portfolio(request, username):
     if request.user.username != username:
-        messages.error(request, "You cannot access another user's share page.")
+        messages.error(request, "Unauthorised request.")
         return redirect("home")
 
     target_user, data = get_user_data(username)
@@ -279,20 +279,36 @@ def share_subdomain(request, username):
         messages.error(request, "The user you are looking for does not exist.")
         return redirect("home")
 
-    # Construct the subdomain URL
-    if 'localhost' in request.get_host() or '127.0.0.1' in request.get_host():
-        # For local development, use localhost with subdomain
-        subdomain_url = f"http://{username}.localhost:8000"
-    else:
-        # For production, use https and the configured base domain
-        subdomain_url = f"https://{username}.{settings.BASE_DOMAIN}"
+    # Check for verified custom domain first
+    try:
+        from .models import CustomDomain
+        custom_domain = CustomDomain.objects.get(user=target_user)
+        if custom_domain.is_verified:
+            # Use verified custom domain
+            portfolio_url = f"https://{custom_domain.domain}"
+        else:
+            # Fall back to subdomain if custom domain exists but not verified
+            portfolio_url = get_portfolio_url(username, request)
+    except CustomDomain.DoesNotExist:
+        # No custom domain, use subdomain
+        portfolio_url = get_portfolio_url(username, request)
 
     context = {
         "target_user": target_user,
-        "subdomain_url": subdomain_url,
+        "portfolio_url": portfolio_url,
         **data,  # Unpack the user-related data
     }
     return render(request, "share-subdomain.html", context)
+
+
+def get_portfolio_url(username, request):
+    """Helper function to construct portfolio URL (subdomain or custom domain)"""
+    if 'localhost' in request.get_host() or '127.0.0.1' in request.get_host():
+        # For local development, use localhost with subdomain
+        return f"http://{username}.localhost:8000"
+    else:
+        # For production, use https and the configured base domain
+        return f"https://{username}.{settings.BASE_DOMAIN}"
 
 
 # Handle Create, Update and Delete for Portfolio

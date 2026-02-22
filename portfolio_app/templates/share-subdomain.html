@@ -18,17 +18,17 @@
         <div class="card-body">
             <p class="text-muted mb-4">Share this link with others to showcase your portfolio</p>
 
-            <!-- Subdomain URL Display -->
+            <!-- Portfolio URL Display -->
             <div class="mb-4">
-                <label for="subdomainUrl" class="form-label fw-bold">
+                <label for="portfolioUrl" class="form-label fw-bold">
                     <i class="fas fa-link me-2"></i>Your Portfolio Link:
                 </label>
                 <div class="input-group">
                     <input 
                         type="text" 
-                        id="subdomainUrl" 
+                        id="portfolioUrl" 
                         class="form-control" 
-                        value="{{ subdomain_url }}" 
+                        value="{{ portfolio_url }}" 
                         readonly 
                         onclick="this.select()"
                     >
@@ -42,9 +42,7 @@
                         Copy
                     </button>
                 </div>
-                <div class="form-text text-muted">
-                    <small>Click the link to select it, or use the Copy button</small>
-                </div>
+        
             </div>
 
             <!-- Success Message -->
@@ -57,7 +55,7 @@
             <a href="{% url 'edit_user_profile' target_user.username %}" class="btn btn-outline-secondary">
                 Back to Edit
             </a>
-            <a href="{{ subdomain_url }}" target="_blank" class="btn btn-outline-primary">
+            <a href="{{ portfolio_url }}" target="_blank" class="btn btn-outline-primary">
                 Visit Portfolio
             </a>
         </div>
@@ -66,7 +64,7 @@
 
 <script>
 function copyToClipboard() {
-    const urlInput = document.getElementById('subdomainUrl');
+    const urlInput = document.getElementById('portfolioUrl');
     const copyBtn = document.getElementById('copyBtn');
     const successAlert = document.getElementById('copySuccess');
     
@@ -122,7 +120,7 @@ function copyToClipboard() {
 }
 
 // Auto-select input when clicked
-document.getElementById('subdomainUrl').addEventListener('click', function() {
+document.getElementById('portfolioUrl').addEventListener('click', function() {
     this.select();
 });
 </script>

@@ -6,7 +6,7 @@
 {% url 'home' as home_url %}
 {% url 'user_profile' user.username as user_profile_url %}
 {% url 'edit_user_profile' user.username as edit_user_profile_url %}
-{% url 'share_subdomain' user.username as share_subdomain_url %}
+{% url 'share_portfolio' user.username as share_portfolio_url %}
 {% url 'build_from_cv' as build_from_cv_url %}
 {% url 'account_logout' as logout_url %}
 {% url 'account_signup' as signup_url %}
@@ -81,7 +81,7 @@
                         {% endif %}
                         <!-- My Portfolio Dropdown -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle {% if request.path == user_profile_url or request.path == edit_user_profile_url or request.path == build_from_cv_url or request.path == share_subdomain_url %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle {% if request.path == user_profile_url or request.path == edit_user_profile_url or request.path == build_from_cv_url or request.path == share_portfolio_url %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 My Portfolio
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -92,7 +92,7 @@
                                 {% endif %}
                                 <li><a class="dropdown-item {% if request.path == edit_user_profile_url %}active{% endif %}" href="{{ edit_user_profile_url }}"><i class="fas fa-edit me-2"></i>Edit Portfolio</a></li>
                                 <li><a class="dropdown-item {% if request.path == build_from_cv_url %}active{% endif %}" href="{{ build_from_cv_url }}"><i class="fas fa-file-upload me-2"></i>Build from CV</a></li>
-                                <li><a class="dropdown-item {% if request.path == share_subdomain_url %}active{% endif %}" href="{{ share_subdomain_url }}"><i class="fas fa-share-alt me-2"></i>Share Portfolio</a></li>
+                                <li><a class="dropdown-item {% if request.path == share_portfolio_url %}active{% endif %}" href="{{ share_portfolio_url }}"><i class="fas fa-share-alt me-2"></i>Share Portfolio</a></li>
                             </ul>
                         </li>
                         <!-- Account Dropdown -->

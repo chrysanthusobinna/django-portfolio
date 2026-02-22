@@ -1,4 +1,4 @@
-class SubdomainMiddleware:
+class DomainMiddleware:
     """
     Sets request.subdomain when host is like: <username>.<BASE_DOMAIN>
     Sets request.custom_domain_user when host is a custom domain
