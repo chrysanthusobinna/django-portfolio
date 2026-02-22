@@ -47,6 +47,90 @@ from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
+def custom_signup_view(request):
+    """
+    Custom signup view with Google reCAPTCHA v2 verification.
+    Handles form submission, validates reCAPTCHA, and creates user account.
+    """
+    from allauth.account.views import SignupView
+    from allauth.account.utils import complete_signup
+    from allauth.account import app_settings
+    
+    # Handle GET request - just render the signup form with reCAPTCHA site key
+    if request.method == 'GET':
+        from .forms import CustomSignupForm
+        form = CustomSignupForm()
+        return render(request, 'account/signup.html', {
+            'form': form,
+            'recaptcha_site_key': settings.RECAPTCHA_SITE_KEY,
+        })
+    
+    # Handle POST request - validate reCAPTCHA first, then process form
+    if request.method == 'POST':
+        # Get reCAPTCHA response from form
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        
+        # Verify reCAPTCHA with Google
+        recaptcha_valid = False
+        recaptcha_error = None
+        
+        if not recaptcha_response:
+            recaptcha_error = "Please complete the reCAPTCHA verification."
+        elif not settings.RECAPTCHA_SECRET_KEY:
+            recaptcha_error = "reCAPTCHA not configured properly."
+        else:
+            # Make request to Google's reCAPTCHA verification API
+            try:
+                verification_url = 'https://www.google.com/recaptcha/api/siteverify'
+                data = {
+                    'secret': settings.RECAPTCHA_SECRET_KEY,
+                    'response': recaptcha_response,
+                    'remoteip': request.META.get('REMOTE_ADDR', '')
+                }
+                
+                response = requests.post(verification_url, data=data, timeout=5)
+                result = response.json()
+                
+                # Check if verification was successful
+                if result.get('success'):
+                    recaptcha_valid = True
+                else:
+                    recaptcha_error = "reCAPTCHA verification failed. Please try again."
+                    logger.warning(f"reCAPTCHA verification failed: {result}")
+                    
+            except requests.RequestException as e:
+                recaptcha_error = "Unable to verify reCAPTCHA. Please try again."
+                logger.error(f"reCAPTCHA verification error: {e}")
+        
+        # If reCAPTCHA failed, redisplay form with error
+        if not recaptcha_valid:
+            from .forms import CustomSignupForm
+            form = CustomSignupForm(data=request.POST)
+            return render(request, 'account/signup.html', {
+                'form': form,
+                'recaptcha_site_key': settings.RECAPTCHA_SITE_KEY,
+                'recaptcha_error': recaptcha_error,
+            })
+        
+        # reCAPTCHA passed - proceed with normal signup using allauth's SignupView
+        # Let allauth handle the form processing and user creation
+        signup_view = SignupView()
+        signup_view.setup(request)
+        
+        # Process the form through allauth's signup logic
+        response = signup_view.post(request)
+        
+        # If signup was successful, allauth will handle redirect
+        # If there were form errors, redisplay with reCAPTCHA
+        if response.status_code == 302:  # Redirect means success
+            return response
+        else:
+            # Form had validation errors, redisplay with reCAPTCHA
+            return render(request, 'account/signup.html', {
+                'form': signup_view.form,
+                'recaptcha_site_key': settings.RECAPTCHA_SITE_KEY,
+            })
+
 def root_dispatch(request):
     username = getattr(request, "subdomain", None)
     custom_domain_user = getattr(request, "custom_domain_user", None)
@@ -251,7 +335,7 @@ def user_profile(request, username=None):
 @login_required
 def edit_user_profile(request, username):
     if request.user.username != username:
-        messages.error(request, "Unauthorised request.")
+        messages.error(request, "You cannot update another user's profile.")
         return redirect("home")
 
     target_user, data = get_user_data(username)
@@ -270,7 +354,7 @@ def edit_user_profile(request, username):
 @login_required
 def share_portfolio(request, username):
     if request.user.username != username:
-        messages.error(request, "Unauthorised request.")
+        messages.error(request, "You cannot access another user's share page.")
         return redirect("home")
 
     target_user, data = get_user_data(username)
@@ -288,21 +372,21 @@ def share_portfolio(request, username):
             portfolio_url = f"https://{custom_domain.domain}"
         else:
             # Fall back to subdomain if custom domain exists but not verified
-            portfolio_url = get_portfolio_url(username, request)
+            portfolio_url = get_subdomain_url(username, request)
     except CustomDomain.DoesNotExist:
         # No custom domain, use subdomain
-        portfolio_url = get_portfolio_url(username, request)
+        portfolio_url = get_subdomain_url(username, request)
 
     context = {
         "target_user": target_user,
-        "portfolio_url": portfolio_url,
+        "subdomain_url": portfolio_url,  # Keep the same variable name for template compatibility
         **data,  # Unpack the user-related data
     }
     return render(request, "share-subdomain.html", context)
 
 
-def get_portfolio_url(username, request):
-    """Helper function to construct portfolio URL (subdomain or custom domain)"""
+def get_subdomain_url(username, request):
+    """Helper function to construct subdomain URL"""
     if 'localhost' in request.get_host() or '127.0.0.1' in request.get_host():
         # For local development, use localhost with subdomain
         return f"http://{username}.localhost:8000"

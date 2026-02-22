@@ -43,5 +43,10 @@ os.environ.setdefault("GOOGLE_APPLICATION_CREDENTIALS", "/path/to/your/service-a
 # Base Domain for Subdomain URLs
 os.environ.setdefault("BASE_DOMAIN", "mifolio.live")
 
+# Google reCAPTCHA v2 Configuration
+# Get these keys from: https://www.google.com/recaptcha/admin/create
+os.environ.setdefault("RECAPTCHA_SITE_KEY", "<put reCAPTCHA site key here>")
+os.environ.setdefault("RECAPTCHA_SECRET_KEY", "<put reCAPTCHA secret key here>")
+
 # Debug mode for development
 os.environ.setdefault("DEBUG", "True")

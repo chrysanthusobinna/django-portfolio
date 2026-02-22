@@ -48,6 +48,11 @@ VERTEXAI_LOCATION = os.environ.get("VERTEXAI_LOCATION", "us-central1")
 GOOGLE_APPLICATION_CREDENTIALS = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "")
 
 # Cloudflare Configuration
+
+# Google reCAPTCHA v2 Configuration
+# Get these keys from: https://www.google.com/recaptcha/admin/create
+RECAPTCHA_SITE_KEY = os.environ.get("RECAPTCHA_SITE_KEY", "")
+RECAPTCHA_SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY", "")
 CLOUDFLARE_API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN", "")
 CLOUDFLARE_ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "")
 

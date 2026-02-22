@@ -10,6 +10,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">
 {% endblock %}
 
+{% block extra_js %}
+<!-- Google reCAPTCHA v2 script - added directly since base template doesn't have extra_head block -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+{% endblock %}
+
 {% block content %}
 
 <section class="auth-section">
@@ -76,6 +82,16 @@
                             {% endfor %}
                         </div>
                         {% endfor %}
+
+                        <!-- Google reCAPTCHA v2 checkbox -->
+                        <div class="mb-3 text-center">
+                            <div class="g-recaptcha d-inline-block" data-sitekey="{{ recaptcha_site_key }}"></div>
+                            {% if recaptcha_error %}
+                            <div class="text-danger mt-2" style="font-size: 0.9rem;">
+                                <i class="fas fa-exclamation-triangle"></i> {{ recaptcha_error }}
+                            </div>
+                            {% endif %}
+                        </div>
 
                         {% if redirect_field_value %}
                             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />

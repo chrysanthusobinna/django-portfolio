@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from portfolio_app.views import custom_signup_view
 
 # Custom error handlers
 handler404 = 'portfolio_app.views.custom_404'
@@ -26,6 +27,8 @@ handler500 = 'portfolio_app.views.custom_500'
 urlpatterns = [
     path('admin-panel/', admin.site.urls),
     path('', include('portfolio_app.urls')),
+    # Custom signup with reCAPTCHA - must come before allauth.urls
+    path('accounts/signup/', custom_signup_view, name='account_signup'),
     path("accounts/", include("allauth.urls")),
 ]
 
