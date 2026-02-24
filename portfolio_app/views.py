@@ -7,6 +7,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 import logging
+import requests
 from PIL import Image, ImageDraw, ImageFont
 import io
 
@@ -126,8 +127,10 @@ def custom_signup_view(request):
             return response
         else:
             # Form had validation errors, redisplay with reCAPTCHA
+            from .forms import CustomSignupForm
+            form = CustomSignupForm(data=request.POST)
             return render(request, 'account/signup.html', {
-                'form': signup_view.form,
+                'form': form,
                 'recaptcha_site_key': settings.RECAPTCHA_SITE_KEY,
             })
 
