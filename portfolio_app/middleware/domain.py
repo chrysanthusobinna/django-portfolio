@@ -19,6 +19,10 @@ class DomainMiddleware:
         request.subdomain = None
         request.custom_domain_user = None
 
+        # Skip middleware processing for OAuth callbacks to avoid redirect URI issues
+        if 'accounts/google/login/callback' in request.path:
+            return self.get_response(request)
+
         # Check if this is localhost - skip all processing
         if self._is_localhost(host):
             return self.get_response(request)
