@@ -191,7 +191,8 @@ def template_preview_raw(request, template_name):
         'user_fullname': fullname,
         'user_initials': initials,
         'profilephoto': None,
-        'template_id': template.id,  
+        'template_id': template.id,
+        'target_user': type('obj', (object,), {'username': 'preview'})(),
         'about': type('obj', (object,), {'about': 'Results-driven Senior Project Manager with 12+ years of experience leading cross-functional teams at top-tier technology companies. Skilled in Agile methodologies, stakeholder management, and delivering complex programmes on time and within budget. Passionate about fostering collaboration and driving innovation across global teams.'})(),
         'employment': [
             type('obj', (object,), {'employer_name': 'Apple', 'job_title': 'Senior Project Manager', 'description_of_duties': 'Managed end-to-end delivery of flagship product launches across hardware and software teams. Coordinated with 50+ stakeholders to align timelines, budgets, and quality standards.', 'start_date': '2021-04-01', 'end_date': None})(),
